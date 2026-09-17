@@ -301,6 +301,11 @@ def retrieve_personas(
         sample_size_per_value_group=plan.sample_size_per_value_group,
         allocation=plan.allocation,
         task_path=task_path,
+        # The service shapes its response for UI cards: cohorts larger than
+        # PERSONA_UI_ID_LIST_MAX (100) get personaIds truncated to the card preview
+        # default (32). A batch job needs every id, so ask for the full list.
+        preview_limit=max(int(plan.sample_size or 0), 1),
+        include_persona_ids=True,
     )
     persona_ids = [str(pid) for pid in (sampled.get("personaIds") or []) if str(pid).strip()]
     if not persona_ids:

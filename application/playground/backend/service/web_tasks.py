@@ -6,6 +6,7 @@ from typing import Dict, List
 
 from backend.service.example_task_catalog import discover_application_tasks, task_id_from_folder
 from backend.service.playground_task_registry_cache import get_cached_registry
+from backend.service.harbor_job_service import web_agent_for_task
 from backend.service.web_types import WebEvalTask
 
 
@@ -29,6 +30,7 @@ def _build_registry() -> Dict[str, WebEvalTask]:
             tags=tuple(record.tags),
             output_artifact=pe.output_artifact or "web_result.json",
             submission_profile=pe.submission_profile or "web_result",
+            suggested_agent=web_agent_for_task(str(record.task_path)),
         )
     return tasks
 

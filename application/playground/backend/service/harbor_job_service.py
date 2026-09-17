@@ -76,6 +76,46 @@ def _should_use_local_distributed_harbor(
     )
 
 
+# A web agent only works inside its own runtime image, so the image is the
+# authoritative source for which agent to use. Path heuristics stay as a
+# fallback for tasks whose definition is not one of the shared web images.
+WEB_AGENT_BY_DEFINITION = {
+    "shared-web-playwright": "persona-openhands-sdk",
+    "shared-web-browser-use": "persona-browser-use",
+    "shared-web-cocoa": "persona-cocoa",
+    "shared-web-cua-linux": "persona-computer-1",
+    "shared-web-cli": "persona-claude-code",
+}
+# Used when a web task declares no recognised image. Multimodal by default: a
+# DOM-only agent cannot see logos, colour or layout and confabulates about them.
+DEFAULT_WEB_AGENT = "persona-browser-use"
+
+
+def _read_task_environment_definition(task_path: str, *, repo_root: Path | None = None) -> str | None:
+    """Return the trailing name of [environment].definition, e.g. shared-web-browser-use."""
+    root = repo_root or _repo_root()
+    toml_path = Path(task_path)
+    if not toml_path.is_absolute():
+        toml_path = root / task_path
+    if toml_path.is_dir():
+        toml_path = toml_path / "task.toml"
+    if not toml_path.is_file():
+        return None
+    match = re.search(r'^\s*definition\s*=\s*"([^"]+)"', toml_path.read_text(encoding="utf-8"), re.M)
+    return match.group(1).rsplit("/", 1)[-1] if match else None
+
+
+def web_agent_for_task(task_path: str, *, repo_root: Path | None = None) -> str:
+    """Which web agent a web task's runtime image requires.
+
+    The Playground UI sends an explicit agent name with every launch, so it needs
+    the same answer the runner computes. Deriving it from the image here keeps the
+    two in step instead of relying on a hand-maintained table of task ids.
+    """
+    definition = _read_task_environment_definition(task_path, repo_root=repo_root)
+    return WEB_AGENT_BY_DEFINITION.get(definition or "", DEFAULT_WEB_AGENT)
+
+
 def _read_task_metadata_type(task_path: str, *, repo_root: Path | None = None) -> str | None:
     root = repo_root or _repo_root()
     toml_path = Path(task_path)
@@ -160,7 +200,8 @@ def resolve_agent_name(
         return "persona-computer-1"
     task_type = normalize_metadata_type(_read_task_metadata_type(task_path, repo_root=repo_root))
     if task_type == "web":
-        return "persona-openhands-sdk"
+        definition = _read_task_environment_definition(task_path, repo_root=repo_root)
+        return WEB_AGENT_BY_DEFINITION.get(definition or "", DEFAULT_WEB_AGENT)
     if normalized_mode == "force_docker" or profile == "docker_agent":
         return "persona-claude-code"
     return DEFAULT_AGENT_BY_TYPE.get(task_type or "survey", "persona-claude-code")

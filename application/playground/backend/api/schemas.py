@@ -636,6 +636,7 @@ class WebEvalTask(BaseModel):
     taskKind: Literal["example", "task"] = "task"
     outputArtifact: str = "web_result.json"
     submissionProfile: str = "web_result"
+    suggestedAgent: str = ""
 
 
 class WebEvalTasksResponse(BaseModel):

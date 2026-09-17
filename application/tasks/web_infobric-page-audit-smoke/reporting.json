@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "1.0",
+  "contextRules": [
+    {
+      "match": { "contextType": "decision" },
+      "distributions": [
+        { "id": "decision.next_step_by_segment", "facetKey": "decision_outcome", "title": "Next step" },
+        { "id": "decision.converted_by_segment", "facetKey": "converted", "title": "Would engage sales" },
+        { "id": "decision.basis_by_segment", "facetKey": "basis_primary", "title": "Primary basis" }
+      ],
+      "summaryAnalyses": [
+        {
+          "id": "decision.reason_by_tier",
+          "title": "What each audience segment reacted to",
+          "targetFacetKey": "reason",
+          "groupByPersonaDimension": "tier",
+          "summaryKind": "llm_bucket_summary",
+          "instruction": "For each audience tier (main contractor, subcontractor, developer/client, rental company), summarize in 1-2 sentences what these personas took away from the page and what drove their next step, so the site owner sees how the segments differ. Be faithful and concise; do not invent facts."
+        }
+      ]
+    },
+    {
+      "match": { "contextType": "page_audit" },
+      "distributions": [
+        { "id": "page_audit.clarity_by_segment", "facetKey": "clarity", "title": "Clarity (1-7)" },
+        { "id": "page_audit.relevance_by_segment", "facetKey": "relevance", "title": "Relevance to role (1-7)" },
+        { "id": "page_audit.trust_by_segment", "facetKey": "trust", "title": "Trust (1-7)" },
+        { "id": "page_audit.missing_by_segment", "facetKey": "missing_info", "title": "What is missing" },
+        { "id": "page_audit.signals_by_segment", "facetKey": "trust_signals_noticed", "title": "Trust signals noticed" }
+      ]
+    }
+  ]
+}

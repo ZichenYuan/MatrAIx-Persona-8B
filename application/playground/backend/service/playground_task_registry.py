@@ -140,6 +140,43 @@ PLAYGROUND_TASK_INDEX: Dict[str, PlaygroundTaskEntry] = {
         output_artifact="notion_plan_comparison.json",
         submission_profile="notion_plan_comparison",
     ),
+    "web_infobric-page-audit-smoke": PlaygroundTaskEntry(
+        application_type="web",
+        site_name="Infobric (SE) homepage",
+        site_url="https://infobric.com/se/",
+        output_artifact="page_audit.json",
+        submission_profile="page_audit",
+    ),
+    "web_infobric-page-audit": PlaygroundTaskEntry(
+        application_type="web",
+        site_name="Infobric (SE)",
+        site_url="https://infobric.com/se/",
+        output_artifact="page_audit.json",
+        submission_profile="page_audit",
+    ),
+    # Generated per-page variants (make_page_tasks.py) so each page is launchable
+    # from the Playground, which cannot pass harbor's extra_instruction_paths.
+    "web_infobric-audit-homepage": PlaygroundTaskEntry(
+        application_type="web",
+        site_name="Infobric homepage",
+        site_url="https://infobric.com/se/",
+        output_artifact="page_audit.json",
+        submission_profile="page_audit",
+    ),
+    "web_infobric-audit-pricing": PlaygroundTaskEntry(
+        application_type="web",
+        site_name="Infobric pricing",
+        site_url="https://infobric.com/se/pris-och-paketering/",
+        output_artifact="page_audit.json",
+        submission_profile="page_audit",
+    ),
+    "web_infobric-audit-tier-page": PlaygroundTaskEntry(
+        application_type="web",
+        site_name="Infobric audience pages",
+        site_url="https://infobric.com/se/vem-vi-hjalper/",
+        output_artifact="page_audit.json",
+        submission_profile="page_audit",
+    ),
     "web_allrecipes-recipe-choice": PlaygroundTaskEntry(
         application_type="web",
         site_name="Allrecipes",

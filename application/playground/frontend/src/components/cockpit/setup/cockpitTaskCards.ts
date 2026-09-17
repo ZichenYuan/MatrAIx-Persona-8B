@@ -132,8 +132,10 @@ export function webEvalTaskCards(tasks: WebEvalTask[]): TaskCardModel[] {
       domain: item.domain,
       difficulty: item.difficulty,
       taskKind,
+      // The server derives the agent from the task's runtime image; prefer it so
+      // the card badge matches what a launch actually runs.
       tags: withExtraTags(harborTaskTags(item), {
-        label: webPersonaAgentLabel(suggestedWebPersonaAgent(item.id)),
+        label: webPersonaAgentLabel(item.suggestedAgent || suggestedWebPersonaAgent(item.id)),
         tone: "warn",
       }),
       searchTags: taskSearchTags(item.tags),

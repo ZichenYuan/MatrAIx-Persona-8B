@@ -1,0 +1,349 @@
+# Cohort config — Infobric study, set v2: Swedish construction managers with explicit
+# construction roles, responsibilities and Swedish job titles. Consumed by
+# persona/scripts/build_cohort.py. Edit this file, not the script.
+#
+# Differences from v1 (infobric_managers.yaml), in order of effect:
+#   1. Tighter filters: only companies (no Academia / NGO / Public sector), only
+#      Engineering / Operations / Executive job functions, practitioner-type stance,
+#      some English. Solo / freelance only when self-employed.
+#   2. Gender pinned per cell at 75 / 25 (assumed; Statistics Sweden construction
+#      management is male-dominated — confirm with the partner).
+#   3. Fourteen overlays stamped after sampling: tier, work country and region,
+#      construction role (shares depend on tier), Swedish job title, work setting,
+#      five responsibility levels, crew size, purchasing authority, digital tooling today.
+#      Everything downstream of construction_role is drawn conditional on it, so a
+#      persona's interests form a coherent package instead of six unrelated labels.
+#   4. Overrides raise the schema's familiarity / skill fields to a floor that matches
+#      the role (an HSEQ manager is at least Familiar with quality assurance), and repair
+#      subject_specialty so it fits the domain.
+#
+# Topological positions for reference: region 19 · gender 20 · socioeconomic_band 22 ·
+# multilingualism 23 · domain 24 · company_size 26 · cult_sweden 147 ·
+# demo_employment_status 182 · lang_swedish 254 · english 385 · seniority 388 ·
+# ind_construction 395 · years_experience 469 · life_stage 614
+
+name: infobric-managers-v2-1000
+display_name: Infobric managers v2 (rich)
+description: 1,000 Swedish construction managers with explicit construction roles, responsibilities and job titles. Ablation set v2.
+seed: 42
+total: 1000
+draws_per_cell: 20000
+max_draws_per_cell: 240000        # weak cells (65-74, women, $200k+) keep drawing up to this
+
+pinned:
+  region: Western Europe
+  lang_swedish: Native
+  cult_sweden: Native
+  cultural_background: Individualist (Western)
+
+cells:
+  - dimension: age_bracket
+    shares:
+      "25-34": 17
+      "35-44": 31
+      "45-54": 26
+      "55-64": 20
+      "65-74": 6
+  - dimension: domain
+    shares:
+      Engineering: 34
+      Skilled Trades: 33
+      Business & Management: 33
+  - dimension: demo_household_income
+    shares:
+      "$50k-100k": 50
+      "$100k-200k": 40
+      "$200k+": 10
+  - dimension: gender_identity
+    shares:
+      Man: 75
+      Woman: 25
+
+filters:
+  ind_construction: [Veteran, Experienced]
+  seniority: [Manager, Director, C-suite, Founder]
+  years_experience: ["6-10", "11-20", "20+"]
+  demo_employment_status: [Full-time, Self-employed]
+  company_size: [Solo / freelance, Startup (<50), SMB (50-500), Mid (500-5k), Enterprise (5k+)]
+  role_function: [Engineering, Operations, Executive]
+  domain_characteristics: [Practitioner, Cross-disciplinary, Skeptic / critic]
+  english_proficiency: [Native, Fluent (C1-C2), Intermediate (B1-B2), Basic (A1-A2)]
+
+coherence_rules:
+  - name: young-but-20-plus-years
+    when: {age_bracket: ["25-34"]}
+    forbid: {years_experience: ["20+"]}
+  - name: under-45-empty-nester-or-retired
+    when: {age_bracket: ["25-34", "35-44"]}
+    forbid: {life_stage: [Empty nester, Retirement]}
+  - name: working-but-retired-life-stage
+    when: {}
+    forbid: {life_stage: [Retirement]}
+  - name: senior-but-student
+    when: {}
+    forbid: {life_stage: [Student]}
+  - name: old-but-early-career
+    when: {age_bracket: ["55-64", "65-74"]}
+    forbid: {life_stage: [Early career]}
+  - name: senior-manager-low-income
+    when: {}
+    forbid: {socioeconomic_band: [Low income]}
+  - name: freelance-but-full-time-employee
+    when: {company_size: [Solo / freelance]}
+    forbid: {demo_employment_status: [Full-time]}
+  - name: c-suite-or-founder-at-enterprise-is-rare
+    when: {seniority: [Founder]}
+    forbid: {company_size: [Enterprise (5k+), Mid (500-5k)]}
+
+# Overlays are stamped in this order; `shares_by` may reference any earlier overlay or
+# any schema dimension. Shares are per parent value and rotate balanced within it.
+overlays:
+  - id: tier
+    label: Tier
+    shares: {Main contractor: 25, Subcontractor: 25, Developer: 25, Rental: 25}
+
+  - id: work_country
+    label: Work country
+    value: Sweden
+
+  - id: sweden_region
+    label: Region in Sweden
+    shares:
+      Stockholm: 30
+      Västra Götaland (Göteborg): 20
+      Skåne (Malmö): 15
+      Mälardalen & Östergötland: 15
+      Norrland: 10
+      Småland & Gotland: 10
+
+  - id: construction_role
+    label: Construction role
+    shares_by: tier
+    shares:
+      Main contractor:
+        Site or project manager: 40
+        HSEQ manager: 20
+        Equipment or fleet manager: 15
+        Tool or asset manager: 10
+        Executive or owner: 15
+      Subcontractor:
+        Site or project manager: 40
+        HSEQ manager: 15
+        Equipment or fleet manager: 15
+        Tool or asset manager: 15
+        Executive or owner: 15
+      Developer:
+        Site or project manager: 50
+        HSEQ manager: 20
+        Equipment or fleet manager: 5
+        Tool or asset manager: 5
+        Executive or owner: 20
+      Rental:
+        Rental or depot manager: 45
+        Equipment or fleet manager: 25
+        Tool or asset manager: 10
+        HSEQ manager: 5
+        Executive or owner: 15
+
+  - id: job_title_sv
+    label: Job title (Swedish)
+    shares_by: construction_role
+    shares:
+      Site or project manager: {Platschef: 50, Projektchef: 30, Arbetschef: 20}
+      HSEQ manager: {KMA-chef: 50, HSEQ-ansvarig: 30, Arbetsmiljöchef: 20}
+      Equipment or fleet manager: {Maskinchef: 60, Fordonsansvarig: 40}
+      Rental or depot manager: {Depåchef: 50, Uthyrningschef: 30, Filialchef: 20}
+      Tool or asset manager: {Verktygsansvarig: 50, Logistikansvarig: 30, Inköpsansvarig: 20}
+      Executive or owner: {VD: 50, Regionchef: 25, Ägare: 25}
+
+  - id: work_setting
+    label: Work setting
+    shares_by: construction_role
+    shares:
+      Site or project manager: {Construction site: 60, Site and office: 40}
+      HSEQ manager: {Site and office: 60, Office with site visits: 40}
+      Equipment or fleet manager: {Depot or yard: 40, Site and office: 40, Construction site: 20}
+      Rental or depot manager: {Rental branch: 60, Depot or yard: 40}
+      Tool or asset manager: {Depot or yard: 50, Site and office: 30, Construction site: 20}
+      Executive or owner: {Office with site visits: 70, Site and office: 30}
+
+  # Responsibility levels: Owns = accountable, Shares = involved, Not involved.
+  - id: resp_project_delivery
+    label: Responsibility - project delivery
+    shares_by: construction_role
+    shares:
+      Site or project manager: {Owns: 90, Shares: 10}
+      HSEQ manager: {Shares: 70, Not involved: 30}
+      Equipment or fleet manager: {Shares: 60, Not involved: 40}
+      Rental or depot manager: {Shares: 30, Not involved: 70}
+      Tool or asset manager: {Shares: 50, Not involved: 50}
+      Executive or owner: {Owns: 40, Shares: 60}
+
+  - id: resp_safety_hseq
+    label: Responsibility - safety and HSEQ
+    shares_by: construction_role
+    shares:
+      Site or project manager: {Owns: 40, Shares: 60}
+      HSEQ manager: {Owns: 100}
+      Equipment or fleet manager: {Shares: 80, Not involved: 20}
+      Rental or depot manager: {Shares: 70, Not involved: 30}
+      Tool or asset manager: {Shares: 60, Not involved: 40}
+      Executive or owner: {Owns: 30, Shares: 70}
+
+  - id: resp_heavy_equipment
+    label: Responsibility - heavy machines on site
+    shares_by: construction_role
+    shares:
+      Site or project manager: {Shares: 70, Owns: 10, Not involved: 20}
+      HSEQ manager: {Shares: 60, Not involved: 40}
+      Equipment or fleet manager: {Owns: 100}
+      Rental or depot manager: {Owns: 60, Shares: 40}
+      Tool or asset manager: {Shares: 50, Not involved: 50}
+      Executive or owner: {Shares: 60, Not involved: 40}
+
+  - id: resp_rental_operations
+    label: Responsibility - rental management
+    shares_by: construction_role
+    shares:
+      Site or project manager: {Shares: 40, Not involved: 60}
+      HSEQ manager: {Not involved: 80, Shares: 20}
+      Equipment or fleet manager: {Shares: 60, Owns: 20, Not involved: 20}
+      Rental or depot manager: {Owns: 100}
+      Tool or asset manager: {Shares: 60, Not involved: 40}
+      Executive or owner: {Shares: 50, Not involved: 50}
+
+  - id: resp_tools_assets
+    label: Responsibility - tools and assets (site and depot)
+    shares_by: construction_role
+    shares:
+      Site or project manager: {Shares: 70, Not involved: 30}
+      HSEQ manager: {Shares: 50, Not involved: 50}
+      Equipment or fleet manager: {Owns: 40, Shares: 60}
+      Rental or depot manager: {Owns: 70, Shares: 30}
+      Tool or asset manager: {Owns: 100}
+      Executive or owner: {Shares: 60, Not involved: 40}
+
+  - id: crew_size_managed
+    label: People managed
+    shares_by: construction_role
+    shares:
+      Site or project manager: {"1-10": 20, "11-50": 60, "51-200": 20}
+      HSEQ manager: {"1-10": 60, "11-50": 40}
+      Equipment or fleet manager: {"1-10": 50, "11-50": 50}
+      Rental or depot manager: {"1-10": 50, "11-50": 50}
+      Tool or asset manager: {"1-10": 80, "11-50": 20}
+      Executive or owner: {"11-50": 40, "51-200": 40, "200+": 20}
+
+  - id: purchasing_authority
+    label: Purchasing authority for site software
+    shares_by: construction_role
+    shares:
+      Site or project manager: {Recommends: 50, Approves within budget: 45, Final decision: 5}
+      HSEQ manager: {Recommends: 70, Approves within budget: 30}
+      Equipment or fleet manager: {Recommends: 40, Approves within budget: 55, Final decision: 5}
+      Rental or depot manager: {Recommends: 30, Approves within budget: 60, Final decision: 10}
+      Tool or asset manager: {Recommends: 70, Approves within budget: 30}
+      Executive or owner: {Approves within budget: 30, Final decision: 70}
+
+  - id: digital_site_tools_today
+    label: Digital site tools used today
+    shares_by: tech_savviness
+    shares:
+      Avoidant: {Paper and phone calls: 70, Spreadsheets and messaging: 30}
+      Reluctant: {Paper and phone calls: 40, Spreadsheets and messaging: 60}
+      Cautious adopter: {Spreadsheets and messaging: 50, Standalone apps per task: 50}
+      Comfortable: {Standalone apps per task: 60, Integrated site platform: 40}
+      Digital native: {Standalone apps per task: 30, Integrated site platform: 70}
+
+# Applied after overlays, in order. `when` lists the values that trigger the change, so a
+# floor is expressed as "when below the floor, set to the floor".
+overrides:
+  - name: band-matches-income-100k-200k
+    when: {demo_household_income: ["$100k-200k"], socioeconomic_band: [Low income, Lower-middle]}
+    set: {socioeconomic_band: Middle}
+  - name: band-matches-income-200k-plus
+    when: {demo_household_income: ["$200k+"], socioeconomic_band: [Low income, Lower-middle, Middle]}
+    set: {socioeconomic_band: Upper-middle}
+  - name: band-matches-income-50k-100k
+    when: {demo_household_income: ["$50k-100k"], socioeconomic_band: [Low income]}
+    set: {socioeconomic_band: Lower-middle}
+  - name: swedish-plus-english-is-bilingual
+    when: {multilingualism: [Monolingual]}
+    set: {multilingualism: Bilingual}
+
+  # subject_specialty must fit the domain (v1 had Engineering managers "focused on Cardiology")
+  - name: specialty-fits-engineering
+    when: {domain: [Engineering], subject_specialty: [Machine learning, Cardiology, Constitutional law, Quant trading, Curriculum design, Molecular biology, Behavioral economics, Comparative literature, Agronomy, Investigative reporting, Culinary arts, Electrical work]}
+    set: {subject_specialty: Structural engineering}
+  - name: specialty-fits-skilled-trades
+    when: {domain: [Skilled Trades], subject_specialty: [Machine learning, Cardiology, Constitutional law, Quant trading, Curriculum design, Molecular biology, Behavioral economics, Comparative literature, Agronomy, Investigative reporting, Culinary arts, Robotics, Urban planning, Structural engineering]}
+    set: {subject_specialty: Electrical work}
+  - name: specialty-fits-business
+    when: {domain: [Business & Management], subject_specialty: [Machine learning, Cardiology, Constitutional law, Quant trading, Curriculum design, Molecular biology, Behavioral economics, Comparative literature, Agronomy, Investigative reporting, Culinary arts, Robotics, Electrical work, Structural engineering]}
+    set: {subject_specialty: Operations}
+
+  # everyone in construction management: at least Aware of PM, QA and civil engineering
+  - name: floor-pm-aware
+    when: {fam_project_management: ["None"]}
+    set: {fam_project_management: Aware}
+  - name: floor-qa-aware
+    when: {fam_quality_assurance: ["None"]}
+    set: {fam_quality_assurance: Aware}
+  - name: floor-civil-aware
+    when: {fam_civil_engineering: ["None"]}
+    set: {fam_civil_engineering: Aware}
+
+  # role-linked floors
+  - name: site-manager-knows-pm
+    when: {construction_role: [Site or project manager], fam_project_management: [Aware]}
+    set: {fam_project_management: Familiar}
+  - name: site-manager-pm-skill
+    when: {construction_role: [Site or project manager], skill_project_management: ["None", Beginner]}
+    set: {skill_project_management: Intermediate}
+  - name: hseq-manager-knows-qa
+    when: {construction_role: [HSEQ manager], fam_quality_assurance: [Aware, Familiar]}
+    set: {fam_quality_assurance: Proficient}
+  - name: hseq-manager-knows-public-health
+    when: {construction_role: [HSEQ manager], fam_public_health: ["None"]}
+    set: {fam_public_health: Aware}
+  - name: fleet-manager-knows-operations
+    when: {construction_role: [Equipment or fleet manager], fam_operations_management: ["None", Aware]}
+    set: {fam_operations_management: Familiar}
+  - name: fleet-manager-knows-logistics
+    when: {construction_role: [Equipment or fleet manager], fam_logistics: ["None"]}
+    set: {fam_logistics: Aware}
+  - name: depot-manager-knows-logistics
+    when: {construction_role: [Rental or depot manager], fam_logistics: ["None", Aware]}
+    set: {fam_logistics: Familiar}
+  - name: depot-manager-knows-supply-chain
+    when: {construction_role: [Rental or depot manager], fam_supply_chain: ["None", Aware]}
+    set: {fam_supply_chain: Familiar}
+  - name: depot-manager-knows-operations
+    when: {construction_role: [Rental or depot manager], fam_operations_management: ["None"]}
+    set: {fam_operations_management: Aware}
+  - name: asset-manager-knows-operations
+    when: {construction_role: [Tool or asset manager], fam_operations_management: ["None", Aware]}
+    set: {fam_operations_management: Familiar}
+  - name: asset-manager-knows-logistics
+    when: {construction_role: [Tool or asset manager], fam_logistics: ["None"]}
+    set: {fam_logistics: Aware}
+  - name: executive-knows-operations
+    when: {construction_role: [Executive or owner], fam_operations_management: ["None", Aware]}
+    set: {fam_operations_management: Familiar}
+  - name: executive-is-at-least-director
+    when: {construction_role: [Executive or owner], seniority: [Manager]}
+    set: {seniority: Director}
+  - name: executive-role-function
+    when: {construction_role: [Executive or owner], role_function: [Engineering, Operations]}
+    set: {role_function: Executive}
+  - name: hseq-and-asset-roles-are-operations
+    when: {construction_role: [HSEQ manager, Rental or depot manager, Tool or asset manager, Equipment or fleet manager], role_function: [Executive]}
+    set: {role_function: Operations}
+
+drop_dimensions:
+  - primary_language
+
+display_names:
+  first_names_man: [Erik, Lars, Anders, Johan, Karl, Per, Mikael, Magnus, Fredrik, Henrik, Daniel, Jonas, Niklas, Mattias, Peter, Stefan, Andreas, Martin, Oskar, Gustav, Björn, Olof, Håkan, Tobias, Emil, Simon, Rasmus, Viktor, Axel, Nils]
+  first_names_woman: [Anna, Maria, Eva, Karin, Sara, Lena, Emma, Kristina, Åsa, Malin, Jenny, Linda, Johanna, Helena, Elin, Sofia, Ingrid, Camilla, Hanna, Cecilia, Annika, Frida, Ida, Josefin, Ulrika, Louise, Therese, Matilda, Ebba, Agnes]
+  last_names: [Andersson, Johansson, Karlsson, Nilsson, Eriksson, Larsson, Olsson, Persson, Svensson, Gustafsson, Pettersson, Jonsson, Jansson, Hansson, Bengtsson, Jönsson, Lindberg, Jakobsson, Magnusson, Olofsson, Lindström, Lindqvist, Lindgren, Axelsson, Berg, Bergström, Lundberg, Lundgren, Lundqvist, Mattsson, Berglund, Fredriksson, Sandberg, Henriksson, Forsberg, Sjöberg, Wallin, Engström, Eklund, Danielsson, Håkansson, Lundin, Björk, Bergman, Wikström, Isaksson, Fransson, Holm, Nyström, Löfgren]

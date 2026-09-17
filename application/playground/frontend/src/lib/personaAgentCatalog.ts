@@ -154,8 +154,13 @@ export function cuaRuntimeSelectOptions(platform: string): CockpitSelectOption[]
   }));
 }
 
+/** Last-resort default, used only when the server sends no suggestedAgent.
+ *  Mirrors DEFAULT_WEB_AGENT in backend/service/harbor_job_service.py: multimodal,
+ *  because a DOM-only agent cannot see logos, colour or layout. */
+export const FALLBACK_WEB_AGENT = "persona-browser-use";
+
 export function suggestedWebPersonaAgent(taskId: string): string {
-  return WEB_TASK_SUGGESTED_AGENT[taskId] ?? "persona-openhands-sdk";
+  return WEB_TASK_SUGGESTED_AGENT[taskId] ?? FALLBACK_WEB_AGENT;
 }
 
 export function resolveWebPersonaAgent(taskId: string, overrides: Record<string, string>): string {

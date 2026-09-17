@@ -245,9 +245,16 @@ export function WebEvalCockpit({
     }
   }, [batchTaskId, urlState.pgTaskId]);
 
+  // A web agent only runs inside its own runtime image, so the task's image
+  // decides the agent. The server reads it from task.toml and sends it as
+  // suggestedAgent; trust that over the local table, which only knows the
+  // example tasks. An explicit pick in the Access selector still wins.
   const resolveWebAgent = useCallback(
-    (id: string) => webAgentByTaskId[id] ?? suggestedWebPersonaAgent(id),
-    [webAgentByTaskId],
+    (id: string) => {
+      const fromTask = tasks.find((item) => item.id === id)?.suggestedAgent;
+      return webAgentByTaskId[id] ?? (fromTask || suggestedWebPersonaAgent(id));
+    },
+    [webAgentByTaskId, tasks],
   );
   const activeWebAgent = task ? resolveWebAgent(task.id) : WEB_PERSONA_AGENTS[0].value;
   const activeWebAgentFamily = webAgentFamily(activeWebAgent);

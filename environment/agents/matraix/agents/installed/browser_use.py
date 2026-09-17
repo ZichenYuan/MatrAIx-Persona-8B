@@ -196,6 +196,22 @@ class BrowserUseHarborAgent(BaseInstalledAgent):
             else:
                 env["OPENAI_API_KEY"] = llm_api_key
 
+        # Forward OpenAI-compatible base URLs so browser-use can run against a
+        # gateway or an Azure/OpenAI-compatible endpoint rather than only the
+        # vendor's default host. Mirrors the passthrough list in cocoa.py.
+        for base_key in (
+            "LLM_BASE_URL",
+            "OPENAI_BASE_URL",
+            "OPENAI_API_BASE",
+            "ANTHROPIC_BASE_URL",
+            "GEMINI_API_BASE",
+            "OPENROUTER_API_BASE",
+            "DASHSCOPE_API_BASE",
+        ):
+            base_value = self._get_env(base_key)
+            if base_value is not None:
+                env[base_key] = base_value
+
         env["AGENT_LOGS_DIR"] = "/logs/agent"
         env["TRAJECTORY_PATH"] = f"/logs/agent/{self._TRAJECTORY_FILENAME}"
         if self._max_steps is not None:

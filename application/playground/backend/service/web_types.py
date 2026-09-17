@@ -20,6 +20,9 @@ class WebEvalTask:
     tags: tuple[str, ...] = ()
     output_artifact: str = "web_result.json"
     submission_profile: str = "web_result"
+    # Which web agent this task's runtime image requires. The UI sends an
+    # explicit agent with each launch, so it has to be told, not guess.
+    suggested_agent: str = ""
 
     def to_summary_dict(self) -> Dict[str, Any]:
         """List-endpoint payload (no markdown bodies)."""
@@ -48,4 +51,5 @@ class WebEvalTask:
             "taskPath": str(task_path),
             "outputArtifact": self.output_artifact,
             "submissionProfile": self.submission_profile,
+            "suggestedAgent": self.suggested_agent,
         }

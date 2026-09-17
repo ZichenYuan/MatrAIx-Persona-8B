@@ -194,6 +194,11 @@ class AnthropicJSONClient:
         self.temperature = temperature
         self.timeout_seconds = timeout_seconds
         self.max_tokens = max_tokens
+        # Honor ANTHROPIC_BASE_URL (same convention as the Claude Code CLI) so an
+        # Anthropic-compatible gateway can stand in for api.anthropic.com.
+        self.base_url = (
+            os.environ.get("ANTHROPIC_BASE_URL") or "https://api.anthropic.com"
+        ).strip().rstrip("/")
         if not self.api_key:
             raise RuntimeError(
                 "ANTHROPIC_API_KEY or CLAUDE_API_KEY is required for persona model {}".format(
@@ -220,7 +225,7 @@ class AnthropicJSONClient:
         if openai_model_supports_custom_temperature(self.model):
             body["temperature"] = self.temperature
         request = urllib.request.Request(
-            "https://api.anthropic.com/v1/messages",
+            self.base_url + "/v1/messages",
             data=json.dumps(body).encode("utf-8"),
             method="POST",
             headers={
@@ -293,7 +298,10 @@ def build_json_client(model: str, *, temperature: float = 0.7) -> Any:
     value = (model or "openai/gpt-4o-mini").strip()
     timeout_seconds = _llm_request_timeout_seconds()
     if value.startswith("anthropic/"):
-        if _llm_proxy_base_url():
+        # An explicit ANTHROPIC_BASE_URL means "talk Anthropic protocol to this
+        # host"; it wins over the OpenAI-compatible proxy route below, which only
+        # works when the proxy translates formats (LiteLLM), not for passthroughs.
+        if _llm_proxy_base_url() and not os.environ.get("ANTHROPIC_BASE_URL"):
             # Route Claude through the proxy's OpenAI-compatible endpoint; base
             # url + api key come from OPENAI_* env (proxy master key).
             return OpenAIChatClient(

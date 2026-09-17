@@ -421,6 +421,8 @@ export interface WebEvalTask {
   tags?: string[];
   outputArtifact: string;
   submissionProfile: string;
+  /** Web agent this task's runtime image requires, resolved server-side. */
+  suggestedAgent?: string;
   profileMarkdown?: string;
   instructionMarkdown?: string;
 }

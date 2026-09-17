@@ -1,0 +1,122 @@
+# Cohort config — Infobric study: Swedish construction professionals in senior roles.
+# Consumed by persona/scripts/build_cohort.py. Edit this file, not the script.
+#
+# Sampling recipe (see ~/Desktop/Matraix/PLAN.md §4): attributes drawn EARLY in the
+# DAG's topological order are pinned (they condition everything after them);
+# attributes drawn LATE are filtered after sampling (pinning them does not
+# back-condition age etc. and yields incoherent people).
+#
+# Topological positions for reference: region 19 · gender 20 · socioeconomic_band 22 ·
+# multilingualism 23 · domain 24 · company_size 26 · primary_language 137 ·
+# cult_sweden 147 · demo_employment_status 182 · lang_swedish 254 · english 385 ·
+# seniority 388 · ind_construction 395 · years_experience 469 · life_stage 614
+
+name: infobric-managers-1000          # → persona/datasets/generated-persona-dev-<name>
+seed: 42
+total: 1000
+draws_per_cell: 20000                 # random draws per cell before filtering (45 cells)
+
+# Pinned on every draw.
+pinned:
+  region: Western Europe
+  lang_swedish: Native
+  cult_sweden: Native
+  cultural_background: Individualist (Western)   # position 27; prior gave Middle Eastern/Indigenous/… for native Swedes
+
+# Cell dimensions (each pinned per cell; quotas = product of shares, largest-remainder
+# rounded so they sum to `total`). Both are early nodes, so pinning is correct and
+# conditions everything drawn after them.
+cells:
+  # Partner: 30–39 = 35 %, 40–60 = 55 %, 61–70 = 10 % → schema's 10-year brackets.
+  - dimension: age_bracket
+    shares:
+      "25-34": 17
+      "35-44": 31
+      "45-54": 26
+      "55-64": 20
+      "65-74": 6
+  # Brief: "Engineering / Skilled Trades / Business & Management". No shares given → equal
+  # (report as assumed). `domain` is drawn at position 24, before ind_construction (395),
+  # so it must be pinned here rather than filtered.
+  - dimension: domain
+    shares:
+      Engineering: 34
+      Skilled Trades: 33
+      Business & Management: 33
+  # Household income (USD bands, position 47). Prior gave "<$25k" for half the managers.
+  # Shares are an assumption for senior Swedish construction roles — confirm with partner.
+  - dimension: demo_household_income
+    shares:
+      "$50k-100k": 50
+      "$100k-200k": 40
+      "$200k+": 10
+
+# Kept only if every filter matches (late nodes).
+filters:
+  ind_construction: [Veteran, Experienced]
+  seniority: [Manager, Director, C-suite, Founder]
+  years_experience: ["6-10", "11-20", "20+"]
+  demo_employment_status: [Full-time, Self-employed]
+
+# Coherence rules the built-in audit does not enforce. Reject when all `when` hold and a
+# `forbid` value is present. (`when: {}` = always.)
+coherence_rules:
+  - name: young-but-20-plus-years
+    when: {age_bracket: ["25-34"]}
+    forbid: {years_experience: ["20+"]}
+  - name: under-45-empty-nester-or-retired
+    when: {age_bracket: ["25-34", "35-44"]}
+    forbid: {life_stage: [Empty nester, Retirement]}
+  - name: working-but-retired-life-stage
+    when: {}
+    forbid: {life_stage: [Retirement]}
+  - name: senior-but-student
+    when: {}
+    forbid: {life_stage: [Student]}
+  - name: old-but-early-career
+    when: {age_bracket: ["55-64", "65-74"]}
+    forbid: {life_stage: [Early career]}
+  - name: senior-manager-low-income
+    when: {}
+    forbid: {socioeconomic_band: [Low income]}
+
+# Post-sampling edits on kept rows (applied in order).
+overrides:
+  # socioeconomic_band (position 22) is drawn before household income (47) and is not
+  # conditioned on it; align the band with the pinned income instead of rejecting.
+  - name: band-matches-income-100k-200k
+    when: {demo_household_income: ["$100k-200k"], socioeconomic_band: [Low income, Lower-middle]}
+    set: {socioeconomic_band: Middle}
+  - name: band-matches-income-200k-plus
+    when: {demo_household_income: ["$200k+"], socioeconomic_band: [Low income, Lower-middle, Middle]}
+    set: {socioeconomic_band: Upper-middle}
+  - name: band-matches-income-50k-100k
+    when: {demo_household_income: ["$50k-100k"], socioeconomic_band: [Low income]}
+    set: {socioeconomic_band: Lower-middle}
+  # lang_swedish=Native + any English ⇒ not monolingual.
+  - name: swedish-plus-english-is-bilingual
+    when: {multilingualism: [Monolingual], english_proficiency: [Native, "Fluent (C1-C2)", "Intermediate (B1-B2)", "Basic (A1-A2)"]}
+    set: {multilingualism: Bilingual}
+
+# Attributes removed from every persona. `primary_language` has no "Swedish" value in
+# the schema, so it always contradicts lang_swedish=Native; better absent than wrong.
+drop_dimensions:
+  - primary_language
+
+# Custom dimension stamped after sampling (not in the schema). Balanced within each
+# cell so tier is independent of age and domain. Change shares once the partner answers.
+overlay:
+  id: tier
+  label: Tier
+  shares:
+    Main contractor: 25
+    Subcontractor: 25
+    Developer: 25
+    Rental: 25
+
+# Display names: deterministic, unique within the cohort, from these lists (persona id +
+# gender pick the first name). Overrides the generic Western-Europe name pool.
+display_names:
+  first_names_man: [Erik, Lars, Anders, Johan, Karl, Per, Mikael, Magnus, Fredrik, Henrik, Daniel, Jonas, Niklas, Mattias, Peter, Stefan, Andreas, Martin, Oskar, Gustav, Björn, Olof, Håkan, Tobias, Emil, Simon, Rasmus, Viktor, Axel, Nils]
+  first_names_woman: [Anna, Maria, Eva, Karin, Sara, Lena, Emma, Kristina, Åsa, Malin, Jenny, Linda, Johanna, Helena, Elin, Sofia, Ingrid, Camilla, Hanna, Cecilia, Annika, Frida, Ida, Josefin, Ulrika, Louise, Therese, Matilda, Ebba, Agnes]
+  last_names: [Andersson, Johansson, Karlsson, Nilsson, Eriksson, Larsson, Olsson, Persson, Svensson, Gustafsson, Pettersson, Jonsson, Jansson, Hansson, Bengtsson, Jönsson, Lindberg, Jakobsson, Magnusson, Olofsson, Lindström, Lindqvist, Lindgren, Axelsson, Berg, Bergström, Lundberg, Lundgren, Lundqvist, Mattsson, Berglund, Fredriksson, Sandberg, Henriksson, Forsberg, Sjöberg, Wallin, Engström, Eklund, Danielsson, Håkansson, Lundin, Björk, Bergman, Wikström, Isaksson, Fransson, Holm, Nyström, Löfgren]

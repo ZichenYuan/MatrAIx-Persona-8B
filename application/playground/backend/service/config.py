@@ -51,6 +51,29 @@ PERSONA_MODEL_KNOB_META: Dict[str, Dict[str, str]] = {
         "label": "GPT-4o",
         "description": "OpenAI persona simulation with stronger reasoning.",
     },
+    # --- Azure AI Foundry deployments (yuexing-jun-26-resource) -----------------
+    # Reachable via OPENAI_BASE_URL=.../openai/v1. Web agents (OpenHands/browser-use)
+    # send `reasoning.effort`, which gpt-4.1-mini REJECTS — use gpt-5.6-* for web.
+    "openai/gpt-5.6-luna": {
+        "label": "GPT-5.6 Luna (Azure)",
+        "description": "Azure deployment. Accepts reasoning.effort — safe for web agents. Lowest cost of the 5.6 family.",
+    },
+    "openai/gpt-5.6-sol": {
+        "label": "GPT-5.6 Sol (Azure)",
+        "description": "Azure deployment. Stronger than Luna; accepts reasoning.effort.",
+    },
+    "openai/gpt-6-astra": {
+        "label": "GPT-6 Astra (Azure)",
+        "description": "Azure deployment. Highest capability available on this resource.",
+    },
+    "openai/gpt-4.1-mini": {
+        "label": "GPT-4.1 mini (Azure) — survey/chat only",
+        "description": "Azure deployment. Cheapest, but REJECTS reasoning.effort so it fails on web agents. Use for survey and chat only.",
+    },
+    "openai/DeepSeek-V4-Pro": {
+        "label": "DeepSeek V4 Pro (Azure)",
+        "description": "Azure deployment, OpenAI-compatible route.",
+    },
     "openai/gpt-5.4": {
         "label": "GPT-5.4",
         "description": "OpenAI computer-use CUA (macOS/Linux desktop via Responses API).",

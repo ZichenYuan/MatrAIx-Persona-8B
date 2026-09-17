@@ -60,3 +60,40 @@ def test_openlibrary_book_choice_is_registered():
     assert task.site_url == "https://openlibrary.org/"
     assert task.output_artifact == "book_choice.json"
     assert task.submission_profile == "book_choice"
+
+
+def test_every_web_task_advertises_the_agent_its_image_needs():
+    """The UI sends an explicit agent with each launch, so the list endpoint has to
+    supply one. An agent only runs inside its own runtime image, so a task whose
+    suggested agent disagrees with its [environment].definition would launch the
+    wrong agent against the wrong image."""
+    from backend.service.harbor_job_service import (
+        DEFAULT_WEB_AGENT,
+        WEB_AGENT_BY_DEFINITION,
+        _read_task_environment_definition,
+    )
+
+    tasks = list_web_eval_tasks()
+    assert tasks, "no web tasks discovered"
+    for task in tasks:
+        definition = _read_task_environment_definition(
+            str(task.task_path), repo_root=REPO_ROOT
+        )
+        expected = WEB_AGENT_BY_DEFINITION.get(definition or "", DEFAULT_WEB_AGENT)
+        assert task.suggested_agent == expected, (
+            "{}: image {} needs {}, task advertises {}".format(
+                task.id, definition, expected, task.suggested_agent
+            )
+        )
+
+
+def test_infobric_page_audits_use_a_multimodal_agent():
+    """The audit rubric asks about logos, colour and layout. A DOM-only agent cannot
+    see those and confabulates them, so these tasks must stay on a vision agent."""
+    for task_id in (
+        "web-infobric-audit-homepage",
+        "web-infobric-audit-pricing",
+        "web-infobric-audit-tier-page",
+        "web-infobric-page-audit",
+    ):
+        assert get_web_eval_task(task_id).suggested_agent == "persona-browser-use", task_id
