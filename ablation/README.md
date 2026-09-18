@@ -271,6 +271,7 @@ ablation/
   offline_probe.py           direct model calls for §6.4 wording tests (no browser)
   ground_truth/<page>.json   §4
   recipes/                   paired-cohort job recipes, one per arm, fresh job names
+  findings/                  one file per established finding, plain English, paper-ready
 ```
 
 Order of work:
@@ -289,7 +290,8 @@ Order of work:
   harbor reports it.
 - **No test-retest yet.** Every discrimination claim above is provisional.
 - **`trust` is dead** on the current pipeline for a structural reason; either
-  drop it from primaries or implement the browse/score split.
+  drop it from primaries or implement the browse/score split. Full reasoning,
+  evidence and recommendation: `findings/trust-rating-collapse.md`.
 - **`context.md` ships all four tier scenarios in every prompt** and relies on
   the persona to self-select. It works (93%) but is fragile; injecting only the
   persona's own scenario would be cleaner. Not changed mid-study.
