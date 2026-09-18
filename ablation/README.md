@@ -246,6 +246,27 @@ Homepage vs pricing vs tier page, same config. Hypothesis: pricing (real
 numbers on screen) and tier pages (audience-specific copy) produce more
 disagreement than the generic homepage. Not yet run.
 
+### 6.6 Task form: free visit vs page audit
+
+`web_infobric-free-visit` (task A in the study design: land on the homepage,
+browse freely within ~25 actions, decide, short questionnaire) vs
+`web_infobric-page-audit` (pinned to one page). Same cohort, same scenario text,
+same model and agent, so the only difference is the task form.
+
+What "better" means here, in the plan's terms:
+
+| dimension | free visit adds | page audit keeps |
+|---|---|---|
+| observational | the **journey** — pages opened, exit section, reached pricing / contact — recoverable from the trajectory even when the questionnaire fails (`journey.py`) | per-page trust-signal recall against ground truth |
+| discrimination | expect *more* variance in `next_step` / `contact_likelihood` (personas see different things) | expect *less* — everyone sees the same page |
+| ratings | a 25-step trajectory should compress `trust` / `clarity` at least as hard as a 4-step one (§3.3, finding 1) — this arm is the direct test | the 4-step baseline |
+| usefulness | obstacles and suggestions about the *site* | suggestions about *one page* |
+| cost | roughly 2–3x wall time per trial in the probes so far | baseline |
+
+Self-report accuracy is a metric in its own right here: in the first probe the
+persona's `pages_visited` matched the objective trajectory exactly in 2/2
+completed trials.
+
 ## 7. Baseline runs already on disk
 
 | job | page | agent | model | n | instrument |
@@ -269,6 +290,8 @@ ablation/
   instrument_health.py       job dir → one row: every metric in §3, as JSON + a printed table
   compare.py                 N job dirs → side-by-side table, deltas, Spearman on tier ranks
   offline_probe.py           direct model calls for §6.4 wording tests (no browser)
+  journey.py                 objective page sequence per trial from browser-use's trajectory,
+                             vs the persona's self-report; exit section, reached pricing/contact
   ground_truth/<page>.json   §4
   recipes/                   paired-cohort job recipes, one per arm, fresh job names
   findings/                  one file per established finding, plain English, paper-ready
