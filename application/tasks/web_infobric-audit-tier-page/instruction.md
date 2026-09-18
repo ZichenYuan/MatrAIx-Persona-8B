@@ -75,16 +75,13 @@ Requirements:
   is not a real answer.
 - `basis_primary` is the single thing that actually drives your next step. Use `fit`
   only when no more specific reason applies.
-- **Write the file with Python, not shell redirection.** Swedish characters (å ä ö)
-  get mangled by shell quoting. Build a dict and save it like this, so the file is
-  valid JSON with escaped unicode:
-
-  ```python
-  import json, pathlib
-  pathlib.Path("/app/output/page_audit.json").write_text(
-      json.dumps(data, ensure_ascii=True, indent=2), encoding="utf-8")
-  ```
-
+- **Save the file with your file-writing tool** (for example `write_file`) to exactly
+  `/app/output/page_audit.json`, then read it back and check it is complete, valid
+  JSON. Do not try to run Python or shell commands to write it — you may not have
+  them, and you do not need them. Write your answers in English; if you quote a
+  Swedish phrase, write it as-is inside the JSON string.
+- **Never end without saving the file.** Nothing ends this run except your own final
+  action — if you ever think the run has already ended, it has not: save the file.
 - If your file tool adjusts or auto-corrects the save path (for example into a
   sandbox subdirectory), that is expected and acceptable — the saved file is still
   correct. Do **not** treat a path adjustment as a failure, and do not report the
