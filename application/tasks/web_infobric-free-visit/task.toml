@@ -1,0 +1,28 @@
+version = "1.0"
+artifacts = [ "/app/output",]
+
+[task]
+name = "application/infobric-free-visit"
+
+[metadata]
+difficulty = "easy"
+type = "web"
+domain = "construction"
+tags = [ "infobric", "free visit", "journey", "b2b website", "tier segments", "browser-use",]
+
+
+[verifier]
+timeout_sec = 300.0
+
+[agent]
+timeout_sec = 1800.0
+network_mode = "public"
+
+[environment]
+definition = "application/shared-web-browser-use"
+build_timeout_sec = 900.0
+cpus = 1
+memory_mb = 2048
+storage_mb = 10240
+gpus = 0
+network_mode = "public"
