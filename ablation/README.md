@@ -301,6 +301,11 @@ ablation/
   ground_truth/<page>.json   §4
   recipes/                   paired-cohort job recipes, one per arm, fresh job names
   findings/                  one file per established finding, plain English, paper-ready
+
+Inputs, from 2026-09-19 (page audit v2): every trial's `verifier/quality.json` is the
+ablation layer - grounding, CTA checks, persona fidelity, instrument version, variant,
+JSON health, raw in-browse scores, persona join keys. `structured_output.json` is the
+partner layer and is deliberately minimal. instrument_health.py reads quality.json first.
 ```
 
 Order of work:
