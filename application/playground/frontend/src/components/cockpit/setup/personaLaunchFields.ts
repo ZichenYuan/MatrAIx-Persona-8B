@@ -24,8 +24,12 @@ export function shouldLaunchEntirePool(input: {
   if (input.useEntirePool) return true;
   const size = resolveCohortSize(input);
   if (size <= 0) return false;
-  if (size > PERSONA_UI_ID_LIST_MAX) return true;
-  return input.selectedPersonaIds.length > 0 && input.selectedPersonaIds.length < size;
+  const held = input.selectedPersonaIds.length;
+  // Launch by explicit ids whenever the cockpit holds the whole cohort (the pull
+  // asks for the full id list). "Entire pool" runs every persona in the pool and
+  // ignores the sample size, so it is only right when ids are missing or truncated.
+  if (held === 0) return size > PERSONA_UI_ID_LIST_MAX;
+  return held < size;
 }
 
 export function buildPersonaLaunchFields(input: {

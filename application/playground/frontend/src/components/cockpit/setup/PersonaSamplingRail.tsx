@@ -1248,8 +1248,10 @@ export function PersonaSamplingRail({
       setPreviewCards(cards);
       const count =
         result.selectedCount ?? result.sampleSize ?? result.personaIds.length;
+      // Only treat the cohort as "entire pool" when the ids really are incomplete;
+      // the pull asks for the full list, so a large cohort launches by explicit ids.
       const truncated =
-        Boolean(result.idsTruncated) || count > PERSONA_UI_ID_LIST_MAX;
+        Boolean(result.idsTruncated) || result.personaIds.length < count;
       onSelectedCountChange?.(count);
       onUseEntirePoolChange?.(truncated);
       onSelectedPersonaIdsChange(result.personaIds);
