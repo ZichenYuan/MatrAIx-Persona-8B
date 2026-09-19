@@ -22,7 +22,11 @@ ANALYTICS = HERE / "ground_truth" / "analytics_90d.json"
 DIMS = ["understanding", "language_relevance", "practical_value", "trust", "next_step_confidence", "next_step_ease"]
 EXTRA_SCORES = ["cta_match", "contact_likelihood"]
 PERSONA_DIMS = ["traffic_segment", "audience_group", "tier", "visit_intent", "infobric_familiarity"]
-TRUST_ACTS = ["trust_form_today", "trust_claim_unchecked", "trust_recommend"]
+TRUST_LADDER = ["trust_email_guide", "trust_callback", "trust_demo_week", "trust_pilot_data"]
+TRUST_ACTS = TRUST_LADDER + ["trust_claim_unchecked"]
+TRUST_TITLES = {"trust_email_guide": "Would give a work email for a guide", "trust_callback": "Would ask for a call-back",
+                "trust_demo_week": "Would book a demo this week", "trust_pilot_data": "Would run a pilot on own data this month",
+                "trust_claim_unchecked": "Would accept the proof claim unchecked"}
 COLLAPSED_SD = 0.3  # a 1-5 scale whose sd falls below this is not separating anyone
 
 
@@ -99,7 +103,8 @@ def flatten(q: dict) -> dict:
     for k in DIMS + EXTRA_SCORES:
         row[k] = s.get(k)
     row["post_hoc"] = q.get("scores_post_hoc") or None
-    row["trust_acts"] = s.get("trust_acts")
+    row["trust_ladder"] = s.get("trust_ladder")
+    row["trust_ladder_consistent"] = s.get("trust_ladder_consistent")
     row["trust_acts_answers"] = {k: s.get(k) for k in TRUST_ACTS}
     return row
 
@@ -171,18 +176,31 @@ def build(job: Path) -> tuple[str, dict]:
 
     acts_present = [r for r in rows if any((r.get("trust_acts_answers") or {}).get(k) in ("yes", "no") for k in TRUST_ACTS)]
     if acts_present:
-        w("## 3b. Trust as three concrete acts (yes/no)\n")
+        w("## 3b. Trust as a ladder of commitments (yes/no, rising cost) plus one belief item\n")
         n_a = len(acts_present)
-        for k, title in zip(TRUST_ACTS, ("Would enter company details in the form today", "Would accept the proof claim unchecked", "Would mention the supplier to a colleague")):
+        for k in TRUST_ACTS:
             yes = sum(1 for r in acts_present if r["trust_acts_answers"].get(k) == "yes")
             unk = sum(1 for r in acts_present if r["trust_acts_answers"].get(k) not in ("yes", "no"))
-            w(f"- **{title}**: yes {pct(yes, n_a)} of {n_a}" + (f" ({unk} unanswered)" if unk else ""))
-        counts = [r["trust_acts"] for r in acts_present if isinstance(r.get("trust_acts"), (int, float))]
+            w(f"- **{TRUST_TITLES[k]}**: yes {pct(yes, n_a)} of {n_a}" + (f" ({unk} unanswered)" if unk else ""))
+        laddered = [r for r in acts_present if isinstance(r.get("trust_ladder"), (int, float))]
+        counts = [r["trust_ladder"] for r in laddered]
         if counts:
             m, sd = mean_sd(counts)
-            w(f"- **Yes-count (0-3)**: mean {fmt(m)}, sd {fmt(sd)}, distribution " + ", ".join(f"{i}: {sum(1 for c in counts if int(c) == i)}" for i in range(4)))
-            numbers["trust_acts"] = {"n": len(counts), "mean": m, "sd": sd, "eta2_audience": eta_squared(counts, [r["audience_group"] for r in acts_present if isinstance(r.get("trust_acts"), (int, float))])}
-            w(f"- η² by visitor kind: {fmt(numbers['trust_acts']['eta2_audience'])}")
+            inconsistent = sum(1 for r in laddered if r.get("trust_ladder_consistent") == "no")
+            w(f"- **Rungs accepted (0-4)**: mean {fmt(m)}, sd {fmt(sd)}, distribution " + ", ".join(f"{i}: {sum(1 for c in counts if int(c) == i)}" for i in range(5))
+              + f"; inconsistent ladders (a yes above a no) {inconsistent} of {len(counts)}")
+            numbers["trust_ladder"] = {"n": len(counts), "mean": m, "sd": sd,
+                                       "eta2_audience": eta_squared(counts, [r["audience_group"] for r in laddered]),
+                                       "eta2_segment": eta_squared(counts, [r.get("traffic_segment") for r in laddered]),
+                                       "eta2_intent": eta_squared(counts, [r.get("visit_intent") for r in laddered])}
+            w(f"- η² by visitor kind {fmt(numbers['trust_ladder']['eta2_audience'])} · by traffic segment {fmt(numbers['trust_ladder']['eta2_segment'])} · by visit intent {fmt(numbers['trust_ladder']['eta2_intent'])}")
+            w("\n| Group | n | mean rungs | " + " | ".join(TRUST_TITLES[k].replace("Would ", "") for k in TRUST_ACTS) + " |")
+            w("|---|---:|---:|" + "---:|" * len(TRUST_ACTS))
+            for dim in ("traffic_segment", "audience_group", "visit_intent"):
+                for g, cnt in collections.Counter(r.get(dim) or "unknown" for r in laddered).most_common():
+                    sub = [r for r in laddered if (r.get(dim) or "unknown") == g]
+                    w(f"| {g} | {cnt} | {fmt(mean_sd([r['trust_ladder'] for r in sub])[0])} | "
+                      + " | ".join(pct(sum(1 for r in sub if r['trust_acts_answers'].get(k) == 'yes'), cnt) for k in TRUST_ACTS) + " |")
         w("")
 
     w("## 4. The six partner dimensions (1-5) and the two follow-ups\n")

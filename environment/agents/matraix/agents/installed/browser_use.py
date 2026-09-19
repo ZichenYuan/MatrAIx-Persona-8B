@@ -12,6 +12,19 @@ from harbor.environments.base import BaseEnvironment
 from harbor.models.agent.context import AgentContext
 from harbor.models.agent.name import AgentName
 from harbor.models.trial.paths import EnvironmentPaths
+import re
+
+
+def _container_reachable_url(url: str) -> str:
+    """Rewrite a loopback host to Docker's host alias.
+
+    The agent process runs inside the trial container, where 127.0.0.1 is the
+    container itself. A gateway bound on the host (Copilot passthrough on :8992,
+    a local proxy) is reachable from the container as ``host.docker.internal``.
+    Any other host is returned unchanged.
+    """
+    return re.sub(r"^(https?://)(127\.0\.0\.1|localhost|0\.0\.0\.0)(?=[:/]|$)", r"\1host.docker.internal", url.strip())
+
 
 
 class BrowserUseHarborAgent(BaseInstalledAgent):
@@ -210,7 +223,10 @@ class BrowserUseHarborAgent(BaseInstalledAgent):
         ):
             base_value = self._get_env(base_key)
             if base_value is not None:
-                env[base_key] = base_value
+                # This agent runs inside a container: a gateway on the host's loopback
+                # (e.g. the Copilot passthrough on 127.0.0.1:8992) is only reachable
+                # through Docker's host alias. Rewrite the host, keep everything else.
+                env[base_key] = _container_reachable_url(base_value)
 
         env["AGENT_LOGS_DIR"] = "/logs/agent"
         env["TRAJECTORY_PATH"] = f"/logs/agent/{self._TRAJECTORY_FILENAME}"

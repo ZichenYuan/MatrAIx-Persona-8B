@@ -1,0 +1,185 @@
+# Wrong-fit visitors for the Infobric homepage traffic mix (design note
+# docs/superpowers/specs/2026-09-19-instrument-2-4-design.md §2).
+#
+# Real homepage traffic includes people who are not prospects and not customers: job
+# seekers, suppliers wanting to sell to Infobric, students, and people who landed here by
+# mistake. Deriving them from construction prospects (instrument 2.3) failed - the job
+# identity made the page relevant to them. These are Swedish residents with *no*
+# construction background, in four groups. Each carries the audit fields the verifier and
+# report expect, plus a traffic segment and an arrival note the persona prompt renders last.
+#
+#   uv run python persona/scripts/build_cohort.py persona/scripts/cohort_configs/infobric_wrong_fit.yaml
+
+name: infobric-wrong-fit
+display_name: Infobric pilot — wrong-fit visitors
+description: 200 Swedish visitors who are not prospects - job seekers, suppliers, students and mis-clicks - with no construction background, for the homepage traffic-mix arm.
+seed: 11
+total: 200
+draws_per_cell: 3000
+max_draws_per_cell: 60000
+on_shortfall: borrow
+overlay_assignment: shuffled
+
+pinned:
+  region: Western Europe
+  lang_swedish: Native
+  cult_sweden: Native
+  cultural_background: Individualist (Western)
+
+filters:
+  ind_construction: [None, Some exposure]
+  english_proficiency: [Native, Fluent (C1-C2), Intermediate (B1-B2), Basic (A1-A2)]
+
+cells: &working_cells
+  - dimension: age_bracket
+    shares: {"25-34": 35, "35-44": 30, "45-54": 22, "55-64": 13}
+  - dimension: domain
+    shares: {"Software & AI": 35, "Business & Management": 35, "Media & Journalism": 10, "Finance & Economics": 10, "Manufacturing": 10}
+  - dimension: gender_identity
+    shares: {Man: 55, Woman: 45}
+
+groups:
+  - name: job-seekers
+    share: 34
+    stamp: {_segment: job_seeker}
+    filters:
+      seniority: [Entry, Mid, Senior, Lead / Principal]
+      demo_employment_status: [Full-time, Part-time, Unemployed]
+      role_function: [Engineering, Product, Sales / GTM, Marketing, Operations, HR]
+    cells: *working_cells
+
+  - name: suppliers
+    share: 20
+    stamp: {_segment: supplier_partner}
+    filters:
+      seniority: [Mid, Senior, Lead / Principal, Manager, Director, Founder]
+      demo_employment_status: [Full-time, Self-employed]
+      role_function: [Sales / GTM, Marketing, Executive]
+    cells: *working_cells
+
+  - name: students
+    share: 20
+    stamp: {_segment: student_researcher}
+    filters:
+      seniority: [Student / intern]
+      demo_employment_status: [Student]
+      life_stage: [Student, Early career]
+    cells:
+      - dimension: age_bracket
+        shares: {"18-24": 70, "25-34": 30}
+      - dimension: domain
+        shares: {"Business & Management": 40, "Software & AI": 25, "Engineering": 20, "Social Sciences": 15}
+      - dimension: gender_identity
+        shares: {Man: 50, Woman: 50}
+
+  - name: mis-clicks
+    share: 26
+    stamp: {_segment: misclick}
+    filters:
+      demo_employment_status: [Full-time, Part-time, Self-employed, Gig / freelance, Homemaker, Retired]
+    cells:
+      - dimension: age_bracket
+        shares: {"25-34": 25, "35-44": 30, "45-54": 25, "55-64": 15, "65-74": 5}
+      - dimension: domain
+        shares: {"Healthcare & Medicine": 20, "Education": 20, "Public Sector": 15, "Business & Management": 15, "Software & AI": 10, "Arts & Humanities": 10, "Agriculture": 10}
+      - dimension: gender_identity
+        shares: {Man: 50, Woman: 50}
+
+coherence_rules:
+  - name: young-but-20-plus-years
+    when: {age_bracket: ["18-24", "25-34"], years_experience: ["20+"]}
+  - name: working-but-retired-life-stage
+    when: {demo_employment_status: [Full-time, Part-time, Self-employed], life_stage: [Retirement]}
+  - name: student-but-senior
+    when: {demo_employment_status: [Student], seniority: [Manager, Director, VP, C-suite, Founder, Lead / Principal, Senior]}
+  - name: old-but-early-career
+    when: {age_bracket: ["45-54", "55-64", "65-74"], seniority: [Entry, Student / intern]}
+
+overlays:
+  - id: work_country
+    label: Work country
+    value: Sweden
+
+  - id: sweden_region
+    label: Region in Sweden
+    shares: {Stockholm: 35, "Västra Götaland (Göteborg)": 20, "Skåne (Malmö)": 15, "Mälardalen & Östergötland": 12, Norrland: 8, "Småland & Gotland": 10}
+
+  - id: traffic_segment
+    label: Why you are on infobric.com today
+    shares_by: _segment
+    shares:
+      job_seeker: {"Job seeker": 100}
+      supplier_partner: {"Supplier or partner (selling to Infobric)": 100}
+      student_researcher: {"Student or researcher": 100}
+      misclick: {"Mis-click from a search result or an ad": 100}
+
+  - id: job_role
+    label: Job role
+    shares_by: _segment
+    shares:
+      job_seeker: {"Software developer": 30, "Sales representative": 20, "Marketing specialist": 20, "Customer support agent": 15, "HR generalist": 15}
+      supplier_partner: {"Account manager at an IT consultancy": 35, "Recruiter at a staffing agency": 25, "Sales manager at a marketing agency": 20, "Sales engineer at an electronics maker": 20}
+      student_researcher: {"Business student": 45, "Computer science student": 30, "Engineering student": 25}
+      misclick: {"Nurse": 15, "Teacher": 20, "Municipal administrator": 15, "Shop owner": 15, "Office worker": 20, "Farmer": 10, "Freelance designer": 5}
+
+  - id: visit_intent
+    label: Why they are looking at suppliers now
+    shares_by: _segment
+    shares:
+      job_seeker: {"Looking for job openings at Infobric": 100}
+      supplier_partner: {"Wants to sell services or products to Infobric": 100}
+      student_researcher: {"Researching the company for a school or university assignment": 100}
+      misclick: {"Landed here by mistake from a search result or an ad": 100}
+
+  - id: infobric_familiarity
+    label: Knowledge of Infobric before this visit
+    shares_by: _segment
+    shares:
+      job_seeker: {"Has heard the name but knows nothing more": 70, "Has never heard of Infobric": 30}
+      supplier_partner: {"Has heard the name but knows nothing more": 60, "Has never heard of Infobric": 40}
+      student_researcher: {"Has heard the name but knows nothing more": 50, "Has never heard of Infobric": 50}
+      misclick: {"Has never heard of Infobric": 100}
+
+  - id: arrival_note
+    label: How you got here today
+    shares_by: _segment
+    shares:
+      job_seeker:
+        "You are looking for a new job and heard Infobric is hiring in your region. You came to find their careers page and open positions; you have no reason to read about their products.": 60
+        "A recruiter mentioned Infobric as a growing software company. You want to see what kind of employer it is and whether there are openings for someone like you.": 40
+      supplier_partner:
+        "Your company sells services to software companies and Infobric is on your prospect list. You want the name of a decision-maker, an email address or a partner page; their products are not your concern.": 60
+        "You are preparing a cold outreach to Infobric and need to find who to contact and how big they are. You will not evaluate their offer.": 40
+      student_researcher:
+        "You are writing an assignment about digitalisation in the construction industry and want facts about the company: what it does, how big it is, its history. You will not buy anything.": 60
+        "Your teacher listed Infobric as an example of a Swedish B2B software company. You need two or three facts about it for a presentation.": 40
+      misclick:
+        "You searched for an app to keep a driving log for your company car (your employer's payroll office asked for one) and clicked this result expecting a simple app you can install today.": 40
+        "You clicked an ad while looking for something else entirely and did not mean to come here.": 25
+        "You saw the name Infobric on a van or a site gate, searched for it out of curiosity, and have no business reason to be here.": 15
+        "You were looking for a used machine to buy privately and this result looked like a marketplace.": 20
+
+  - id: audience_group
+    label: Kind of visitor
+    value: Not a target visitor
+
+  - id: tier
+    label: Tier
+    value: Not applicable
+
+  - id: deals_with_vehicles
+    label: Company vehicles at work
+    value: Not part of my job
+  - id: deals_with_driving_logs
+    label: Driving logs at work
+    value: Not part of my job
+  - id: deals_with_tools_equipment
+    label: Tools and equipment at work
+    value: Not part of my job
+  - id: works_in_rental_process
+    label: Renting machines in or out
+    value: Not part of my job
+
+  - id: device_context
+    label: Device
+    shares: {"Desktop, focused": 45, "Mobile, on-the-go": 55}

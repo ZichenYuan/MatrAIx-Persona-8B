@@ -155,6 +155,10 @@ def main() -> int:
     ap.add_argument("--out", default="persona/datasets/generated-persona-dev-infobric-traffic-mix")
     ap.add_argument("--seed", type=int, default=7)
     ap.add_argument("--force", action="store_true")
+    ap.add_argument("--wrong-fit-source", default=None,
+                    help="a pool built from cohort_configs/infobric_wrong_fit.yaml; when given, the wrong-fit 15%% "
+                         "comes from it (own non-construction identities) and only prospects + existing customers "
+                         "are drawn from --source (instrument 2.4)")
     a = ap.parse_args()
     src = (REPO / a.source).resolve()
     out = REPO / a.out
@@ -168,19 +172,36 @@ def main() -> int:
     rng = random.Random(a.seed)
     order = list(range(len(personas)))
     rng.shuffle(order)
-    # proportional assignment in shuffled order (largest-remainder on the shares)
-    n = len(personas)
-    counts = {seg: int(share * n) for seg, share in MIX}
-    for seg, _ in sorted(MIX, key=lambda s: -(s[1] * n - int(s[1] * n))):
-        if sum(counts.values()) >= n:
-            break
-        counts[seg] += 1
-    assignment: dict[int, str] = {}
-    pos = 0
-    for seg, _ in MIX:
-        for idx in order[pos:pos + counts[seg]]:
-            assignment[idx] = seg
-        pos += counts[seg]
+    wrong_fit_entries: list[dict] = []
+    if a.wrong_fit_source:
+        wf_dir = (REPO / a.wrong_fit_source).resolve()
+        wf_manifest = json.loads((wf_dir / "manifest.json").read_text())
+        wrong_fit_entries = list(wf_manifest["personas"])
+        # Keep the 40 / 45 / 15 mix: the mini-pool sets the wrong-fit count, the rest is drawn from --source.
+        wf_share = sum(share for seg, share in MIX if seg not in ("prospect", "existing_customer"))
+        total = int(round(len(wrong_fit_entries) / wf_share))
+        n_prospect = int(round(total * dict(MIX)["prospect"]))
+        n_customer = int(round(total * dict(MIX)["existing_customer"]))
+        keep = order[: n_prospect + n_customer]
+        assignment = {idx: "prospect" for idx in keep[:n_prospect]}
+        assignment.update({idx: "existing_customer" for idx in keep[n_prospect:]})
+        personas = [personas[idx] for idx in keep]
+        assignment = {i: assignment[idx] for i, idx in enumerate(keep)}
+        counts = {"prospect": n_prospect, "existing_customer": n_customer}
+    else:
+        # proportional assignment in shuffled order (largest-remainder on the shares)
+        n = len(personas)
+        counts = {seg: int(share * n) for seg, share in MIX}
+        for seg, _ in sorted(MIX, key=lambda s: -(s[1] * n - int(s[1] * n))):
+            if sum(counts.values()) >= n:
+                break
+            counts[seg] += 1
+        assignment = {}
+        pos = 0
+        for seg, _ in MIX:
+            for idx in order[pos:pos + counts[seg]]:
+                assignment[idx] = seg
+            pos += counts[seg]
 
     seg_counter: dict[str, int] = {}
     for idx, entry in enumerate(personas):
@@ -196,6 +217,29 @@ def main() -> int:
         entry.setdefault("dimensions", {}).update(new_dims)
         entry["traffic_segment"] = seg
 
+    # Wrong-fit personas from the mini-pool: own identities, renumbered 2001+ so ids never
+    # collide with pilot-full's 0001-1500. Their YAMLs already carry traffic_segment,
+    # arrival_note and the audit fields (cohort_configs/infobric_wrong_fit.yaml).
+    wf_values: dict[str, set] = {"traffic_segment": set(), "arrival_note": set(), "visit_intent": set(), "infobric_familiarity": set()}
+    for i, entry in enumerate(wrong_fit_entries):
+        new_id = f"{2001 + i:04d}"
+        src_yaml = REPO / entry["path"] if not Path(entry["path"]).is_absolute() else Path(entry["path"])
+        if not src_yaml.is_file():
+            src_yaml = (REPO / a.wrong_fit_source) / Path(entry["path"]).name
+        text = src_yaml.read_text(encoding="utf-8")
+        text = re.sub(r"^persona_id:.*$", f"persona_id: '{new_id}'", text, count=1, flags=re.M)
+        name = f"persona_{new_id}.yaml"
+        (out / name).write_text(text, encoding="utf-8")
+        dims = entry.get("dimensions") or {}
+        seg_label = str(dims.get("traffic_segment") or "")
+        seg = next((s for s, label in SEGMENT_LABEL.items() if label == seg_label), "misclick")
+        seg_counter[seg] = seg_counter.get(seg, 0) + 1
+        for k in wf_values:
+            if dims.get(k):
+                wf_values[k].add(str(dims[k]))
+        personas.append({**entry, "persona_id": new_id, "path": f"{a.out}/{name}", "traffic_segment": seg})
+    manifest["personas"] = personas
+    manifest["count"] = len(personas)
     manifest["kind"] = "infobric-traffic-mix"
     manifest["name"] = "Infobric pilot — traffic mix"
     manifest["description"] = (
@@ -223,7 +267,7 @@ def main() -> int:
     for extra in ("README.md",):
         if (src / extra).is_file():
             shutil.copyfile(src / extra, out / extra)
-    print(f"wrote {n} personas to {out}\nsegments: " + ", ".join(f"{s} {seg_counter.get(s, 0)}" for s, _ in MIX), file=sys.stderr)
+    print(f"wrote {len(personas)} personas to {out}\nsegments: " + ", ".join(f"{s} {seg_counter.get(s, 0)}" for s, _ in MIX), file=sys.stderr)
     return 0
 
 

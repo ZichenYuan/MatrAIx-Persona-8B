@@ -110,22 +110,6 @@
           ]
         },
         {
-          "id": "audit.trust_acts_by_audience",
-          "facetKey": "trust_acts",
-          "title": "Trust acts: yes-count of the three concrete questions (0-3)",
-          "groupByPersonaDimensions": [
-            "audience_group"
-          ]
-        },
-        {
-          "id": "audit.trust_form_by_audience",
-          "facetKey": "trust_form_today",
-          "title": "Would enter company details in the form today",
-          "groupByPersonaDimensions": [
-            "audience_group"
-          ]
-        },
-        {
           "id": "audit.trust_claim_by_audience",
           "facetKey": "trust_claim_unchecked",
           "title": "Would accept the proof claim unchecked",
@@ -134,9 +118,49 @@
           ]
         },
         {
-          "id": "audit.trust_recommend_by_audience",
-          "facetKey": "trust_recommend",
-          "title": "Would mention the supplier to a colleague",
+          "id": "audit.trust_ladder_by_audience",
+          "facetKey": "trust_ladder",
+          "title": "Trust ladder: rungs accepted this week (0-4)",
+          "groupByPersonaDimensions": [
+            "audience_group"
+          ]
+        },
+        {
+          "id": "audit.trust_ladder_by_segment",
+          "facetKey": "trust_ladder",
+          "title": "Trust ladder: rungs accepted this week (0-4), by traffic segment",
+          "groupByPersonaDimensions": [
+            "traffic_segment"
+          ]
+        },
+        {
+          "id": "audit.trust_email_by_audience",
+          "facetKey": "trust_email_guide",
+          "title": "Would give a work email for a guide",
+          "groupByPersonaDimensions": [
+            "audience_group"
+          ]
+        },
+        {
+          "id": "audit.trust_callback_by_audience",
+          "facetKey": "trust_callback",
+          "title": "Would ask for a call-back",
+          "groupByPersonaDimensions": [
+            "audience_group"
+          ]
+        },
+        {
+          "id": "audit.trust_demo_by_audience",
+          "facetKey": "trust_demo_week",
+          "title": "Would book a demo this week",
+          "groupByPersonaDimensions": [
+            "audience_group"
+          ]
+        },
+        {
+          "id": "audit.trust_pilot_by_audience",
+          "facetKey": "trust_pilot_data",
+          "title": "Would run a pilot on own data this month",
           "groupByPersonaDimensions": [
             "audience_group"
           ]

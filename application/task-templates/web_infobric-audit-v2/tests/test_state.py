@@ -30,7 +30,7 @@ import os
 import re
 from pathlib import Path
 
-INSTRUMENT_VERSION = "2.3"
+INSTRUMENT_VERSION = "2.4"
 
 OUTPUT = Path(os.environ.get("AUDIT_OUTPUT", "/app/output/page_audit.json"))
 INPUT_DIR = Path(os.environ.get("AUDIT_INPUT_DIR", "/app/input"))
@@ -42,7 +42,11 @@ POSITIONS = {"top", "middle", "bottom"}
 KINDS = {"confusing", "missing", "unconvincing", "irrelevant"}
 ARRIVED = {"specific_problem", "exploring", "existing_customer", "other_reason"}
 YES_NO = {"yes", "no"}
-TRUST_ACTS = ("trust_form_today", "trust_claim_unchecked", "trust_recommend")
+# Trust as a ladder of commitments (instrument 2.4): four rungs of rising cost, plus one
+# belief item. trust_ladder = rungs answered yes (0-4); consistency = no yes above a no.
+TRUST_LADDER = ("trust_email_guide", "trust_callback", "trust_demo_week", "trust_pilot_data")
+TRUST_CLAIM = "trust_claim_unchecked"
+TRUST_ACTS = TRUST_LADDER + (TRUST_CLAIM,)
 ALL_NEXT_STEPS = {
     "book_demo", "start_trial", "create_free_account", "order_package", "use_calculator",
     "download_guide", "preview_fleet", "contact_sales", "learn_more", "come_back_later", "leave",
@@ -405,10 +409,14 @@ def test_output_schema() -> None:
             unmapped.append(f"{k}:{str(data.get(k))[:40]}")
             answer = "unknown"
         trust_acts_answers[k] = answer
-    trust_acts: int | str = (
-        sum(1 for v in trust_acts_answers.values() if v == "yes")
-        if all(v != "unknown" for v in trust_acts_answers.values()) else "unknown"
-    )
+    rungs = [trust_acts_answers[k] for k in TRUST_LADDER]
+    trust_ladder: int | str = sum(1 for v in rungs if v == "yes") if all(v != "unknown" for v in rungs) else "unknown"
+    # Guttman check: once a rung is refused, every higher rung should be refused too.
+    if trust_ladder == "unknown":
+        trust_ladder_consistent = "unknown"
+    else:
+        first_no = next((i for i, v in enumerate(rungs) if v == "no"), len(rungs))
+        trust_ladder_consistent = "yes" if all(v == "no" for v in rungs[first_no:]) else "no"
 
     # --- D. CTA hop -----------------------------------------------------------
     cta_seen = _string_or_unknown(data, "primary_cta_seen") if early else _string(data, "primary_cta_seen")
@@ -519,14 +527,20 @@ def test_output_schema() -> None:
                        "numerical" if scores["practical_value"] != "unknown" else "categorical", scores["practical_value"]),
                 _facet("trust", "Trust (1-5)", "score",
                        "numerical" if scores["trust"] != "unknown" else "categorical", scores["trust"]),
-                _facet("trust_acts", "Trust acts: yes-count of three concrete questions (0-3)", "score",
-                       "numerical" if trust_acts != "unknown" else "categorical", trust_acts),
-                _facet("trust_form_today", "Would enter company details in the form today", "score", "categorical",
-                       trust_acts_answers["trust_form_today"]),
+                _facet("trust_ladder", "Trust ladder: rungs accepted this week (0-4)", "score",
+                       "numerical" if trust_ladder != "unknown" else "categorical", trust_ladder),
+                _facet("trust_ladder_consistent", "Trust ladder answered consistently (no yes above a no)", "score",
+                       "categorical", trust_ladder_consistent),
+                _facet("trust_email_guide", "Would give a work email for a guide", "score", "categorical",
+                       trust_acts_answers["trust_email_guide"]),
+                _facet("trust_callback", "Would ask for a call-back", "score", "categorical",
+                       trust_acts_answers["trust_callback"]),
+                _facet("trust_demo_week", "Would book a demo this week", "score", "categorical",
+                       trust_acts_answers["trust_demo_week"]),
+                _facet("trust_pilot_data", "Would run a pilot on own data this month", "score", "categorical",
+                       trust_acts_answers["trust_pilot_data"]),
                 _facet("trust_claim_unchecked", "Would accept the proof claim unchecked", "score", "categorical",
                        trust_acts_answers["trust_claim_unchecked"]),
-                _facet("trust_recommend", "Would mention the supplier to a colleague", "score", "categorical",
-                       trust_acts_answers["trust_recommend"]),
                 _facet("next_step_confidence", "Confidence in the next step (1-5)", "score",
                        "numerical" if scores["next_step_confidence"] != "unknown" else "categorical", scores["next_step_confidence"]),
                 _facet("next_step_ease", "Ease of completing the next step (1-5)", "score",
@@ -626,8 +640,8 @@ def test_output_schema() -> None:
                     "cta_inspected": cta_inspected, "cta_page_url": cta_url, "cta_url_ok": cta_url_ok,
                 },
                 "scores_in_browse": {**scores, "next_step_ease": ease, "cta_match": cta_match,
-                                     "contact_likelihood": contact, "trust_acts": trust_acts,
-                                     **trust_acts_answers},
+                                     "contact_likelihood": contact, "trust_ladder": trust_ladder,
+                                     "trust_ladder_consistent": trust_ladder_consistent, **trust_acts_answers},
                 "decision": {"next_step": next_step, "converted": next_step in conversions,
                              "basis_primary": basis, "trust_action": trust_action},
                 "counts": {"confusing_or_missing": len(confusing), "problems_recognised": len(problems),

@@ -1,8 +1,9 @@
-# Review one page of a supplier's website
+# A visit to one page of a supplier's website
 
-You are about to look at one page of Infobric's website, as yourself, in your own job
+You are about to land on one page of Infobric's website, as yourself, in your own job
 and situation. Treat the page as the first thing you have ever seen from this company:
-do not assume you have read any other page.
+do not assume you have read any other page. Most people leave most pages within seconds.
+This visit has the same rule: you stay only if the first screen gives you a reason to.
 
 <!-- PAGE BRIEF -->
 
@@ -22,27 +23,33 @@ a school assignment, a mis-click from a search result or an ad). If you did not 
 evaluate a supplier, say so plainly and behave accordingly. Write this down first; it goes
 in `self_briefing`.
 
-**2. Open the page. Before scrolling, answer the first-screen questions.** Look only at
-what is visible without scrolling. What do you think this company or product is? Does it
-match what you expected when you came here? Would you keep reading?
+**2. Open the page. Look only at the first screen — what is visible without scrolling —
+and decide now: stay or go.** Answer the three first-screen questions (what you think this
+company or product is; whether it matches what you came for; whether you would keep
+reading). Then decide the way you would in real life:
 
-**If you would not keep reading, you may stop here.** Leaving is a valid outcome of a
-visit, not a failure of the task — do it if that is what you would really do. Set
-`left_early` to true, answer the first-screen questions and the decision questions at
-the end (your next step will usually be `leave`, `go_to_login` or `come_back_later`), give the
-ratings you can honestly give from the first screen, put `unknown` (or an empty list)
-in everything else, and skip steps 3 and 4.
+- **Go** if this is not what you came for, if you cannot tell what they offer, if it is
+  clearly written for someone else, or if nothing on the first screen holds you.
+- **Stay** only if something on the first screen gives you a reason to read on.
 
-**3. If you kept reading: read the whole page.** Then answer the page questions. For anything you point to,
-quote the exact wording and say where on the page it sits — `top` (visible before
-scrolling), `middle`, or `bottom`.
+**If you go, that is the whole visit.** Set `left_early` to `true`, fill in the exit form —
+`self_briefing`, `arrived_with`, the three first-screen fields, `understanding`, the five
+`trust_*` questions, `next_step` (usually `leave`, `go_to_login` or `come_back_later`),
+`basis_primary`, `trust_action`, `contact_likelihood`, `reason`, and
+`improvement_suggestion` (what on the first screen would have kept you) — put `unknown`
+(or an empty list) in everything else, save the file, and stop. Do not read further.
+Leaving is a real outcome, not a failure.
 
-**4. If you kept reading: click the page's primary next-step button once** — the one named in the page brief.
-Look at what appears: a form, a page, a chat, a calendar. Describe what it actually asks of
-you and whether it matches what the button led you to expect. **Do not fill in or submit
-anything, do not log in, do not book anything.** Then go no further. If the button leads
-somewhere you cannot see or the page fails to load, say so and mark the related answers
-`unknown`. Do not open any other page.
+**3. If you stayed: read the whole page.** Then answer the page questions. For anything
+you point to, quote the exact wording and say where on the page it sits — `top` (visible
+before scrolling), `middle`, or `bottom`.
+
+**4. If you stayed: click the page's primary next-step button once** — the one named in
+the page brief. Look at what appears: a form, a page, a chat, a calendar. Describe what it
+actually asks of you and whether it matches what the button led you to expect. **Do not
+fill in or submit anything, do not log in, do not book anything.** Then go no further. If
+the button leads somewhere you cannot see or the page fails to load, say so and mark the
+related answers `unknown`. Do not open any other page.
 
 **5. Decide what you would actually do next, then save your answers.**
 
@@ -56,7 +63,7 @@ Save to `/app/output/page_audit.json`:
   "first_screen_takeaway": "<from the first screen only: what you think this company or product does, in your words>",
   "would_continue": "<yes or no — would you keep reading after the first screen>",
   "would_continue_reason": "<why, naming what on the first screen decided it>",
-  "left_early": <true or false — true if you stopped after the first screen and did not read on>,
+  "left_early": <true or false — true if you went after the first screen and did not read on>,
 
   "what_it_does": "<after reading everything: what this company or product does, for whom, in your words>",
   "problems_recognised": ["<your own work problems that this page speaks to, one per entry — empty list if none>"],
@@ -77,9 +84,11 @@ Save to `/app/output/page_audit.json`:
   "language_relevance": <1-5>,
   "practical_value": <1-5>,
   "trust": <1-5>,
-  "trust_form_today": "<yes or no: would you type your name, company and phone number into this site's contact or trial form today?>",
+  "trust_email_guide": "<yes or no: would you give your work email address to get a guide or price indication from them this week?>",
+  "trust_callback": "<yes or no: would you ask them to call you back this week?>",
+  "trust_demo_week": "<yes or no: would you book a 30-minute demo with them this week?>",
+  "trust_pilot_data": "<yes or no: would you run a pilot on your own company's live data this month?>",
   "trust_claim_unchecked": "<yes or no: would you accept the proof claim named in the page brief as true without checking it anywhere else?>",
-  "trust_recommend": "<yes or no: after this one visit, would you mention this supplier to a colleague as worth a look?>",
   "next_step_confidence": <1-5>,
   "next_step_ease": <1-5, or "unknown" if you did not inspect the button>,
 
@@ -118,10 +127,6 @@ to real behaviour:
 - **trust** — 1: I would not share my data with them. 3: a credible company, but the
   claims are unproven for my case. 5: I would put my own operation on it without asking
   for references.
-- The three `trust_*` questions are about what you would actually do today, from your own
-  situation and from how you treat suppliers' claims in general — not about how the page
-  looks. Answer `yes` only if you really would. Answer them on an early exit too, from what
-  you saw on the first screen.
 - **next_step_confidence** — 1: no idea what I should do next or what would happen.
   3: I see a button but not what follows. 5: I know exactly what happens after clicking,
   and it suits me.
@@ -134,18 +139,26 @@ to real behaviour:
   your situation actually is. Someone with a deadline and no system may well reach out;
   someone with time and a working setup may not. Let your own situation decide.
 
+## The five `trust_*` questions
+
+They are about what you would actually do, not about how the page looks. The first four
+are a ladder of commitments, each costing you more than the one before: your email (spam,
+being on a list), a call-back (a sales conversation), a demo (half an hour, colleagues
+seeing it), a pilot (your own operation and data). Say `yes` only to what you would really
+do this week or this month, given how pressing your situation is and how you usually treat
+suppliers' claims. Someone who came to log in, or who did not come to evaluate a supplier
+at all, will usually answer `no` to all four — that is the correct answer for them. The
+fifth question is about belief: would you take the named proof claim at face value.
+Answer all five on an early exit too, from what you saw on the first screen.
+
 ## Requirements
 
 - Quote wording exactly as it appears on the page, in Swedish, inside the JSON string.
   Do not paraphrase a quote. Lists of quotes may be empty, but must not contain invented
   text.
-- On an early exit (`left_early: true`) the required answers are `self_briefing`,
-  `arrived_with`, the three first-screen fields, `understanding`, `trust_form_today`,
-  `trust_claim_unchecked`, `trust_recommend`, `next_step`,
-  `basis_primary`, `trust_action`, `contact_likelihood`, `reason`, and
-  `improvement_suggestion` (what on the first screen would have kept you reading).
-  Everything else may be `unknown` or an empty list. Do not invent answers about parts
-  of the page you did not read.
+- On an early exit (`left_early: true`) the required answers are the exit form listed in
+  step 2. Everything else may be `unknown` or an empty list. Do not invent answers about
+  parts of the page you did not read.
 - `arrived_with` reflects your profile, not the page. If you are exploring, say
   `exploring` even if the page shows problems you could have; say `specific_problem`
   only if you actually came with one today; `existing_customer` if your company already
