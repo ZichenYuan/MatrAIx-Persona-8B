@@ -1,6 +1,6 @@
 import type { HarborCockpitTaskKind } from "@/lib/harborCockpitMappers";
 import type { TaskPersonaStrategy } from "@/lib/types";
-import { PERSONA_BENCH_POOL, PERSONA_CARD_PREVIEW_LIMIT, PERSONA_UI_ID_LIST_MAX } from "@/lib/types";
+import { PERSONA_BENCH_POOL, PERSONA_CARD_PREVIEW_LIMIT } from "@/lib/types";
 
 import { readCockpitBatch } from "./cockpitBatchStorage";
 import {
