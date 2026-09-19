@@ -170,6 +170,9 @@ def build_job_aggregation(
     reporting_cache: dict[str, dict[str, Any]] = {}
     stratify_cache: dict[str, list[str]] = {}
     stratify_fields: list[str] = []
+    # Optional reporting.json ``personaDimensions`` allow-list (see
+    # _reporting_persona_dimension_allowlist); captured from the first task that sets it.
+    persona_dimension_allowlist: list[str] = []
     persona_profile_cache: dict[str, dict[str, Any]] = {}
     persona_dimensions_by_id: dict[str, dict[str, Any]] = {}
     trial_count = len(trial_dirs)
@@ -216,6 +219,10 @@ def build_job_aggregation(
             repo_root=repo_root,
             cache=reporting_cache,
         )
+        if not persona_dimension_allowlist:
+            persona_dimension_allowlist = _reporting_persona_dimension_allowlist(
+                reporting_config.get("personaDimensions")
+            )
         for dimension in _load_task_stratify_fields(
             trial_dir=trial_dir,
             repo_root=repo_root,
@@ -358,6 +365,16 @@ def build_job_aggregation(
         stratify_fields = overlay_ids + [
             field for field in stratify_fields if field not in overlay_labels
         ]
+    if persona_dimension_allowlist:
+        # A task that declares personaDimensions gets Persona insights crossed only by
+        # those: default card axes, and the explorer picker, which derives its keys
+        # from the persona dimension maps.
+        allowed = set(persona_dimension_allowlist)
+        stratify_fields = [field for field in stratify_fields if field in allowed]
+        persona_dimensions_by_id = {
+            persona_id: {key: value for key, value in dims.items() if key in allowed}
+            for persona_id, dims in persona_dimensions_by_id.items()
+        }
     contexts = [
         _aggregate_context(
             meta=context_meta[key],
@@ -1544,6 +1561,25 @@ PERSONA_DISTRIBUTION_MAX_CARDINALITY = 8
 PERSONA_DISTRIBUTION_SKIP_LEAVES = frozenset(
     {"task_author", "verifier_mode", "task_goal_label"}
 )
+
+
+def _reporting_persona_dimension_allowlist(raw: Any) -> list[str]:
+    """Persona dimensions a task allows Persona insights to cross by.
+
+    Declared as a top-level ``personaDimensions`` list in ``reporting.json``. When
+    absent or empty, every dimension in the cohort is eligible (the default). When
+    set, only the listed dimensions are used for default cards whose axis is not
+    explicit and for the interactive explorer, so a study can keep the report to
+    the segmentations it actually asks questions about.
+    """
+    if not isinstance(raw, list):
+        return []
+    out: list[str] = []
+    for item in raw:
+        key = str(item).strip()
+        if key and key not in out:
+            out.append(key)
+    return out
 
 
 def _persona_dimension_keys(persona_dimensions: dict[str, dict[str, Any]]) -> list[str]:

@@ -57,7 +57,6 @@ Save to `/app/output/page_audit.json`:
   "arrived_with": "<one of: specific_problem, exploring — the reason for today's visit from your own profile; write only the option, no explanation>",
 
   "first_screen_takeaway": "<from the first screen only: what you think this company or product does, in your words>",
-  "first_screen_expectation_match": <1-5, how well the first screen matched what you expected to find here>,
   "would_continue": "<yes or no — would you keep reading after the first screen>",
   "would_continue_reason": "<why, naming what on the first screen decided it>",
 
@@ -70,8 +69,6 @@ Save to `/app/output/page_audit.json`:
   "confusing_or_missing": [
     {"what": "<the thing, quoting wording if there is any>", "where": "<top | middle | bottom>", "kind": "<confusing | missing | unconvincing | irrelevant>"}
   ],
-  "dead_click_candidates": ["<things you tried to click, or expected to be clickable, that did nothing — empty list if none>"],
-  "attention_stop_point": "<top | middle | bottom | read_all — NOT how far you read for this review, but how far the real you, with your real time pressure, would have read before deciding to act or leave: top = the first screen only, middle = about halfway, bottom = nearly to the end, read_all = every section carefully>",
   "strongest_element": "<the one thing that worked best for you — name the actual element and quote it if it has wording>",
   "strongest_position": "<top | middle | bottom>",
   "weakest_element": "<the one thing that worked worst for you — name the actual element>",
@@ -126,8 +123,7 @@ to real behaviour:
 - **next_step_ease** — 1: the step is unclear, demanding or off-putting. 3: doable, with
   some friction or uncertainty. 5: quick and obvious, nothing in the way. `unknown` if you
   did not inspect it.
-- **first_screen_expectation_match** and **cta_match** — 1: nothing like what I expected.
-  3: partly. 5: exactly what I expected.
+- **cta_match** — 1: nothing like what I expected. 3: partly. 5: exactly what I expected.
 - **contact_likelihood** is about your own next week, not how good the page is. Contacting
   them costs you a sales conversation and follow-up calls; weigh that against how pressing
   your situation actually is. Someone with a deadline and no system may well reach out;
@@ -141,8 +137,6 @@ to real behaviour:
 - `arrived_with` reflects your profile, not the page. If you are exploring, say
   `exploring` even if the page shows problems you could have; say `specific_problem`
   only if you actually came with one today.
-- `attention_stop_point` is a counterfactual. For this task you read the whole page;
-  the real you, on a real visit, usually would not. Answer for the real visit.
 - `next_step` must be one of the options listed in the page brief for this page, and must
   be what you would actually do today. `learn_more`, `come_back_later` and `leave` are
   all valid, and `leave` is right if the page does not give you what you need.

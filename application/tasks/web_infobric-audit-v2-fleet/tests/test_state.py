@@ -1,19 +1,27 @@
 """Verifier — Infobric page audit v2.
 
-Validity gate plus facet emission for one page of infobric.com, reviewed as a
+Validity gate plus two output files for one page of infobric.com, reviewed as a
 standalone entry point with a single click on the page's primary next-step button.
 Design: docs/superpowers/specs/2026-09-18-infobric-audit-v2-design.md.
 
-Deterministic on purpose: no model calls. Two inputs besides the artifact:
+Two files, two audiences:
 
-- `/app/input/inventory.json` — the page's hand-checked ground truth (CTA labels and
-  target, exact claim strings, which next_step options exist and which count as a
-  conversion, a visible-text snapshot). Quoted wording is checked against the snapshot
-  so the report can label it "visible on the site" rather than "plausible".
-- `/app/input/persona.yaml` — uploaded by the persona agent; used only for fidelity
-  checks (does `arrived_with` match the persona's `visit_intent`).
+- ``structured_output.json`` — what the partner report renders. Only facets that map to
+  a section of the partner's brief: the six dimensions (1-5), whether the first screen
+  kept them reading, how well the button matched its expectation, the next step and
+  what they would need before going further, and four composite texts the report's
+  summaries are written from. Chartable facets are kept to a dozen on purpose: the
+  report crosses every chartable facet with every persona dimension it is allowed to.
+- ``quality.json`` — everything about whether the simulation behaved: grounding of
+  quoted wording against the page inventory, CTA label and destination checks,
+  persona fidelity (self-briefing vs profile), instrument version, variant, JSON
+  health, and a copy of every raw score. Read by the ablation tooling, never by the
+  report.
 
-Paths come from the environment so the same code runs on the host in unit tests.
+Deterministic on purpose: no model calls. Inputs besides the artifact:
+``/app/input/inventory.json`` (hand-checked page ground truth) and
+``/app/input/persona.yaml`` (uploaded by the persona agent). Paths come from the
+environment so the same code runs on the host in unit tests.
 """
 from __future__ import annotations
 
@@ -22,7 +30,7 @@ import os
 import re
 from pathlib import Path
 
-INSTRUMENT_VERSION = "2.0"
+INSTRUMENT_VERSION = "2.1"
 
 OUTPUT = Path(os.environ.get("AUDIT_OUTPUT", "/app/output/page_audit.json"))
 INPUT_DIR = Path(os.environ.get("AUDIT_INPUT_DIR", "/app/input"))
@@ -31,7 +39,6 @@ PERSONA = INPUT_DIR / "persona.yaml"
 VARIANT_FILE = INPUT_DIR / "variant.txt"
 
 POSITIONS = {"top", "middle", "bottom"}
-STOP_POINTS = {"top", "middle", "bottom", "read_all"}
 KINDS = {"confusing", "missing", "unconvincing", "irrelevant"}
 ARRIVED = {"specific_problem", "exploring"}
 YES_NO = {"yes", "no"}
@@ -54,8 +61,7 @@ _ALIASES = {
     "problem": "specific_problem", "specific": "specific_problem", "explore": "exploring",
     "browsing": "exploring", "true": "yes", "false": "no",
     "above_the_fold": "top", "hero": "top", "header": "top", "mid": "middle", "footer": "bottom",
-    "end": "bottom", "all": "read_all", "everything": "read_all", "whole_page": "read_all",
-    "unclear": "confusing", "absent": "missing", "not_convincing": "unconvincing",
+    "end": "bottom", "unclear": "confusing", "absent": "missing", "not_convincing": "unconvincing",
     "pricing": "price", "prices": "price", "cost": "price", "integration": "integrations",
     "setup": "setup_time", "privacy": "data_privacy", "gdpr": "data_privacy",
     "contract": "contract_terms", "terms": "contract_terms", "customer_references": "references",
@@ -65,6 +71,12 @@ _ALIASES = {
     "references_first": "need_references_first", "pilot_first": "need_pilot_first",
     "share_now": "share_data_now", "would_not": "would_not_proceed",
 }
+# Last-resort keyword mapping, checked in order, only within the allowed set.
+_KEYWORDS = (
+    ("specific", "specific_problem"), ("problem", "specific_problem"), ("explor", "exploring"),
+    ("would not", "would_not_proceed"), ("reference", "need_references_first"),
+    ("pilot", "need_pilot_first"), ("trial", "need_pilot_first"), ("share", "share_data_now"),
+)
 
 
 # --------------------------------------------------------------------------- helpers
@@ -84,9 +96,7 @@ def _load_json_lenient(path: Path) -> tuple[dict, str]:
 
 
 def _inventory() -> dict:
-    if not INVENTORY.is_file():
-        return {}
-    return json.loads(INVENTORY.read_text(encoding="utf-8"))
+    return json.loads(INVENTORY.read_text(encoding="utf-8")) if INVENTORY.is_file() else {}
 
 
 def _persona_field(key: str) -> str | None:
@@ -98,8 +108,8 @@ def _persona_field(key: str) -> str | None:
 
 def _canon(raw: object, allowed: set[str]) -> str | None:
     """Map a model-written value onto an enum. Models often append an explanation
-    ("specific_problem — I need…", "learn_more: because…"), so the value is also tried
-    as the text before the first separator, and finally by keyword."""
+    ("specific_problem — I need…"), so the value is also tried as the text before the
+    first separator, and finally by keyword."""
     text = str(raw or "").strip().lower()
     head = re.split(r"\s*[—–:;,(]\s*|\s+-\s+|\s{2,}", text, maxsplit=1)[0]
     for piece in (text, head, head.split()[0] if head.split() else ""):
@@ -113,15 +123,6 @@ def _canon(raw: object, allowed: set[str]) -> str | None:
         if keyword in text and value in allowed:
             return value
     return None
-
-
-# Last-resort keyword mapping, checked in order, only within the allowed set.
-_KEYWORDS = (
-    ("specific", "specific_problem"), ("problem", "specific_problem"), ("explor", "exploring"),
-    ("read_all", "read_all"), ("whole", "read_all"), ("entire", "read_all"),
-    ("would not", "would_not_proceed"), ("reference", "need_references_first"), ("pilot", "need_pilot_first"),
-    ("trial", "need_pilot_first"), ("share", "share_data_now"),
-)
 
 
 def _string(data: dict, key: str, max_len: int = 3000) -> str:
@@ -190,8 +191,7 @@ def _grounded(quote: str, snapshot: str) -> bool:
 
 def _grounding(quotes: list[str], snapshot: str) -> tuple[int, int, list[str]]:
     hits = [q for q in quotes if _grounded(q, snapshot)]
-    misses = [q[:80] for q in quotes if q not in hits]
-    return len(hits), len(quotes), misses
+    return len(hits), len(quotes), [q[:80] for q in quotes if q not in hits]
 
 
 def _facet(key: str, label: str, role: str, kind: str, value, explains: str | None = None) -> dict:
@@ -201,8 +201,8 @@ def _facet(key: str, label: str, role: str, kind: str, value, explains: str | No
     return out
 
 
-def _join(items: list[str], empty: str = "none") -> str:
-    return " | ".join(items) if items else empty
+def _bullets(items: list[str]) -> str:
+    return "\n".join(f"- {item}" for item in items) if items else "- none"
 
 
 # --------------------------------------------------------------------------- tests
@@ -219,18 +219,14 @@ def test_output_schema() -> None:
     snapshot = _norm(str(inv.get("text_snapshot") or ""))
     available = set(inv.get("available_next_steps") or ALL_NEXT_STEPS)
     conversions = set(inv.get("conversion_next_steps") or [])
-    cta_labels = [str(inv.get("primary_cta", {}).get("label") or "")] + [
-        str(c.get("label") or "") for c in inv.get("secondary_ctas") or []
-    ]
-    cta_labels = [_norm(c) for c in cta_labels if c]
-    cta_fragments = [str(inv.get("primary_cta", {}).get("url_fragment") or "")] + [
-        str(c.get("url_fragment") or "") for c in inv.get("secondary_ctas") or []
-    ]
-    cta_fragments = [f for f in cta_fragments if f]
+    cta_labels = [_norm(c) for c in [str(inv.get("primary_cta", {}).get("label") or "")]
+                  + [str(c.get("label") or "") for c in inv.get("secondary_ctas") or []] if c]
+    cta_fragments = [f for f in [str(inv.get("primary_cta", {}).get("url_fragment") or "")]
+                     + [str(c.get("url_fragment") or "") for c in inv.get("secondary_ctas") or []] if f]
     unmapped: list[str] = []
     variant = VARIANT_FILE.read_text(encoding="utf-8").strip() if VARIANT_FILE.is_file() else "full"
 
-    # --- A. self-briefing -----------------------------------------------------
+    # --- A. self-briefing (fidelity; never fails the trial) ---------------------
     self_briefing = _string(data, "self_briefing")
     intent = (_persona_field("visit_intent") or "").lower()
     persona_arrived = (
@@ -239,14 +235,12 @@ def test_output_schema() -> None:
     )
     arrived = _canon(data.get("arrived_with"), ARRIVED)
     if arrived is None:
-        # A fidelity field, not a validity gate: record the miss, do not fail the trial.
         unmapped.append(f"arrived_with:{str(data.get('arrived_with'))[:60]}")
         arrived = persona_arrived or "exploring"
     arrived_matches = "n/a" if persona_arrived is None else ("true" if persona_arrived == arrived else "false")
 
     # --- B. first screen ------------------------------------------------------
     first_takeaway = _string(data, "first_screen_takeaway")
-    first_match = _score(data, "first_screen_expectation_match")
     would_continue = _canon(data.get("would_continue"), YES_NO)
     assert would_continue, "would_continue must be yes or no"
     would_continue_reason = _string(data, "would_continue_reason")
@@ -265,12 +259,11 @@ def test_output_schema() -> None:
         if isinstance(item, str):
             item = {"what": item, "where": "unknown", "kind": "confusing"}
         assert isinstance(item, dict) and str(item.get("what", "")).strip(), "confusing_or_missing entries need 'what'"
-        kind = _canon(item.get("kind"), KINDS) or "confusing"
-        where = _canon(item.get("where"), POSITIONS) or "unknown"
-        confusing.append({"what": str(item["what"]).strip()[:300], "where": where, "kind": kind})
-    dead = _str_list(data, "dead_click_candidates")
-    stop = _canon(data.get("attention_stop_point"), STOP_POINTS)
-    assert stop, f"attention_stop_point must be one of {sorted(STOP_POINTS)}"
+        confusing.append({
+            "what": str(item["what"]).strip()[:300],
+            "where": _canon(item.get("where"), POSITIONS) or "unknown",
+            "kind": _canon(item.get("kind"), KINDS) or "confusing",
+        })
     strongest = _string(data, "strongest_element")
     strongest_pos = _canon(data.get("strongest_position"), POSITIONS) or "unknown"
     weakest = _string(data, "weakest_element")
@@ -316,21 +309,49 @@ def test_output_schema() -> None:
     c_hit, c_tot, c_miss = _grounding(credible + need_proof, snapshot)
     p_hit, p_tot, p_miss = _grounding(familiar + off, snapshot)
 
+    # --- composite texts: the report's four summaries are written from these ----
+    takeaway_text = (
+        f"First screen: {first_takeaway}\n"
+        f"Would keep reading after the first screen: {would_continue} — {would_continue_reason}\n"
+        f"After reading everything: {what_it_does}\n"
+        f"Own problems recognised:\n{_bullets(problems)}\n"
+        f"Next step: {next_step}. Would need before going further: {trust_action}. Why: {reason}"
+    )
+    findings_text = (
+        "Confusing, missing, unconvincing or irrelevant [position/kind]:\n"
+        + _bullets([f"[{c['where']}/{c['kind']}] {c['what']}" for c in confusing])
+        + "\nClaims that need proof (quoted):\n" + _bullets(need_proof)
+        + "\nClaims found credible (quoted):\n" + _bullets(credible)
+        + "\nWording that felt written for someone else (quoted):\n" + _bullets(off)
+        + "\nWording that felt familiar (quoted):\n" + _bullets(familiar)
+        + f"\nMissing information: {', '.join(missing) or 'nothing named'}"
+        + f"\nWeakest element [{weakest_pos}]: {weakest}"
+        + f"\nWhat would cause hesitation or leaving: {hesitate}"
+    )
+    cta_text = (
+        f"Button seen: «{cta_seen}». Expected before clicking: {cta_expectation}\n"
+        + (f"Clicked and inspected: yes. Reached: {cta_url}\nWhat followed: {cta_reality}\n"
+           f"The form asks for: {', '.join(form_asks) or 'no form seen'}"
+           if cta_inspected else "Clicked and inspected: no — not assessed (unknown).")
+    )
+    changes_text = (
+        f"Change: {improvement}\nHow to check whether it helped: {improvement_check}\n"
+        f"Keep: {retain}\nStrongest element [{strongest_pos}]: {strongest}"
+    )
+
     contexts = [
         {
             "key": "decision.primary",
             "label": "Next step after the page",
             "contextType": "decision",
             "facets": [
-                _facet("decision_outcome", "Decision outcome", "primary", "categorical", next_step),
+                _facet("decision_outcome", "Next step", "primary", "categorical", next_step),
                 _facet("basis_primary", "Primary basis", "primary", "categorical", basis),
                 _facet("reason", "Reason", "explanation", "textual", reason, explains="decision_outcome"),
                 _facet("decision_subject_label", "Page", "evidence", "categorical", page_label),
                 _facet("decision_subject_id", "Page id", "evidence", "categorical", page_id),
-                _facet("converted", "Took a conversion step on this page", "primary", "categorical",
-                       "true" if next_step in conversions else "false"),
-                _facet("contact_likelihood", "Likelihood of contacting (1-5)", "score", "numerical", contact),
                 _facet("trust_action", "Needed before going further", "primary", "categorical", trust_action),
+                _facet("contact_likelihood", "Likelihood of contacting (1-5)", "score", "numerical", contact),
             ],
         },
         {
@@ -338,12 +359,8 @@ def test_output_schema() -> None:
             "label": "First screen, before scrolling",
             "contextType": "first_impression",
             "facets": [
-                _facet("first_screen_expectation_match", "First screen matched expectation (1-5)", "score",
-                       "numerical", first_match),
                 _facet("would_continue", "Would keep reading after the first screen", "primary", "categorical",
                        would_continue),
-                _facet("first_screen_takeaway", "What the first screen said it was", "evidence", "textual",
-                       first_takeaway),
                 _facet("would_continue_reason", "Why", "explanation", "textual", would_continue_reason,
                        explains="would_continue"),
             ],
@@ -353,7 +370,6 @@ def test_output_schema() -> None:
             "label": f"Page audit: {page_label}",
             "contextType": "page_audit",
             "facets": [
-                _facet("page_id", "Page", "primary", "categorical", page_id),
                 _facet("understanding", "Understanding (1-5)", "score", "numerical", scores["understanding"]),
                 _facet("language_relevance", "Language and relevance (1-5)", "score", "numerical",
                        scores["language_relevance"]),
@@ -364,26 +380,9 @@ def test_output_schema() -> None:
                        scores["next_step_confidence"]),
                 _facet("next_step_ease", "Ease of completing the next step (1-5)", "score",
                        "numerical" if ease != "unknown" else "categorical", ease),
-                _facet("attention_stop_point", "Where a real visit would stop reading", "primary", "categorical", stop),
-                _facet("what_it_does", "What it does, in the persona's words", "evidence", "textual", what_it_does),
-                _facet("claims_quoted", "Claims quoted", "score", "numerical", c_tot),
-                _facet("claims_grounded", "Claims found on the page", "score", "numerical", c_hit),
-                _facet("claims_grounded_share", "Share of quoted claims found on the page", "score", "numerical",
-                       round(c_hit / c_tot, 3) if c_tot else 0.0),
-                _facet("phrases_quoted", "Phrases quoted", "score", "numerical", p_tot),
-                _facet("phrases_grounded", "Phrases found on the page", "score", "numerical", p_hit),
-                _facet("ungrounded_quotes", "Quotes not found on the page", "evidence", "textual",
-                       _join(c_miss + p_miss)),
-                _facet("dead_click_count", "Dead-click candidates named", "score", "numerical", len(dead)),
-                _facet("confusing_or_missing_count", "Confusing / missing items named", "score", "numerical",
-                       len(confusing)),
-                _facet("missing_info", "Missing info", "evidence", "categorical", ", ".join(missing) or "nothing"),
-                _facet("unmapped_values", "Values needing canonicalisation", "evidence", "categorical",
-                       ", ".join(unmapped) or "none"),
-                _facet("json_health", "Artifact JSON health", "evidence", "categorical", json_health),
-                _facet("instrument_version", "Instrument version", "evidence", "categorical", INSTRUMENT_VERSION),
-                _facet("variant", "Task variant", "evidence", "categorical", variant),
-                _facet("device_reviewed", "Device reviewed", "evidence", "categorical", "desktop"),
+                _facet("takeaway_text", "What they understood and would do next", "explanation", "textual",
+                       takeaway_text),
+                _facet("findings_text", "Findings, with exact wording", "explanation", "textual", findings_text),
             ],
         },
         {
@@ -391,17 +390,9 @@ def test_output_schema() -> None:
             "label": "The primary next-step button",
             "contextType": "cta_followthrough",
             "facets": [
-                _facet("primary_cta_seen", "Button label seen", "evidence", "categorical", cta_seen[:80]),
-                _facet("cta_label_grounded", "Button label is a real CTA on the page", "evidence", "categorical",
-                       cta_label_grounded),
-                _facet("cta_inspected", "Button was clicked and inspected", "primary", "categorical",
-                       "true" if cta_inspected else "false"),
-                _facet("cta_url_ok", "Click reached the expected destination", "evidence", "categorical", cta_url_ok),
                 _facet("cta_match", "What followed matched expectation (1-5)", "score",
                        "numerical" if cta_match != "unknown" else "categorical", cta_match),
-                _facet("cta_expectation", "Expected before clicking", "explanation", "textual", cta_expectation),
-                _facet("cta_reality", "What actually followed", "evidence", "textual", cta_reality),
-                _facet("form_asks_for", "What the form asks for", "evidence", "textual", _join(form_asks)),
+                _facet("cta_text", "Expectation vs what followed", "explanation", "textual", cta_text),
             ],
         },
         {
@@ -409,38 +400,8 @@ def test_output_schema() -> None:
             "label": f"How to improve: {page_label}",
             "contextType": "page_improvement",
             "facets": [
-                _facet("improvement_suggestion", "Suggested change", "explanation", "textual", improvement),
-                _facet("improvement_check", "How to check whether it helped", "explanation", "textual",
-                       improvement_check, explains="improvement_suggestion"),
-                _facet("retain", "What works and should be kept", "evidence", "textual", retain),
-                _facet("strongest_element", "Strongest element", "evidence", "textual",
-                       f"[{strongest_pos}] {strongest}"),
-                _facet("weakest_element", "Weakest element", "evidence", "textual", f"[{weakest_pos}] {weakest}"),
-                _facet("hesitate_or_leave_reason", "What would cause hesitation or leaving", "explanation",
-                       "textual", hesitate),
-                _facet("problems_recognised", "Own problems recognised on the page", "evidence", "textual",
-                       _join(problems)),
-                _facet("claims_need_proof", "Claims needing proof (quoted)", "evidence", "textual",
-                       _join(need_proof)),
-                _facet("claims_credible", "Claims found credible (quoted)", "evidence", "textual", _join(credible)),
-                _facet("language_felt_familiar", "Wording that felt familiar (quoted)", "evidence", "textual",
-                       _join(familiar)),
-                _facet("language_felt_off", "Wording that felt off (quoted)", "evidence", "textual", _join(off)),
-                _facet("confusing_or_missing", "Confusing, missing, unconvincing or irrelevant", "evidence", "textual",
-                       _join([f"[{c['where']}/{c['kind']}] {c['what']}" for c in confusing])),
-                _facet("dead_click_candidates", "Tried to click, nothing happened", "evidence", "textual",
-                       _join(dead)),
-            ],
-        },
-        {
-            "key": "persona_fidelity.primary",
-            "label": "Did the persona come through",
-            "contextType": "persona_fidelity",
-            "facets": [
-                _facet("self_briefing", "Self-briefing", "evidence", "textual", self_briefing),
-                _facet("arrived_with", "Reason for the visit (self-reported)", "primary", "categorical", arrived),
-                _facet("arrived_with_matches_persona", "Matches the persona's visit_intent", "evidence",
-                       "categorical", arrived_matches),
+                _facet("changes_text", "What to change, how to check, what to keep", "explanation", "textual",
+                       changes_text),
             ],
         },
         {
@@ -459,7 +420,8 @@ def test_output_schema() -> None:
         },
     ]
 
-    (_verifier_dir() / "structured_output.json").write_text(
+    out_dir = _verifier_dir()
+    (out_dir / "structured_output.json").write_text(
         json.dumps(
             {
                 "schemaVersion": "1.0",
@@ -469,8 +431,60 @@ def test_output_schema() -> None:
                 "sourceArtifacts": {"taskOutput": str(OUTPUT)},
                 "contexts": contexts,
             },
-            ensure_ascii=False,
-            indent=2,
+            ensure_ascii=False, indent=2,
+        ),
+        encoding="utf-8",
+    )
+
+    # Quality / ablation layer. Never rendered by the partner report.
+    (out_dir / "quality.json").write_text(
+        json.dumps(
+            {
+                "schemaVersion": "1.0",
+                "artifactType": "matraix.audit_quality",
+                "instrument_version": INSTRUMENT_VERSION,
+                "variant": variant,
+                "device_reviewed": "desktop",
+                "page_id": page_id,
+                "json_health": json_health,
+                "unmapped_values": unmapped,
+                "persona": {
+                    "display_name": _persona_field("display_name"),
+                    "audience_group": _persona_field("audience_group"),
+                    "tier": _persona_field("tier"),
+                    "visit_intent": _persona_field("visit_intent"),
+                    "infobric_familiarity": _persona_field("infobric_familiarity"),
+                },
+                "fidelity": {
+                    "self_briefing": self_briefing,
+                    "arrived_with": arrived,
+                    "persona_arrived_with": persona_arrived,
+                    "arrived_with_matches_persona": arrived_matches,
+                },
+                "grounding": {
+                    "claims_quoted": c_tot, "claims_grounded": c_hit,
+                    "claims_grounded_share": round(c_hit / c_tot, 3) if c_tot else None,
+                    "phrases_quoted": p_tot, "phrases_grounded": p_hit,
+                    "phrases_grounded_share": round(p_hit / p_tot, 3) if p_tot else None,
+                    "ungrounded_quotes": c_miss + p_miss,
+                },
+                "cta": {
+                    "primary_cta_seen": cta_seen, "cta_label_grounded": cta_label_grounded,
+                    "cta_inspected": cta_inspected, "cta_page_url": cta_url, "cta_url_ok": cta_url_ok,
+                },
+                "scores_in_browse": {**scores, "next_step_ease": ease, "cta_match": cta_match,
+                                     "contact_likelihood": contact},
+                "decision": {"next_step": next_step, "converted": next_step in conversions,
+                             "basis_primary": basis, "trust_action": trust_action},
+                "counts": {"confusing_or_missing": len(confusing), "problems_recognised": len(problems),
+                           "claims_need_proof": len(need_proof), "claims_credible": len(credible),
+                           "language_felt_off": len(off), "language_felt_familiar": len(familiar),
+                           "form_asks_for": len(form_asks)},
+                "missing_info": missing,
+                "positions": {"strongest": strongest_pos, "weakest": weakest_pos,
+                              "confusing_or_missing": [c["where"] for c in confusing]},
+            },
+            ensure_ascii=False, indent=2,
         ),
         encoding="utf-8",
     )

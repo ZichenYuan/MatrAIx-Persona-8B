@@ -1,6 +1,6 @@
 # Infobric page audit v2 — design
 
-Date: 2026-09-18 · Branch: `audit-v2` (from `real-partner`) · Status: approved in discussion, homepage built first
+Date: 2026-09-18, revised 2026-09-19 · Branch: `audit-v2` (from `real-partner`) · Status: all five pages built; report slimmed after the first smoke (§13)
 
 ## 1. Goal
 
@@ -204,3 +204,32 @@ Mobile not simulated. Form submission, confirmation and follow-up are never exer
 (`unknown`). Personas are first-time visitors; Hyrma's real traffic is 61% returning, so
 its analytics are not a clean baseline. Ratings collected in-browse are expected to be
 compressed; the scored values are the reported ones.
+
+## 13. Revision after the first smoke (2026-09-19)
+
+The first six-trial report was overwhelming: 70 facets per trial, 550 persona-insight
+cards and a second questionnaire on a 1–10 scale. Four changes, all implemented:
+
+1. **One questionnaire, one scale.** `input/self_report_schema.yaml` (a generic post-run
+   form on 1–10, inherited from the v1 task) is removed; the Playground skips the step
+   when the file is absent. Everything is 1–5.
+2. **Two output files.** `structured_output.json` carries only what maps to a section
+   of the partner's brief (six dimensions, `would_continue`, `cta_match`, `next_step`,
+   `trust_action`, `contact_likelihood`, the contract facets, and four composite texts
+   — `takeaway_text`, `findings_text`, `cta_text`, `changes_text` — that the four report
+   summaries are written from). `quality.json` carries the ablation layer: grounding,
+   CTA checks, persona fidelity, instrument version, variant, JSON health, raw scores.
+   The report never reads it. Result on the same six trials: 63 → 24 facets, 37 → 15
+   chartable.
+3. **Questionnaire cuts.** `dead_click_candidates` (the agent cannot experience dead
+   clicks), `attention_stop_point` (uniform; the skim variant is the honest signal),
+   `first_screen_expectation_match` (redundant with `would_continue` + reason). 
+   `arrived_with` stays in the questionnaire as a fidelity check but is no longer a
+   report facet (the persona's own `visit_intent` gives that cut).
+4. **Playground: `personaDimensions` allow-list in `reporting.json`.** Persona insights
+   crosses only the listed dimensions (`audience_group`, `tier`, `visit_intent`,
+   `infobric_familiarity`); cards are pinned to `audience_group`. Backwards-compatible:
+   tasks that do not declare it are unchanged. On the same six trials: 550 → 11 cards,
+   47,644 → 84 explorer options.
+
+Paired re-probe after the self-briefing edit: persona fidelity 5/5 (was 3/6).
