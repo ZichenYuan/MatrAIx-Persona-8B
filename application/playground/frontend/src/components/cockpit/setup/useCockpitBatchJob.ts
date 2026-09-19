@@ -150,7 +150,9 @@ export function useCockpitBatchJob(
     if (!batchJobName || cancelBusy || batchCancelled) return;
     setCancelBusy(true);
     try {
-      await api.deleteHarborJob(batchJobName);
+      // Cancel, never delete: finished trials stay on disk. (The single-run cockpit
+      // was fixed earlier; this batch path still called DELETE and lost a run.)
+      await api.cancelHarborJob(batchJobName);
       // Keep batchJobName so rails stay locked until Reset (same as done/failed).
       setBatchCancelled(true);
     } finally {

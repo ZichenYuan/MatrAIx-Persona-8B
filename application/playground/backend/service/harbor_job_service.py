@@ -570,7 +570,7 @@ class HarborJobService:
         if not self.jobs_dir.is_dir():
             return []
         return sorted(
-            [d.name for d in self.jobs_dir.iterdir() if d.is_dir()],
+            [d.name for d in self.jobs_dir.iterdir() if d.is_dir() and not d.name.startswith(".")],
             reverse=True,
         )
 
@@ -932,10 +932,17 @@ class HarborJobService:
         return summaries
 
     def delete_job(self, job_name: str) -> None:
+        """Remove a job from the Playground. The directory is *moved* to
+        ``jobs/.trash/<job>-<timestamp>`` rather than erased: a deleted batch can be
+        recovered by moving it back. Two 50-1,000 trial runs were lost to this
+        endpoint before it archived."""
         _validate_job_name(job_name)
         job_dir = self.jobs_dir / job_name
         if job_dir.is_dir():
-            shutil.rmtree(job_dir)
+            trash = self.jobs_dir / ".trash"
+            trash.mkdir(parents=True, exist_ok=True)
+            stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+            shutil.move(str(job_dir), str(trash / f"{job_name}-{stamp}"))
         else:
             with self._guard:
                 if job_name not in self._launches:
