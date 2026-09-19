@@ -1,16 +1,113 @@
 {
   "schemaVersion": "1.0",
-  "personaDimensions": ["audience_group", "tier", "visit_intent", "infobric_familiarity"],
+  "personaDimensions": [
+    "audience_group",
+    "tier",
+    "visit_intent",
+    "infobric_familiarity"
+  ],
   "contextRules": [
     {
-      "match": { "contextType": "page_audit" },
+      "match": {
+        "contextType": "page_audit"
+      },
       "distributions": [
-        { "id": "audit.understanding_by_audience", "facetKey": "understanding", "title": "Understanding (1-5)", "groupByPersonaDimensions": ["audience_group"] },
-        { "id": "audit.language_by_audience", "facetKey": "language_relevance", "title": "Language and relevance (1-5)", "groupByPersonaDimensions": ["audience_group"] },
-        { "id": "audit.value_by_audience", "facetKey": "practical_value", "title": "Perceived practical value (1-5)", "groupByPersonaDimensions": ["audience_group"] },
-        { "id": "audit.trust_by_audience", "facetKey": "trust", "title": "Trust (1-5)", "groupByPersonaDimensions": ["audience_group"] },
-        { "id": "audit.confidence_by_audience", "facetKey": "next_step_confidence", "title": "Confidence in the next step (1-5)", "groupByPersonaDimensions": ["audience_group"] },
-        { "id": "audit.ease_by_audience", "facetKey": "next_step_ease", "title": "Ease of completing the next step (1-5)", "groupByPersonaDimensions": ["audience_group"] }
+        {
+          "id": "audit.understanding_by_audience",
+          "facetKey": "understanding",
+          "title": "Understanding (1-5)",
+          "groupByPersonaDimensions": [
+            "audience_group"
+          ]
+        },
+        {
+          "id": "audit.language_by_audience",
+          "facetKey": "language_relevance",
+          "title": "Language and relevance (1-5)",
+          "groupByPersonaDimensions": [
+            "audience_group"
+          ]
+        },
+        {
+          "id": "audit.value_by_audience",
+          "facetKey": "practical_value",
+          "title": "Perceived practical value (1-5)",
+          "groupByPersonaDimensions": [
+            "audience_group"
+          ]
+        },
+        {
+          "id": "audit.trust_by_audience",
+          "facetKey": "trust",
+          "title": "Trust (1-5)",
+          "groupByPersonaDimensions": [
+            "audience_group"
+          ]
+        },
+        {
+          "id": "audit.confidence_by_audience",
+          "facetKey": "next_step_confidence",
+          "title": "Confidence in the next step (1-5)",
+          "groupByPersonaDimensions": [
+            "audience_group"
+          ]
+        },
+        {
+          "id": "audit.ease_by_audience",
+          "facetKey": "next_step_ease",
+          "title": "Ease of completing the next step (1-5)",
+          "groupByPersonaDimensions": [
+            "audience_group"
+          ]
+        },
+        {
+          "id": "audit.understanding_scored_by_audience",
+          "facetKey": "understanding_scored",
+          "title": "Understanding (1-5, scored after the visit)",
+          "groupByPersonaDimensions": [
+            "audience_group"
+          ]
+        },
+        {
+          "id": "audit.language_scored_by_audience",
+          "facetKey": "language_relevance_scored",
+          "title": "Language and relevance (1-5, scored after the visit)",
+          "groupByPersonaDimensions": [
+            "audience_group"
+          ]
+        },
+        {
+          "id": "audit.value_scored_by_audience",
+          "facetKey": "practical_value_scored",
+          "title": "Perceived practical value (1-5, scored after the visit)",
+          "groupByPersonaDimensions": [
+            "audience_group"
+          ]
+        },
+        {
+          "id": "audit.trust_scored_by_audience",
+          "facetKey": "trust_scored",
+          "title": "Trust (1-5, scored after the visit)",
+          "groupByPersonaDimensions": [
+            "audience_group"
+          ]
+        },
+        {
+          "id": "audit.confidence_scored_by_audience",
+          "facetKey": "next_step_confidence_scored",
+          "title": "Confidence in the next step (1-5, scored after the visit)",
+          "groupByPersonaDimensions": [
+            "audience_group"
+          ]
+        },
+        {
+          "id": "audit.ease_scored_by_audience",
+          "facetKey": "next_step_ease_scored",
+          "title": "Ease of completing the next step (1-5, scored after the visit)",
+          "groupByPersonaDimensions": [
+            "audience_group"
+          ]
+        }
       ],
       "summaryAnalyses": [
         {
@@ -32,16 +129,49 @@
       ]
     },
     {
-      "match": { "contextType": "first_impression" },
+      "match": {
+        "contextType": "first_impression"
+      },
       "distributions": [
-        { "id": "first.continue_by_audience", "facetKey": "would_continue", "title": "Would keep reading after the first screen", "groupByPersonaDimensions": ["audience_group"] },
-        { "id": "first.left_early_by_audience", "facetKey": "left_early", "title": "Left after the first screen (exit rate)", "groupByPersonaDimensions": ["audience_group"] }
+        {
+          "id": "first.continue_by_audience",
+          "facetKey": "would_continue",
+          "title": "Would keep reading after the first screen",
+          "groupByPersonaDimensions": [
+            "audience_group"
+          ]
+        },
+        {
+          "id": "first.left_early_by_audience",
+          "facetKey": "left_early",
+          "title": "Left after the first screen (exit rate)",
+          "groupByPersonaDimensions": [
+            "audience_group"
+          ]
+        }
       ]
     },
     {
-      "match": { "contextType": "cta_followthrough" },
+      "match": {
+        "contextType": "cta_followthrough"
+      },
       "distributions": [
-        { "id": "cta.match_by_audience", "facetKey": "cta_match", "title": "What followed the button matched expectation (1-5)", "groupByPersonaDimensions": ["audience_group"] }
+        {
+          "id": "cta.match_by_audience",
+          "facetKey": "cta_match",
+          "title": "What followed the button matched expectation (1-5)",
+          "groupByPersonaDimensions": [
+            "audience_group"
+          ]
+        },
+        {
+          "id": "cta.match_scored_by_audience",
+          "facetKey": "cta_match_scored",
+          "title": "What followed the button matched expectation (1-5, scored after the visit)",
+          "groupByPersonaDimensions": [
+            "audience_group"
+          ]
+        }
       ],
       "summaryAnalyses": [
         {
@@ -55,15 +185,48 @@
       ]
     },
     {
-      "match": { "contextType": "decision" },
+      "match": {
+        "contextType": "decision"
+      },
       "distributions": [
-        { "id": "decision.next_step_by_audience", "facetKey": "decision_outcome", "title": "Next step", "groupByPersonaDimensions": ["audience_group"] },
-        { "id": "decision.trust_action_by_audience", "facetKey": "trust_action", "title": "Needed before going further", "groupByPersonaDimensions": ["audience_group"] },
-        { "id": "decision.contact_likelihood_by_audience", "facetKey": "contact_likelihood", "title": "Likelihood of contacting within a week (1-5)", "groupByPersonaDimensions": ["audience_group"] }
+        {
+          "id": "decision.next_step_by_audience",
+          "facetKey": "decision_outcome",
+          "title": "Next step",
+          "groupByPersonaDimensions": [
+            "audience_group"
+          ]
+        },
+        {
+          "id": "decision.trust_action_by_audience",
+          "facetKey": "trust_action",
+          "title": "Needed before going further",
+          "groupByPersonaDimensions": [
+            "audience_group"
+          ]
+        },
+        {
+          "id": "decision.contact_likelihood_by_audience",
+          "facetKey": "contact_likelihood",
+          "title": "Likelihood of contacting within a week (1-5)",
+          "groupByPersonaDimensions": [
+            "audience_group"
+          ]
+        },
+        {
+          "id": "decision.contact_likelihood_scored_by_audience",
+          "facetKey": "contact_likelihood_scored",
+          "title": "Likelihood of contacting within a week (1-5, scored after the visit)",
+          "groupByPersonaDimensions": [
+            "audience_group"
+          ]
+        }
       ]
     },
     {
-      "match": { "contextType": "page_improvement" },
+      "match": {
+        "contextType": "page_improvement"
+      },
       "summaryAnalyses": [
         {
           "id": "improve.changes_by_audience",

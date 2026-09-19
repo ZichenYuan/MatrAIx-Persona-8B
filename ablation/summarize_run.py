@@ -49,6 +49,20 @@ def mean_sd(values: list[float]) -> tuple[float | None, float | None]:
     return statistics.mean(vals), (statistics.pstdev(vals) if len(vals) > 1 else 0.0)
 
 
+def eta_squared(values: list, groups: list) -> float | None:
+    """Share of variance in `values` explained by `groups` (one-way ANOVA η²)."""
+    pairs = [(float(v), str(g)) for v, g in zip(values, groups) if isinstance(v, (int, float)) and not isinstance(v, bool)]
+    if len(pairs) < 3:
+        return None
+    grand = statistics.mean(v for v, _ in pairs)
+    by: dict[str, list[float]] = collections.defaultdict(list)
+    for v, g in pairs:
+        by[g].append(v)
+    ss_between = sum(len(vs) * (statistics.mean(vs) - grand) ** 2 for vs in by.values())
+    ss_total = sum((v - grand) ** 2 for v, _ in pairs)
+    return ss_between / ss_total if ss_total else 0.0
+
+
 def pct(n: int, d: int) -> str:
     return f"{100 * n / d:.1f}%" if d else "n/a"
 
@@ -83,6 +97,7 @@ def flatten(q: dict) -> dict:
     })
     for k in DIMS + EXTRA_SCORES:
         row[k] = s.get(k)
+    row["post_hoc"] = q.get("scores_post_hoc") or None
     return row
 
 
@@ -162,6 +177,32 @@ def build(job: Path) -> tuple[str, dict]:
         numbers["scores_by_audience"][g] = {"n": len(sub), **means}
         w(f"| {g} | {len(sub)} | " + " | ".join(fmt(means[k]) for k in DIMS + EXTRA_SCORES) + " |")
     w("")
+
+    scored = [r for r in rows if r.get("post_hoc")]
+    if scored:
+        w("## 4b. In-browse vs scored after the visit (Finding 1 replication)\n")
+        w(f"{len(scored)} of {len(rows)} trials re-scored outside the browser by the same model from the persona text plus the persona's own notes "
+          "(application/scripts/score_audit.py). η² = share of score variance explained by the persona dimension; 0.01 small, 0.06 medium, 0.14 large.\n")
+        w("| Score | mean in-browse | sd | mean scored | sd | η² visitor kind (in / scored) | η² tier (in / scored) | η² visit intent (in / scored) | values used (scored) |")
+        w("|---|---:|---:|---:|---:|---:|---:|---:|---|")
+        numbers["post_hoc"] = {}
+        for k in DIMS + EXTRA_SCORES:
+            ib = [r[k] for r in scored]; ph = [r["post_hoc"].get(k) for r in scored]
+            mi, si = mean_sd(ib); mp, sp = mean_sd(ph)
+            e = {dim: (eta_squared(ib, [r[dim] for r in scored]), eta_squared(ph, [r[dim] for r in scored])) for dim in ("audience_group", "tier", "visit_intent")}
+            used = sorted({int(v) for v in ph if isinstance(v, (int, float))})
+            w(f"| {k} | {fmt(mi)} | {fmt(si)} | {fmt(mp)} | {fmt(sp)} | " + " | ".join(f"{fmt(a)} / {fmt(b)}" for a, b in e.values()) + f" | {used} |")
+            numbers["post_hoc"][k] = {"mean_in_browse": mi, "sd_in_browse": si, "mean_scored": mp, "sd_scored": sp,
+                                      "eta2": {dim: {"in_browse": a, "scored": b} for dim, (a, b) in e.items()}}
+        w("\n### Scored after the visit, by visitor kind (mean)\n")
+        w("| Visitor kind | n | " + " | ".join(DIMS + EXTRA_SCORES) + " |")
+        w("|---|---:|" + "---:|" * (len(DIMS) + len(EXTRA_SCORES)))
+        for g in groups:
+            sub = [r for r in scored if (r["audience_group"] or "unknown") == g]
+            if not sub:
+                continue
+            w(f"| {g} | {len(sub)} | " + " | ".join(fmt(mean_sd([r["post_hoc"].get(k) for r in sub])[0]) for k in DIMS + EXTRA_SCORES) + " |")
+        w("")
 
     w("## 5. What they would do next\n")
     for key, title in (("next_step", "Next step"), ("trust_action", "Needed before going further"), ("basis_primary", "Main basis of the decision")):
