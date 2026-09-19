@@ -415,7 +415,8 @@ export function useHarborCockpitRun<TJob>(options: UseHarborCockpitRunOptions) {
     if (!jobName || (phase !== "launching" && phase !== "running")) return;
     setCancelBusy(true);
     try {
-      await api.deleteHarborJob(jobName);
+      // Cancel, never delete: finished trials stay on disk for the report.
+      await api.cancelHarborJob(jobName);
     } finally {
       setCancelBusy(false);
       // Stay locked until Reset — same end-state as a failed/finished run.
@@ -429,7 +430,7 @@ export function useHarborCockpitRun<TJob>(options: UseHarborCockpitRunOptions) {
       eventOffsetRef.current = 0;
       clearCockpitUrl();
       setPhase("error");
-      setError("Run stopped. Reset to change setup and launch again.");
+      setError("Run stopped; finished trials are kept. Reset to change setup and launch again.");
     }
   }, [cancelBusy, clearCockpitUrl, harborJobName, phase]);
 

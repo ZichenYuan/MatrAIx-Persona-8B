@@ -824,6 +824,21 @@ def create_app(catalog_path: Optional[str] = None) -> FastAPI:
         return {"deleted": True, "jobName": job_name}
 
     @app.post(
+        "/api/harbor/jobs/{job_name}/cancel",
+        tags=["harbor-jobs"],
+    )
+    def cancel_harbor_job(
+        job_name: str, services: AppState = Depends(get_services)
+    ) -> Dict[str, Any]:
+        """Stop a running launch; finished trials stay on disk (unlike DELETE)."""
+        try:
+            return services.harbor_jobs.cancel_job(job_name)
+        except ValueError as exc:
+            message = str(exc)
+            status = 404 if "not found" in message.lower() else 400
+            raise HTTPException(status_code=status, detail=message) from exc
+
+    @app.post(
         "/api/harbor/jobs",
         response_model=schemas.HarborJobLaunchResponse,
         tags=["harbor-jobs"],

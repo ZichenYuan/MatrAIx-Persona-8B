@@ -7,6 +7,8 @@ import logging
 import os
 import re
 import shutil
+import signal
+import subprocess
 import threading
 import tomllib
 import uuid
@@ -526,6 +528,10 @@ class HarborLaunchRecord:
     exit_code: int | None = None
     execution_plane: str = "harbor"
     remote_run_id: str | None = None
+    # Local plane only: the live ``harbor run`` process, so cancel_job can stop it
+    # without touching anything under jobs/<job>.
+    process: Any = None
+    cancel_requested: bool = False
 
 
 @dataclass
@@ -942,6 +948,63 @@ class HarborJobService:
         if config_path.is_file():
             config_path.unlink()
         self._launch_meta_path(job_name).unlink(missing_ok=True)
+
+    def _run_harbor_process(self, job_name: str, command: list[str], env: dict[str, str]) -> int:
+        """Run ``harbor run`` while keeping the process handle on the launch record,
+        so cancel_job can stop it. An injected command runner (tests) bypasses this."""
+        if self.command_runner is not _run_subprocess:
+            return int(self.command_runner(command, cwd=self.repo_root, env=env))
+        proc = subprocess.Popen(  # noqa: S603
+            list(command), cwd=str(self.repo_root), env=env, start_new_session=True
+        )
+        with self._guard:
+            record = self._launches.get(job_name)
+            cancel_now = False
+            if record is not None:
+                record.process = proc
+                cancel_now = record.cancel_requested
+        if cancel_now:
+            _terminate_process_group(proc)
+        try:
+            return int(proc.wait())
+        finally:
+            with self._guard:
+                record = self._launches.get(job_name)
+                if record is not None:
+                    record.process = None
+
+    def cancel_job(self, job_name: str) -> dict[str, Any]:
+        """Stop a running launch and keep every finished trial on disk.
+
+        Terminates the ``harbor run`` process group, removes the trial containers
+        it left behind, and marks the launch cancelled. Nothing under
+        ``jobs/<job>`` is deleted - that is what delete_job does.
+        """
+        _validate_job_name(job_name)
+        with self._guard:
+            record = self._launches.get(job_name)
+            if record is None:
+                raise ValueError("Job not found: {}".format(job_name))
+            if record.status not in {"queued", "running"}:
+                return {"jobName": job_name, "cancelled": False, "status": record.status}
+            record.cancel_requested = True
+            proc = record.process
+        if proc is not None:
+            _terminate_process_group(proc)
+        removed = _remove_trial_containers(self.jobs_dir / job_name)
+        with self._guard:
+            record = self._launches[job_name]
+            record.status = "cancelled"
+            record.error = "cancelled by user; finished trials kept"
+            record.finished_at = _utc_now()
+        with self._status_guard:
+            self._status_states.pop(job_name, None)
+        return {
+            "jobName": job_name,
+            "cancelled": True,
+            "status": "cancelled",
+            "containersRemoved": removed,
+        }
 
     def get_job(self, job_name: str) -> dict[str, Any] | None:
         job_dir = self.jobs_dir / job_name
@@ -1418,6 +1481,8 @@ class HarborJobService:
 
         with self._guard:
             record = self._launches[job_name]
+            if record.cancel_requested:
+                status, error = "cancelled", "cancelled by user; finished trials kept"
             record.status = status
             record.exit_code = exit_code
             record.error = error
@@ -1462,12 +1527,7 @@ class HarborJobService:
             held: dict[str, Any] = {}
 
             def _invoke() -> None:
-                code = self.command_runner(
-                    command,
-                    cwd=self.repo_root,
-                    env=env,
-                )
-                held["exit_code"] = code
+                held["exit_code"] = self._run_harbor_process(job_name, command, env)
 
             self._run_with_trial_host_scoring(job_name, _invoke)
             exit_code = int(held.get("exit_code", 1))
@@ -1480,6 +1540,8 @@ class HarborJobService:
 
         with self._guard:
             record = self._launches[job_name]
+            if record.cancel_requested:
+                status, error = "cancelled", "cancelled by user; finished trials kept"
             record.status = status
             record.exit_code = exit_code
             record.error = error
@@ -2229,6 +2291,51 @@ class HarborJobService:
 
     def shutdown(self) -> None:
         self._executor.shutdown(wait=False, cancel_futures=True)
+
+
+def _terminate_process_group(proc: Any, grace_sec: float = 20.0) -> None:
+    """SIGTERM the whole process group (harbor + its docker compose children),
+    then SIGKILL whatever is still alive after ``grace_sec``."""
+    try:
+        os.killpg(proc.pid, signal.SIGTERM)
+    except (ProcessLookupError, PermissionError, AttributeError, OSError):
+        try:
+            proc.terminate()
+        except Exception:  # noqa: BLE001
+            return
+    try:
+        proc.wait(timeout=grace_sec)
+    except Exception:  # noqa: BLE001
+        try:
+            os.killpg(proc.pid, signal.SIGKILL)
+        except Exception:  # noqa: BLE001
+            try:
+                proc.kill()
+            except Exception:  # noqa: BLE001
+                pass
+
+
+def _remove_trial_containers(job_dir: Path) -> int:
+    """``docker rm -f`` the containers of this job's trials (named ``<trial>-main-1``)."""
+    if not job_dir.is_dir():
+        return 0
+    prefixes = [p.name.lower() for p in job_dir.iterdir() if p.is_dir() and "__" in p.name]
+    if not prefixes:
+        return 0
+    docker = shutil.which("docker") or "/usr/local/bin/docker"
+    try:
+        listing = subprocess.run(  # noqa: S603
+            [docker, "ps", "-a", "--format", "{{.Names}}"], capture_output=True, text=True, timeout=30
+        ).stdout
+    except Exception:  # noqa: BLE001
+        return 0
+    targets = [name for name in listing.split() if any(name.startswith(prefix) for prefix in prefixes)]
+    if targets:
+        try:
+            subprocess.run([docker, "rm", "-f", *targets], capture_output=True, text=True, timeout=180)  # noqa: S603
+        except Exception:  # noqa: BLE001
+            return 0
+    return len(targets)
 
 
 def _launch_view(record: HarborLaunchRecord | None) -> dict[str, Any] | None:

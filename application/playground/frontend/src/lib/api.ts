@@ -141,6 +141,12 @@ export const api = {
       `/api/harbor/jobs/${encodeURIComponent(jobName)}`,
       { method: "DELETE" },
     ),
+  /** Stop a running launch; finished trials stay on disk (DELETE removes them). */
+  cancelHarborJob: (jobName: string) =>
+    request<{ cancelled: boolean; jobName: string; status: string }>(
+      `/api/harbor/jobs/${encodeURIComponent(jobName)}/cancel`,
+      { method: "POST" },
+    ),
   getHarborJob: (jobName: string) =>
     request<HarborJobDetail>(`/api/harbor/jobs/${encodeURIComponent(jobName)}`),
   retryHarborJobFailed: (jobName: string) =>
