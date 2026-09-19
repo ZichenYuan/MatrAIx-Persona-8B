@@ -133,7 +133,7 @@ def _clean_json_syntax(text: str) -> str:
     (`"...text">,`). Neither can occur in valid JSON, so removing them is safe; the
     result is always re-parsed before it is trusted."""
     text = re.sub(r",(\s*[\]}])", r"\1", text)
-    text = re.sub(r'"[ \t]*[^\s,\]}:"]{1,3}[ \t]*(?=[,\]}])', '"', text)
+    text = re.sub(r'"[ \t]*[^\s,\]}:"]{1,3}\s*(?=[,\]}])', '"', text)
     return text
 
 def _load_json_lenient(path: Path) -> tuple[dict, str]:
@@ -150,16 +150,20 @@ def _load_json_lenient(path: Path) -> tuple[dict, str]:
         return json.loads(raw, strict=False), "repaired_control_chars"
     except json.JSONDecodeError as exc:
         first_error = exc
-    escaped = _escape_inner_quotes(raw)
-    if escaped != raw:
+    # Try the repairs in every useful order; the first text that parses wins.
+    candidates = [
+        ("repaired_syntax", _clean_json_syntax(raw)),
+        ("repaired_inner_quotes", _escape_inner_quotes(raw)),
+        ("repaired_inner_quotes", _escape_inner_quotes(_clean_json_syntax(raw))),
+        ("repaired_inner_quotes", _clean_json_syntax(_escape_inner_quotes(raw))),
+    ]
+    tried = {raw}
+    for label, text in candidates:
+        if text in tried:
+            continue
+        tried.add(text)
         try:
-            return json.loads(escaped, strict=False), "repaired_inner_quotes"
-        except json.JSONDecodeError:
-            pass
-    cleaned = _clean_json_syntax(escaped)
-    if cleaned != escaped:
-        try:
-            return json.loads(cleaned, strict=False), "repaired_syntax"
+            return json.loads(text, strict=False), label
         except json.JSONDecodeError:
             pass
     if "Unterminated string" not in str(first_error):
