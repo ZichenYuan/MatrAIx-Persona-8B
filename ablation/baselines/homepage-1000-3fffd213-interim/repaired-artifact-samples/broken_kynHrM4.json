@@ -1,0 +1,73 @@
+{
+  "self_briefing": "I work in rental sales or administration at a Swedish equipment-rental branch, sharing responsibility for rental operations, heavy equipment, tools and assets, but without direct reports. I am looking today because our rental systems are separate and do not provide a live view of what is available, out, or on its way back; I already have a specific problem to solve, and I had not heard of Infobric before.",
+  "arrived_with": "specific_problem",
+  "first_screen_takeaway": "Infobric appears to provide digital systems for the construction industry, bringing personnel, machines and vehicles together in one ecosystem to make operations safer, more sustainable and efficient.",
+  "would_continue": "yes",
+  "would_continue_reason": "The first screen clearly names the construction industry and promises one ecosystem for personnel, machines and vehicles, which is directly relevant to my rental-operations problem. The credibility signal “Betrodd av över 12 000 kunder och 450 000 användare” also gives me a reason to keep reading.",
+  "left_early": false,
+  "what_it_does": "Infobric is a digitalisation partner for construction-related businesses. It offers connected services for contractors, subcontractors, property developers, workers, rental companies and compliance work, covering personnel, machines, tools, vehicles, project follow-up, safety and rental operations in an integrated ecosystem.",
+  "problems_recognised": [
+    "Our rental systems are separate and do not talk to each other.",
+    "We lack a live view of what rental equipment is available, out, or on its way back.",
+    "It is difficult to keep the fleet ready for the next assignment.",
+    "We need better control and less administration across rental operations."
+  ],
+  "language_felt_familiar": [
+    "Uthyrningsföretag",
+    "Effektivisera din uthyrnings-verksamhet med kontroll i realtid och säkerställ att din flotta alltid är redo för nästa uppdrag.",
+    "Maskin- & verktygshantering",
+    "Se när, var och hur era maskiner och verktyg används.",
+    "Vi samlar hanteringen av personal, maskiner och fordon i ett och samma ekosystem.",
+    "Det ger er kontroll över helheten och gör det enklare att göra rätt."
+  ],
+  "language_felt_off": [
+    "Yrkesarbetare",
+    "KMA",
+    "Föranmälan & Leverantörsuppföljning"
+  ],
+  "claims_credible": [
+    "Vi samlar hanteringen av personal, maskiner och fordon i ett och samma ekosystem.",
+    "Effektivisera din uthyrnings-verksamhet med kontroll i realtid och säkerställ att din flotta alltid är redo för nästa uppdrag.",
+    "Körjournal, CO2, kostnadskoll och mycket mer – samlat på ett ställe.",
+    "Betrodd av över 12 000 kunder och 450 000 användare"
+  ],
+  "claims_need_proof": [
+    "Infobric erbjuder marknadens bredaste utbud av tjänster",
+    "En ledande digitaliseringspartner för byggbranschen.",
+    "Vi bidrar till att bygga en bättre värld."
+  ],
+  "confusing_or_missing": [
+    {"what": "Marknadens bredaste utbud av tjänster", "where": "top", "kind": "unconvincing"},
+    {"what": "The homepage does not show pricing or explain which integrations connect the separate rental systems.", "where": "middle", "kind": "missing"},
+    {"what": "The rental description says “kontroll i realtid” but does not explain what data is live or how availability and returns are updated.", "where": "middle", "kind": "confusing"},
+    {"what": "The contact route does not state expected response time or what happens after sending a message.", "where": "bottom", "kind": "missing"}
+  ],
+  "strongest_element": "The audience-specific rental section, especially “Effektivisera din uthyrnings-verksamhet med kontroll i realtid och säkerställ att din flotta alltid är redo för nästa uppdrag.”",
+  "strongest_position": "middle",
+  "weakest_element": "The broad company and sustainability claims are not supported with concrete rental examples, implementation details, pricing or references for a business like mine.",
+  "weakest_position": "bottom",
+  "hesitate_or_leave_reason": "I would hesitate because the page describes the outcome at a high level but does not show pricing, integrations, setup time, or proof that the real-time rental view works with our existing systems. The broad claims would make me look for evidence before committing to a sales conversation.",
+  "understanding": 4,
+  "language_relevance": 4,
+  "practical_value": 4,
+  "trust": 3,
+  "next_step_confidence": 4,
+  "next_step_ease": 4,
+  "primary_cta_seen": "Kontakt",
+  "cta_expectation": "I expected “Kontakt” to open a straightforward contact route, ideally with a form or clear contact details for discussing a rental-operations solution.",
+  "cta_inspected": true,
+  "cta_page_url": "https://infobric.com/se/kontakta-oss/#cta",
+  "cta_reality": "The CTA opened the contact page and the “Lämna ett meddelande.” section. It says “Här kan du lämna ett meddelande så kontaktar vi dig, skriv gärna vilken lösning eller produkt som du är intresserad av.” The form asks for the visitor’s name, email address, company, phone number and message, requires agreement to “Integritetspolicyn”, and has a “Skicka” button. I did not fill in or submit it.",
+  "form_asks_for": ["Namn", "E-postadress", "Företag", "Telefonnummer", "Meddelande", "Godkännande av Integritetspolicyn"],
+  "cta_match": 5,
+  "next_step": "contact_sales",
+  "basis_primary": "fit",
+  "trust_action": "need_references_first",
+  "contact_likelihood": 3,
+  "missing_info": ["price", "integrations", "setup_time", "references", "data_privacy", "contract_terms"],
+  "reason": "The rental-specific wording matches my immediate problem unusually well, especially the promise of real-time control and a fleet ready for the next assignment. I would probably contact sales, but only after asking for references from comparable rental companies and clarification on integrations, cost, rollout and data handling; the current setup is working imperfectly rather than being an emergency, so contact likelihood is middling.",
+  "improvement_suggestion": "Add a concrete rental-company proof section on the homepage showing an example availability/return workflow, supported integrations, implementation time, indicative pricing approach and a customer reference, alongside a CTA such as “Se hur det fungerar för uthyrningsföretag”.",
+  "improvement_check": "Measure whether rental-company visitors spend longer in the rental section, open the proof material, and click the contact CTA at a higher rate, while contact forms contain more rental-specific enquiries and fewer requests asking basic questions about integrations and price.",
+  "retain": "Keep the clear first-screen positioning and the audience-specific “Uthyrningsföretag” section, including the direct wording about “kontroll i realtid” and keeping the fleet ready for the next assignment. Also retain the simple “Kontakt” path and the short message form."
+}
+}

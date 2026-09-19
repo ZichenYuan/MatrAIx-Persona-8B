@@ -1,0 +1,74 @@
+{
+  "self_briefing": "I manage a rental depot in Västra Götaland, responsible for rental operations, vehicles, tools and equipment, and I make purchasing decisions. I am exploring ways to improve operations because service, inspections, damage follow-up, missing tools, and the gap between rental data and Fortnox are difficult to manage with spreadsheets and paper contracts; I had not heard of Infobric before today.",
+  "arrived_with": "exploring",
+  "first_screen_takeaway": "Infobric appears to be a digitalisation provider for the construction industry, offering one ecosystem to manage personnel, machines and vehicles and make operations safer, more sustainable and efficient.",
+  "would_continue": "yes",
+  "would_continue_reason": "The first screen directly mentioned "personal, maskiner och fordon" in "ett och samma ekosystem", which overlaps with my depot's people, fleet and equipment responsibilities and made the offering worth understanding further.",
+  "left_early": false,
+  "what_it_does": "Infobric provides a broad set of connected digital services for construction businesses and rental companies. The homepage presents tools for personnel registers, access, vehicles, machines and tools, KMA, compliance, supplier follow-up, work orders and rental operations, with the stated aim of improving safety, efficiency, control and sustainability.",
+  "problems_recognised": [
+    "Keeping machines and tools accounted for when they change hands and preventing loss or theft.",
+    "Following vehicle service, inspections, damage, costs and driving information.",
+    "Managing rental operations with better real-time control and keeping the fleet ready for the next assignment.",
+    "Reducing spreadsheet and paper administration and improving the flow of rental data toward finance administration.",
+    "Maintaining compliance, transparency and coordination across projects and suppliers."
+  ],
+  "language_felt_familiar": [
+    "Fordonshantering",
+    "Maskin- & verktygshantering",
+    "Uthyrningsföretag",
+    "Effektivisera din uthyrnings-verksamhet med kontroll i realtid och säkerställ att din flotta alltid är redo för nästa uppdrag.",
+    "Körjournal, CO2, kostnadskoll och mycket mer – samlat på ett ställe.",
+    "Se när, var och hur era maskiner och verktyg används."
+  ],
+  "language_felt_off": [
+    "Yrkesarbetare",
+    "Byggherrar",
+    "KMA",
+    "Föranmälan & Leverantörsuppföljning"
+  ],
+  "claims_credible": [
+    "Vi samlar hanteringen av personal, maskiner och fordon i ett och samma ekosystem.",
+    "Digital personalliggare för smidig in- och utcheckning och bättre överblick.",
+    "Körjournal, CO2, kostnadskoll och mycket mer – samlat på ett ställe.",
+    "Se när, var och hur era maskiner och verktyg används."
+  ],
+  "claims_need_proof": [
+    "Betrodd av över 12 000 kunder och 450 000 användare",
+    "Infobric erbjuder marknadens bredaste utbud av tjänster för att skapa en säkrare, mer hållbar och effektivare byggbransch.",
+    "En ledande digitaliseringspartner för byggbranschen.",
+    "Vi bidrar till att bygga en bättre värld."
+  ],
+  "confusing_or_missing": [
+    {"what": "The homepage presents many products and solutions but does not explain the setup effort or how the rental data connects to finance systems such as Fortnox.", "where": "middle", "kind": "missing"},
+    {"what": "Pris och avtalsvillkor are not presented on the homepage.", "where": "bottom", "kind": "missing"},
+    {"what": "Vi får det att hända.", "where": "middle", "kind": "unconvincing"}
+  ],
+  "strongest_element": "The audience section for rental companies, especially the concrete promise: "Effektivisera din uthyrnings-verksamhet med kontroll i realtid och säkerställ att din flotta alltid är redo för nästa uppdrag."",
+  "strongest_position": "middle",
+  "weakest_element": "The very broad catalogue of audiences, products and solution labels makes it difficult to identify the exact starting product for a small rental depot.",
+  "weakest_position": "middle",
+  "hesitate_or_leave_reason": "I would hesitate because there is no visible pricing, integration detail, implementation timeframe, hardware information or rental-company reference that proves the system will work with my existing spreadsheet process and Fortnox.",
+  "understanding": 4,
+  "language_relevance": 4,
+  "practical_value": 4,
+  "trust": 3,
+  "next_step_confidence": 4,
+  "next_step_ease": 4,
+  "primary_cta_seen": "Kontakt",
+  "cta_expectation": "I expected the contact navigation to lead to a straightforward way to contact sales or request information.",
+  "cta_inspected": true,
+  "cta_page_url": "https://infobric.com/se/kontakta-oss/",
+  "cta_reality": "The contact page asks whether I want to contact Infobric and provides "Telefon sälj & support:", the phone number "010-70 95 100", "Chatt & Supportartiklar", and a "Lämna ett meddelande" option. It also shows office locations and links for support and press contact. I did not open or submit the message option.",
+  "form_asks_for": [],
+  "cta_match": 4,
+  "next_step": "learn_more",
+  "basis_primary": "fit",
+  "trust_action": "need_references_first",
+  "contact_likelihood": 3,
+  "missing_info": ["price", "integrations", "hardware", "setup_time", "references", "data_privacy", "contract_terms"],
+  "reason": "The page looks relevant to my rental, fleet and equipment responsibilities, but I am exploring rather than responding to an urgent deadline. I would first want a rental-specific explanation, references from similar depots, and confirmation of Fortnox integration before taking a sales call.",
+  "improvement_suggestion": "Add a clearly labelled rental-depot path on the homepage with one concrete example of how equipment, vehicles, contracts and finance integration work together, plus indicative setup steps and a relevant customer reference.",
+  "improvement_check": "Measure whether rental and depot visitors click that path, reach the contact/demo step, and complete it at a higher rate, while checking whether fewer visitors leave after viewing the solution catalogue.",
+  "retain": "Keep the clear hero statement "Vi digitaliserar byggbranschen", the ecosystem explanation, the audience-specific rental section, and the concrete machine, tool and vehicle examples."
+}

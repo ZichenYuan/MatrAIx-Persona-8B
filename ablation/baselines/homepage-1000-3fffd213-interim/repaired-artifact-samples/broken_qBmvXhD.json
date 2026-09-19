@@ -1,0 +1,72 @@
+{
+  "self_briefing": "I am an operations-focused procurement manager in Stockholm, responsible for purchasing and sharing responsibility for tools and equipment at an installation and service company. Our tool inventory is kept in a spreadsheet, and we sometimes buy or rent things we already own, so I am looking today for a more reliable way to see and manage equipment. I had only seen the Infobric logo before and did not know the company in detail.",
+  "arrived_with": "specific_problem",
+  "first_screen_takeaway": "Infobric appears to be a digitalisation partner for the construction industry, offering one ecosystem to manage personnel, machines and vehicles, with a focus on safer, more sustainable and more efficient operations.",
+  "would_continue": "yes",
+  "would_continue_reason": "The first screen clearly connected the company to construction operations and named personnel, machines and vehicles. The promise of one ecosystem and control over the whole operation was relevant to my equipment-management problem.",
+  "left_early": false,
+  "what_it_does": "Infobric provides digital services for construction-sector businesses and related roles, bringing together personnel, machines, vehicles, compliance and project follow-up. It offers solutions for contractors, subcontractors, property developers, workers, rental companies and compliance work, including digital personnel registers, vehicle management, machine and tool management, and supplier follow-up.",
+  "problems_recognised": [
+    "We maintain tool inventory in a spreadsheet and lack a dependable view of what equipment we already own.",
+    "We need to see when, where and how machines and tools are being used.",
+    "We need better control and transparency across purchasing, suppliers and equipment.",
+    "We want to reduce administrative work and improve operational efficiency."
+  ],
+  "language_felt_familiar": [
+    "Maskin- & verktygshantering",
+    "Se när, var och hur era maskiner och verktyg används.",
+    "Våra digitala tjänster för byggsektorn",
+    "Transparens och kontroll i alla led från upphandling till färdigt projekt.",
+    "Körjournal, CO2, kostnadskoll och mycket mer – samlat på ett ställe."
+  ],
+  "language_felt_off": [
+    "Yrkesarbetare",
+    "Huvudentreprenörer",
+    "Underentreprenörer",
+    "Byggherrar"
+  ],
+  "claims_credible": [
+    "Vi samlar hanteringen av personal, maskiner och fordon i ett och samma ekosystem.",
+    "Digital personalliggare för smidig in- och utcheckning och bättre överblick.",
+    "Se när, var och hur era maskiner och verktyg används."
+  ],
+  "claims_need_proof": [
+    "Infobric erbjuder marknadens bredaste utbud av tjänster",
+    "Betrodd av över 12 000 kunder och 450 000 användare",
+    "En ledande digitaliseringspartner för byggbranschen.",
+    "Vårt breda utbud av lösningar hjälper våra kunder att minimera olyckor, eliminera bedrägerier, minska utsläppen och förbättra produktiviteten i sina verksamheter."
+  ],
+  "confusing_or_missing": [
+    {"what": "Infobric erbjuder marknadens bredaste utbud av tjänster", "where": "top", "kind": "unconvincing"},
+    {"what": "Pris, integrationsmöjligheter och hur maskin- och verktygshanteringen fungerar in practice are not explained on the homepage", "where": "middle", "kind": "missing"},
+    {"what": "Alla pratar om digitalisering. Vi får det att hända.", "where": "bottom", "kind": "unconvincing"}
+  ],
+  "strongest_element": "The concrete solution card “Maskin- & verktygshantering” with the explanation “Se när, var och hur era maskiner och verktyg används.”",
+  "strongest_position": "middle",
+  "weakest_element": "The broad, unsupported market-leadership and impact claims, especially the statement “Vi får det att hända.”",
+  "weakest_position": "bottom",
+  "hesitate_or_leave_reason": "I would hesitate because the homepage does not show pricing, integrations, hardware requirements, setup time, data handling, or references specific to a small installation and service company. The broad claims are not supported with measurable examples for tool inventory or procurement.",
+  "understanding": 4,
+  "language_relevance": 4,
+  "practical_value": 3,
+  "trust": 3,
+  "next_step_confidence": 3,
+  "next_step_ease": 4,
+  "primary_cta_seen": "Kontakt",
+  "cta_expectation": "I expected the “Kontakt” navigation item to lead to a straightforward contact page or a sales/contact form.",
+  "cta_inspected": true,
+  "cta_page_url": "https://infobric.com/se/kontakta-oss/",
+  "cta_reality": "The link led to a contact page headed “Kontakta oss”. It asks the visitor whether they want to contact Infobric and provides “Telefon sälj & support:”, “010-70 95 100”, “Chatt & Supportartiklar”, and a “Lämna ett meddelande” button. The page also shows office locations. I did not open or submit the message form.",
+  "form_asks_for": [],
+  "cta_match": 5,
+  "next_step": "learn_more",
+  "basis_primary": "fit",
+  "trust_action": "need_references_first",
+  "contact_likelihood": 3,
+  "missing_info": ["price", "integrations", "hardware", "setup_time", "references", "data_privacy", "contract_terms"],
+  "reason": "The page is relevant because it explicitly covers machine and tool management, which matches our spreadsheet-based inventory problem. However, I would first learn more and seek references or a concrete example from a similar installation and service company before starting a sales conversation, because the homepage does not show the costs, rollout effort, integrations or evidence I need.",
+  "improvement_suggestion": "Add a procurement-focused example or short product demonstration for “Maskin- & verktygshantering” showing how an installation and service company replaces its spreadsheet, what hardware is needed, how it integrates with systems such as Visma, and indicative pricing or rollout time.",
+  "improvement_check": "Measure whether visitors who select “Maskin- & verktygshantering” engage with the example, reach the contact page, and submit more qualified enquiries mentioning equipment inventory, integrations, price or setup requirements.",
+  "retain": "Keep the clear ecosystem explanation, the audience segmentation, and especially the concrete wording “Se när, var och hur era maskiner och verktyg används.” The visible “Kontakt” route is also easy to find and leads to a clearly labelled contact page.">
+}
+

@@ -1,0 +1,68 @@
+{
+  "self_briefing": "I am a finance and administration manager at a Swedish machine and equipment rental company, responsible for finance administration and involved with vehicles, tools and the rental process. I am exploring ways to improve operations because bookings, contracts and prices are spread across spreadsheets and paper, and missing equipment and messy mileage-related administration create friction; I had not heard of Infobric before today.",
+  "arrived_with": "exploring",
+  "first_screen_takeaway": "Infobric appears to be a digitalisation supplier for the construction industry, bringing personnel, machines and vehicles into one ecosystem to improve safety, sustainability and efficiency.",
+  "would_continue": "yes",
+  "would_continue_reason": "The first screen explicitly covers “personal, maskiner och fordon” and says the company serves construction businesses; that is close to my rental fleet and equipment responsibilities, and the claim “Betrodd av över 12 000 kunder och 450 000 användare” gives me a reason to keep reading.",
+  "left_early": false,
+  "what_it_does": "Infobric provides a broad set of connected digital services for the construction sector and related businesses. It covers projects, safety, personnel, machines, equipment rental and follow-up, with solutions intended to work together and provide control, compliance, real-time information and efficiency.",
+  "problems_recognised": [
+    "Keeping rental operations and fleet readiness under control",
+    "Seeing when, where and how machines and tools are used",
+    "Reducing administration and improving transparency",
+    "Improving vehicle cost and mileage oversight"
+  ],
+  "language_felt_familiar": [
+    "Uthyrningsföretag",
+    "Effektivisera din uthyrnings-verksamhet med kontroll i realtid och säkerställ att din flotta alltid är redo för nästa uppdrag.",
+    "Körjournal, CO2, kostnadskoll och mycket mer – samlat på ett ställe.",
+    "Se när, var och hur era maskiner och verktyg används.",
+  ],
+  "language_felt_off": [
+    "Yrkesarbetare",
+    "Huvudentreprenörer",
+    "Underentreprenörer"
+  ],
+  "claims_credible": [
+    "Vi samlar hanteringen av personal, maskiner och fordon i ett och samma ekosystem.",
+    "Digital personalliggare för smidig in- och utcheckning och bättre överblick.",
+    "Körjournal, CO2, kostnadskoll och mycket mer – samlat på ett ställe."
+  ],
+  "claims_need_proof": [
+    "Betrodd av över 12 000 kunder och 450 000 användare",
+    "En ledande digitaliseringspartner för byggbranschen.",
+    "Vi får det att hända."
+  ],
+  "confusing_or_missing": [
+    {"what": "The homepage presents a wide ecosystem but does not make pricing, integrations or implementation effort concrete.", "where": "middle", "kind": "missing"},
+    {"what": "“Boka demo” appears among solution/product navigation options, but the homepage does not explain what a demo involves before contact.", "where": "bottom", "kind": "unconvincing"}
+  ],
+  "strongest_element": "The explicit rental-company section: “Effektivisera din uthyrnings-verksamhet med kontroll i realtid och säkerställ att din flotta alltid är redo för nästa uppdrag.”",
+  "strongest_position": "top",
+  "weakest_element": "The broad positioning and claims are not supported by concrete examples of setup, integrations, pricing or results for rental companies.",
+  "weakest_position": "middle",
+  "hesitate_or_leave_reason": "I would hesitate because the page promises a very broad ecosystem without showing how it would connect to our spreadsheets, paper contracts, Visma or existing fleet and rental workflows, and without pricing or implementation detail.",
+  "understanding": 4,
+  "language_relevance": 4,
+  "practical_value": 3,
+  "trust": 3,
+  "next_step_confidence": 4,
+  "next_step_ease": 4,
+  "primary_cta_seen": "Kontakta oss",
+  "cta_expectation": "I expected a contact page with a straightforward way to reach sales or request a conversation/demo.",
+  "cta_inspected": true,
+  "cta_page_url": "https://infobric.com/se/kontakta-oss/",
+  "cta_reality": "A contact page appeared with the heading “Kontakta oss”, the question “Vill du komma i kontakt med oss på Infobric?”, sales and support phone information, a support-articles link, and a “Lämna ett meddelande” option. No form fields were visible in the inspected state, and nothing was filled or submitted.",
+  "form_asks_for": [],
+  "cta_match": 4,
+  "next_step": "learn_more",
+  "basis_primary": "fit",
+  "trust_action": "need_references_first",
+  "contact_likelihood": 3,
+  "missing_info": ["price", "integrations", "hardware", "setup_time", "references", "data_privacy", "contract_terms"],
+  "reason": "The fit is promising because Infobric explicitly addresses rental companies, fleets, tools and centralised control. But I am exploring rather than under an urgent deadline, so I would first want references from comparable rental businesses and concrete information about integrations, rollout and cost before starting a sales conversation.",
+  "improvement_suggestion": "Add a clearly labelled rental-company path on the homepage with one concrete workflow or case study showing how bookings, contracts, prices, fleet readiness and tool tracking move out of spreadsheets and paper, plus indicative setup time and integrations.",
+  "improvement_check": "Measure whether rental-company visitors click the dedicated path, spend longer on the page and proceed from it to the contact/demo CTA at a higher rate, while monitoring whether fewer visitors leave after viewing the broad solution overview.",
+  "retain": "Keep the explicit audience section and the concrete solution wording, especially “Uthyrningsföretag” and “Se när, var och hur era maskiner och verktyg används.” They made the broad construction positioning relevant to my daily work."
+}
+

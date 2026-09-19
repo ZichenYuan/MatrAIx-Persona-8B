@@ -1,0 +1,3782 @@
+{
+ "page": "homepage",
+ "job": "pg-web-infobric-audit-v2-homepage-3fffd213",
+ "n": 136,
+ "numbers": {
+  "job": "pg-web-infobric-audit-v2-homepage-3fffd213",
+  "page": "homepage",
+  "launched": 1000,
+  "finished": 145,
+  "passed": 136,
+  "failed": 9,
+  "json_health": {
+   "clean": 135,
+   "repaired_unterminated_string": 1
+  },
+  "exit_rate": 0.0,
+  "ground_truth": {
+   "quick_backs": 0.4376,
+   "engaged_share": 0.884
+  },
+  "scores": {
+   "understanding": {
+    "n": 136,
+    "mean": 4.007352941176471,
+    "sd": 0.08543345616634007,
+    "dist": {
+     "1": 0,
+     "2": 0,
+     "3": 0,
+     "4": 135,
+     "5": 1
+    }
+   },
+   "language_relevance": {
+    "n": 136,
+    "mean": 4.0,
+    "sd": 0.21004201260420147,
+    "dist": {
+     "1": 0,
+     "2": 0,
+     "3": 3,
+     "4": 130,
+     "5": 3
+    }
+   },
+   "practical_value": {
+    "n": 136,
+    "mean": 3.6911764705882355,
+    "sd": 0.4620081786001473,
+    "dist": {
+     "1": 0,
+     "2": 0,
+     "3": 42,
+     "4": 94,
+     "5": 0
+    }
+   },
+   "trust": {
+    "n": 136,
+    "mean": 3.0,
+    "sd": 0.0,
+    "dist": {
+     "1": 0,
+     "2": 0,
+     "3": 136,
+     "4": 0,
+     "5": 0
+    }
+   },
+   "next_step_confidence": {
+    "n": 136,
+    "mean": 3.8529411764705883,
+    "sd": 0.3541645464350675,
+    "dist": {
+     "1": 0,
+     "2": 0,
+     "3": 20,
+     "4": 116,
+     "5": 0
+    }
+   },
+   "next_step_ease": {
+    "n": 136,
+    "mean": 3.8455882352941178,
+    "sd": 0.36134301103840044,
+    "dist": {
+     "1": 0,
+     "2": 0,
+     "3": 21,
+     "4": 115,
+     "5": 0
+    }
+   },
+   "cta_match": {
+    "n": 136,
+    "mean": 4.654411764705882,
+    "sd": 0.4755596775594155,
+    "dist": {
+     "1": 0,
+     "2": 0,
+     "3": 0,
+     "4": 47,
+     "5": 89
+    }
+   },
+   "contact_likelihood": {
+    "n": 136,
+    "mean": 2.8088235294117645,
+    "sd": 0.6475599663618823,
+    "dist": {
+     "1": 0,
+     "2": 44,
+     "3": 74,
+     "4": 18,
+     "5": 0
+    }
+   }
+  },
+  "scores_by_audience": {
+   "Supervisor or daily user": {
+    "n": 42,
+    "understanding": 4.023809523809524,
+    "language_relevance": 3.9761904761904763,
+    "practical_value": 3.642857142857143,
+    "trust": 3.0,
+    "next_step_confidence": 3.857142857142857,
+    "next_step_ease": 3.880952380952381,
+    "cta_match": 4.738095238095238,
+    "contact_likelihood": 2.6904761904761907
+   },
+   "Finance or administration": {
+    "n": 29,
+    "understanding": 4.0,
+    "language_relevance": 3.9310344827586206,
+    "practical_value": 3.5517241379310347,
+    "trust": 3.0,
+    "next_step_confidence": 3.896551724137931,
+    "next_step_ease": 3.8620689655172415,
+    "cta_match": 4.551724137931035,
+    "contact_likelihood": 2.7586206896551726
+   },
+   "Operations, project or site manager": {
+    "n": 21,
+    "understanding": 4.0,
+    "language_relevance": 4.0476190476190474,
+    "practical_value": 3.857142857142857,
+    "trust": 3.0,
+    "next_step_confidence": 3.761904761904762,
+    "next_step_ease": 3.9047619047619047,
+    "cta_match": 4.619047619047619,
+    "contact_likelihood": 3.0
+   },
+   "Owner or senior manager": {
+    "n": 19,
+    "understanding": 4.0,
+    "language_relevance": 4.105263157894737,
+    "practical_value": 3.8421052631578947,
+    "trust": 3.0,
+    "next_step_confidence": 3.8421052631578947,
+    "next_step_ease": 3.789473684210526,
+    "cta_match": 4.631578947368421,
+    "contact_likelihood": 2.8947368421052633
+   },
+   "Fleet, equipment or rental manager": {
+    "n": 18,
+    "understanding": 4.0,
+    "language_relevance": 4.0,
+    "practical_value": 3.7222222222222223,
+    "trust": 3.0,
+    "next_step_confidence": 3.8333333333333335,
+    "next_step_ease": 3.7222222222222223,
+    "cta_match": 4.611111111111111,
+    "contact_likelihood": 2.888888888888889
+   },
+   "HSE or compliance": {
+    "n": 7,
+    "understanding": 4.0,
+    "language_relevance": 4.0,
+    "practical_value": 3.5714285714285716,
+    "trust": 3.0,
+    "next_step_confidence": 4.0,
+    "next_step_ease": 3.857142857142857,
+    "cta_match": 4.857142857142857,
+    "contact_likelihood": 2.7142857142857144
+   }
+  },
+  "post_hoc": {
+   "understanding": {
+    "mean_in_browse": 4.009345794392523,
+    "sd_in_browse": 0.09622084243913084,
+    "mean_scored": 4.233644859813084,
+    "sd_scored": 0.4231488382307204,
+    "eta2": {
+     "audience_group": {
+      "in_browse": 0.022110849056603772,
+      "scored": 0.09517581300813016
+     },
+     "tier": {
+      "in_browse": 0.03094339622641515,
+      "scored": 0.03051910569105676
+     },
+     "visit_intent": {
+      "in_browse": 0.010358860525342139,
+      "scored": 1.3834802213572157e-05
+     }
+    }
+   },
+   "language_relevance": {
+    "mean_in_browse": 4.009345794392523,
+    "sd_in_browse": 0.09622084243913084,
+    "mean_scored": 4.4672897196261685,
+    "sd_scored": 0.49892889028183696,
+    "eta2": {
+     "audience_group": {
+      "in_browse": 0.06266846361185939,
+      "scored": 0.037134961586973964
+     },
+     "tier": {
+      "in_browse": 0.0386343216531893,
+      "scored": 0.22610037593984963
+     },
+     "visit_intent": {
+      "in_browse": 0.010358860525342139,
+      "scored": 0.06564954051796179
+     }
+    }
+   },
+   "practical_value": {
+    "mean_in_browse": 3.710280373831776,
+    "sd_in_browse": 0.45363219063594756,
+    "mean_scored": 3.588785046728972,
+    "sd_scored": 0.49205407779768906,
+    "eta2": {
+     "audience_group": {
+      "in_browse": 0.07379854601716174,
+      "scored": 0.03958084917468677
+     },
+     "tier": {
+      "in_browse": 0.016879648718570554,
+      "scored": 0.031261423761423775
+     },
+     "visit_intent": {
+      "in_browse": 0.030362909170459307,
+      "scored": 0.023464057340107734
+     }
+    }
+   },
+   "trust": {
+    "mean_in_browse": 3.0,
+    "sd_in_browse": 0.0,
+    "mean_scored": 2.9906542056074765,
+    "sd_scored": 0.09622084243913084,
+    "eta2": {
+     "audience_group": {
+      "in_browse": 0.0,
+      "scored": 0.022110849056603772
+     },
+     "tier": {
+      "in_browse": 0.0,
+      "scored": 0.0386343216531893
+     },
+     "visit_intent": {
+      "in_browse": 0.0,
+      "scored": 0.00859164420485169
+     }
+    }
+   },
+   "next_step_confidence": {
+    "mean_in_browse": 3.8411214953271027,
+    "sd_in_browse": 0.36556275169360647,
+    "mean_scored": 3.9906542056074765,
+    "sd_scored": 0.3484364837814439,
+    "eta2": {
+     "audience_group": {
+      "in_browse": 0.023214762484514505,
+      "scored": 0.03633227871484312
+     },
+     "tier": {
+      "in_browse": 0.007760659819483375,
+      "scored": 0.04858341897910235
+     },
+     "visit_intent": {
+      "in_browse": 0.021992457113564404,
+      "scored": 0.018363460492110382
+     }
+    }
+   },
+   "next_step_ease": {
+    "mean_in_browse": 3.822429906542056,
+    "sd_in_browse": 0.3821504355188948,
+    "mean_scored": 3.691588785046729,
+    "sd_scored": 0.4618373495553584,
+    "eta2": {
+     "audience_group": {
+      "in_browse": 0.02711737007402639,
+      "scored": 0.039023364942482576
+     },
+     "tier": {
+      "in_browse": 0.033222758601048126,
+      "scored": 0.08355090480090478
+     },
+     "visit_intent": {
+      "in_browse": 0.010135633200648728,
+      "scored": 0.0008723391076332476
+     }
+    }
+   },
+   "cta_match": {
+    "mean_in_browse": 4.663551401869159,
+    "sd_in_browse": 0.47249437980428177,
+    "mean_scored": 4.336448598130841,
+    "sd_scored": 0.5627689427037232,
+    "eta2": {
+     "audience_group": {
+      "in_browse": 0.03569679697648498,
+      "scored": 0.08235788523903764
+     },
+     "tier": {
+      "in_browse": 0.024195124450406228,
+      "scored": 0.03613791269403522
+     },
+     "visit_intent": {
+      "in_browse": 0.0021063198362286863,
+      "scored": 0.025910364145658338
+     }
+    }
+   },
+   "contact_likelihood": {
+    "mean_in_browse": 2.8130841121495327,
+    "sd_in_browse": 0.6431645059471123,
+    "mean_scored": 2.803738317757009,
+    "sd_scored": 0.6180955425714562,
+    "eta2": {
+     "audience_group": {
+      "in_browse": 0.04164048995161124,
+      "scored": 0.04849556649362993
+     },
+     "tier": {
+      "in_browse": 0.02255829210907332,
+      "scored": 0.056087922137304826
+     },
+     "visit_intent": {
+      "in_browse": 0.3900785715468622,
+      "scored": 0.29663643006356616
+     }
+    }
+   }
+  },
+  "next_step": {
+   "come_back_later": 60,
+   "learn_more": 28,
+   "contact_sales": 48
+  },
+  "trust_action": {
+   "need_references_first": 128,
+   "need_pilot_first": 8
+  },
+  "basis_primary": {
+   "fit": 135,
+   "integrations": 1
+  },
+  "quality": {
+   "fidelity_rate": 1.0,
+   "claims_grounded": 0.9656544117647059,
+   "phrases_grounded": 0.9688970588235294,
+   "cta_inspected": 1.0,
+   "cta_url_ok": 1.0
+  },
+  "missing_info_counts": {
+   "price": 136,
+   "integrations": 136,
+   "setup_time": 136,
+   "references": 136,
+   "data_privacy": 136,
+   "contract_terms": 135,
+   "hardware": 106
+  },
+  "scores_by_audience_scored": {
+   "Owner or senior manager": {
+    "understanding": 4.357142857142857,
+    "language_relevance": 4.642857142857143,
+    "practical_value": 3.5,
+    "trust": 3,
+    "next_step_confidence": 4,
+    "next_step_ease": 3.7857142857142856,
+    "cta_match": 4.5,
+    "contact_likelihood": 2.642857142857143
+   },
+   "Supervisor or daily user": {
+    "understanding": 4.21875,
+    "language_relevance": 4.5,
+    "practical_value": 3.625,
+    "trust": 2.96875,
+    "next_step_confidence": 4,
+    "next_step_ease": 3.65625,
+    "cta_match": 4.25,
+    "contact_likelihood": 2.75
+   },
+   "HSE or compliance": {
+    "understanding": 4.4,
+    "language_relevance": 4.2,
+    "practical_value": 3.6,
+    "trust": 3,
+    "next_step_confidence": 4,
+    "next_step_ease": 3.6,
+    "cta_match": 4.8,
+    "contact_likelihood": 2.6
+   },
+   "Operations, project or site manager": {
+    "understanding": 4.166666666666667,
+    "language_relevance": 4.444444444444445,
+    "practical_value": 3.611111111111111,
+    "trust": 3,
+    "next_step_confidence": 3.9444444444444446,
+    "next_step_ease": 3.7777777777777777,
+    "cta_match": 4.166666666666667,
+    "contact_likelihood": 3
+   },
+   "Fleet, equipment or rental manager": {
+    "understanding": 4,
+    "language_relevance": 4.470588235294118,
+    "practical_value": 3.411764705882353,
+    "trust": 3,
+    "next_step_confidence": 3.8823529411764706,
+    "next_step_ease": 3.5294117647058822,
+    "cta_match": 4.235294117647059,
+    "contact_likelihood": 2.7058823529411766
+   },
+   "Finance or administration": {
+    "understanding": 4.380952380952381,
+    "language_relevance": 4.380952380952381,
+    "practical_value": 3.7142857142857144,
+    "trust": 3,
+    "next_step_confidence": 4.095238095238095,
+    "next_step_ease": 3.761904761904762,
+    "cta_match": 4.476190476190476,
+    "contact_likelihood": 2.9523809523809526
+   }
+  }
+ },
+ "hard": {
+  "wording": {
+   "claims_need_proof": {
+    "title": "Claims visitors wanted proof for",
+    "items": [
+     {
+      "quote": "Betrodd av över 12 000 kunder och 450 000 användare",
+      "count": 81,
+      "by_audience": {
+       "HSE or compliance": 5,
+       "Supervisor or daily user": 27,
+       "Owner or senior manager": 13,
+       "Operations, project or site manager": 11,
+       "Finance or administration": 14,
+       "Fleet, equipment or rental manager": 11
+      }
+     },
+     {
+      "quote": "Vårt breda utbud av lösningar hjälper våra kunder att minimera olyckor, eliminera bedrägerier, minska utsläppen och förbättra produktiviteten i sina verksamheter.",
+      "count": 73,
+      "by_audience": {
+       "Supervisor or daily user": 21,
+       "HSE or compliance": 3,
+       "Owner or senior manager": 12,
+       "Operations, project or site manager": 12,
+       "Fleet, equipment or rental manager": 12,
+       "Finance or administration": 13
+      }
+     },
+     {
+      "quote": "En ledande digitaliseringspartner för byggbranschen.",
+      "count": 62,
+      "by_audience": {
+       "Supervisor or daily user": 19,
+       "Owner or senior manager": 5,
+       "Fleet, equipment or rental manager": 8,
+       "Operations, project or site manager": 14,
+       "HSE or compliance": 1,
+       "Finance or administration": 15
+      }
+     },
+     {
+      "quote": "Infobric erbjuder marknadens bredaste utbud av tjänster för att skapa en säkrare, mer hållbar och effektivare byggbransch.",
+      "count": 47,
+      "by_audience": {
+       "Owner or senior manager": 4,
+       "Supervisor or daily user": 15,
+       "Operations, project or site manager": 11,
+       "Finance or administration": 13,
+       "HSE or compliance": 1,
+       "Fleet, equipment or rental manager": 3
+      }
+     },
+     {
+      "quote": "Vi bidrar till att bygga en bättre värld.",
+      "count": 29,
+      "by_audience": {
+       "Supervisor or daily user": 10,
+       "Fleet, equipment or rental manager": 2,
+       "Finance or administration": 9,
+       "Operations, project or site manager": 4,
+       "HSE or compliance": 1,
+       "Owner or senior manager": 3
+      }
+     },
+     {
+      "quote": "den ledande digitaliseringspartnern för byggbranschen i Norden och Storbritannien.",
+      "count": 25,
+      "by_audience": {
+       "HSE or compliance": 5,
+       "Supervisor or daily user": 8,
+       "Owner or senior manager": 5,
+       "Finance or administration": 2,
+       "Fleet, equipment or rental manager": 3,
+       "Operations, project or site manager": 2
+      }
+     },
+     {
+      "quote": "Infobric erbjuder marknadens bredaste utbud av tjänster",
+      "count": 19,
+      "by_audience": {
+       "Fleet, equipment or rental manager": 5,
+       "Supervisor or daily user": 5,
+       "Owner or senior manager": 4,
+       "HSE or compliance": 1,
+       "Finance or administration": 2,
+       "Operations, project or site manager": 2
+      }
+     },
+     {
+      "quote": "marknadens bredaste utbud",
+      "count": 15,
+      "by_audience": {
+       "Supervisor or daily user": 5,
+       "HSE or compliance": 3,
+       "Finance or administration": 2,
+       "Owner or senior manager": 4,
+       "Fleet, equipment or rental manager": 1
+      }
+     },
+     {
+      "quote": "Vi erbjuder marknadens bredaste utbud av tjänster",
+      "count": 12,
+      "by_audience": {
+       "Fleet, equipment or rental manager": 2,
+       "Supervisor or daily user": 3,
+       "Finance or administration": 5,
+       "Operations, project or site manager": 1,
+       "Owner or senior manager": 1
+      }
+     },
+     {
+      "quote": "Vi får det att hända.",
+      "count": 11,
+      "by_audience": {
+       "Owner or senior manager": 4,
+       "Fleet, equipment or rental manager": 2,
+       "Finance or administration": 4,
+       "Supervisor or daily user": 1
+      }
+     },
+     {
+      "quote": "minimera olyckor, eliminera bedrägerier, minska utsläppen och förbättra produktiviteten",
+      "count": 11,
+      "by_audience": {
+       "Supervisor or daily user": 6,
+       "HSE or compliance": 2,
+       "Owner or senior manager": 2,
+       "Fleet, equipment or rental manager": 1
+      }
+     },
+     {
+      "quote": "Det ger er kontroll över helheten och gör det enklare att göra rätt.",
+      "count": 6,
+      "by_audience": {
+       "Supervisor or daily user": 2,
+       "Finance or administration": 2,
+       "Owner or senior manager": 1,
+       "Operations, project or site manager": 1
+      }
+     }
+    ]
+   },
+   "language_felt_off": {
+    "title": "Wording that felt written for someone else",
+    "items": [
+     {
+      "quote": "Yrkesarbetare",
+      "count": 82,
+      "by_audience": {
+       "Owner or senior manager": 15,
+       "HSE or compliance": 4,
+       "Supervisor or daily user": 11,
+       "Operations, project or site manager": 14,
+       "Fleet, equipment or rental manager": 15,
+       "Finance or administration": 23
+      }
+     },
+     {
+      "quote": "Byggherrar",
+      "count": 41,
+      "by_audience": {
+       "Supervisor or daily user": 20,
+       "HSE or compliance": 1,
+       "Owner or senior manager": 1,
+       "Fleet, equipment or rental manager": 12,
+       "Finance or administration": 4,
+       "Operations, project or site manager": 3
+      }
+     },
+     {
+      "quote": "Uthyrningsföretag",
+      "count": 36,
+      "by_audience": {
+       "Supervisor or daily user": 8,
+       "HSE or compliance": 1,
+       "Fleet, equipment or rental manager": 4,
+       "Owner or senior manager": 3,
+       "Finance or administration": 8,
+       "Operations, project or site manager": 12
+      }
+     },
+     {
+      "quote": "Huvudentreprenörer",
+      "count": 30,
+      "by_audience": {
+       "Supervisor or daily user": 9,
+       "HSE or compliance": 1,
+       "Fleet, equipment or rental manager": 8,
+       "Finance or administration": 9,
+       "Operations, project or site manager": 2,
+       "Owner or senior manager": 1
+      }
+     },
+     {
+      "quote": "Föranmälan & Leverantörsuppföljning",
+      "count": 26,
+      "by_audience": {
+       "Supervisor or daily user": 10,
+       "Fleet, equipment or rental manager": 5,
+       "Owner or senior manager": 2,
+       "Finance or administration": 7,
+       "Operations, project or site manager": 2
+      }
+     },
+     {
+      "quote": "Borrning & Sprängning",
+      "count": 26,
+      "by_audience": {
+       "Owner or senior manager": 4,
+       "Supervisor or daily user": 7,
+       "Operations, project or site manager": 5,
+       "Fleet, equipment or rental manager": 2,
+       "HSE or compliance": 1,
+       "Finance or administration": 7
+      }
+     },
+     {
+      "quote": "Compliance",
+      "count": 24,
+      "by_audience": {
+       "Supervisor or daily user": 11,
+       "Operations, project or site manager": 4,
+       "Fleet, equipment or rental manager": 6,
+       "Finance or administration": 1,
+       "Owner or senior manager": 2
+      }
+     },
+     {
+      "quote": "KMA",
+      "count": 12,
+      "by_audience": {
+       "Owner or senior manager": 1,
+       "Supervisor or daily user": 2,
+       "Finance or administration": 8,
+       "Fleet, equipment or rental manager": 1
+      }
+     },
+     {
+      "quote": "Vi bidrar till att bygga en bättre värld.",
+      "count": 11,
+      "by_audience": {
+       "Supervisor or daily user": 6,
+       "Operations, project or site manager": 2,
+       "Finance or administration": 2,
+       "Owner or senior manager": 1
+      }
+     },
+     {
+      "quote": "maximera resurseffektiviteten",
+      "count": 8,
+      "by_audience": {
+       "Owner or senior manager": 1,
+       "HSE or compliance": 2,
+       "Supervisor or daily user": 5
+      }
+     },
+     {
+      "quote": "Underentreprenörer",
+      "count": 8,
+      "by_audience": {
+       "Finance or administration": 5,
+       "Fleet, equipment or rental manager": 1,
+       "Supervisor or daily user": 1,
+       "Operations, project or site manager": 1
+      }
+     },
+     {
+      "quote": "eliminera bedrägerier",
+      "count": 6,
+      "by_audience": {
+       "Supervisor or daily user": 6
+      }
+     }
+    ]
+   },
+   "claims_credible": {
+    "title": "Claims visitors found credible",
+    "items": [
+     {
+      "quote": "Vi samlar hanteringen av personal, maskiner och fordon i ett och samma ekosystem.",
+      "count": 91,
+      "by_audience": {
+       "Owner or senior manager": 14,
+       "Supervisor or daily user": 24,
+       "HSE or compliance": 5,
+       "Operations, project or site manager": 16,
+       "Finance or administration": 20,
+       "Fleet, equipment or rental manager": 12
+      }
+     },
+     {
+      "quote": "Körjournal, CO2, kostnadskoll och mycket mer – samlat på ett ställe.",
+      "count": 87,
+      "by_audience": {
+       "HSE or compliance": 3,
+       "Supervisor or daily user": 33,
+       "Operations, project or site manager": 12,
+       "Owner or senior manager": 13,
+       "Fleet, equipment or rental manager": 4,
+       "Finance or administration": 22
+      }
+     },
+     {
+      "quote": "Se när, var och hur era maskiner och verktyg används.",
+      "count": 86,
+      "by_audience": {
+       "Supervisor or daily user": 29,
+       "HSE or compliance": 6,
+       "Operations, project or site manager": 17,
+       "Fleet, equipment or rental manager": 12,
+       "Owner or senior manager": 12,
+       "Finance or administration": 10
+      }
+     },
+     {
+      "quote": "Betrodd av över 12 000 kunder och 450 000 användare",
+      "count": 52,
+      "by_audience": {
+       "Owner or senior manager": 7,
+       "Supervisor or daily user": 13,
+       "Fleet, equipment or rental manager": 7,
+       "HSE or compliance": 2,
+       "Finance or administration": 13,
+       "Operations, project or site manager": 10
+      }
+     },
+     {
+      "quote": "Digital personalliggare för smidig in- och utcheckning och bättre överblick.",
+      "count": 42,
+      "by_audience": {
+       "Supervisor or daily user": 16,
+       "Owner or senior manager": 6,
+       "Finance or administration": 5,
+       "Operations, project or site manager": 5,
+       "HSE or compliance": 5,
+       "Fleet, equipment or rental manager": 5
+      }
+     },
+     {
+      "quote": "Vi tjänar mycket tid på att använda Infobric, och får bättre kvalitet för det.",
+      "count": 40,
+      "by_audience": {
+       "HSE or compliance": 5,
+       "Supervisor or daily user": 15,
+       "Operations, project or site manager": 5,
+       "Fleet, equipment or rental manager": 6,
+       "Finance or administration": 6,
+       "Owner or senior manager": 3
+      }
+     },
+     {
+      "quote": "Sedan Infobric grundades i Jönköping 2004 har vi utvecklats till den ledande digitaliseringspartnern för byggbranschen i Norden och Storbritannien.",
+      "count": 37,
+      "by_audience": {
+       "Owner or senior manager": 6,
+       "Supervisor or daily user": 9,
+       "Operations, project or site manager": 7,
+       "Fleet, equipment or rental manager": 6,
+       "Finance or administration": 9
+      }
+     },
+     {
+      "quote": "Med över 350 anställda i fyra olika länder bidrar vi med internationell expertis till lokala marknader.",
+      "count": 11,
+      "by_audience": {
+       "Owner or senior manager": 2,
+       "Supervisor or daily user": 3,
+       "Fleet, equipment or rental manager": 2,
+       "Finance or administration": 3,
+       "Operations, project or site manager": 1
+      }
+     },
+     {
+      "quote": "Transparens och kontroll i alla led från upphandling till färdigt projekt.",
+      "count": 4,
+      "by_audience": {
+       "Operations, project or site manager": 1,
+       "Finance or administration": 1,
+       "Fleet, equipment or rental manager": 2
+      }
+     },
+     {
+      "quote": "Vi kopplar ihop det digitala ekosystemet.",
+      "count": 3,
+      "by_audience": {
+       "Owner or senior manager": 1,
+       "Supervisor or daily user": 2
+      }
+     },
+     {
+      "quote": "Infobric erbjuder marknadens bredaste utbud av tjänster för att skapa en säkrare, mer hållbar och effektivare byggbransch.",
+      "count": 2,
+      "by_audience": {
+       "Supervisor or daily user": 1,
+       "Operations, project or site manager": 1
+      }
+     },
+     {
+      "quote": "En ledande digitaliseringspartner för byggbranschen.",
+      "count": 2,
+      "by_audience": {
+       "Owner or senior manager": 1,
+       "Supervisor or daily user": 1
+      }
+     }
+    ]
+   },
+   "language_felt_familiar": {
+    "title": "Wording that felt like the visitor's own world",
+    "items": [
+     {
+      "quote": "Se när, var och hur era maskiner och verktyg används.",
+      "count": 107,
+      "by_audience": {
+       "Owner or senior manager": 16,
+       "Supervisor or daily user": 35,
+       "HSE or compliance": 5,
+       "Operations, project or site manager": 20,
+       "Fleet, equipment or rental manager": 17,
+       "Finance or administration": 14
+      }
+     },
+     {
+      "quote": "Körjournal, CO2, kostnadskoll och mycket mer – samlat på ett ställe.",
+      "count": 102,
+      "by_audience": {
+       "Owner or senior manager": 17,
+       "Supervisor or daily user": 39,
+       "Operations, project or site manager": 11,
+       "Fleet, equipment or rental manager": 10,
+       "Finance or administration": 24,
+       "HSE or compliance": 1
+      }
+     },
+     {
+      "quote": "Maskin- & verktygshantering",
+      "count": 77,
+      "by_audience": {
+       "HSE or compliance": 4,
+       "Supervisor or daily user": 21,
+       "Operations, project or site manager": 19,
+       "Fleet, equipment or rental manager": 13,
+       "Owner or senior manager": 9,
+       "Finance or administration": 11
+      }
+     },
+     {
+      "quote": "Fordonshantering",
+      "count": 74,
+      "by_audience": {
+       "Supervisor or daily user": 29,
+       "Operations, project or site manager": 8,
+       "Fleet, equipment or rental manager": 9,
+       "Owner or senior manager": 9,
+       "Finance or administration": 19
+      }
+     },
+     {
+      "quote": "Vi samlar hanteringen av personal, maskiner och fordon i ett och samma ekosystem.",
+      "count": 68,
+      "by_audience": {
+       "Owner or senior manager": 15,
+       "Supervisor or daily user": 16,
+       "Operations, project or site manager": 9,
+       "Fleet, equipment or rental manager": 6,
+       "Finance or administration": 17,
+       "HSE or compliance": 5
+      }
+     },
+     {
+      "quote": "Effektivisera din uthyrnings-verksamhet med kontroll i realtid och säkerställ att din flotta alltid är redo för nästa uppdrag.",
+      "count": 29,
+      "by_audience": {
+       "Owner or senior manager": 7,
+       "Supervisor or daily user": 8,
+       "Finance or administration": 5,
+       "Fleet, equipment or rental manager": 8,
+       "Operations, project or site manager": 1
+      }
+     },
+     {
+      "quote": "Uthyrningsföretag",
+      "count": 29,
+      "by_audience": {
+       "Supervisor or daily user": 8,
+       "Owner or senior manager": 6,
+       "Finance or administration": 7,
+       "Fleet, equipment or rental manager": 7,
+       "Operations, project or site manager": 1
+      }
+     },
+     {
+      "quote": "Underentreprenörer",
+      "count": 24,
+      "by_audience": {
+       "HSE or compliance": 1,
+       "Supervisor or daily user": 9,
+       "Operations, project or site manager": 7,
+       "Owner or senior manager": 1,
+       "Finance or administration": 4,
+       "Fleet, equipment or rental manager": 2
+      }
+     },
+     {
+      "quote": "Vi digitaliserar byggbranschen",
+      "count": 15,
+      "by_audience": {
+       "Supervisor or daily user": 5,
+       "Owner or senior manager": 3,
+       "Fleet, equipment or rental manager": 1,
+       "Operations, project or site manager": 3,
+       "HSE or compliance": 1,
+       "Finance or administration": 2
+      }
+     },
+     {
+      "quote": "Förbättra säkerheten, effektivisera hantering av personal och maximera resurseffektiviteten genom fullständig kontroll över dina byggarbetsplatser.",
+      "count": 13,
+      "by_audience": {
+       "Operations, project or site manager": 8,
+       "Owner or senior manager": 4,
+       "Finance or administration": 1
+      }
+     },
+     {
+      "quote": "Oavsett om du ansvarar för projekt, säkerhet, personal, maskiner, uthyrning eller uppföljning finns lösningar som är anpassade för din vardag – och som fungerar tillsammans.",
+      "count": 11,
+      "by_audience": {
+       "Fleet, equipment or rental manager": 3,
+       "HSE or compliance": 2,
+       "Owner or senior manager": 2,
+       "Finance or administration": 3,
+       "Operations, project or site manager": 1
+      }
+     },
+     {
+      "quote": "personal, maskiner och fordon",
+      "count": 10,
+      "by_audience": {
+       "Supervisor or daily user": 7,
+       "Fleet, equipment or rental manager": 2,
+       "Operations, project or site manager": 1
+      }
+     }
+    ]
+   },
+   "confusing_or_missing": {
+    "title": "What was flagged as confusing, missing, unconvincing or irrelevant (exact entries)",
+    "items": [
+     {
+      "what": "Marknadens bredaste utbud",
+      "count": 48,
+      "where": "top",
+      "kind": "unconvincing",
+      "by_audience": {
+       "Supervisor or daily user": 10,
+       "Owner or senior manager": 6,
+       "Operations, project or site manager": 11,
+       "Fleet, equipment or rental manager": 9,
+       "HSE or compliance": 3,
+       "Finance or administration": 9
+      }
+     },
+     {
+      "what": "marknadens bredaste utbud av tjänster",
+      "count": 7,
+      "where": "top",
+      "kind": "unconvincing",
+      "by_audience": {
+       "Supervisor or daily user": 5,
+       "Finance or administration": 1,
+       "Operations, project or site manager": 1
+      }
+     },
+     {
+      "what": "Alla pratar om digitalisering. Vi får det att hända.",
+      "count": 7,
+      "where": "bottom",
+      "kind": "unconvincing",
+      "by_audience": {
+       "Finance or administration": 3,
+       "HSE or compliance": 1,
+       "Operations, project or site manager": 1,
+       "Supervisor or daily user": 1,
+       "Fleet, equipment or rental manager": 1
+      }
+     },
+     {
+      "what": "Pris och paketering",
+      "count": 6,
+      "where": "bottom",
+      "kind": "missing",
+      "by_audience": {
+       "Operations, project or site manager": 2,
+       "Finance or administration": 2,
+       "Supervisor or daily user": 2
+      }
+     },
+     {
+      "what": "Körjournal, CO2, kostnadskoll och mycket mer – samlat på ett ställe.",
+      "count": 5,
+      "where": "middle",
+      "kind": "missing",
+      "by_audience": {
+       "Supervisor or daily user": 2,
+       "Operations, project or site manager": 1,
+       "Finance or administration": 2
+      }
+     },
+     {
+      "what": "“Vi får det att hända.”",
+      "count": 5,
+      "where": "middle",
+      "kind": "unconvincing",
+      "by_audience": {
+       "Fleet, equipment or rental manager": 2,
+       "Finance or administration": 2,
+       "Operations, project or site manager": 1
+      }
+     },
+     {
+      "what": "Infobric erbjuder marknadens bredaste utbud",
+      "count": 4,
+      "where": "top",
+      "kind": "unconvincing",
+      "by_audience": {
+       "Owner or senior manager": 2,
+       "HSE or compliance": 1,
+       "Supervisor or daily user": 1
+      }
+     },
+     {
+      "what": "Integrationer",
+      "count": 4,
+      "where": "bottom",
+      "kind": "missing",
+      "by_audience": {
+       "Operations, project or site manager": 2,
+       "Finance or administration": 1,
+       "Supervisor or daily user": 1
+      }
+     },
+     {
+      "what": "Vi erbjuder marknadens bredaste utbud av tjänster",
+      "count": 4,
+      "where": "top",
+      "kind": "unconvincing",
+      "by_audience": {
+       "Owner or senior manager": 2,
+       "Supervisor or daily user": 1,
+       "Finance or administration": 1
+      }
+     },
+     {
+      "what": "Infobric erbjuder marknadens bredaste utbud av tjänster",
+      "count": 4,
+      "where": "top",
+      "kind": "unconvincing",
+      "by_audience": {
+       "Finance or administration": 1,
+       "Operations, project or site manager": 1,
+       "Supervisor or daily user": 2
+      }
+     },
+     {
+      "what": "Pris, integrationsmöjligheter och hur lång tid införandet tar",
+      "count": 3,
+      "where": "middle",
+      "kind": "missing",
+      "by_audience": {
+       "HSE or compliance": 1,
+       "Finance or administration": 1,
+       "Fleet, equipment or rental manager": 1
+      }
+     },
+     {
+      "what": "Vilka integrationer som stöds",
+      "count": 3,
+      "where": "bottom",
+      "kind": "missing",
+      "by_audience": {
+       "Finance or administration": 1,
+       "Fleet, equipment or rental manager": 1,
+       "Operations, project or site manager": 1
+      }
+     },
+     {
+      "what": "Betrodd av över 12 000 kunder och 450 000 användare",
+      "count": 3,
+      "where": "top",
+      "kind": "unconvincing",
+      "by_audience": {
+       "Finance or administration": 2,
+       "Operations, project or site manager": 1
+      }
+     },
+     {
+      "what": "Det ger er kontroll över helheten",
+      "count": 3,
+      "where": "top",
+      "kind": "confusing",
+      "by_audience": {
+       "Operations, project or site manager": 2,
+       "Supervisor or daily user": 1
+      }
+     },
+     {
+      "what": "Se hela utbudet och hitta rätt lösning för ditt behov.",
+      "count": 3,
+      "where": "middle",
+      "kind": "confusing",
+      "by_audience": {
+       "Operations, project or site manager": 1,
+       "Owner or senior manager": 1,
+       "Fleet, equipment or rental manager": 1
+      }
+     }
+    ]
+   }
+  },
+  "scores": {
+   "understanding": {
+    "n": 136,
+    "mean": 4.007352941176471,
+    "sd": 0.08543345616634007,
+    "dist": {
+     "1": 0,
+     "2": 0,
+     "3": 0,
+     "4": 135,
+     "5": 1
+    }
+   },
+   "language_relevance": {
+    "n": 136,
+    "mean": 4.0,
+    "sd": 0.21004201260420147,
+    "dist": {
+     "1": 0,
+     "2": 0,
+     "3": 3,
+     "4": 130,
+     "5": 3
+    }
+   },
+   "practical_value": {
+    "n": 136,
+    "mean": 3.6911764705882355,
+    "sd": 0.4620081786001473,
+    "dist": {
+     "1": 0,
+     "2": 0,
+     "3": 42,
+     "4": 94,
+     "5": 0
+    }
+   },
+   "trust": {
+    "n": 136,
+    "mean": 3.0,
+    "sd": 0.0,
+    "dist": {
+     "1": 0,
+     "2": 0,
+     "3": 136,
+     "4": 0,
+     "5": 0
+    }
+   },
+   "next_step_confidence": {
+    "n": 136,
+    "mean": 3.8529411764705883,
+    "sd": 0.3541645464350675,
+    "dist": {
+     "1": 0,
+     "2": 0,
+     "3": 20,
+     "4": 116,
+     "5": 0
+    }
+   },
+   "next_step_ease": {
+    "n": 136,
+    "mean": 3.8455882352941178,
+    "sd": 0.36134301103840044,
+    "dist": {
+     "1": 0,
+     "2": 0,
+     "3": 21,
+     "4": 115,
+     "5": 0
+    }
+   },
+   "cta_match": {
+    "n": 136,
+    "mean": 4.654411764705882,
+    "sd": 0.4755596775594155,
+    "dist": {
+     "1": 0,
+     "2": 0,
+     "3": 0,
+     "4": 47,
+     "5": 89
+    }
+   },
+   "contact_likelihood": {
+    "n": 136,
+    "mean": 2.8088235294117645,
+    "sd": 0.6475599663618823,
+    "dist": {
+     "1": 0,
+     "2": 44,
+     "3": 74,
+     "4": 18,
+     "5": 0
+    }
+   }
+  },
+  "scores_by_audience_scored": {
+   "Owner or senior manager": {
+    "understanding": 4.357142857142857,
+    "language_relevance": 4.642857142857143,
+    "practical_value": 3.5,
+    "trust": 3,
+    "next_step_confidence": 4,
+    "next_step_ease": 3.7857142857142856,
+    "cta_match": 4.5,
+    "contact_likelihood": 2.642857142857143
+   },
+   "Supervisor or daily user": {
+    "understanding": 4.21875,
+    "language_relevance": 4.5,
+    "practical_value": 3.625,
+    "trust": 2.96875,
+    "next_step_confidence": 4,
+    "next_step_ease": 3.65625,
+    "cta_match": 4.25,
+    "contact_likelihood": 2.75
+   },
+   "HSE or compliance": {
+    "understanding": 4.4,
+    "language_relevance": 4.2,
+    "practical_value": 3.6,
+    "trust": 3,
+    "next_step_confidence": 4,
+    "next_step_ease": 3.6,
+    "cta_match": 4.8,
+    "contact_likelihood": 2.6
+   },
+   "Operations, project or site manager": {
+    "understanding": 4.166666666666667,
+    "language_relevance": 4.444444444444445,
+    "practical_value": 3.611111111111111,
+    "trust": 3,
+    "next_step_confidence": 3.9444444444444446,
+    "next_step_ease": 3.7777777777777777,
+    "cta_match": 4.166666666666667,
+    "contact_likelihood": 3
+   },
+   "Fleet, equipment or rental manager": {
+    "understanding": 4,
+    "language_relevance": 4.470588235294118,
+    "practical_value": 3.411764705882353,
+    "trust": 3,
+    "next_step_confidence": 3.8823529411764706,
+    "next_step_ease": 3.5294117647058822,
+    "cta_match": 4.235294117647059,
+    "contact_likelihood": 2.7058823529411766
+   },
+   "Finance or administration": {
+    "understanding": 4.380952380952381,
+    "language_relevance": 4.380952380952381,
+    "practical_value": 3.7142857142857144,
+    "trust": 3,
+    "next_step_confidence": 4.095238095238095,
+    "next_step_ease": 3.761904761904762,
+    "cta_match": 4.476190476190476,
+    "contact_likelihood": 2.9523809523809526
+   }
+  },
+  "exit_rate": 0.0,
+  "next_step": {
+   "come_back_later": 60,
+   "learn_more": 28,
+   "contact_sales": 48
+  },
+  "trust_action": {
+   "need_references_first": 128,
+   "need_pilot_first": 8
+  },
+  "missing_info": {
+   "price": 136,
+   "integrations": 136,
+   "setup_time": 136,
+   "references": 136,
+   "data_privacy": 136,
+   "contract_terms": 135,
+   "hardware": 106
+  },
+  "n": 136
+ },
+ "reduced": {
+  "takeaway": {
+   "HSE or compliance": {
+    "_n": 7,
+    "what_it_does": [
+     {
+      "theme": "A digitalisation partner for construction companies and related organisations, connecting personnel, machines, vehicles, tools, compliance and project operations in one ecosystem.",
+      "count": 7,
+      "example": "Provides connected digital services for construction-site operations and compliance."
+     }
+    ],
+    "problems_recognised": [
+     {
+      "theme": "Safety, compliance and KMA work is difficult to structure, monitor and administer across projects.",
+      "count": 7
+     },
+     {
+      "theme": "Limited visibility and control over machines, tools, equipment and vehicles, including their use, location and costs.",
+      "count": 7
+     },
+     {
+      "theme": "Too much manual administration and a need for better personnel, site and supplier coordination.",
+      "count": 6
+     },
+     {
+      "theme": "Need to improve productivity, resource efficiency, emissions performance and accident prevention.",
+      "count": 5
+     }
+    ],
+    "kept_reading_because": [
+     {
+      "theme": "The first screen clearly identified construction as the target industry and connected the offer to personnel, machines and vehicles in one ecosystem.",
+      "count": 7,
+      "quote": ""
+     },
+     {
+      "theme": "A direct statement of the company’s construction focus made the proposition easy to understand.",
+      "count": 3,
+      "quote": "Vi digitaliserar byggbranschen"
+     },
+     {
+      "theme": "Customer and user numbers provided credibility and encouraged further reading.",
+      "count": 3,
+      "quote": "Betrodd av över 12 000 kunder och 450 000 användare"
+     }
+    ],
+    "next_step_reasons": [
+     {
+      "next_step": "come_back_later",
+      "theme": "The offer is relevant, but there is no urgent problem and the visitor wants more evidence before engaging commercially.",
+      "count": 3
+     },
+     {
+      "next_step": "learn_more",
+      "theme": "The visitor wants to investigate product fit and practical examples before starting a sales conversation.",
+      "count": 2
+     },
+     {
+      "next_step": "contact_sales",
+      "theme": "The contact route is clear and the solution appears relevant, but references and practical integration information are still needed.",
+      "count": 2
+     }
+    ],
+    "values_but_not_ready": {
+     "count": 7,
+     "what_they_need_first": [
+      {
+       "need": "References from comparable construction organisations",
+       "count": 7
+      },
+      {
+       "need": "Integration, hardware and rollout information",
+       "count": 4
+      },
+      {
+       "need": "Implementation and practical fit information",
+       "count": 4
+      },
+      {
+       "need": "Pricing or commercial terms",
+       "count": 3
+      },
+      {
+       "need": "Privacy information",
+       "count": 1
+      }
+     ]
+    }
+   },
+   "Supervisor or daily user": {
+    "_n": 20,
+    "what_it_does": [
+     {
+      "theme": "A digitalisation provider for construction and site-based businesses, bringing personnel, machines and vehicles into one connected ecosystem to improve safety, sustainability, efficiency and control.",
+      "count": 20,
+      "example": "A construction-focused system for managing people, vehicles and equipment together."
+     },
+     {
+      "theme": "A broad digital-services partner serving contractors, subcontractors, developers, workers, rental companies and compliance teams across personnel, fleet, equipment, safety, rental and operational follow-up.",
+      "count": 20,
+      "example": "A wide portfolio covering personnel administration, vehicle and machine management, tools, compliance and rental operations."
+     }
+    ],
+    "problems_recognised": [
+     {
+      "theme": "Difficulty controlling vehicles, driving logs, vehicle use, costs, service, inspections, emissions and fleet information.",
+      "count": 20
+     },
+     {
+      "theme": "Difficulty tracking tools, machines and equipment, including where they are, who uses them and when they will be available.",
+      "count": 17
+     },
+     {
+      "theme": "Too much manual administration and fragmented information, with a need for better coordination, transparency, safety and compliance.",
+      "count": 19
+     },
+     {
+      "theme": "Need for better rental-fleet visibility, including bookings, contracts, prices, returns, inspections and readiness for the next assignment.",
+      "count": 6
+     },
+     {
+      "theme": "Separate systems and spreadsheets do not provide a joined-up view of vehicles, personnel, equipment and operations.",
+      "count": 8
+     }
+    ],
+    "kept_reading_because": [
+     {
+      "theme": "The first screen clearly positioned the company in construction and named operational areas directly relevant to the visitors.",
+      "count": 20,
+      "quote": "Vi digitaliserar byggbranschen"
+     },
+     {
+      "theme": "The promise of managing personnel, machines and vehicles together suggested broader operational control.",
+      "count": 20,
+      "quote": "Vi samlar hanteringen av personal, maskiner och fordon i ett och samma ekosystem."
+     },
+     {
+      "theme": "Customer and user figures provided credibility and encouraged further reading.",
+      "count": 9,
+      "quote": "Betrodd av över 12 000 kunder och 450 000 användare"
+     }
+    ],
+    "next_step_reasons": [
+     {
+      "next_step": "come_back_later",
+      "theme": "The solution seemed relevant, but the visit was exploratory, current processes still worked, and the visitors wanted references and practical details before a sales conversation.",
+      "count": 12
+     },
+     {
+      "next_step": "learn_more",
+      "theme": "The visitors wanted to investigate relevant vehicle, equipment or rental use cases and obtain references, integration information, cost and implementation details first.",
+      "count": 6
+     },
+     {
+      "next_step": "contact_sales",
+      "theme": "An immediate operational problem and a clear contact route justified contacting sales, while references, pricing and rollout information were still required.",
+      "count": 2
+     }
+    ],
+    "values_but_not_ready": {
+     "count": 20,
+     "what_they_need_first": [
+      {
+       "need": "References from similar construction, subcontractor, fleet or rental businesses",
+       "count": 19
+      },
+      {
+       "need": "A pilot that can be tested without disrupting field operations",
+       "count": 1
+      }
+     ]
+    }
+   },
+   "Operations, project or site manager": {
+    "_n": 20,
+    "what_it_does": [
+     {
+      "theme": "A broad digitalisation partner and connected ecosystem for construction and site-based businesses, managing personnel, machines, tools, vehicles, safety, compliance and project operations; the offer is broad but somewhat vague as a specific product.",
+      "count": 20,
+      "example": "A connected digital platform that helps construction companies control people, equipment, vehicles and site processes."
+     }
+    ],
+    "problems_recognised": [
+     {
+      "theme": "Poor visibility and control of machines, tools and equipment, including searching for assets, tracking usage and preventing loss or duplicate purchases.",
+      "count": 20
+     },
+     {
+      "theme": "Administrative, safety, compliance and supplier-follow-up burden across construction sites and projects.",
+      "count": 19
+     },
+     {
+      "theme": "Need for better coordination and overview of personnel, subcontractors, resources and site activities.",
+      "count": 16
+     },
+     {
+      "theme": "Vehicle management challenges involving usage, driving logs, service, inspections, damage, emissions and costs.",
+      "count": 8
+     }
+    ],
+    "kept_reading_because": [
+     {
+      "theme": "The first screen clearly identified construction as the target industry and named operational areas relevant to site and equipment responsibilities.",
+      "count": 20,
+      "quote": "Vi digitaliserar byggbranschen"
+     },
+     {
+      "theme": "Customer scale, recognisable references and social proof increased credibility.",
+      "count": 16,
+      "quote": "Betrodd av över 12 000 kunder och 450 000 användare"
+     }
+    ],
+    "next_step_reasons": [
+     {
+      "next_step": "contact_sales",
+      "theme": "The operational fit appears strong, especially for equipment, tools, vehicles and site management, but the visitor wants evidence and implementation details before proceeding.",
+      "count": 8
+     },
+     {
+      "next_step": "learn_more",
+      "theme": "The problems are relevant, but existing systems work and the visitor wants to investigate fit, hardware, integrations, rollout and commercial details before speaking with sales.",
+      "count": 4
+     },
+     {
+      "next_step": "come_back_later",
+      "theme": "The visitor sees relevance but is exploring rather than responding to an urgent problem, so they will return after internal consideration and further validation.",
+      "count": 8
+     }
+    ],
+    "values_but_not_ready": {
+     "count": 20,
+     "what_they_need_first": [
+      {
+       "need": "References from comparable construction, transport or field-service companies",
+       "count": 20
+      },
+      {
+       "need": "Integration, hardware, implementation and rollout information",
+       "count": 19
+      },
+      {
+       "need": "Pricing, contract terms and other commercial details",
+       "count": 11
+      }
+     ]
+    }
+   },
+   "Owner or senior manager": {
+    "_n": 19,
+    "what_it_does": [
+     {
+      "theme": "A digitalisation partner offering one connected ecosystem for construction companies and related site-based roles, covering personnel, machines and vehicles.",
+      "count": 19,
+      "example": "A broad construction-industry platform that connects personnel, equipment and vehicles to improve safety, efficiency and control."
+     },
+     {
+      "theme": "A provider with particularly relevant solutions for rental, fleet, equipment and compliance operations.",
+      "count": 8,
+      "example": "A connected operational system for rental companies and businesses managing vehicles, machines, tools and site compliance."
+     }
+    ],
+    "problems_recognised": [
+     {
+      "theme": "Limited visibility and manual administration around vehicles, driving logs, costs, use and tax-related trips.",
+      "count": 19
+     },
+     {
+      "theme": "Difficulty tracking machines, tools and equipment, including missing items, duplicate purchases or rentals, and missed service dates.",
+      "count": 19
+     },
+     {
+      "theme": "Too many separate systems, spreadsheets, paper lists or disconnected workflows.",
+      "count": 13
+     },
+     {
+      "theme": "Administrative burden while trying to maintain safety, compliance, transparency and operational control.",
+      "count": 16
+     },
+     {
+      "theme": "Need for better coordination and real-time control across rental operations, fleets, projects, personnel and subcontractors.",
+      "count": 15
+     }
+    ],
+    "kept_reading_because": [
+     {
+      "theme": "The first screen clearly identified the construction industry and the relevant operational scope of personnel, machines and vehicles.",
+      "count": 19,
+      "quote": "Vi samlar hanteringen av personal, maskiner och fordon i ett och samma ekosystem."
+     },
+     {
+      "theme": "The customer scale created credibility and encouraged further reading.",
+      "count": 13,
+      "quote": "Betrodd av över 12 000 kunder och 450 000 användare"
+     }
+    ],
+    "next_step_reasons": [
+     {
+      "next_step": "come_back_later",
+      "theme": "The offering seemed relevant, but there was no urgent failure; visitors wanted references and practical information before starting a sales conversation.",
+      "count": 8
+     },
+     {
+      "next_step": "contact_sales",
+      "theme": "The fit with current vehicle, rental, fleet or equipment problems was strong enough to justify contacting sales, subject to validation.",
+      "count": 7
+     },
+     {
+      "next_step": "learn_more",
+      "theme": "Visitors wanted more product and implementation detail before deciding whether to engage with sales.",
+      "count": 4
+     }
+    ],
+    "values_but_not_ready": {
+     "count": 12,
+     "what_they_need_first": [
+      {
+       "need": "References from comparable construction, rental, contractor or field-service businesses",
+       "count": 12
+      },
+      {
+       "need": "Integration, implementation and rollout details",
+       "count": 11
+      },
+      {
+       "need": "Pricing and contract information",
+       "count": 7
+      },
+      {
+       "need": "Privacy, data handling or security information",
+       "count": 3
+      },
+      {
+       "need": "Hardware and setup requirements",
+       "count": 3
+      }
+     ]
+    }
+   },
+   "Fleet, equipment or rental manager": {
+    "_n": 18,
+    "what_it_does": [
+     {
+      "theme": "A construction-industry digitalisation ecosystem that connects personnel, machines and vehicles for contractors, subcontractors and other site-based organisations.",
+      "count": 18,
+      "example": "A connected platform for managing construction operations."
+     },
+     {
+      "theme": "A broad suite of connected services covering personnel, safety, compliance, vehicles, machines, tools, projects, suppliers and follow-up.",
+      "count": 18,
+      "example": "An integrated set of operational and compliance tools rather than one standalone product."
+     },
+     {
+      "theme": "A rental, equipment and fleet-management solution offering visibility and control for rental companies and equipment managers.",
+      "count": 10,
+      "example": "A system for tracking rental equipment and keeping fleets ready for the next assignment."
+     }
+    ],
+    "problems_recognised": [
+     {
+      "theme": "Poor visibility of equipment: not knowing who has tools, where machines are, or how assets are being used.",
+      "count": 15
+     },
+     {
+      "theme": "Rental-fleet administration and readiness problems, including fragmented bookings, contracts, returns, inspections and availability information.",
+      "count": 9
+     },
+     {
+      "theme": "Vehicle-management problems involving driving logs, shared vehicles, usage, CO2 and costs.",
+      "count": 3
+     },
+     {
+      "theme": "Too much manual administration and fragmented systems, with a need for better coordination and overview.",
+      "count": 16
+     },
+     {
+      "theme": "Safety, compliance and follow-up challenges across personnel, equipment, suppliers and construction operations.",
+      "count": 12
+     }
+    ],
+    "kept_reading_because": [
+     {
+      "theme": "The first screen clearly identified construction and named personnel, machines and vehicles in one ecosystem, directly matching visitors' responsibilities.",
+      "count": 18,
+      "quote": "Vi samlar hanteringen av personal, maskiner och fordon i ett och samma ekosystem"
+     },
+     {
+      "theme": "The promise of safer, more sustainable and more efficient operations, with improved overall control, was relevant to their goals.",
+      "count": 18,
+      "quote": ""
+     },
+     {
+      "theme": "Trust signals, including customer and user numbers and recognisable logos, made the company seem established enough to investigate.",
+      "count": 10,
+      "quote": "Betrodd av över 12 000 kunder och 450 000 användare"
+     }
+    ],
+    "next_step_reasons": [
+     {
+      "next_step": "contact_sales",
+      "theme": "The rental, equipment or vehicle-management fit was strong enough to justify a sales conversation, especially where the operational problem was urgent.",
+      "count": 5
+     },
+     {
+      "next_step": "learn_more",
+      "theme": "The solution looked relevant, but visitors wanted more product detail and rental- or equipment-specific evidence before speaking with sales.",
+      "count": 2
+     },
+     {
+      "next_step": "come_back_later",
+      "theme": "The page was relevant but the need was exploratory or non-urgent; visitors wanted to research fit, integrations, cost and implementation first.",
+      "count": 11
+     }
+    ],
+    "values_but_not_ready": {
+     "count": 13,
+     "what_they_need_first": [
+      {
+       "need": "References from comparable rental, fleet, equipment or construction businesses",
+       "count": 11
+      },
+      {
+       "need": "A low-risk pilot or product-fit test",
+       "count": 2
+      }
+     ]
+    }
+   },
+   "Finance or administration": {
+    "_n": 20,
+    "what_it_does": [
+     {
+      "theme": "A digitalisation partner for construction and site-based businesses, connecting personnel, machines and vehicles in one ecosystem.",
+      "count": 20,
+      "example": "They concluded that Infobric unifies operational management for construction companies."
+     },
+     {
+      "theme": "A broad suite covering vehicles, machines, tools, personnel, rental operations, compliance and project-related administration for multiple construction-sector roles.",
+      "count": 20,
+      "example": "They saw a wide platform rather than one narrowly defined product, although the specific solution for their situation was sometimes unclear."
+     }
+    ],
+    "problems_recognised": [
+     {
+      "theme": "Vehicle administration, including driving logs, private-versus-business trips, mileage claims, tolls, costs and emissions.",
+      "count": 17
+     },
+     {
+      "theme": "Too much manual administration and fragmented information, with a need for better overview, control, transparency and compliance.",
+      "count": 20
+     },
+     {
+      "theme": "Tracking machines, tools and equipment, including usage, location, handovers, readiness and service or inspection dates.",
+      "count": 6
+     },
+     {
+      "theme": "Rental-operation administration, including transport, returns, inspections, contracts, pricing and fleet readiness.",
+      "count": 5
+     },
+     {
+      "theme": "Improving personnel coordination, safety, resource efficiency and accountability across construction projects.",
+      "count": 8
+     }
+    ],
+    "kept_reading_because": [
+     {
+      "theme": "The first screen clearly identified construction as the target sector and named personnel, machines and vehicles as the connected operational areas.",
+      "count": 20,
+      "quote": "Vi digitaliserar byggbranschen"
+     },
+     {
+      "theme": "The promise of managing the main operational areas in one ecosystem appeared relevant to finance, administration, fleet and equipment responsibilities.",
+      "count": 20,
+      "quote": "Vi samlar hanteringen av personal, maskiner och fordon i ett och samma ekosystem."
+     },
+     {
+      "theme": "Customer scale and recognisable customer evidence increased credibility.",
+      "count": 9,
+      "quote": "Betrodd av över 12 000 kunder och 450 000 användare"
+     }
+    ],
+    "next_step_reasons": [
+     {
+      "next_step": "contact_sales",
+      "theme": "The visitor saw a plausible fit with an active vehicle, rental or administration problem and found the contact route easy, but wanted to ask focused questions first.",
+      "count": 7
+     },
+     {
+      "next_step": "learn_more",
+      "theme": "The offering seemed relevant, but the visitor was exploring and wanted more detail on the applicable solutions before speaking with sales.",
+      "count": 4
+     },
+     {
+      "next_step": "come_back_later",
+      "theme": "The visitor saw potential but had no urgent deadline and wanted to compare the solution with existing systems before starting a conversation.",
+      "count": 9
+     }
+    ],
+    "values_but_not_ready": {
+     "count": 20,
+     "what_they_need_first": [
+      {
+       "need": "References from comparable construction, rental, subcontractor or fleet businesses",
+       "count": 20
+      },
+      {
+       "need": "Integration and compatibility information for finance, payroll, accounting, ERP or existing driving-log systems",
+       "count": 18
+      },
+      {
+       "need": "Pricing and commercial information",
+       "count": 15
+      },
+      {
+       "need": "Implementation, setup and rollout expectations",
+       "count": 17
+      },
+      {
+       "need": "Information about privacy, data handling and contract terms",
+       "count": 5
+      }
+     ]
+    }
+   }
+  },
+  "findings": {
+   "HSE or compliance": {
+    "_n": 7,
+    "findings": [
+     {
+      "title": "Broad leadership and outcome claims lack supporting evidence",
+      "exact_wording": [
+       "marknadens bredaste utbud",
+       "den ledande digitaliseringspartnern för byggbranschen i Norden och Storbritannien.",
+       "Vårt breda utbud av lösningar hjälper våra kunder att minimera olyckor, eliminera bedrägerier, minska utsläppen och förbättra produktiviteten i sina verksamheter."
+      ],
+      "position": "mixed",
+      "creates": "doubt",
+      "count": 7,
+      "who": "HSE and compliance visitors who need defensible evidence before recommending a supplier internally.",
+      "persona_interpretation": "The page makes broad market and impact claims, but does not provide measurable results, comparisons, or relevant case evidence."
+     },
+     {
+      "title": "Pricing, integrations, and implementation details are missing",
+      "exact_wording": [],
+      "position": "middle",
+      "creates": "hesitation",
+      "count": 7,
+      "who": "All HSE and compliance visitors, especially smaller organisations assessing feasibility and rollout risk.",
+      "persona_interpretation": "They cannot judge the financial, technical, or operational effort required to adopt the solutions."
+     },
+     {
+      "title": "The best solution path for the role is unclear",
+      "exact_wording": [],
+      "position": "middle",
+      "creates": "confusion",
+      "count": 5,
+      "who": "HSE or compliance managers and coordinators who do not own vehicles or all operational systems.",
+      "persona_interpretation": "The many audiences and products make it difficult to identify the relevant starting point for a specific compliance workflow."
+     },
+     {
+      "title": "The page does not show enough fit for small or existing operations",
+      "exact_wording": [],
+      "position": "middle",
+      "creates": "irrelevance",
+      "count": 5,
+      "who": "Small subcontractors and compliance teams with informal processes or existing driving-log, tracking, spreadsheet, or messaging systems.",
+      "persona_interpretation": "Visitors need to understand how the offering would fit their current setup rather than replace or duplicate existing tools."
+     },
+     {
+      "title": "Some audience and solution language feels aimed at other construction roles",
+      "exact_wording": [
+       "Yrkesarbetare",
+       "Huvudentreprenörer",
+       "Byggherrar",
+       "Uthyrningsföretag"
+      ],
+      "position": "mixed",
+      "creates": "irrelevance",
+      "count": 6,
+      "who": "HSE and compliance visitors who are not primarily workers, developers, main contractors, or rental businesses.",
+      "persona_interpretation": "The broad audience framing makes the visitor question whether the page is intended for their responsibility area."
+     },
+     {
+      "title": "Privacy, data handling, and access information are insufficient",
+      "exact_wording": [],
+      "position": "middle",
+      "creates": "missing",
+      "count": 6,
+      "who": "Compliance-led buyers who must assess data protection, access control, and organisational risk.",
+      "persona_interpretation": "The absence of concrete data-handling information prevents them from completing an early compliance review."
+     }
+    ],
+    "claims_need_proof": [
+     {
+      "quote": "Betrodd av över 12 000 kunder och 450 000 användare",
+      "count": 5,
+      "proof_wanted": "Customer references, case studies, and independently verifiable customer or user figures."
+     },
+     {
+      "quote": "marknadens bredaste utbud",
+      "count": 3,
+      "proof_wanted": "A transparent comparison with competing offerings and a concrete definition of breadth."
+     },
+     {
+      "quote": "Infobric erbjuder marknadens bredaste utbud av tjänster",
+      "count": 1,
+      "proof_wanted": "A comparison or evidence demonstrating the breadth of the service portfolio."
+     },
+     {
+      "quote": "Infobric erbjuder marknadens bredaste utbud av tjänster för att skapa en säkrare, mer hållbar och effektivare byggbransch.",
+      "count": 1,
+      "proof_wanted": "Measured safety, sustainability, and efficiency results supported by customer evidence."
+     },
+     {
+      "quote": "den ledande digitaliseringspartnern för byggbranschen i Norden och Storbritannien.",
+      "count": 5,
+      "proof_wanted": "Market position evidence, customer references, and measurable adoption or performance data."
+     },
+     {
+      "quote": "Vårt breda utbud av lösningar hjälper våra kunder att minimera olyckor, eliminera bedrägerier, minska utsläppen och förbättra produktiviteten i sina verksamheter.",
+      "count": 5,
+      "proof_wanted": "Quantified before-and-after results, methodology, and relevant customer case studies."
+     }
+    ],
+    "claims_credible": [
+     {
+      "quote": "Vi samlar hanteringen av personal, maskiner och fordon i ett och samma ekosystem.",
+      "count": 5
+     },
+     {
+      "quote": "Se när, var och hur era maskiner och verktyg används.",
+      "count": 6
+     },
+     {
+      "quote": "Digital personalliggare för smidig in- och utcheckning och bättre överblick.",
+      "count": 5
+     },
+     {
+      "quote": "Vi tjänar mycket tid på att använda Infobric, och får bättre kvalitet för det.",
+      "count": 5
+     },
+     {
+      "quote": "Körjournal, CO2, kostnadskoll och mycket mer – samlat på ett ställe.",
+      "count": 4
+     },
+     {
+      "quote": "Betrodd av över 12 000 kunder och 450 000 användare",
+      "count": 2
+     }
+    ],
+    "language_felt_off": [
+     {
+      "quote": "Yrkesarbetare",
+      "count": 4,
+      "why": "It addresses frontline workers rather than visitors responsible for HSE, compliance, or organisational systems."
+     },
+     {
+      "quote": "maximera resurseffektiviteten",
+      "count": 2,
+      "why": "The abstract efficiency language feels aimed at operational or management audiences rather than a compliance coordinator."
+     },
+     {
+      "quote": "maximera resurseffektiviteten genom fullständig kontroll över dina byggarbetsplatser.",
+      "count": 1,
+      "why": "It assumes responsibility for entire construction sites and resource optimisation, which may not match an HSE specialist's remit."
+     },
+     {
+      "quote": "Effektivisera din uthyrnings-verksamhet med kontroll i realtid och säkerställ att din flotta alltid är redo för nästa uppdrag.",
+      "count": 1,
+      "why": "It is specifically written for equipment-rental and fleet operations rather than compliance work."
+     },
+     {
+      "quote": "Digitala kravutbildningar på mobilen",
+      "count": 1,
+      "why": "It focuses on worker training delivery rather than the visitor's broader HSE governance responsibilities."
+     },
+     {
+      "quote": "Alla pratar om digitalisering. Vi får det att hända.",
+      "count": 1,
+      "why": "The promotional slogan feels generic and less relevant to a visitor seeking concrete compliance and implementation information."
+     }
+    ],
+    "language_felt_familiar": [
+     {
+      "quote": "Se när, var och hur era maskiner och verktyg används.",
+      "count": 6
+     },
+     {
+      "quote": "Vi samlar hanteringen av personal, maskiner och fordon i ett och samma ekosystem.",
+      "count": 5
+     },
+     {
+      "quote": "Förenkla regelefterlevnaden med våra digitala lösningar, minska administrationen och öka transparensen och ansvarsskyldigheten i byggprojekt.",
+      "count": 3
+     },
+     {
+      "quote": "Maskin- & verktygshantering",
+      "count": 4
+     },
+     {
+      "quote": "Arbeta systematiskt och digitalt med KMA för en säkrare byggarbetsplats.",
+      "count": 4
+     },
+     {
+      "quote": "Körjournal, CO2, kostnadskoll och mycket mer – samlat på ett ställe.",
+      "count": 2
+     }
+    ],
+    "hesitation_reasons": [
+     {
+      "theme": "No visible pricing or clear estimate of implementation effort",
+      "count": 7
+     },
+     {
+      "theme": "Unclear integrations and compatibility with existing systems or processes",
+      "count": 7
+     },
+     {
+      "theme": "Broad claims are not backed by relevant customer references, case evidence, or measurable results",
+      "count": 7
+     },
+     {
+      "theme": "Insufficient information about data privacy, data handling, and access control",
+      "count": 6
+     },
+     {
+      "theme": "Uncertainty about which solution fits the visitor's specific HSE or compliance role",
+      "count": 7
+     }
+    ]
+   },
+   "Owner or senior manager": {
+    "_n": 19,
+    "findings": [
+     {
+      "title": "Essential commercial and implementation details are missing",
+      "exact_wording": [],
+      "position": "mixed",
+      "creates": "missing",
+      "count": 19,
+      "who": "Owners and senior managers evaluating operational purchases, because they need to estimate cost, integration effort, rollout time and contractual risk.",
+      "persona_interpretation": "The page does not provide enough practical information to assess whether adopting the solution is feasible."
+     },
+     {
+      "title": "Broad leadership and impact claims lack supporting evidence",
+      "exact_wording": [
+       "Infobric erbjuder marknadens bredaste utbud",
+       "Betrodd av över 12 000 kunder och 450 000 användare",
+       "Vårt breda utbud av lösningar hjälper våra kunder att minimera olyckor, eliminera bedrägerier, minska utsläppen och förbättra produktiviteten i sina verksamheter."
+      ],
+      "position": "mixed",
+      "creates": "doubt",
+      "count": 19,
+      "who": "Decision-makers responsible for business results, because unsupported scale, market-leadership and outcome claims are insufficient for an investment decision.",
+      "persona_interpretation": "The claims sound plausible but are too general without measurable results, comparisons or relevant customer evidence."
+     },
+     {
+      "title": "The broad catalogue does not identify the right starting solution",
+      "exact_wording": [],
+      "position": "middle",
+      "creates": "confusion",
+      "count": 16,
+      "who": "Owners of rental, contracting, transport and field-service businesses, because they need to know which product combination fits their existing workflows and systems.",
+      "persona_interpretation": "The many categories and audiences make it difficult to understand the recommended first step for a specific operation."
+     },
+     {
+      "title": "Relevant customer references and use cases are missing",
+      "exact_wording": [],
+      "position": "mixed",
+      "creates": "doubt",
+      "count": 19,
+      "who": "Owners and senior managers with mixed fleets, rental operations or established ERP and tracking systems, because they need proof from comparable businesses.",
+      "persona_interpretation": "Generic credibility does not demonstrate that the solution works for the visitor's particular industry, scale or workflow."
+     },
+     {
+      "title": "The audience and terminology sometimes feel aimed at other roles",
+      "exact_wording": [
+       "Yrkesarbetare",
+       "Borrning & Sprängning",
+       "Compliance"
+      ],
+      "position": "top",
+      "creates": "irrelevance",
+      "count": 15,
+      "who": "Owners and senior managers outside frontline construction roles, because some labels appear to address workers, specialist trades or compliance users rather than business decision-makers.",
+      "persona_interpretation": "Parts of the page make the visitor question whether the offering is designed for their management perspective and business type."
+     }
+    ],
+    "claims_need_proof": [
+     {
+      "quote": "Betrodd av över 12 000 kunder och 450 000 användare",
+      "count": 18,
+      "proof_wanted": "Named customer references, case studies, dates and independently verifiable customer or usage data."
+     },
+     {
+      "quote": "Vårt breda utbud av lösningar hjälper våra kunder att minimera olyckor, eliminera bedrägerier, minska utsläppen och förbättra produktiviteten i sina verksamheter.",
+      "count": 14,
+      "proof_wanted": "Measured before-and-after results, methodology, customer examples and quantified operational outcomes."
+     },
+     {
+      "quote": "Infobric erbjuder marknadens bredaste utbud av tjänster",
+      "count": 6,
+      "proof_wanted": "A clear comparison with competitors, scope of included services and evidence supporting the market-wide claim."
+     },
+     {
+      "quote": "den ledande digitaliseringspartnern för byggbranschen i Norden och Storbritannien.",
+      "count": 5,
+      "proof_wanted": "Market position data, independent recognition, customer scale by market and relevant customer references."
+     },
+     {
+      "quote": "Vi får det att hända.",
+      "count": 5,
+      "proof_wanted": "Concrete examples showing what was implemented, how long it took and what results customers achieved."
+     },
+     {
+      "quote": "Vi bidrar till att bygga en bättre värld.",
+      "count": 4,
+      "proof_wanted": "Specific sustainability initiatives, measurable effects and evidence linking the solution to those outcomes."
+     }
+    ],
+    "claims_credible": [
+     {
+      "quote": "Körjournal, CO2, kostnadskoll och mycket mer – samlat på ett ställe.",
+      "count": 18
+     },
+     {
+      "quote": "Se när, var och hur era maskiner och verktyg används.",
+      "count": 14
+     },
+     {
+      "quote": "Digital personalliggare för smidig in- och utcheckning och bättre överblick.",
+      "count": 7
+     },
+     {
+      "quote": "Vi samlar hanteringen av personal, maskiner och fordon i ett och samma ekosystem.",
+      "count": 6
+     },
+     {
+      "quote": "Vi tjänar mycket tid på att använda Infobric, och får bättre kvalitet för det.",
+      "count": 3
+     },
+     {
+      "quote": "Sedan Infobric grundades i Jönköping 2004 har vi utvecklats till den ledande digitaliseringspartnern för byggbranschen i Norden och Storbritannien.",
+      "count": 3
+     }
+    ],
+    "language_felt_off": [
+     {
+      "quote": "Yrkesarbetare",
+      "count": 15,
+      "why": "It sounds aimed at frontline workers rather than owners or senior managers."
+     },
+     {
+      "quote": "Borrning & Sprängning",
+      "count": 4,
+      "why": "It names a specialist trade that does not match the visitor's broader management responsibility or operation."
+     },
+     {
+      "quote": "Compliance",
+      "count": 2,
+      "why": "The English business term feels directed at a specialist function rather than the visitor's operational leadership role."
+     },
+     {
+      "quote": "Uthyrningsföretag",
+      "count": 3,
+      "why": "It feels misaligned for visitors running subcontracting, transport or other types of businesses."
+     },
+     {
+      "quote": "Våra digitala verktyg ger byggarbetare kunskap, struktur och stöd – allt detta är avgörande i en miljö med hög risk och höga krav som byggbranschen.",
+      "count": 1,
+      "why": "It speaks directly to construction workers and a high-risk site environment rather than to a senior business buyer."
+     },
+     {
+      "quote": "Huvudentreprenörer",
+      "count": 1,
+      "why": "It addresses a specific contractor role that does not fit every owner or senior manager represented in the notes."
+     }
+    ],
+    "language_felt_familiar": [
+     {
+      "quote": "Körjournal, CO2, kostnadskoll och mycket mer – samlat på ett ställe.",
+      "count": 19
+     },
+     {
+      "quote": "Se när, var och hur era maskiner och verktyg används.",
+      "count": 16
+     },
+     {
+      "quote": "Vi samlar hanteringen av personal, maskiner och fordon i ett och samma ekosystem.",
+      "count": 13
+     },
+     {
+      "quote": "Fordonshantering",
+      "count": 8
+     },
+     {
+      "quote": "Maskin- & verktygshantering",
+      "count": 8
+     },
+     {
+      "quote": "Uthyrningsföretag",
+      "count": 6
+     }
+    ],
+    "hesitation_reasons": [
+     {
+      "theme": "No visible pricing or clear cost model",
+      "count": 19
+     },
+     {
+      "theme": "Unclear integrations and implementation effort",
+      "count": 19
+     },
+     {
+      "theme": "Insufficient references or measurable evidence from comparable businesses",
+      "count": 19
+     },
+     {
+      "theme": "Unclear product fit and recommended starting point for the visitor's operation",
+      "count": 16
+     },
+     {
+      "theme": "Unclear hardware, data privacy and contract requirements",
+      "count": 8
+     },
+     {
+      "theme": "No prominent demo or clear next-step contact path",
+      "count": 3
+     }
+    ]
+   },
+   "Supervisor or daily user": {
+    "_n": 20,
+    "findings": [
+     {
+      "title": "Pricing and implementation are not explained",
+      "exact_wording": [
+       "Pris och vad införandet kostar",
+       "Exakta priser, integrationsmöjligheter och införandetid framgår inte på startsidan."
+      ],
+      "position": "mixed",
+      "creates": "missing",
+      "count": 20,
+      "who": "All supervisor and daily-user visitors, because they cannot estimate investment, rollout effort, or when the organisation could start using the solution.",
+      "persona_interpretation": "The homepage requires too much commitment before visitors can judge whether the solution is affordable or practical to introduce."
+     },
+     {
+      "title": "Integrations, hardware, and data handling are unclear",
+      "exact_wording": [
+       "Digitala tjänster ... som fungerar tillsammans",
+       "Vi samlar hanteringen av personal, maskiner och fordon i ett och samma ekosystem."
+      ],
+      "position": "mixed",
+      "creates": "doubt",
+      "count": 17,
+      "who": "Visitors managing fleets, rental systems, ERP tools, electronic driving logs, spreadsheets, or worker data, because the page does not specify connection requirements, hardware, or privacy handling.",
+      "persona_interpretation": "The ecosystem promise sounds useful but does not show how it would work with the systems and tracking practices already in place."
+     },
+     {
+      "title": "Broad market and benefit claims lack evidence",
+      "exact_wording": [
+       "Infobric erbjuder marknadens bredaste utbud av tjänster för att skapa en säkrare, mer hållbar och effektivare byggbransch.",
+       "Betrodd av över 12 000 kunder och 450 000 användare",
+       "Vårt breda utbud av lösningar hjälper våra kunder att minimera olyckor, eliminera bedrägerier, minska utsläppen och förbättra produktiviteten i sina verksamheter."
+      ],
+      "position": "mixed",
+      "creates": "doubt",
+      "count": 18,
+      "who": "Visitors evaluating the solution for smaller subcontractor, fleet, rental, logistics, or field-service operations, because the claims are not supported by metrics, comparisons, or closely matched cases.",
+      "persona_interpretation": "The page appears credible at first glance, but visitors need operational proof before sharing data or entering a sales process."
+     },
+     {
+      "title": "The best product and starting path are unclear",
+      "exact_wording": [
+       "Vi digitaliserar byggbranschen",
+       "Fordonshantering",
+       "Maskin- & verktygshantering"
+      ],
+      "position": "mixed",
+      "creates": "confusion",
+      "count": 11,
+      "who": "Supervisors and daily users in small subcontractor, fleet, rental, logistics, and field-service organisations, because many audiences and product names are presented without a recommended first step.",
+      "persona_interpretation": "Visitors cannot easily map their immediate operational problem to one product or a manageable rollout."
+     },
+     {
+      "title": "Concrete workflows for vehicle and tool operations are missing",
+      "exact_wording": [
+       "Körjournal, CO2, kostnadskoll och mycket mer – samlat på ett ställe.",
+       "Se när, var och hur era maskiner och verktyg används."
+      ],
+      "position": "middle",
+      "creates": "missing",
+      "count": 8,
+      "who": "Daily users and supervisors responsible for vehicles, tools, inspections, service, damage follow-up, or driver processes, because the benefits do not show the day-to-day workflow.",
+      "persona_interpretation": "Visitors understand the general outcome but not how the solution would change their specific tasks."
+     },
+     {
+      "title": "The sales route is not sufficiently direct",
+      "exact_wording": [
+       "Kontakt",
+       "Kontakta oss",
+       "Boka demo"
+      ],
+      "position": "top",
+      "creates": "hesitation",
+      "count": 3,
+      "who": "Visitors wanting to assess fit quickly, because the homepage does not provide a clearly separated demo or sales-booking route.",
+      "persona_interpretation": "The contact step feels like an unnecessary conversation before visitors have enough information to decide whether to proceed."
+     }
+    ],
+    "claims_need_proof": [
+     {
+      "quote": "Betrodd av över 12 000 kunder och 450 000 användare",
+      "count": 15,
+      "proof_wanted": "Relevant case studies, customer references, and measurable outcomes for similar fleet, rental, subcontractor, or field-service organisations."
+     },
+     {
+      "quote": "Vårt breda utbud av lösningar hjälper våra kunder att minimera olyckor, eliminera bedrägerier, minska utsläppen och förbättra produktiviteten i sina verksamheter.",
+      "count": 10,
+      "proof_wanted": "Independent evidence, quantified results, and concrete examples showing how each claimed outcome was achieved."
+     },
+     {
+      "quote": "Infobric erbjuder marknadens bredaste utbud av tjänster för att skapa en säkrare, mer hållbar och effektivare byggbransch.",
+      "count": 7,
+      "proof_wanted": "A transparent comparison with alternatives, plus evidence of the breadth and business results of the offering."
+     },
+     {
+      "quote": "En ledande digitaliseringspartner för byggbranschen.",
+      "count": 8,
+      "proof_wanted": "Independent recognition, market data, customer references, or specific leadership criteria."
+     },
+     {
+      "quote": "Vi bidrar till att bygga en bättre värld.",
+      "count": 8,
+      "proof_wanted": "Specific sustainability results, targets, reporting, and examples of environmental or social impact."
+     },
+     {
+      "quote": "Det ger er kontroll över helheten och gör det enklare att göra rätt.",
+      "count": 2,
+      "proof_wanted": "A practical workflow demonstration and evidence that the solution improves control and compliance."
+     }
+    ],
+    "claims_credible": [
+     {
+      "quote": "Körjournal, CO2, kostnadskoll och mycket mer – samlat på ett ställe.",
+      "count": 17
+     },
+     {
+      "quote": "Se när, var och hur era maskiner och verktyg används.",
+      "count": 14
+     },
+     {
+      "quote": "Vi samlar hanteringen av personal, maskiner och fordon i ett och samma ekosystem.",
+      "count": 9
+     },
+     {
+      "quote": "Digital personalliggare för smidig in- och utcheckning och bättre överblick.",
+      "count": 8
+     },
+     {
+      "quote": "Sedan Infobric grundades i Jönköping 2004 har vi utvecklats till den ledande digitaliseringspartnern för byggbranschen i Norden och Storbritannien.",
+      "count": 8
+     },
+     {
+      "quote": "Vi tjänar mycket tid på att använda Infobric, och får bättre kvalitet för det.",
+      "count": 5
+     }
+    ],
+    "language_felt_off": [
+     {
+      "quote": "Byggherrar",
+      "count": 10,
+      "why": "It signals large project owners rather than the smaller operational businesses and fleet-focused roles many visitors represented."
+     },
+     {
+      "quote": "Compliance",
+      "count": 6,
+      "why": "The English specialist term felt like language for a compliance or corporate audience rather than an everyday supervisor or user."
+     },
+     {
+      "quote": "Yrkesarbetare",
+      "count": 6,
+      "why": "It frames the visitor as a site worker, while several visitors identified more with fleet, logistics, rental, or coordination responsibilities."
+     },
+     {
+      "quote": "Huvudentreprenörer",
+      "count": 4,
+      "why": "It appears aimed at larger prime contractors rather than smaller subcontractors and operational users."
+     },
+     {
+      "quote": "Uthyrningsföretag",
+      "count": 4,
+      "why": "It felt specific to rental companies and therefore less relevant to visitors managing service vans, workshops, or subcontractor operations."
+     },
+     {
+      "quote": "Föranmälan & Leverantörsuppföljning",
+      "count": 4,
+      "why": "The wording suggests construction-site administration and supplier oversight rather than the visitor's immediate fleet or daily-use needs."
+     }
+    ],
+    "language_felt_familiar": [
+     {
+      "quote": "Körjournal, CO2, kostnadskoll och mycket mer – samlat på ett ställe.",
+      "count": 17
+     },
+     {
+      "quote": "Se när, var och hur era maskiner och verktyg används.",
+      "count": 14
+     },
+     {
+      "quote": "Fordonshantering",
+      "count": 10
+     },
+     {
+      "quote": "Maskin- & verktygshantering",
+      "count": 7
+     },
+     {
+      "quote": "Underentreprenörer",
+      "count": 7
+     },
+     {
+      "quote": "Vi samlar hanteringen av personal, maskiner och fordon i ett och samma ekosystem.",
+      "count": 6
+     }
+    ],
+    "hesitation_reasons": [
+     {
+      "theme": "No visible pricing or clear implementation effort",
+      "count": 20
+     },
+     {
+      "theme": "Unclear integrations with existing ERP, rental, driving-log, spreadsheet, or messaging systems",
+      "count": 17
+     },
+     {
+      "theme": "Broad claims lack relevant references, case evidence, or measurable results",
+      "count": 15
+     },
+     {
+      "theme": "Unclear hardware requirements and rollout process",
+      "count": 12
+     },
+     {
+      "theme": "Insufficient explanation of privacy and handling of vehicle or worker data",
+      "count": 10
+     },
+     {
+      "theme": "Too many audiences and products without a clear recommended starting point",
+      "count": 11
+     }
+    ]
+   },
+   "Operations, project or site manager": {
+    "_n": 20,
+    "findings": [
+     {
+      "title": "Broad market and impact claims lack supporting evidence",
+      "exact_wording": [
+       "Infobric erbjuder marknadens bredaste utbud av tjänster för att skapa en säkrare, mer hållbar och effektivare byggbransch.",
+       "En ledande digitaliseringspartner för byggbranschen.",
+       "Vårt breda utbud av lösningar hjälper våra kunder att minimera olyckor, eliminera bedrägerier, minska utsläppen och förbättra produktiviteten i sina verksamheter.",
+       "Vi bidrar till att bygga en bättre värld."
+      ],
+      "position": "mixed",
+      "creates": "doubt",
+      "count": 20,
+      "who": "Operations and site managers who need evidence that the claims apply to their operational scale and specific workflows.",
+      "persona_interpretation": "The homepage sounds marketing-led and does not substantiate its leadership, breadth, sustainability or business-outcome claims with comparisons, metrics or cases."
+     },
+     {
+      "title": "Commercial and implementation information is missing",
+      "exact_wording": [],
+      "position": "mixed",
+      "creates": "hesitation",
+      "count": 20,
+      "who": "Managers evaluating budget, rollout risk and compatibility with existing processes and systems.",
+      "persona_interpretation": "Visitors cannot assess price, integrations, hardware, setup effort, privacy or contract implications before contacting sales."
+     },
+     {
+      "title": "The broad catalogue does not guide visitors to the right starting solution",
+      "exact_wording": [
+       "Se hela utbudet och hitta rätt lösning för ditt behov.",
+       "Det ger er kontroll över helheten"
+      ],
+      "position": "middle",
+      "creates": "confusion",
+      "count": 15,
+      "who": "Project managers, subcontractors and small site teams looking for a specific tool, equipment or fleet-management solution.",
+      "persona_interpretation": "The many audiences, products and solution areas make it unclear which package or workflow best matches the visitor's immediate problem."
+     },
+     {
+      "title": "Operational use cases and quantified results are not concrete enough",
+      "exact_wording": [
+       "Se när, var och hur era maskiner och verktyg används."
+      ],
+      "position": "mixed",
+      "creates": "doubt",
+      "count": 20,
+      "who": "Managers responsible for vehicle service, inspections, damage follow-up, tool loss, duplicate purchases or equipment inventory.",
+      "persona_interpretation": "The page describes capabilities but does not show detailed workflows, measurable results or references for the operational problems visitors need to solve."
+     },
+     {
+      "title": "The next action is not presented as a clear demo or sales step",
+      "exact_wording": [
+       "Kontakt"
+      ],
+      "position": "top",
+      "creates": "missing",
+      "count": 4,
+      "who": "Visitors ready to evaluate the solution but wanting a prominent, low-friction way to book a demo, contact sales or try the product.",
+      "persona_interpretation": "A general contact route does not make the intended next step sufficiently visible or specific."
+     }
+    ],
+    "claims_need_proof": [
+     {
+      "quote": "Betrodd av över 12 000 kunder och 450 000 användare",
+      "count": 18,
+      "proof_wanted": "Named customer references, segment breakdowns and evidence that comparable operational teams use the solution."
+     },
+     {
+      "quote": "En ledande digitaliseringspartner för byggbranschen.",
+      "count": 14,
+      "proof_wanted": "Independent recognition, market comparisons, customer outcomes or other leadership evidence."
+     },
+     {
+      "quote": "Infobric erbjuder marknadens bredaste utbud av tjänster för att skapa en säkrare, mer hållbar och effektivare byggbransch.",
+      "count": 9,
+      "proof_wanted": "A clear comparison with alternatives and evidence covering the claimed breadth and outcomes."
+     },
+     {
+      "quote": "Vårt breda utbud av lösningar hjälper våra kunder att minimera olyckor, eliminera bedrägerier, minska utsläppen och förbättra produktiviteten i sina verksamheter.",
+      "count": 12,
+      "proof_wanted": "Quantified before-and-after results, methodology and customer case studies."
+     },
+     {
+      "quote": "Vi bidrar till att bygga en bättre värld.",
+      "count": 5,
+      "proof_wanted": "Specific sustainability outcomes, metrics and a clear explanation of how the company contributes."
+     }
+    ],
+    "claims_credible": [
+     {
+      "quote": "Se när, var och hur era maskiner och verktyg används.",
+      "count": 17
+     },
+     {
+      "quote": "Vi samlar hanteringen av personal, maskiner och fordon i ett och samma ekosystem.",
+      "count": 17
+     },
+     {
+      "quote": "Körjournal, CO2, kostnadskoll och mycket mer – samlat på ett ställe.",
+      "count": 13
+     },
+     {
+      "quote": "Betrodd av över 12 000 kunder och 450 000 användare",
+      "count": 13
+     },
+     {
+      "quote": "Digital personalliggare för smidig in- och utcheckning och bättre överblick.",
+      "count": 5
+     },
+     {
+      "quote": "Sedan Infobric grundades i Jönköping 2004 har vi utvecklats till den ledande digitaliseringspartnern för byggbranschen i Norden och Storbritannien.",
+      "count": 5
+     }
+    ],
+    "language_felt_off": [
+     {
+      "quote": "Yrkesarbetare",
+      "count": 13,
+      "why": "It sounded aimed at field workers rather than managers responsible for operations, projects or sites."
+     },
+     {
+      "quote": "Uthyrningsföretag",
+      "count": 11,
+      "why": "It appeared to target rental companies rather than contractors or site teams managing their own equipment."
+     },
+     {
+      "quote": "Borrning & Sprängning",
+      "count": 4,
+      "why": "It felt like a specialist industry category that was not relevant to the visitor's operation."
+     },
+     {
+      "quote": "Byggherrar",
+      "count": 3,
+      "why": "It addressed property developers or owners rather than the visitor's operational role."
+     },
+     {
+      "quote": "Compliance",
+      "count": 3,
+      "why": "The English corporate term felt less familiar and less directly connected to the visitor's practical responsibilities."
+     },
+     {
+      "quote": "Föranmälan & Leverantörsuppföljning",
+      "count": 2,
+      "why": "It described a procurement or supplier-management context rather than the visitor's immediate equipment-control problem."
+     }
+    ],
+    "language_felt_familiar": [
+     {
+      "quote": "Se när, var och hur era maskiner och verktyg används.",
+      "count": 19
+     },
+     {
+      "quote": "Maskin- & verktygshantering",
+      "count": 19
+     },
+     {
+      "quote": "Körjournal, CO2, kostnadskoll och mycket mer – samlat på ett ställe.",
+      "count": 13
+     },
+     {
+      "quote": "Vi samlar hanteringen av personal, maskiner och fordon i ett och samma ekosystem.",
+      "count": 11
+     },
+     {
+      "quote": "Fordonshantering",
+      "count": 8
+     },
+     {
+      "quote": "Underentreprenörer",
+      "count": 6
+     }
+    ],
+    "hesitation_reasons": [
+     {
+      "theme": "No clear price, integration, hardware or setup information",
+      "count": 20
+     },
+     {
+      "theme": "Insufficient customer references and quantified evidence for comparable operational use cases",
+      "count": 20
+     },
+     {
+      "theme": "Unclear which product or package is the right starting point",
+      "count": 15
+     },
+     {
+      "theme": "Broad leadership, sustainability and business-impact claims are not sufficiently substantiated",
+      "count": 18
+     },
+     {
+      "theme": "Insufficient detail about data privacy and contract terms",
+      "count": 13
+     },
+     {
+      "theme": "No prominent demo or sales-contact call to action",
+      "count": 4
+     }
+    ]
+   },
+   "Finance or administration": {
+    "_n": 20,
+    "findings": [
+     {
+      "title": "Pricing is absent",
+      "exact_wording": [],
+      "position": "mixed",
+      "creates": "missing",
+      "count": 20,
+      "who": "Finance and administration visitors, because they cannot assess affordability or prepare an internal purchase case.",
+      "persona_interpretation": "The homepage does not provide enough cost information to decide whether a sales conversation is worthwhile."
+     },
+     {
+      "title": "Integration information is absent",
+      "exact_wording": [],
+      "position": "mixed",
+      "creates": "hesitation",
+      "count": 20,
+      "who": "Finance and administration visitors, because they need compatibility with accounting, ERP, payroll, rental and vehicle-log systems.",
+      "persona_interpretation": "Visitors cannot judge whether the solution will connect to the systems they already use."
+     },
+     {
+      "title": "Implementation effort and timing are unclear",
+      "exact_wording": [],
+      "position": "mixed",
+      "creates": "hesitation",
+      "count": 20,
+      "who": "Finance and administration visitors, because they need to understand setup time, hardware, administration and operational disruption.",
+      "persona_interpretation": "The homepage does not show how quickly or how easily the solution can be introduced."
+     },
+     {
+      "title": "Broad leadership and impact claims lack evidence",
+      "exact_wording": [
+       "Betrodd av över 12 000 kunder och 450 000 användare",
+       "marknadens bredaste utbud",
+       "Vårt breda utbud av lösningar hjälper våra kunder att minimera olyckor, eliminera bedrägerier, minska utsläppen och förbättra produktiviteten i sina verksamheter."
+      ],
+      "position": "mixed",
+      "creates": "doubt",
+      "count": 18,
+      "who": "Finance and administration visitors, because purchase decisions require measurable results, comparable customer evidence and credible support for promotional claims.",
+      "persona_interpretation": "The claims sound promising but are not sufficiently supported by cases, figures or comparisons."
+     },
+     {
+      "title": "The broad catalogue does not identify the right starting solution",
+      "exact_wording": [
+       "Vi digitaliserar byggbranschen",
+       "Infobric erbjuder marknadens bredaste utbud av tjänster"
+      ],
+      "position": "top",
+      "creates": "confusion",
+      "count": 12,
+      "who": "Finance, payroll and administration visitors responsible for vehicles, tax separation, mileage, tolls or rental workflows.",
+      "persona_interpretation": "The many audiences and products make it difficult to know which specific solution fits the visitor's role and problem."
+     },
+     {
+      "title": "Role-specific workflows and customer references are missing",
+      "exact_wording": [],
+      "position": "mixed",
+      "creates": "missing",
+      "count": 17,
+      "who": "Finance and administration visitors, because they need examples involving vehicle costs, tax treatment, rental processes, existing systems and comparable company sizes.",
+      "persona_interpretation": "Visitors want concrete workflows and references before trusting that the solution will work in their organisation."
+     }
+    ],
+    "claims_need_proof": [
+     {
+      "quote": "Betrodd av över 12 000 kunder och 450 000 användare",
+      "count": 16,
+      "proof_wanted": "Verifiable customer data, named references or case studies showing comparable organisations."
+     },
+     {
+      "quote": "Infobric erbjuder marknadens bredaste utbud av tjänster för att skapa en säkrare, mer hållbar och effektivare byggbransch.",
+      "count": 12,
+      "proof_wanted": "A product comparison, defined market scope and evidence showing why the offering is broader than alternatives."
+     },
+     {
+      "quote": "Vårt breda utbud av lösningar hjälper våra kunder att minimera olyckor, eliminera bedrägerier, minska utsläppen och förbättra produktiviteten i sina verksamheter.",
+      "count": 11,
+      "proof_wanted": "Measured outcomes, customer cases and quantified before-and-after results."
+     },
+     {
+      "quote": "En ledande digitaliseringspartner för byggbranschen.",
+      "count": 6,
+      "proof_wanted": "Independent recognition, market data, customer references or other evidence of leadership."
+     },
+     {
+      "quote": "Vi bidrar till att bygga en bättre värld.",
+      "count": 6,
+      "proof_wanted": "Specific sustainability actions, measurable impact and documented examples."
+     },
+     {
+      "quote": "Vi får det att hända.",
+      "count": 6,
+      "proof_wanted": "Implementation examples, delivery details and customer evidence demonstrating successful execution."
+     }
+    ],
+    "claims_credible": [
+     {
+      "quote": "Körjournal, CO2, kostnadskoll och mycket mer – samlat på ett ställe.",
+      "count": 18
+     },
+     {
+      "quote": "Vi samlar hanteringen av personal, maskiner och fordon i ett och samma ekosystem.",
+      "count": 17
+     },
+     {
+      "quote": "Se när, var och hur era maskiner och verktyg används.",
+      "count": 8
+     },
+     {
+      "quote": "Betrodd av över 12 000 kunder och 450 000 användare",
+      "count": 6
+     },
+     {
+      "quote": "Sedan Infobric grundades i Jönköping 2004 har vi utvecklats till den ledande digitaliseringspartnern för byggbranschen i Norden och Storbritannien.",
+      "count": 5
+     }
+    ],
+    "language_felt_off": [
+     {
+      "quote": "Yrkesarbetare",
+      "count": 18,
+      "why": "It addresses field workers rather than finance, payroll or administration decision-makers."
+     },
+     {
+      "quote": "Uthyrningsföretag",
+      "count": 9,
+      "why": "It feels targeted at rental businesses, while several visitors are evaluating finance or administration needs in other company types."
+     },
+     {
+      "quote": "Huvudentreprenörer",
+      "count": 6,
+      "why": "It addresses a construction-contracting audience rather than the visitor's administrative responsibility."
+     },
+     {
+      "quote": "Borrning & Sprängning",
+      "count": 5,
+      "why": "It describes a specialised construction activity that is not relevant to a finance or administration role."
+     },
+     {
+      "quote": "KMA",
+      "count": 5,
+      "why": "It appears to target construction quality, environment and safety specialists rather than finance and administration users."
+     }
+    ],
+    "language_felt_familiar": [
+     {
+      "quote": "Körjournal, CO2, kostnadskoll och mycket mer – samlat på ett ställe.",
+      "count": 18
+     },
+     {
+      "quote": "Fordonshantering",
+      "count": 16
+     },
+     {
+      "quote": "Vi samlar hanteringen av personal, maskiner och fordon i ett och samma ekosystem.",
+      "count": 10
+     },
+     {
+      "quote": "Maskin- & verktygshantering",
+      "count": 6
+     },
+     {
+      "quote": "Se när, var och hur era maskiner och verktyg används.",
+      "count": 6
+     }
+    ],
+    "hesitation_reasons": [
+     {
+      "theme": "No visible pricing or clear cost model",
+      "count": 20
+     },
+     {
+      "theme": "Unclear integrations with existing accounting, ERP, payroll, rental or vehicle-log systems",
+      "count": 20
+     },
+     {
+      "theme": "Unclear implementation time, setup effort or hardware requirements",
+      "count": 20
+     },
+     {
+      "theme": "Broad claims lack measurable evidence, comparable references or case studies",
+      "count": 19
+     },
+     {
+      "theme": "No clear workflow for vehicle administration, tax separation, mileage, tolls, rental operations or related finance tasks",
+      "count": 14
+     },
+     {
+      "theme": "Insufficient information about data privacy and handling",
+      "count": 18
+     }
+    ]
+   },
+   "Fleet, equipment or rental manager": {
+    "_n": 18,
+    "findings": [
+     {
+      "title": "Pricing and cost are missing",
+      "exact_wording": [],
+      "position": "mixed",
+      "creates": "hesitation",
+      "count": 18,
+      "who": "Fleet, equipment and rental managers who need to assess budget and implementation cost before contacting sales.",
+      "persona_interpretation": "The homepage does not provide enough cost information to justify taking the next commercial step."
+     },
+     {
+      "title": "Integration, setup and hardware details are missing",
+      "exact_wording": [],
+      "position": "mixed",
+      "creates": "doubt",
+      "count": 18,
+      "who": "Managers responsible for existing fleet, rental, spreadsheet or tracking systems who need to understand technical fit and rollout effort.",
+      "persona_interpretation": "The visitors cannot tell how the solution connects to current systems, what equipment it requires or how quickly it can be implemented."
+     },
+     {
+      "title": "Broad positioning and leadership claims lack evidence",
+      "exact_wording": [
+       "marknadens bredaste utbud",
+       "Vi får det att hända.",
+       "En ledande digitaliseringspartner för byggbranschen."
+      ],
+      "position": "mixed",
+      "creates": "doubt",
+      "count": 18,
+      "who": "Decision-makers evaluating suppliers who need measurable results, relevant cases and proof of market leadership.",
+      "persona_interpretation": "The visitors find the claims too general to establish credibility for their specific fleet or rental operation."
+     },
+     {
+      "title": "The relevant product and workflow are unclear",
+      "exact_wording": [
+       "Se hela utbudet och hitta rätt lösning för ditt behov.",
+       "Maskin- & verktygshantering"
+      ],
+      "position": "middle",
+      "creates": "confusion",
+      "count": 17,
+      "who": "Fleet and rental managers who need a clear starting point for vehicle, equipment, tool, rental, return and inspection workflows.",
+      "persona_interpretation": "The broad catalogue does not show which specific solution fits the visitor's operation or how it works in practice."
+     },
+     {
+      "title": "Rental- and fleet-specific proof is missing",
+      "exact_wording": [],
+      "position": "bottom",
+      "creates": "missing",
+      "count": 18,
+      "who": "Rental and fleet managers seeking references, measurable outcomes and examples from comparable operations.",
+      "persona_interpretation": "The visitors want evidence that the solution works for their fleet size, depot structure and operational processes."
+     },
+     {
+      "title": "The commercial contact route is not prominent",
+      "exact_wording": [
+       "Kontakt"
+      ],
+      "position": "top",
+      "creates": "hesitation",
+      "count": 3,
+      "who": "Visitors ready to ask about a purchase who need an obvious route to sales or a product demonstration.",
+      "persona_interpretation": "A generic or hidden contact route makes it unclear whether the next step is sales, support or a demo."
+     }
+    ],
+    "claims_need_proof": [
+     {
+      "quote": "Betrodd av över 12 000 kunder och 450 000 användare",
+      "count": 13,
+      "proof_wanted": "Customer evidence, relevant case studies and measurable results."
+     },
+     {
+      "quote": "Vårt breda utbud av lösningar hjälper våra kunder att minimera olyckor, eliminera bedrägerier, minska utsläppen och förbättra produktiviteten i sina verksamheter.",
+      "count": 12,
+      "proof_wanted": "Quantified outcome data and customer cases showing these effects."
+     },
+     {
+      "quote": "En ledande digitaliseringspartner för byggbranschen.",
+      "count": 10,
+      "proof_wanted": "Independent market evidence, customer references and measurable leadership indicators."
+     },
+     {
+      "quote": "Infobric erbjuder marknadens bredaste utbud av tjänster",
+      "count": 5,
+      "proof_wanted": "A documented comparison with competitors and a clear explanation of breadth."
+     },
+     {
+      "quote": "Vi bidrar till att bygga en bättre värld.",
+      "count": 4,
+      "proof_wanted": "Specific sustainability results and supporting data."
+     },
+     {
+      "quote": "Vi erbjuder marknadens bredaste utbud av tjänster för att skapa en säkrare, mer hållbar och effektivare byggbransch.",
+      "count": 4,
+      "proof_wanted": "Concrete safety, sustainability and efficiency results supported by customer evidence."
+     }
+    ],
+    "claims_credible": [
+     {
+      "quote": "Se när, var och hur era maskiner och verktyg används.",
+      "count": 17
+     },
+     {
+      "quote": "Vi samlar hanteringen av personal, maskiner och fordon i ett och samma ekosystem.",
+      "count": 16
+     },
+     {
+      "quote": "Betrodd av över 12 000 kunder och 450 000 användare",
+      "count": 8
+     },
+     {
+      "quote": "Körjournal, CO2, kostnadskoll och mycket mer – samlat på ett ställe.",
+      "count": 5
+     },
+     {
+      "quote": "Digital personalliggare för smidig in- och utcheckning och bättre överblick.",
+      "count": 5
+     },
+     {
+      "quote": "Vi tjänar mycket tid på att använda Infobric, och får bättre kvalitet för det.",
+      "count": 4
+     }
+    ],
+    "language_felt_off": [
+     {
+      "quote": "Yrkesarbetare",
+      "count": 15,
+      "why": "It frames the visitor as a field worker rather than a fleet, equipment or rental decision-maker."
+     },
+     {
+      "quote": "Byggherrar",
+      "count": 12,
+      "why": "It appears aimed at property developers or construction clients rather than operational fleet managers."
+     },
+     {
+      "quote": "Huvudentreprenörer",
+      "count": 8,
+      "why": "It addresses a different construction-business role and does not reflect the visitor's equipment or rental responsibilities."
+     },
+     {
+      "quote": "Compliance",
+      "count": 7,
+      "why": "It feels like specialist construction terminology that is not central to the visitor's fleet or rental task."
+     },
+     {
+      "quote": "Föranmälan & Leverantörsuppföljning",
+      "count": 5,
+      "why": "It describes a construction administration workflow rather than the visitor's operational fleet or rental workflow."
+     }
+    ],
+    "language_felt_familiar": [
+     {
+      "quote": "Se när, var och hur era maskiner och verktyg används.",
+      "count": 17
+     },
+     {
+      "quote": "Maskin- & verktygshantering",
+      "count": 14
+     },
+     {
+      "quote": "Effektivisera din uthyrnings-verksamhet med kontroll i realtid och säkerställ att din flotta alltid är redo för nästa uppdrag.",
+      "count": 8
+     },
+     {
+      "quote": "Vi samlar hanteringen av personal, maskiner och fordon i ett och samma ekosystem.",
+      "count": 11
+     },
+     {
+      "quote": "Fordonshantering",
+      "count": 7
+     },
+     {
+      "quote": "Körjournal, CO2, kostnadskoll och mycket mer – samlat på ett ställe.",
+      "count": 7
+     }
+    ],
+    "hesitation_reasons": [
+     {
+      "theme": "No price or cost indication",
+      "count": 18
+     },
+     {
+      "theme": "No explanation of integrations with existing systems",
+      "count": 18
+     },
+     {
+      "theme": "No implementation timeline or setup information",
+      "count": 18
+     },
+     {
+      "theme": "No rental-, fleet- or equipment-specific references and proof",
+      "count": 18
+     },
+     {
+      "theme": "Unclear product fit and day-to-day workflow",
+      "count": 18
+     },
+     {
+      "theme": "Unclear hardware requirements",
+      "count": 17
+     }
+    ]
+   }
+  },
+  "cta": {
+   "Owner or senior manager": {
+    "_n": 19,
+    "button_seen": [
+     {
+      "label": "Kontakt",
+      "count": 13
+     },
+     {
+      "label": "Kontakta oss",
+      "count": 6
+     }
+    ],
+    "expected": [
+     {
+      "theme": "A straightforward contact route or page for reaching sales, support, or requesting information",
+      "count": 19
+     },
+     {
+      "theme": "A contact or enquiry form for describing a problem, suitable solution, or demonstration request",
+      "count": 15
+     }
+    ],
+    "found": [
+     {
+      "theme": "A contact page offering “Telefon sälj & support:”, a phone number, “Chatt & Supportartiklar”, “Lämna ett meddelande”, and office information; no form was inspected",
+      "count": 14
+     },
+     {
+      "theme": "A message form headed “Lämna ett meddelande.” with fields for name, email, company, telephone number, and message, plus “Jag godkänner Integritetspolicyn” and “Skicka”",
+      "count": 5
+     }
+    ],
+    "gaps": [
+     {
+      "gap": "The broad contact expectation was met, but the message form was not immediately visible and required another action from the contact page",
+      "count": 14,
+      "example": "The page showed “Lämna ett meddelande” as a separate button rather than displaying the form."
+     },
+     {
+      "gap": "The form required several personal and company details in addition to the enquiry message",
+      "count": 5,
+      "example": "It asked for “Namn”, “E-postadress”, “Företag”, “Telefonnummer”, and “Meddelande”."
+     }
+    ],
+    "not_inspected": 0
+   },
+   "Supervisor or daily user": {
+    "_n": 20,
+    "button_seen": [
+     {
+      "label": "Kontakt",
+      "count": 11
+     },
+     {
+      "label": "Kontakta oss",
+      "count": 9
+     }
+    ],
+    "expected": [
+     {
+      "theme": "A straightforward contact route to sales or support, with a simple enquiry or information request option",
+      "count": 20
+     }
+    ],
+    "found": [
+     {
+      "theme": "A contact page offering phone, chat/support resources, offices, and a “Lämna ett meddelande” option; the message form was not inspected",
+      "count": 11
+     },
+     {
+      "theme": "A message form asking for “Namn”, “E-postadress”, “Företag”, “Telefonnummer”, “Meddelande”, and “Godkännande av Integritetspolicyn”, with a “Skicka” button",
+      "count": 9
+     }
+    ],
+    "gaps": [
+     {
+      "gap": "The expected simple form was not immediately available; visitors had to choose or open “Lämna ett meddelande” after reaching the contact page",
+      "count": 11,
+      "example": "The page showed phone and support routes before the message form."
+     },
+     {
+      "gap": "The contact route required more information than a minimal enquiry, including company details, phone number, message, and privacy-policy consent",
+      "count": 9,
+      "example": "The form asks for “Företag” and “Godkännande av Integritetspolicyn”."
+     }
+    ],
+    "not_inspected": 0
+   },
+   "HSE or compliance": {
+    "_n": 7,
+    "button_seen": [
+     {
+      "label": "«Kontakta oss»",
+      "count": 4
+     },
+     {
+      "label": "«Kontakt»",
+      "count": 3
+     }
+    ],
+    "expected": [
+     {
+      "theme": "A straightforward contact page or sales/support enquiry route where the visitor could explain their needs",
+      "count": 7
+     }
+    ],
+    "found": [
+     {
+      "theme": "A contact page offering phone sales and support, chat and support articles, a message option, and office locations; the message form was not opened",
+      "count": 6
+     },
+     {
+      "theme": "A message form headed “Lämna ett meddelande” asking for “Namn”, “E-postadress”, “Företag”, “Telefonnummer”, “Meddelande”, and “Godkännande av Integritetspolicyn”, with a “Skicka” button",
+      "count": 1
+     }
+    ],
+    "gaps": [
+     {
+      "gap": "The contact route was not an immediate message form; visitors first had to choose a channel and, for messaging, click “Lämna ett meddelande”",
+      "count": 6,
+      "example": "The page offered phone, chat, offices, and a separate “Lämna ett meddelande” option."
+     }
+    ],
+    "not_inspected": 0
+   },
+   "Operations, project or site manager": {
+    "_n": 20,
+    "button_seen": [
+     {
+      "label": "Kontakta oss",
+      "count": 9
+     },
+     {
+      "label": "Kontakt",
+      "count": 11
+     }
+    ],
+    "expected": [
+     {
+      "theme": "A straightforward contact page or route for reaching sales or support",
+      "count": 10
+     },
+     {
+      "theme": "A straightforward enquiry or contact form for discussing a relevant solution",
+      "count": 10
+     }
+    ],
+    "found": [
+     {
+      "theme": "A contact page offering sales and support by phone, “Chatt & Supportartiklar”, and a “Lämna ett meddelande” option; the message form was not opened",
+      "count": 16
+     },
+     {
+      "theme": "A message form headed “Lämna ett meddelande” asking for “Namn”, “E-postadress”, “Företag”, “Telefonnummer”, “Meddelande”, and acceptance of “Integritetspolicyn”, with a “Skicka” button",
+      "count": 4
+     }
+    ],
+    "gaps": [
+     {
+      "gap": "Some visitors expecting a form were taken first to a contact hub and had to select “Lämna ett meddelande” before seeing form fields",
+      "count": 7,
+      "example": "The page offered phone, chat and “Lämna ett meddelande” rather than immediately showing the form."
+     },
+     {
+      "gap": "The form required several personal and company details plus privacy-policy acceptance, making the enquiry more detailed than a minimal contact request",
+      "count": 4,
+      "example": "The form asks for “Företag”, “Telefonnummer” and “Godkännande av Integritetspolicyn”."
+     }
+    ],
+    "not_inspected": 0
+   },
+   "Fleet, equipment or rental manager": {
+    "_n": 18,
+    "button_seen": [
+     {
+      "label": "Kontakt",
+      "count": 10
+     },
+     {
+      "label": "Kontakta oss",
+      "count": 8
+     }
+    ],
+    "expected": [
+     {
+      "theme": "A contact page or direct route to sales, support, or general information",
+      "count": 12
+     },
+     {
+      "theme": "A short sales or enquiry form for discussing a suitable solution",
+      "count": 6
+     }
+    ],
+    "found": [
+     {
+      "theme": "A contact landing page offering phone sales and support, chat and support articles, a message option, and office locations",
+      "count": 12
+     },
+     {
+      "theme": "A message form requesting name, email address, company, telephone number, message, privacy-policy consent, and submission",
+      "count": 6
+     }
+    ],
+    "gaps": [
+     {
+      "gap": "The button often opened an intermediate contact page rather than showing the message form immediately",
+      "count": 12,
+      "example": "The visitor had to choose the message route after reaching the contact page."
+     },
+     {
+      "gap": "The enquiry form required company and telephone details as well as a message and privacy consent, making it more than a minimal contact request",
+      "count": 5,
+      "example": "The form requested contact details, company information, and privacy-policy approval."
+     },
+     {
+      "gap": "No specialised rental, equipment-management, booking, or product-demo flow was apparent",
+      "count": 1,
+      "example": "The destination was a general contact page rather than a specialised fit or booking flow."
+     },
+     {
+      "gap": "The contact destination exceeded a simple contact expectation by offering several channels",
+      "count": 12,
+      "example": "Visitors found phone, chat, message, and office-location options."
+     }
+    ],
+    "not_inspected": 0
+   },
+   "Finance or administration": {
+    "_n": 20,
+    "button_seen": [
+     {
+      "label": "Kontakt",
+      "count": 10
+     },
+     {
+      "label": "Kontakta oss",
+      "count": 10
+     }
+    ],
+    "expected": [
+     {
+      "theme": "A straightforward contact page or contact options for sales or support",
+      "count": 4
+     },
+     {
+      "theme": "A contact route with a short enquiry form or a way to ask about a solution, demonstration, or integration",
+      "count": 16
+     }
+    ],
+    "found": [
+     {
+      "theme": "A contact hub with sales and support phone details, chat/support articles, a message CTA, and often office locations; the form was not inspected",
+      "count": 17
+     },
+     {
+      "theme": "A message form requesting Namn, E-postadress, Företag, Telefonnummer, Meddelande, consent to Integritetspolicyn, and a Skicka button",
+      "count": 3
+     }
+    ],
+    "gaps": [
+     {
+      "gap": "The page did not show the message form immediately; visitors had to use a second CTA, Lämna ett meddelande, to reach it",
+      "count": 17,
+      "example": "The contact hub came before the message form."
+     },
+     {
+      "gap": "The available form was not minimal: it required personal and company details as well as privacy consent",
+      "count": 3,
+      "example": "It requested Namn, Företag, Telefonnummer, and Integritetspolicyn consent."
+     }
+    ],
+    "not_inspected": 0
+   }
+  },
+  "changes": {
+   "Owner or senior manager": {
+    "_n": 19,
+    "changes": [
+     {
+      "title": "Add contractor-specific operational proof",
+      "count": 7,
+      "representative_quote": "Add a clearly labelled contractor-specific example or mini case study showing the starting problem, integrations, rollout time and measurable result for vehicle, tool and equipment management, with an indication of price or pricing model.",
+      "how_to_check": "The owner could measure whether visitors from contractor and subcontractor segments spend more time on the relevant solution section, open the case study, and submit more qualified contact requests that mention a concrete operational need."
+     },
+     {
+      "title": "Add rental-company proof near the main proposition",
+      "count": 6,
+      "representative_quote": "Add a clearly labelled rental-company case study near the main proposition showing the previous systems, integration process, implementation time, invoice improvements and measurable equipment or vehicle-control results.",
+      "how_to_check": "Track whether visitors from rental companies spend longer on the page, open the case study, reach the contact CTA and submit more qualified enquiries mentioning rental operations, integrations or implementation."
+     },
+     {
+      "title": "Add vehicle and field-service proof",
+      "count": 5,
+      "representative_quote": "Add a concrete owner/operator case study near the vehicle and equipment sections showing the starting process, integrations, implementation time, indicative cost and measurable results for driving logs, fleet visibility and service-date control.",
+      "how_to_check": "Track whether visitors who view the vehicle or equipment sections open the case study, spend time on the implementation and pricing information, and complete the contact form at a higher rate; also ask new leads whether the case study answered their fit and rollout questions."
+     },
+     {
+      "title": "Add an owner-focused first-screen demo CTA",
+      "count": 1,
+      "representative_quote": "Add a prominent owner-focused “Boka demo” or “Se hur det fungerar” CTA on the first screen, with a short concrete explanation of what can be digitised, indicative implementation time, integrations and a relevant customer reference.",
+      "how_to_check": "Track whether first-time visitors from construction-company owner and manager audiences click the new CTA, complete the first contact step, and stay on the page long enough to view the implementation and reference details; compare qualified contact conversion with the current navigation-only “Kontakt” path."
+     }
+    ],
+    "keep": [
+     {
+      "element": "Hero positioning and ecosystem explanation",
+      "count": 19
+     },
+     {
+      "element": "Concrete solution overview and solution labels",
+      "count": 17
+     },
+     {
+      "element": "Simple contact route and contact form",
+      "count": 16
+     },
+     {
+      "element": "Audience segmentation",
+      "count": 14
+     },
+     {
+      "element": "Customer proof, references and logos",
+      "count": 14
+     }
+    ]
+   },
+   "Supervisor or daily user": {
+    "_n": 20,
+    "changes": [
+     {
+      "title": "Create a clearly labelled subcontractor pathway with concrete use cases",
+      "count": 9,
+      "representative_quote": "Add a clearly labelled subcontractor journey on the homepage with an indicative price or package",
+      "how_to_check": "The owner could measure whether more visitors like me click the subcontractor path, reach the contact CTA, spend time on the relevant case and submit more qualified enquiries mentioning vehicles, tools or driving logs."
+     },
+     {
+      "title": "Show a complete fleet and vehicle-operations workflow",
+      "count": 5,
+      "representative_quote": "Add a prominent fleet-focused example on the homepage showing exactly how vehicle service, inspections, damage, driving logs and costs move from scattered spreadsheet work into Infobric",
+      "how_to_check": "Measure whether visitors who identify with vehicle or fleet work click the fleet example, spend time on the integration/setup details, and proceed to the contact page or message CTA more often than before."
+     },
+     {
+      "title": "Add rental-company case studies with rollout and commercial details",
+      "count": 3,
+      "representative_quote": "Add a concrete section for rental companies and field technicians showing a typical rollout, supported integrations, hardware and privacy model, indicative pricing, and a reference from a company with service vans and a rental fleet.",
+      "how_to_check": "Track whether visitors who view the rental-company content click the contact CTA, spend time on the case study, and submit more qualified enquiries mentioning rental operations or integrations."
+     },
+     {
+      "title": "Create a vehicle-and-tool pathway for supervisors and small contractors",
+      "count": 3,
+      "representative_quote": "Add a clear “for vehicle and tool supervisors” route near the top with one short example, indicative pricing or rollout information, integrations, privacy details and a relevant customer case before asking visitors to contact sales.",
+      "how_to_check": "Measure whether visitors from field-service and vehicle/tool roles click that route, reach the contact CTA, and submit or start a contact within the same visit; compare bounce and return rates with the current homepage."
+     }
+    ],
+    "keep": [
+     {
+      "element": "The top ecosystem and hero framing",
+      "count": 20
+     },
+     {
+      "element": "The audience segmentation and practical solution cards",
+      "count": 17
+     },
+     {
+      "element": "The simple contact route and contact form",
+      "count": 16
+     },
+     {
+      "element": "Customer proof, logos, quotes and scale indicators",
+      "count": 12
+     },
+     {
+      "element": "Direct construction-sector positioning",
+      "count": 7
+     }
+    ]
+   },
+   "HSE or compliance": {
+    "_n": 7,
+    "changes": [
+     {
+      "title": "Add concrete customer proof for HSE and compliance use cases",
+      "count": 7,
+      "representative_quote": "Add a concrete HSE/compliance case study near the main solution overview",
+      "how_to_check": "Track whether visitors from HSE and compliance audiences spend more time on the case study, view integration and pricing details, and click “Kontakta oss” or “Lämna ett meddelande” at a higher rate without increased early exits."
+     },
+     {
+      "title": "Show implementation, integration, workflow and pricing details",
+      "count": 7,
+      "representative_quote": "Add a concise comparison or use-case section for HSE/compliance coordinators that shows the exact workflow, integrations, data/privacy approach, indicative price or setup range, and one comparable customer reference.",
+      "how_to_check": "Measure whether visitors from HSE/compliance roles spend longer on the page, open the relevant use case, and proceed from the page to the contact CTA or a qualified information request at a higher rate without increased early exits."
+     },
+     {
+      "title": "Add a prominent audience-specific HSEQ, equipment or subcontractor pathway",
+      "count": 5,
+      "representative_quote": "Add a clearly labelled small-subcontractor/HSEQ pathway near the hero with an example package, indicative implementation steps, integrations, and a short reference from a company of similar size.",
+      "how_to_check": "Measure whether HSEQ and compliance visitors click that entry point, reach the contact route, and complete a qualified contact or pilot request at a higher rate, while checking whether fewer visitors leave after the solution overview."
+     }
+    ],
+    "keep": [
+     {
+      "element": "The clear hero explanation connecting personnel, machines and vehicles in one ecosystem: “Vi samlar hanteringen av personal, maskiner och fordon i ett och samma ekosystem.”",
+      "count": 7
+     },
+     {
+      "element": "The audience segmentation and audience groupings, including “Underentreprenörer” and “Compliance”.",
+      "count": 7
+     },
+     {
+      "element": "The concrete solution overview and labels such as “KMA” and “Maskin- & verktygshantering”.",
+      "count": 6
+     },
+     {
+      "element": "The visible contact route with phone, chat or support, and message options.",
+      "count": 5
+     },
+     {
+      "element": "Visible customer proof such as “Betrodd av över 12 000 kunder och 450 000 användare”.",
+      "count": 3
+     }
+    ]
+   },
+   "Operations, project or site manager": {
+    "_n": 20,
+    "changes": [
+     {
+      "title": "Add concrete machine-and-tool case studies or walkthroughs",
+      "count": 8,
+      "representative_quote": "Add a clearly labelled construction-contractor case or short product walkthrough for “Maskin- & verktygshantering”",
+      "how_to_check": "Measure whether site and project managers who view the tool/equipment section click through to the contact route, spend time on the case or walkthrough, and submit more enquiries while support questions about fit, integration and price decrease."
+     },
+     {
+      "title": "Create role-specific contractor and subcontractor pathways",
+      "count": 6,
+      "representative_quote": "Add a clearly labelled subcontractor path on the homepage with an example package for tool and equipment tracking",
+      "how_to_check": "Measure whether subcontractor visitors click the tool/equipment path and contact CTA more often, and whether more of those enquiries mention a clear understanding of the recommended package and fewer questions about price, hardware and rollout."
+     },
+     {
+      "title": "Show concrete fleet and vehicle-operations examples",
+      "count": 3,
+      "representative_quote": "Add a prominent, concrete fleet-operations case study near the first screen",
+      "how_to_check": "Track whether operations managers who view the fleet content continue to the contact CTA and submit qualified enquiries, and compare form conversion and requests for pricing or references before and after the case study is added."
+     },
+     {
+      "title": "Add prominent construction-operations demo and assessment CTAs",
+      "count": 3,
+      "representative_quote": "Add a prominent homepage CTA such as a construction-operations demo",
+      "how_to_check": "The owner could measure whether more visitors like me click the CTA, reach the contact page, and complete a qualified demo request, while tracking whether time on the relevant operations sections and return visits increase."
+     }
+    ],
+    "keep": [
+     {
+      "element": "Clear construction-specific positioning and ecosystem framing",
+      "count": 20
+     },
+     {
+      "element": "Concrete vehicle, machine and tool solution cards and wording",
+      "count": 20
+     },
+     {
+      "element": "Audience-specific sections and segmentation",
+      "count": 16
+     },
+     {
+      "element": "Customer proof through claims, logos and references",
+      "count": 13
+     },
+     {
+      "element": "Simple contact route, form and visible contact options",
+      "count": 12
+     }
+    ]
+   },
+   "Fleet, equipment or rental manager": {
+    "_n": 18,
+    "changes": [
+     {
+      "title": "Add a rental-operations example and demo path",
+      "count": 9,
+      "representative_quote": "Add a rental-company section on the homepage with a concrete workflow example showing how Infobric replaces spreadsheets and paper contracts",
+      "how_to_check": "Measure whether rental and depot visitors click the rental example, spend time on it, and proceed to the contact page or message CTA at a higher rate, while tracking fewer immediate exits from the homepage."
+     },
+     {
+      "title": "Add a machine-and-tool management example and path",
+      "count": 6,
+      "representative_quote": "Add a concrete tool-and-equipment example on the homepage showing how an organisation with a spreadsheet inventory would find an item, see its current location and roll the system out",
+      "how_to_check": "Measure whether visitors from equipment and tool-management roles spend longer on the relevant solution section, click through to contact or demo more often, and report higher confidence about fit and next steps in user testing."
+     },
+     {
+      "title": "Add a fleet-focused vehicle-management CTA and proof",
+      "count": 3,
+      "representative_quote": "Add a clearly visible fleet-focused CTA on the homepage, such as a short driving-log demo, with indicative pricing, supported integrations, hardware requirements, implementation time, and one or two quantified customer examples.",
+      "how_to_check": "Measure whether fleet and vehicle managers who view the vehicle-management section click the CTA, start the demo or contact flow, and complete it at a higher rate, while tracking fewer exits caused by searches for price, integrations, hardware, setup time or references."
+     }
+    ],
+    "keep": [
+     {
+      "element": "The clear ecosystem and hero positioning",
+      "count": 17
+     },
+     {
+      "element": "Customer logos and proof claims",
+      "count": 13
+     },
+     {
+      "element": "The direct contact and message route",
+      "count": 11
+     },
+     {
+      "element": "The “Maskin- & verktygshantering” solution card",
+      "count": 10
+     },
+     {
+      "element": "The “Uthyrningsföretag” audience section",
+      "count": 8
+     },
+     {
+      "element": "The “Fordonshantering” solution card",
+      "count": 3
+     }
+    ]
+   },
+   "Finance or administration": {
+    "_n": 20,
+    "changes": [
+     {
+      "title": "Add concrete vehicle-management and finance-administration use cases",
+      "count": 8,
+      "representative_quote": "Add a clearly labelled vehicle-and-driving-log use case on the homepage",
+      "how_to_check": "Track whether visitors from finance and administration click the vehicle use case, spend time on integration and implementation details, and proceed from that section to the contact CTA at higher rates."
+     },
+     {
+      "title": "Add concrete contractor and subcontractor vehicle-administration cases",
+      "count": 7,
+      "representative_quote": "Add a prominent, concrete vehicle-management example for small contractors",
+      "how_to_check": "Measure whether finance and administration visitors from small contractors spend longer on the page, open the vehicle-management information, and submit more qualified contact requests that mention vehicle costs, spreadsheets, or Visma; also track reduced exits before the contact form."
+     },
+     {
+      "title": "Add a clearly labelled rental-company pathway and workflow",
+      "count": 5,
+      "representative_quote": "Add a clearly labelled rental-company section with an indicative price range, implementation timeline, integration list, concrete workflow examples for bookings/contracts/prices, and a relevant customer case before asking visitors to contact sales.",
+      "how_to_check": "Track whether visitors who view the rental section proceed to the contact or demo CTA, and whether qualified rental visitors increase contact submissions while time to first contact and abandonment decrease."
+     }
+    ],
+    "keep": [
+     {
+      "element": "The clear hero and connected ecosystem explanation, including “Vi samlar hanteringen av personal, maskiner och fordon i ett och samma ekosystem.”",
+      "count": 20
+     },
+     {
+      "element": "The concrete vehicle-management solution wording, including “Körjournal, CO2, kostnadskoll och mycket mer – samlat på ett ställe.”",
+      "count": 16
+     },
+     {
+      "element": "The direct contact route through “Kontakt”, “Kontakta oss”, phone, chat, or message options",
+      "count": 12
+     },
+     {
+      "element": "Customer logos and credibility claims such as “Betrodd av över 12 000 kunder och 450 000 användare”",
+      "count": 11
+     },
+     {
+      "element": "Audience segmentation and dedicated audience sections, including “Uthyrningsföretag”",
+      "count": 11
+     }
+    ]
+   }
+  }
+ },
+ "synthesis": {
+  "executive_summary": [
+   "[persona] The homepage makes the offer understandable and relevant: about 91 of 136 visitors found “Vi samlar hanteringen av personal, maskiner och fordon i ett och samma ekosystem.” credible, while about 107 of 136 found “Se när, var och hur era maskiner och verktyg används.” familiar.",
+   "[persona] The main conversion barrier is not basic understanding but purchase readiness: all 136 of 136 visitors said price, integrations, setup time and references were missing, and about 128 of 136 needed references before taking action.",
+   "[persona] Visitors valued the offer but were often not ready to contact sales; about 60 of 136 planned to come back later, 28 of 136 wanted to learn more, and only 48 of 136 chose contact sales, with comparable customer evidence and practical implementation information needed first.",
+   "[analytics] The page attracts substantial engagement, with about 17,190 of 19,442 page sessions engaged, but the 43.76% quick-back rate indicates a substantial expectation, relevance or navigation mismatch; no page-level key events were attributed to the page.",
+   "[site] The page should retain its construction focus, ecosystem framing and concrete solution language, but replace unsupported breadth and leadership claims such as “marknadens bredaste utbud” with comparable cases, workflows, implementation information and clearer next steps."
+  ],
+  "audience_differences": [
+   {
+    "audience": "HSE or compliance",
+    "summary": "[persona] All 7 of 7 understood the offer as a construction digitalisation partner addressing safety, compliance, personnel, machines and vehicles, and they valued language such as “Arbeta systematiskt och digitalt med KMA för en säkrare byggarbetsplats.” [persona] All 7 of 7 valued the offer but were not ready to engage commercially; they needed comparable references, integration and hardware information, implementation detail, and in some cases pricing and privacy information first."
+   },
+   {
+    "audience": "Supervisor or daily user",
+    "summary": "[persona] All 20 of 20 understood the offer as a broad operational ecosystem, especially for vehicles, tools, equipment and administration, and they responded to “Körjournal, CO2, kostnadskoll och mycket mer – samlat på ett ställe.” [persona] Most were exploratory rather than urgent: about 12 of 20 planned to come back later and 6 of 20 wanted to learn more, primarily needing comparable references and a low-risk way to understand rollout before contacting sales."
+   },
+   {
+    "audience": "Operations, project or site manager",
+    "summary": "[persona] All 20 of 20 recognised problems around asset visibility, site administration, safety and supplier coordination, and 17 of 20 found “Se när, var och hur era maskiner och verktyg används.” credible. [persona] The offer was valued but not yet actionable: all 20 of 20 needed references, while about 19 of 20 needed integration, hardware, implementation and rollout information before deciding whether to contact sales."
+   },
+   {
+    "audience": "Owner or senior manager",
+    "summary": "[persona] All 19 of 19 understood the broad construction-sector proposition, with strong relevance for fleet, rental, equipment and compliance operations, but 16 of 19 found the catalogue insufficiently specific as a starting point. [persona] About 12 of 19 valued the offer but were not ready to contact sales; they needed comparable references, integration and rollout details, and often pricing, contract, privacy and hardware information first."
+   },
+   {
+    "audience": "Fleet, equipment or rental manager",
+    "summary": "[persona] All 18 of 18 recognised a connected construction ecosystem, and 10 of 18 also saw a relevant rental, equipment or fleet-management solution; “Effektivisera din uthyrnings-verksamhet med kontroll i realtid och säkerställ att din flotta alltid är redo för nästa uppdrag.” felt familiar to 8 of 18. [persona] About 13 of 18 valued the offer but were not ready to proceed, usually needing comparable references or a low-risk pilot before discussing sales."
+   },
+   {
+    "audience": "Finance or administration",
+    "summary": "[persona] All 20 of 20 understood the offer as a broad platform for vehicle, rental, personnel, compliance and operational administration, with “Körjournal, CO2, kostnadskoll och mycket mer – samlat på ett ställe.” especially familiar. [persona] All 20 of 20 valued the offer but were not ready to contact sales; they needed comparable references, accounting, ERP, payroll and driving-log integration information, pricing, implementation expectations, and data-handling information first."
+   }
+  ],
+  "journey": {
+   "information_order": "[persona] The opening order is useful for establishing sector and broad relevance: construction positioning and the ecosystem proposition appear before solution areas. [persona] It becomes less useful when visitors need to choose a specific starting point, because all 136 of 136 still reported missing price, integrations, setup time and references, and about 48 of 136 flagged broad positioning such as “Marknadens bredaste utbud” as unconvincing.",
+   "answers_when_questions_arise": "[persona] The page answers what the offer broadly covers, especially through “Vi samlar hanteringen av personal, maskiner och fordon i ett och samma ekosystem.” and “Körjournal, CO2, kostnadskoll och mycket mer – samlat på ett ställe.” [persona] It does not answer the questions that arise before a purchase decision: all 136 of 136 reported missing price, integrations, setup time and references, and about 135 of 136 reported missing contract terms.",
+   "how_it_works_in_practice": "[persona] Visitors understand the intended outcome more readily than the operational workflow: about 107 of 136 found “Se när, var och hur era maskiner och verktyg används.” familiar, but site, fleet, rental and finance visitors still wanted concrete examples of service, inspections, returns, driving logs, costs, handovers and system connections. [site] The homepage presents solution labels and benefit statements, but the supplied notes do not identify a complete end-to-end workflow, implementation timeline or integration explanation.",
+   "interested_but_not_ready": "[persona] The experience does not sufficiently support visitors who are interested but not ready to speak with sales: about 60 of 136 planned to come back later and 28 of 136 wanted to learn more, while about 128 of 136 needed references first. [site] The visible route leads to “Kontakt” or “Kontakta oss”, and the contact destination offers phone, chat and “Lämna ett meddelande”, but the page does not visibly provide a low-risk pilot, self-guided product explanation, indicative pricing or comparable case path.",
+   "layout_navigation_forms": "[persona] Navigation and CTA intent are generally understandable: the CTA matched expectations for about 89 of 136 visitors, and the contact route was considered straightforward by most persona groups. [site] The route is less direct for form-seeking visitors because the contact page often presents several channels before “Lämna ett meddelande”, and the form asks for “Namn”, “E-postadress”, “Företag”, “Telefonnummer”, “Meddelande” and privacy-policy acceptance.",
+   "unnecessary_effort_or_uncertainty": "[analytics] About 10,058 of 22,983 clarity sessions were quick backs, and about 8,857 outbound-click events were recorded, indicating that visitors often leave or move on before resolving their question; these events are not confirmed leads. [persona] The largest avoidable effort is deciding which product or audience path fits, followed by finding evidence about references, integrations, price, hardware, setup time, privacy and contract terms; about 16 of 20 owners and 15 of 20 operations managers specifically found the starting solution unclear."
+  },
+  "priorities": [
+   {
+    "rank": 1,
+    "title": "Add comparable proof and complete operational case studies",
+    "hypothesis": "[persona] Showing a relevant case for contractors, rental businesses, fleet teams, HSE and finance users will convert broad credibility into defensible purchase evidence, especially for visitors who understand and value the offer but are not ready to contact sales.",
+    "evidence": "[persona] About 128 of 136 visitors needed references first, and the claim “Betrodd av över 12 000 kunder och 450 000 användare” required proof for about 81 of 136. Comparable visitors also challenged “Vårt breda utbud av lösningar hjälper våra kunder att minimera olyckor, eliminera bedrägerier, minska utsläppen och förbättra produktiviteten i sina verksamheter.”",
+    "affects": "All visitor kinds, especially Owner or senior manager, Operations, project or site manager, Fleet, equipment or rental manager, and HSE or compliance",
+    "how_to_check": "[analytics] Track case-study views, scroll depth, contact-us events and submit-form events for visitors reaching the new proof sections; compare qualified enquiry rate and quick-back rate with the current baseline of about 10,058 of 22,983 clarity sessions returning quickly."
+   },
+   {
+    "rank": 2,
+    "title": "Show price, integrations, hardware and implementation before requesting contact",
+    "hypothesis": "[persona] A practical feasibility section with indicative pricing or packages, supported integrations, hardware requirements, setup effort, rollout timing and data-handling information will reduce hesitation among budget, operations and compliance evaluators.",
+    "evidence": "[persona] All 136 of 136 reported missing price, integrations and setup time; about 106 of 136 also reported missing hardware information, and about 135 of 136 reported missing contract terms. Finance or administration visitors needed integration, implementation and pricing information in about 20 of 20 cases.",
+    "affects": "Finance or administration, Owner or senior manager, Operations, project or site manager, Fleet, equipment or rental manager, Supervisor or daily user, and HSE or compliance",
+    "how_to_check": "[analytics] Measure views and engagement with pricing, integration and implementation sections, then compare contact-us and submit-form rates, time to contact and quick backs against the current page baseline; also collect whether new enquiries mention price, integrations or rollout."
+   },
+   {
+    "rank": 3,
+    "title": "Create role- and problem-specific starting paths",
+    "hypothesis": "[persona] Replacing the broad catalogue journey with clear paths such as vehicle administration, machine and tool management, rental operations, HSE and finance will help visitors map an immediate problem to a manageable first solution.",
+    "evidence": "[persona] About 16 of 19 owners, 15 of 20 operations managers and 17 of 18 fleet, equipment or rental managers found the relevant product or starting workflow unclear. Visitors found concrete labels such as “Maskin- & verktygshantering” and “Fordonshantering” familiar, but about 48 of 136 found “Marknadens bredaste utbud” unconvincing.",
+    "affects": "All visitor kinds, with greatest impact for Owner or senior manager, Operations, project or site manager, Fleet, equipment or rental manager, and Finance or administration",
+    "how_to_check": "[analytics] Add tagged path clicks and measure whether visitors who select a role or problem reach the relevant content, contact CTA or form more often, with lower quick-back rates than visitors using the current general navigation."
+   },
+   {
+    "rank": 4,
+    "title": "Replace unsupported superlatives with measurable outcomes",
+    "hypothesis": "[persona] Evidence-led wording and quantified before-and-after results will improve trust more than broad market-leadership and sustainability claims, particularly for decision-makers who must justify a supplier internally.",
+    "evidence": "[persona] About 73 of 136 wanted proof for “Vårt breda utbud av lösningar hjälper våra kunder att minimera olyckor, eliminera bedrägerier, minska utsläppen och förbättra produktiviteten i sina verksamheter.” About 62 of 136 wanted proof for “En ledande digitaliseringspartner för byggbranschen.” and about 48 of 136 flagged “Marknadens bredaste utbud” as unconvincing.",
+    "affects": "Owner or senior manager, Operations, project or site manager, HSE or compliance, Finance or administration, and Fleet, equipment or rental manager",
+    "how_to_check": "[analytics] A/B test evidence-led proposition content against the current claims and compare engaged time, solution-section progression, contact-us events, submit-form events and quick-back rate; treat persona trust scores as pilot indicators rather than measured customer approval."
+   },
+   {
+    "rank": 5,
+    "title": "Offer a clearer low-friction evaluation CTA",
+    "hypothesis": "[persona] A prominent “Boka demo” or self-guided assessment route, paired with a short explanation of what the visitor will receive, will help interested visitors take a smaller step without forcing an immediate general sales conversation.",
+    "evidence": "[persona] About 60 of 136 planned to come back later and 28 of 136 wanted to learn more, despite the overall CTA match being high. [site] Visitors commonly reached “Kontakt” or “Kontakta oss” and then had to choose “Lämna ett meddelande”; about 14 of 19 owners and 11 of 20 supervisors encountered an intermediate contact route before the form.",
+    "affects": "All visitor kinds, especially Supervisor or daily user, Fleet, equipment or rental manager, Owner or senior manager, and Operations, project or site manager",
+    "how_to_check": "[analytics] Track clicks on the new demo, assessment or pilot CTA, progression to contact and form submission, and compare with the current 1,410 contact-us events and 201 submit-form events; verify that quick backs do not increase."
+   }
+  ],
+  "retain": [
+   {
+    "element": "Construction-sector positioning and the connected ecosystem proposition",
+    "why": "[persona] All 136 of 136 visitors understood the broad offer, and about 91 of 136 found “Vi samlar hanteringen av personal, maskiner och fordon i ett och samma ekosystem.” credible."
+   },
+   {
+    "element": "Concrete vehicle, machine and tool solution language",
+    "why": "[persona] About 102 of 136 found “Körjournal, CO2, kostnadskoll och mycket mer – samlat på ett ställe.” familiar, while about 107 of 136 found “Se när, var och hur era maskiner och verktyg används.” familiar."
+   },
+   {
+    "element": "Audience segmentation and solution labels",
+    "why": "[persona] Visitors could recognise relevant areas such as “Maskin- & verktygshantering”, “Fordonshantering” and “Uthyrningsföretag”, even though many still needed a clearer recommended starting path."
+   },
+   {
+    "element": "Visible contact options",
+    "why": "[site] The contact destination provides phone, chat and “Lämna ett meddelande”, and [persona] the CTA matched expectations for about 89 of 136 visitors."
+   },
+   {
+    "element": "Customer scale and social-proof placement",
+    "why": "[persona] About 52 of 136 found “Betrodd av över 12 000 kunder och 450 000 användare” credible, so the trust signal is useful but should be supported with named, comparable references and outcomes."
+   }
+  ],
+  "cannot_be_assessed": [
+   "[analytics] The supplied analytics do not attribute any key events to this exact page, so page-level conversion impact cannot be established; 0 key events is not evidence that the page had no influence on later conversions.",
+   "[analytics] “Contact us” and “Submit form” are smart events, not confirmed leads, so lead quality, sales qualification and revenue impact cannot be assessed.",
+   "[persona] The pilot scores are indicators from modelled personas, not measured customer approval; they cannot establish actual satisfaction, trust or purchase intent among real visitors.",
+   "[site] The notes do not provide a complete inspection of accessibility, mobile behaviour, form validation, load performance or whether all integrations, privacy details and pricing exist elsewhere on the site.",
+   "[analytics] The supplied page analytics cannot identify which visitor kinds produced the observed sessions, so performance differences by audience cannot be validated from analytics alone."
+  ]
+ },
+ "model": "gpt-5.6-luna",
+ "built_at": "2026-09-19T09:20:29+00:00"
+}
