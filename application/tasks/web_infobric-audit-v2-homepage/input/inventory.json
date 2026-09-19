@@ -1,0 +1,125 @@
+{
+  "page_id": "homepage",
+  "label": "Infobric homepage",
+  "url": "https://infobric.com/se/",
+  "checked": "2026-09-18",
+  "checked_by": "drafted by build_inventory.py 2026-09-18; CTA labels, targets, claims and next-step sets confirmed against the fetched text; product list confirmed by eye",
+  "truth_statement": "Infobric's Swedish front page. Infobric sells connected systems for construction sites and field operations: electronic attendance registers and site access, safety and compliance tools and training, vehicle management and driving logs (Fleet), tool and equipment tracking (Equipment), rental management (Hyrma) and field work orders. It says it is trusted by over 12,000 customers and 450,000 users, was founded in Jönköping in 2004 and has over 350 employees in four countries.",
+  "primary_cta": {
+    "label": "Kontakta oss",
+    "url_fragment": "/kontakta-oss"
+  },
+  "secondary_ctas": [
+    {
+      "label": "Kontakta en säljare",
+      "url_fragment": "/kontakta-en-saljare"
+    },
+    {
+      "label": "Kontakt",
+      "url_fragment": "/kontakt"
+    },
+    {
+      "label": "Boka demo",
+      "url_fragment": "#cta"
+    },
+    {
+      "label": "Få en demo",
+      "url_fragment": "#cta"
+    },
+    {
+      "label": "Prova gratis",
+      "url_fragment": "#cta"
+    }
+  ],
+  "available_next_steps": [
+    "contact_sales",
+    "book_demo",
+    "learn_more",
+    "come_back_later",
+    "leave"
+  ],
+  "conversion_next_steps": [
+    "contact_sales",
+    "book_demo"
+  ],
+  "navigation_next_steps": [
+    "learn_more"
+  ],
+  "claims": [
+    "Betrodd av över 12 000 kunder och 450 000 användare",
+    "Sedan Infobric grundades i Jönköping 2004 har vi utvecklats till den ledande digitaliseringspartnern för byggbranschen",
+    "Med över 350 anställda i fyra olika länder bidrar vi med internationell expertis till lokala marknader.",
+    "Körjournal, CO2, kostnadskoll och mycket mer – samlat på ett ställe.",
+    "En IP-67 klassad enhet som installeras med eller utan tändning."
+  ],
+  "sections": [
+    {
+      "name": "Vi digitaliserar byggbranschen",
+      "level": "h1",
+      "position": "bottom"
+    },
+    {
+      "name": "Huvudentreprenörer",
+      "level": "h3",
+      "position": "bottom"
+    },
+    {
+      "name": "Underentreprenörer",
+      "level": "h3",
+      "position": "bottom"
+    },
+    {
+      "name": "Byggherrar",
+      "level": "h3",
+      "position": "bottom"
+    },
+    {
+      "name": "Yrkesarbetare",
+      "level": "h3",
+      "position": "bottom"
+    },
+    {
+      "name": "Uthyrningsföretag",
+      "level": "h3",
+      "position": "bottom"
+    },
+    {
+      "name": "Compliance",
+      "level": "h3",
+      "position": "bottom"
+    },
+    {
+      "name": "”Vi tjänar mycket tid på att använda Infobric, och får bättre kvalitet för det.”",
+      "level": "h2",
+      "position": "bottom"
+    },
+    {
+      "name": "Våra populära lösningar",
+      "level": "h2",
+      "position": "bottom"
+    },
+    {
+      "name": "En ledande digitaliseringspartner för byggbranschen.",
+      "level": "h2",
+      "position": "bottom"
+    },
+    {
+      "name": "Alla pratar om digitalisering. Vi får det att hända.",
+      "level": "h2",
+      "position": "bottom"
+    },
+    {
+      "name": "Vi bidrar till att bygga en bättre värld.",
+      "level": "h2",
+      "position": "bottom"
+    }
+  ],
+  "trust_signals_present": [
+    "logos",
+    "customer_count",
+    "testimonial",
+    "case_studies"
+  ],
+  "shows_price": false,
+  "text_snapshot": "Lösningar \nLösningar \nPersonalliggare \nAccess \nFordonshantering \nFöranmälan \nLeverantörsuppföljning \nIndividinskrivning \nKMA \nMaskin- och verktyg \nArbetsorderhantering \nUthyrningssystem \nKompetenser \nKravutbildningar \nBorrning & Sprängning \nFöretagsintroduktioner \nProdukter \nProdukter \nSite \nFleet \nField \nConnect \nWorkorder \nEquipment \nIntelligence \nBlastmanager \nHyrma \nMachines \nEase CheckIn \nControl \nAcademy \nSnabblänkar \nStarta arbetsplats \nFyll i företagsuppgifter och beställ arbetsplats i Site och Field. \nKom igång \nHantera arbetsplatser \nAdministrera dina pågående projekt i Site och Field. \nHantera \nSe din fordonspark \nFörhandsvisa din fordonspark i Fleet, kräver bara organisationsnummer! \nProva gratis \nVem vi hjälper \nVem vi hjälper \nVi kopplar samman byggbranschens ekosystem och ger alla aktörer rätt verktyg för säkrare, effektivare och mer hållbara byggprojekt. \nVem vi hjälper \nHuvudentreprenörer \nUnderentreprenörer \nByggherrar \nYrkesarbetare \nUthyrningsföretag \nCompliance \nKunskap \nKunskap \nHär hittar du kundberättelser, guider, artiklar, nyheter och webinar. \nKunskap \nKundberättelser \nGuider \nArtiklar \nNyheter \nWebinar \nUtvalda kundberättelser \nLWAB har koll på verktygen \nSå hanterar LWAB utmaningen med utrustning som ständigt byter händer. \nSe videon \nSkanska bygger tingsrätt \nDärför är nya tjänsten Föranmälan en viktig pusselbit för Skanska. \nSe videon \nOm oss \nOm oss \nVår resa \nLedning och styrelse \nVår samhällspåverkan \nNyheter och press \nKontakt \nKontakta oss \nSupport \nJobba hos oss \n(SV) \nGlobal (English) \nSweden (Swedish) \nNorway (Norwegian) \nUnited Kingdom (English) \nUnited States (English) \nLogga in \nLogga in \nLösningar \nLösningar \nProdukter \nProdukter \nSnabblänkar \nVem vi hjälper \nVem vi hjälper \nVem vi hjälper \nKunskap \nKunskap \nKunskap \nUtvalda kundberättelser \nOm oss \nOm oss Vår resa Ledning och styrelse Vår samhällspåverkan Nyheter och press \nKontakt \nKontakta oss Support Jobba hos oss \nLösningar \nLösningar \nPersonalliggare \nAccess \nFordonshantering \nFöranmälan \nLeverantörsuppföljning \nIndividinskrivning \nKMA \nMaskin- och verktyg \nArbetsorderhantering \nUthyrningssystem \nKompetenser \nKravutbildningar Borrning & Sprängning \nFöretagsintroduktioner \nLösningar \nPersonalliggare \nHårdvara Pris och paketering Kontakta en säljare Hantera arbetsplatser \nAccess \nHårdvara Pris och paketering Kontakta en säljare Hantera arbetsplatser \nFordonshantering \nFörhandsvisa din vagnpark Kundberättelser Prata med en expert \nFöranmälan \nBankinitiativet Pris och paketering Kontakta en säljare Hantera arbetsplatser \nLeverantörsuppföljning \nPris och paketering Kontakta en säljare Hantera arbetsplatser \nIndividinskrivning \nPris och paketering Kontakta en säljare \nKMA \nPris och paketering Kontakta en säljare \nMaskin- och verktyg \nKundberättelser Prata med en expert \nArbetsorderhantering \nInstallation och eftermarknad \nIntegrationer Kundberättelser Prata med en expert \nUthyrningssystem \nPrata med en expert \nKompetenser \nFöretagsintroduktioner Pris och paketering Kontakta en säljare Hantera dina arbetsplatser \nKravutbildningar \nFöretagsintroduktioner Boka demo \nBorrning & Sprängning \nFöretagsintroduktioner \nBoka demo \nPersonalliggare \nHårdvara \nPris och paketering \nKontakta en säljare \nHantera arbetsplatser \nAccess \nHårdvara \nPris och paketering \nKontakta en säljare \nHantera arbetsplatser \nFordonshantering \nFörhandsvisa din vagnpark \nKundberättelser \nPrata med en expert \nFöranmälan \nBankinitiativet \nPris och paketering \nKontakta en säljare \nHantera arbetsplatser \nLeverantörsuppföljning \nPris och paketering \nKontakta en säljare \nHantera arbetsplatser \nIndividinskrivning \nPris och paketering \nKontakta en säljare \nKMA \nPris och paketering \nKontakta en säljare \nMaskin- och verktyg \nKundberättelser \nPrata med en expert \nArbetsorderhantering \nInstallation och eftermarknad \nIntegrationer \nAlla integrationer \nUtvalda integrationer \nKundberättelser \nPrata med en expert \nIntegrationer \nAlla integrationer \nLönesystem Leverantörsfakturor Grossister Ekonomi- och affärssystem \nUtvalda integrationer \nFortnox Monitor ERP \nAlla integrationer \nLönesystem \nLeverantörsfakturor \nGrossister \nEkonomi- och affärssystem \nUtvalda integrationer \nFortnox \nMonitor ERP \nUthyrningssystem \nPrata med en expert \nKompetenser \nFöretagsintroduktioner \nPris och paketering \nKontakta en säljare \nHantera dina arbetsplatser \nKravutbildningar \nFöretagsintroduktioner \nBoka demo \nFöretagsintroduktioner \nBoka demo \nProdukter \nProdukter \nSite \nFleet \nField \nConnect \nWorkorder \nEquipment \nIntelligence \nBlastmanager \nHyrma \nMachines \nEase CheckIn \nControl Academy \nSnabblänkar \nStarta arbetsplats Hantera arbetsplatser Se din fordonspark \nProdukter \nSite \nHårdvara Pris och paketering Kontakta en säljare Hantera arbetsplatser \nFleet \nElektronisk körjournal Föraridentifiering \nIntegrationer Elektronisk körjournal Kundberättelser Pris och paketering Prova gratis \nField \nKundberättelser & guider Pris och paketering Kontakta en säljare Boka demo \nConnect \nPris och paketering Kontakta en säljare Hantera arbetsplatser \nWorkorder \nInstallation och eftermarknad Miljörapport \nIntegrationer Kundberättelser Pris och paketering Få en demo \nEquipment \nSpårning och hårdvara Kundberättelser Pris och paketering Prova gratis \nIntelligence \nPris och paketering Kontakta en säljare Hantera arbetsplatser \nBlastmanager \nLadda ner apparna Boka demo \nHyrma \nNyhet: Kundvarningar Integrationer Pris och paketering Insikter för uthyrare Få en demo \nMachines \nFör bygg- & anläggningsbolag \nSpårning och hårdvara Kundberättelser Pris och paketering Få en demo \nEase CheckIn \nLadda ner appen Support Boka demo \nControl \nKontakta oss \nAcademy \nSite \nHårdvara \nDörrlås Grindar Närvaroregistrering Reklamation Reservdelar & tillbehör \nPris och paketering \nKontakta en säljare \nHantera arbetsplatser \nHårdvara \nDörrlås \nGrindar \nNärvaroregistrering \nReklamation \nReservdelar & tillbehör \nFleet \nElektronisk körjournal \nFöraridentifiering \nIntegrationer \nAlla integrationer \nElektronisk körjournal \nKundberättelser \nPris och paketering \nProva gratis \nIntegrationer \nAlla integrationer \nLönesystem Leasingbolag Fordonsadministration Single sign on \nAlla integrationer \nLönesystem \nLeasingbolag \nFordonsadministration \nSingle sign on \nField \nKundberättelser & guider \nPris och paketering \nKontakta en säljare \nBoka demo \nConnect \nPris och paketering \nKontakta en säljare \nHantera arbetsplatser \nWorkorder \nInstallation och eftermarknad \nMiljörapport \nIntegrationer \nAlla integrationer \nUtvalda integrationer \nKundberättelser \nPris och paketering \nFå en demo \nIntegrationer \nAlla integrationer \nLönesystem Leverantörsfakturor Grossister Ekonomi- och affärssystem \nUtvalda integrationer \nFortnox Monitor ERP \nAlla integrationer \nLönesystem \nLeverantörsfakturor \nGrossister \nEkonomi- och affärssystem \nUtvalda integrationer \nFortnox \nMonitor ERP \nEquipment \nSpårning och hårdvara \nSpårning och hårdvara \nKundberättelser \nPris och paketering \nProva gratis \nSpårning och hårdvara \nSpårning och hårdvara \nEtiketter Tool Tracker Asset Tracker Tool Receiver \nSpårning och hårdvara \nEtiketter \nTool Tracker \nAsset Tracker \nTool Receiver \nIntelligence \nPris och paketering \nKontakta en säljare \nHantera arbetsplatser \nBlastmanager \nLadda ner apparna \nBoka demo \nHyrma \nNyhet: Kundvarningar \nIntegrationer \nPris och paketering \nInsikter för uthyrare \nFå en demo \nMachines \nFör bygg- & anläggningsbolag \nSpårning och hårdvara \nSpårning och hårdvara \nKundberättelser \nPris och paketering \nFå en demo \nSpårning och hårdvara \nSpårning och hårdvara \nVehicle Tracker Asset Tracker Tool Tracker \nSpårning och hårdvara \nVehicle Tracker \nAsset Tracker \nTool Tracker \nEase CheckIn \nLadda ner appen \nSupport \nBoka demo \nControl \nKontakta oss \nSnabblänkar \nStarta arbetsplats \nHantera arbetsplatser \nSe din fordonspark \nVem vi hjälper \nVem vi hjälper \nVem vi hjälper \nHuvudentreprenörer Underentreprenörer Byggherrar Yrkesarbetare Uthyrningsföretag Compliance \nVem vi hjälper \nHuvudentreprenörer \nUnderentreprenörer \nByggherrar \nYrkesarbetare \nUthyrningsföretag \nCompliance \nKunskap \nKunskap \nKunskap \nKundberättelser Guider Artiklar Nyheter Webinar \nUtvalda kundberättelser \nLWAB har koll på verktygen Skanska bygger tingsrätt \nKunskap \nKundberättelser \nGuider \nArtiklar \nNyheter \nWebinar \nUtvalda kundberättelser \nLWAB har koll på verktygen \nSkanska bygger tingsrätt \nOm oss \nOm oss \nVår resa \nLedning och styrelse \nVår samhällspåverkan \nNyheter och press \nKontakt \nKontakta oss \nSupport \nJobba hos oss (SV) \nSelect your country & language preference \nSidan du försöker navigera till är endast tillgänglig i följande regioner, vänligen välj ett land och språk för att fortsätta. \nGlobal (English) \nSweden (Swedish) \nNorway (Norwegian) \nUnited Kingdom (English) \nUnited States (English) \nTillbaka \nLösningar \nPersonalliggare \nAccess \nFordonshantering \nFöranmälan \nLeverantörsuppföljning \nIndividinskrivning \nKMA \nMaskin- och verktyg \nArbetsorderhantering \nUthyrningssystem \nKompetenser \nKravutbildningar \nBorrning & Sprängning \nFöretagsintroduktioner \nTillbaka \nHårdvara \nPris och paketering \nKontakta en säljare \nHantera arbetsplatser \nTillbaka \nHårdvara \nPris och paketering \nKontakta en säljare \nHantera arbetsplatser \nTillbaka \nFörhandsvisa din vagnpark \nKundberättelser \nPrata med en expert \nTillbaka \nBankinitiativet \nPris och paketering \nKontakta en säljare \nHantera arbetsplatser \nTillbaka \nPris och paketering \nKontakta en säljare \nHantera arbetsplatser \nTillbaka \nPris och paketering \nKontakta en säljare \nTillbaka \nPris och paketering \nKontakta en säljare \nTillbaka \nKundberättelser \nPrata med en expert \nTillbaka \nInstallation och eftermarknad \nIntegrationer \nAlla integrationer \nLönesystem \nLeverantörsfakturor \nGrossister \nEkonomi- och affärssystem \nUtvalda integrationer \nFortnox \nFrån offert och arbetsorder till fakturering och ekonomisk uppföljning. Läs mer \nMonitor ERP \nKomplett digital orderhantering för dig \nsom arbetar med eftermarknad. Läs mer \nKundberättelser \nPrata med en expert \nTillbaka \nPrata med en expert \nTillbaka \nFöretagsintroduktioner \nPris och paketering \nKontakta en säljare \nHantera dina arbetsplatser \nTillbaka \nFöretagsintroduktioner \nBoka demo \nTillbaka \nBoka demo \nTillbaka \nProdukter \nSite \nFleet \nField \nConnect \nWorkorder \nEquipment \nIntelligence \nBlastmanager \nHyrma \nMachines \nEase CheckIn \nControl \nAcademy \nSnabblänkar \nStarta arbetsplats \nHantera arbetsplatser \nSe din fordonspark \nTillbaka \nHårdvara \nDörrlås \nGrindar \nNärvaroregistrering \nReklamation \nReservdelar & tillbehör \nPris och paketering \nKontakta en säljare \nHantera arbetsplatser \nTillbaka \nElektronisk körjournal \nFöraridentifiering \nIntegrationer \nAlla integrationer \nLönesystem \nLeasingbolag \nFordonsadministration \nSingle sign on \nElektronisk körjournal \nKundberättelser \nPris och paketering \nProva gratis \nTillbaka \nKundberättelser & guider \nPris och paketering \nKontakta en säljare \nBoka demo \nTillbaka \nPris och paketering \nKontakta en säljare \nHantera arbetsplatser \nTillbaka \nInstallation och eftermarknad \nMiljörapport \nIntegrationer \nAlla integrationer \nLönesystem \nLeverantörsfakturor \nGrossister \nEkonomi- och affärssystem \nUtvalda integrationer \nFortnox \nFrån offert och arbetsorder till fakturering och ekonomisk uppföljning. Läs mer \nMonitor ERP \nKomplett digital orderhantering för dig som arbetar med eftermarknad. Läs mer \nKundberättelser \nPris och paketering \nFå en demo \nTillbaka \nSpårning och hårdvara \nSpårning och hårdvara \nEtiketter \nVår enklaste spårningslösning. Fäst på verktyg och skanna etiketten för in- och utcheckning. Läs mer \nTool Tracker \nLiten enhet som är enkel att fästa på alla typer av utrustning och verktyg. Läs mer \nAsset Tracker \nLite större enhet med egen GPS för utrustning som står remote. Läs mer \nTool Receiver \nSkicka in data från Infobric Tool Trackers. Utmärkt för användning i t.ex förråd. Läs mer \nKundberättelser \nPris och paketering \nProva gratis \nTillbaka \nPris och paketering \nKontakta en säljare \nHantera arbetsplatser \nTillbaka \nLadda ner apparna \nBoka demo \nTillbaka \nNyhet: Kundvarningar \nIntegrationer \nPris och paketering \nInsikter för uthyrare \nFå en demo \nTillbaka \nFör bygg- & anläggningsbolag \nSpårning och hårdvara \nSpårning och hårdvara \nVehicle Tracker \nEn IP-67 klassad enhet som installeras med eller utan tändning. Hämtar data såsom motor- och drifttimmar. Läs mer \nAsset Tracker \nEn batteridriven enhet som inte kräver extern ström. Den skickar sin position en gång per dygn och har tre års batteritid. Läs mer \nTool Tracker \nLiten enhet som är enkel att fästa på alla typer av utrustning och verktyg. Läs mer \nKundberättelser \nPris och paketering \nFå en demo \nTillbaka \nLadda ner appen \nSupport \nBoka demo \nTillbaka \nKontakta oss \nTillbaka \nVem vi hjälper \nVi kopplar samman byggbranschens ekosystem och ger alla aktörer rätt verktyg för säkrare, effektivare och mer hållbara byggprojekt. \nVem vi hjälper \nHuvudentreprenörer \nUnderentreprenörer \nByggherrar \nYrkesarbetare \nUthyrningsföretag \nCompliance \nTillbaka \nKunskap \nHär hittar du kundberättelser, guider, artiklar, nyheter och webinar. \nKunskap \nKundberättelser \nGuider \nArtiklar \nNyheter \nWebinar \nUtvalda kundberättelser \nLWAB har koll på verktygen \nSkanska bygger tingsrätt \nTillbaka \nOm oss \nVår resa \nLedning och styrelse \nVår samhällspåverkan \nNyheter och press \nTillbaka \nKontakta oss \nSupport \nJobba hos oss \nTillbaka \nVälj land och språkpreferens. \nSidan du försöker navigera till är endast tillgänglig i följande regioner, vänligen välj ett land och språk för att fortsätta. \nGlobal (English) \nSweden (Swedish) \nNorway (Norwegian) \nUnited Kingdom (English) \nUnited States (English) \nVi digitaliserar byggbranschen \nInfobric erbjuder marknadens bredaste utbud av tjänster för att skapa en säkrare, mer hållbar och effektivare byggbransch. Vi samlar hanteringen av personal, maskiner och fordon i ett och samma ekosystem. Det ger er kontroll över helheten och gör det enklare att göra rätt. \nBetrodd av över 12 000 kunder och 450 000 användare \nVi kopplar ihop det digitala ekosystemet. \nInfobric erbjuder ett av marknadens bredaste utbud av digitala tjänster för byggsektorn. Oavsett om du ansvarar för projekt, säkerhet, personal, maskiner, uthyrning eller uppföljning finns lösningar som är anpassade för din vardag – och som fungerar tillsammans. \nHuvudentreprenörer \nFörbättra säkerheten, effektivisera hantering av personal och maximera resurseffektiviteten genom fullständig kontroll över dina byggarbetsplatser. Läs mer \nUnderentreprenörer \nVåra digitala lösningar förenklar efterlevnaden, ökar säkerheten och förbättrar kommunikationen och samordningen mellan dina medarbetare, så att du kan fokusera på leveransen. Läs mer \nByggherrar \nEffektivisera dina projekt, säkerställ efterlevnad och minimera risker med realtidsinformation och automatiserade kontroller. Läs mer \nYrkesarbetare \nVåra digitala verktyg ger byggarbetare kunskap, struktur och stöd – allt detta är avgörande i en miljö med hög risk och höga krav som byggbranschen. Läs mer \nUthyrningsföretag \nEffektivisera din uthyrnings-verksamhet med kontroll i realtid och säkerställ att din flotta alltid är redo för nästa uppdrag. Läs mer \nCompliance \nFörenkla regelefterlevnaden med våra digitala lösningar, minska administrationen och öka transparensen och ansvarsskyldigheten i byggprojekt. Läs mer \n”Vi tjänar mycket tid på att använda Infobric, och får bättre kvalitet för det.” \n– Kjell Bye, KMA chef, BRA Bygg \nVåra populära lösningar \nKMA \nArbeta systematiskt och digitalt med KMA för en säkrare byggarbetsplats. Läs mer \nPersonalliggare \nDigital personalliggare för smidig in- och utcheckning och bättre överblick. Läs mer \nFordonshantering \nKörjournal, CO2, kostnadskoll och mycket mer – samlat på ett ställe. Läs mer \nMaskin- & verktygshantering \nSe när, var och hur era maskiner och verktyg används. Läs mer \nFöranmälan & Leverantörsuppföljning \nTransparens och kontroll i alla led från upphandling till färdigt projekt. Läs mer \nSe alla våra lösningar \nSe hela utbudet och hitta rätt lösning för ditt behov. \nSe alla lösningar \nSe alla lösningar \nEn ledande digitaliseringspartner för byggbranschen. \nSedan Infobric grundades i Jönköping 2004 har vi utvecklats till den ledande digitaliseringspartnern för byggbranschen i Norden och Storbritannien. Med över 350 anställda i fyra olika länder bidrar vi med internationell expertis till lokala marknader. \nAlla pratar om digitalisering.  Vi får det att hända. \nVi bidrar till att bygga en bättre värld. \nVårt breda utbud av lösningar hjälper våra kunder att minimera olyckor, eliminera bedrägerier, minska utsläppen och förbättra produktiviteten i sina verksamheter. Med andra ord gör vi det enklare för våra kunder att arbeta hållbart. Det är så vi bidrar till att bygga en bättre värld. \nLäs mer om oss \nLedning och styrelse \nLäs mer om Infobrics ledningsgrupp, styrelse och majoritetsägare. Läs mer \nKarriär \nNyfiken på att jobba på Infobric? Läs mer om vår kultur och lediga roller här. Läs mer \nNyheter och press \nFå de senaste nyheterna och uppdateringarna från oss här. Läs mer \nInfobric Group \nOm oss \nVår samhällspåverkan \nVår resa \nJobba hos oss \nLedning & Styrelse \nNyheter och press \nKontakt \nÖvrigt \nVillkor & Certifieringar \nIntegritetspolicy \nCookiepolicy \nLogga in \nSupport \nVisselblåsning \nHårdvara \nIntegrationer \nAndra varumärken \nInfobric Time \nMSite \nHMSREG \nWincar \n© Infobric Group AB, Framgången 1, 533 18 Jönköping"
+}

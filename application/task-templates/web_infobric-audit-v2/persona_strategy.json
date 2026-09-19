@@ -1,0 +1,12 @@
+{
+  "schemaVersion": "1.0",
+  "pool": "persona/datasets/generated-persona-dev-infobric-pilot-full",
+  "sources": [],
+  "dimensionFilters": {},
+  "sampling": {
+    "mode": "stratified",
+    "fields": ["audience_group"],
+    "allocation": "perCell",
+    "perCell": 1
+  }
+}
