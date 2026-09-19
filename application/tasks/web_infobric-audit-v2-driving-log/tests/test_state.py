@@ -253,13 +253,16 @@ def _string(data: dict, key: str, max_len: int = 3000) -> str:
 
 
 def _score(data: dict, key: str, allow_unknown: bool = False) -> int | str:
+    """A 1-5 rating. Numeric strings ("4") are accepted - models write them often -
+    and recorded as numbers; anything else fails unless `unknown` is allowed."""
     value = data.get(key)
     if allow_unknown and (value is None or str(value).strip().lower() == "unknown"):
         return "unknown"
-    assert isinstance(value, (int, float)), f"{key} must be a number 1-5"
-    value = int(round(float(value)))
-    assert 1 <= value <= 5, f"{key} must be between 1 and 5"
-    return value
+    if isinstance(value, str) and re.fullmatch(r"\s*[1-5](\.0)?\s*", value):
+        value = int(float(value))
+    assert isinstance(value, (int, float)) and not isinstance(value, bool), f"{key} must be a number 1-5"
+    assert 1 <= value <= 5, f"{key} must be 1-5, got {value}"
+    return int(value)
 
 
 def _str_list(data: dict, key: str, max_items: int = 20) -> list[str]:
