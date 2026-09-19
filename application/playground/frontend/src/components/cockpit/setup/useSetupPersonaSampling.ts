@@ -6,7 +6,7 @@ import { takePersonaHandoff, peekPersonaHandoff } from "@/lib/personaHandoffStor
 import { useUrlState } from "@/lib/useUrlState";
 import type { HarborCockpitTaskKind } from "@/lib/harborCockpitMappers";
 import type { ConfigOptionsResponse, PlaygroundPersona, TaskPersonaStrategy } from "@/lib/types";
-import { PERSONA_BENCH_POOL } from "@/lib/types";
+import { PERSONA_SAMPLE_SIZE_MAX_DEV, PERSONA_BENCH_POOL } from "@/lib/types";
 import { personaModelProviderLabel } from "@/lib/personaAgentCatalog";
 
 import {
@@ -223,7 +223,9 @@ export function useSetupPersonaSampling(
     } else {
       setPerCell(null);
       if (sampling.sampleSize != null) {
-        setSampleSize(Math.min(500, Math.max(2, sampling.sampleSize)));
+        setSampleSize(
+          Math.min(PERSONA_SAMPLE_SIZE_MAX_DEV, Math.max(2, sampling.sampleSize)),
+        );
       }
     }
     setGroupFilters({
