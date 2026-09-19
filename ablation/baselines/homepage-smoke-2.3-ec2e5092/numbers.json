@@ -1,0 +1,208 @@
+{
+  "job": "pg-web-infobric-audit-v2-homepage-ec2e5092",
+  "page": "homepage",
+  "launched": 50,
+  "finished": 50,
+  "passed": 49,
+  "failed": 1,
+  "json_health": {
+    "clean": 49
+  },
+  "exit_rate": 0.12244897959183673,
+  "ground_truth": {
+    "quick_backs": 0.4376,
+    "engaged_share": 0.884
+  },
+  "exit_by_segment": {
+    "Supplier or partner (selling to Infobric)": 0,
+    "Job seeker": 0,
+    "Prospect (evaluating a supplier)": 0,
+    "Existing customer (login or support)": 6,
+    "Mis-click from a search result or an ad": 0,
+    "Student or researcher": 0
+  },
+  "trust_acts": {
+    "n": 47,
+    "mean": 0.9787234042553191,
+    "sd": 0.3254693306548586,
+    "eta2_audience": 0.012464387464387477
+  },
+  "scores": {
+    "understanding": {
+      "n": 49,
+      "mean": 4.061224489795919,
+      "sd": 0.2397416351932802,
+      "dist": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 46,
+        "5": 3
+      }
+    },
+    "language_relevance": {
+      "n": 47,
+      "mean": 3.723404255319149,
+      "sd": 0.49258880437405217,
+      "dist": {
+        "1": 0,
+        "2": 1,
+        "3": 11,
+        "4": 35,
+        "5": 0
+      }
+    },
+    "practical_value": {
+      "n": 47,
+      "mean": 3.4893617021276597,
+      "sd": 0.6481509026267156,
+      "dist": {
+        "1": 0,
+        "2": 4,
+        "3": 16,
+        "4": 27,
+        "5": 0
+      }
+    },
+    "trust": {
+      "n": 47,
+      "mean": 3.0,
+      "sd": 0.0,
+      "dist": {
+        "1": 0,
+        "2": 0,
+        "3": 47,
+        "4": 0,
+        "5": 0
+      }
+    },
+    "next_step_confidence": {
+      "n": 47,
+      "mean": 3.9574468085106385,
+      "sd": 0.5034961517531588,
+      "dist": {
+        "1": 0,
+        "2": 1,
+        "3": 4,
+        "4": 38,
+        "5": 4
+      }
+    },
+    "next_step_ease": {
+      "n": 43,
+      "mean": 3.813953488372093,
+      "sd": 0.5394145816159629,
+      "dist": {
+        "1": 0,
+        "2": 0,
+        "3": 11,
+        "4": 29,
+        "5": 3
+      }
+    },
+    "cta_match": {
+      "n": 43,
+      "mean": 4.511627906976744,
+      "sd": 0.499864773493132,
+      "dist": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 21,
+        "5": 22
+      }
+    },
+    "contact_likelihood": {
+      "n": 49,
+      "mean": 2.0816326530612246,
+      "sd": 1.15770241662717,
+      "dist": {
+        "1": 24,
+        "2": 4,
+        "3": 14,
+        "4": 7,
+        "5": 0
+      }
+    }
+  },
+  "scores_by_audience": {
+    "Supervisor or daily user": {
+      "n": 15,
+      "understanding": 4.066666666666666,
+      "language_relevance": 3.8,
+      "practical_value": 3.4,
+      "trust": 3.0,
+      "next_step_confidence": 3.933333333333333,
+      "next_step_ease": 3.5384615384615383,
+      "cta_match": 4.461538461538462,
+      "contact_likelihood": 1.9333333333333333
+    },
+    "Finance or administration": {
+      "n": 12,
+      "understanding": 4.083333333333333,
+      "language_relevance": 3.3333333333333335,
+      "practical_value": 3.25,
+      "trust": 3.0,
+      "next_step_confidence": 4.083333333333333,
+      "next_step_ease": 3.909090909090909,
+      "cta_match": 4.363636363636363,
+      "contact_likelihood": 2.3333333333333335
+    },
+    "Fleet, equipment or rental manager": {
+      "n": 8,
+      "understanding": 4.0,
+      "language_relevance": 3.857142857142857,
+      "practical_value": 3.5714285714285716,
+      "trust": 3.0,
+      "next_step_confidence": 3.5714285714285716,
+      "next_step_ease": 4.0,
+      "cta_match": 4.5,
+      "contact_likelihood": 2.5
+    },
+    "Operations, project or site manager": {
+      "n": 8,
+      "understanding": 4.0,
+      "language_relevance": 4.0,
+      "practical_value": 3.857142857142857,
+      "trust": 3.0,
+      "next_step_confidence": 4.142857142857143,
+      "next_step_ease": 4.0,
+      "cta_match": 4.714285714285714,
+      "contact_likelihood": 1.625
+    },
+    "Owner or senior manager": {
+      "n": 6,
+      "understanding": 4.166666666666667,
+      "language_relevance": 3.8333333333333335,
+      "practical_value": 3.6666666666666665,
+      "trust": 3.0,
+      "next_step_confidence": 4.0,
+      "next_step_ease": 3.8333333333333335,
+      "cta_match": 4.666666666666667,
+      "contact_likelihood": 2.0
+    }
+  },
+  "next_step": {
+    "go_to_login": 22,
+    "contact_sales": 8,
+    "learn_more": 15,
+    "come_back_later": 4
+  },
+  "trust_action": {
+    "would_not_proceed": 6,
+    "need_references_first": 42,
+    "need_pilot_first": 1
+  },
+  "basis_primary": {
+    "fit": 36,
+    "support": 12,
+    "integrations": 1
+  },
+  "quality": {
+    "fidelity_rate": 1.0,
+    "claims_grounded": 0.9706279069767442,
+    "phrases_grounded": 0.9596744186046512,
+    "cta_inspected": 0.8775510204081632,
+    "cta_url_ok": 1.0
+  }
+}
