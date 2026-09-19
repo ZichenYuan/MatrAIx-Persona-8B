@@ -148,6 +148,12 @@ SYNTH_SCHEMA = """{
   },
   "priorities": [{"rank": <1-5>, "title": "<imperative>", "hypothesis": "<what would change for whom and why>", "evidence": "<the finding(s) and counts it rests on, quoting exact wording where available>", "affects": "<visitor kinds>", "how_to_check": "<a measurable check, using the analytics where possible>"}],
   "retain": [{"element": "<what already works>", "why": "<evidence>"}],
+  "trust_advice": {
+    "where_trust_stops": "<from the ladder: which commitment prospects accept and where they stop, with counts>",
+    "what_would_move_the_next_rung": ["<concrete things, from the visitors' own words, that would make them accept the next commitment>"],
+    "claims": [{"quote": "<verbatim>", "status": "<believed|doubted|mixed>", "what_proof": "<what would make it believable>"}],
+    "advice": ["<3-5 imperative, page-specific changes to earn trust, each tagged [persona] or [site]>"]
+  },
   "cannot_be_assessed": ["<anything the pilot could not assess and why>"]
 }"""
 
@@ -160,7 +166,9 @@ def synth_prompt(page_title: str, reduced: dict, hard: dict, analytics: dict) ->
         "sections and quote exact wording (Swedish, verbatim) where the analyses provide it; give counts as 'about N of M visitors'. "
         "Tag each statement's evidence layer: [site] for what is visible on the website, [analytics] for what the supplied analytics support, "
         "[persona] for modelled persona interpretation. Persona scores are indicators for this pilot, not measured customer approval. "
-        f"Give 3-5 priorities ordered by impact.\n\nShape:\n{SYNTH_SCHEMA}\n\n"
+        f"Give 3-5 priorities ordered by impact. For trust_advice use (B).trust: the ladder of commitments (email for a guide < call-back < demo < pilot), "
+        "the claim item, what visitors need before going further, the information they missed, the claims they doubted and the proof they wanted, "
+        "and their own ladder reasons where present.\n\nShape:\n{SYNTH_SCHEMA}\n\n"
         f"### (A) per visitor kind\n{json.dumps(reduced, ensure_ascii=False)}\n\n### (B) hard counts\n{json.dumps(hard, ensure_ascii=False)}\n\n"
         f"### (C) analytics\n{json.dumps(analytics, ensure_ascii=False)}"
     )
@@ -249,9 +257,65 @@ def load_texts(job: Path) -> list[dict]:
                 raw = json.loads(raw_path.read_text(encoding="utf-8", errors="replace"))
             except json.JSONDecodeError:
                 raw = {}
+        seg = str((q.get("persona") or {}).get("traffic_segment") or "Prospect (evaluating a supplier)").split(" (")[0]
         rows.append({"trial": trial.name, "audience": (q.get("persona") or {}).get("audience_group") or "unknown", "quality": q,
-                     "texts": texts, "raw": raw})
+                     "texts": texts, "raw": raw, "segment": seg, "stayed": not (q.get("exit") or {}).get("left_early"),
+                     "next_step": (q.get("decision") or {}).get("next_step"), "prospect": seg == "Prospect",
+                     "intent": (q.get("persona") or {}).get("visit_intent")})
     return rows
+
+
+LADDER = ["trust_email_guide", "trust_callback", "trust_demo_week", "trust_pilot_data"]
+LADDER_TITLES = {"trust_email_guide": "give a work email for a guide", "trust_callback": "ask for a call-back",
+                 "trust_demo_week": "book a demo this week", "trust_pilot_data": "run a pilot on own data this month"}
+
+
+def prospect_scores(pros: list[dict]) -> dict:
+    out = {}
+    for k in DIMS + EXTRA:
+        vals = [r["quality"]["scores_in_browse"].get(k) for r in pros]
+        vals = [v for v in vals if isinstance(v, (int, float)) and not isinstance(v, bool)]
+        m = statistics.mean(vals) if vals else None
+        sd = statistics.pstdev(vals) if len(vals) > 1 else None
+        out[k] = {"n": len(vals), "mean": m, "sd": sd, "dist": {str(i): sum(1 for v in vals if int(v) == i) for i in range(1, 6)}}
+    return out
+
+
+def exits_by_segment(rows: list[dict]) -> dict:
+    """bounced = left the site; routed = went to login / elsewhere on the site; stayed = read the page."""
+    out = {}
+    for seg in [s for s, _ in collections.Counter(r["segment"] for r in rows).most_common()]:
+        sub = [r for r in rows if r["segment"] == seg]
+        routed = sum(1 for r in sub if r["next_step"] in ("go_to_login", "go_elsewhere_on_site"))
+        bounced = sum(1 for r in sub if not r["stayed"] and r["next_step"] not in ("go_to_login", "go_elsewhere_on_site"))
+        out[seg] = {"n": len(sub), "left_early": sum(1 for r in sub if not r["stayed"]), "bounced": bounced, "routed": routed,
+                    "stayed": sum(1 for r in sub if r["stayed"])}
+    return out
+
+
+def trust_block(pros: list[dict], rows: list[dict]) -> dict:
+    """Everything the report says about trust, computed from the structured answers."""
+    def yes(sub, k):
+        return sum(1 for r in sub if r["quality"]["scores_in_browse"].get(k) == "yes")
+    ladder = {k: {"yes": yes(pros, k), "n": len(pros)} for k in LADDER + ["trust_claim_unchecked"]}
+    counts = [r["quality"]["scores_in_browse"].get("trust_ladder") for r in pros]
+    counts = [c for c in counts if isinstance(c, int)]
+    by_intent = {}
+    for intent in {r["intent"] for r in pros}:
+        sub = [r for r in pros if r["intent"] == intent]
+        by_intent[str(intent)] = {"n": len(sub), **{k: yes(sub, k) for k in LADDER}}
+    reasons = [str(r["raw"].get("trust_ladder_reason")) for r in pros if r["raw"].get("trust_ladder_reason") not in (None, "", "unknown")]
+    return {
+        "ladder": ladder,
+        "rungs_distribution": {str(i): sum(1 for c in counts if c == i) for i in range(5)} if counts else {},
+        "rungs_mean": statistics.mean(counts) if counts else None,
+        "by_intent": by_intent,
+        "trust_action": dict(collections.Counter(r["quality"]["decision"].get("trust_action") for r in pros)),
+        "missing_info": dict(collections.Counter(m for r in pros for m in (r["quality"].get("missing_info") or []))),
+        "trust_score_1_5": prospect_scores(pros).get("trust"),
+        "ladder_reasons_sample": reasons[:12],
+        "all_segments_claim_unchecked": {"yes": yes(rows, "trust_claim_unchecked"), "n": len(rows)},
+    }
 
 
 def norm_quote(s: str) -> str:
@@ -384,9 +448,13 @@ def build_markdown(page: str, job: Path, rows: list[dict], numbers: dict, reduce
 
     # --- 1 compact overview
     w("## 1. Compact overview\n")
+    np_, nr = hard.get("n_prospects", n), hard.get("n_read_page", n)
+    w(f"**Who this section is about.** {n} simulated visitors in total; the six dimensions below are answered by the **{np_} prospects** "
+      f"(people evaluating a supplier), because existing customers and visitors who arrived by mistake do not judge the offer. "
+      f"Sections 2–7 are written from the {nr} visitors who read the page. Exits are reported for everyone, by segment, in this section.\n")
     w("Scores are 1–5. Two readings per dimension: **in-browse** (given at the end of the visit) and **scored after the visit** (the same persona "
       "re-rates from its own notes, away from the browser; see §9 for why both are shown).\n")
-    sc, ph = numbers.get("scores", {}), numbers.get("post_hoc", {})
+    sc, ph = hard.get("scores") or numbers.get("scores", {}), numbers.get("post_hoc", {})
     hdr = ["Dimension", "mean in-browse", "mean scored", "spread (sd, scored)"] + [g for g in groups]
     body = []
     for k in DIMS:
@@ -409,6 +477,26 @@ def build_markdown(page: str, job: Path, rows: list[dict], numbers: dict, reduce
     ex = numbers.get("exit_rate")
     w(f"- **Stayed or left [persona]:** {pct(round((ex or 0) * n), n)} of visitors left after the first screen; the rest kept reading. "
       f"[analytics] Clarity records {fmt(analytics.get('clarity', {}).get('quick_backs'), 3)} Quick Backs on this page (a real session that left within seconds) — see §8.")
+    exits = hard.get("exits") or {}
+    if exits:
+        w("\n**Left, routed or stayed, by traffic segment** [persona]. *Bounced* = left the site after the first screen (the counterpart of a Quick Back); "
+          "*routed* = went to login or another page on the site (a normal customer journey, invisible to Quick Backs); *stayed* = read the page.\n")
+        w(md_table(["Traffic segment", "n", "bounced", "routed", "stayed"],
+                   [[seg, v["n"], pct(v["bounced"], v["n"]), pct(v["routed"], v["n"]), pct(v["stayed"], v["n"])] for seg, v in exits.items()]))
+        w("")
+    tr = hard.get("trust") or {}
+    if tr.get("ladder"):
+        w("**Trust as commitments [persona], prospects only.** Each question is a real commitment with a cost; the ladder shows where trust stops.\n")
+        lad = tr["ladder"]
+        w(md_table(["Would they…", "yes"], [[LADDER_TITLES[k], pct(lad[k]["yes"], lad[k]["n"]) + f" of {lad[k]['n']}"] for k in LADDER]
+                   + [["accept «the page's proof claim» without checking (belief, not a commitment)", pct(lad["trust_claim_unchecked"]["yes"], lad["trust_claim_unchecked"]["n"])]]))
+        dist = tr.get("rungs_distribution") or {}
+        if dist:
+            w(f"\nCommitments accepted per prospect: " + ", ".join(f"{k}: {v}" for k, v in dist.items()) + f" (mean {fmt(tr.get('rungs_mean'))}). ")
+        bi = tr.get("by_intent") or {}
+        if len(bi) > 1:
+            w("By reason for visiting: " + "; ".join(f"{intent} (n={v['n']}): " + ", ".join(f"{LADDER_TITLES[k].split(' ')[0]} {pct(v[k], v['n'])}" for k in LADDER) for intent, v in bi.items()) + ".")
+        w("")
     ns = numbers.get("next_step") or {}
     w(f"- **Next step [persona]:** " + "; ".join(f"{k} {v} ({pct(v, n)})" for k, v in sorted(ns.items(), key=lambda kv: -kv[1])))
     ta = numbers.get("trust_action") or {}
@@ -481,6 +569,40 @@ def build_markdown(page: str, job: Path, rows: list[dict], numbers: dict, reduce
         if hs:
             w("- **What would make them hesitate or leave:** " + "; ".join(f"{it.get('theme')} ({it.get('count')})" for it in hs[:4]))
         w("")
+
+    # --- 3c trust
+    ta = synth.get("trust_advice") or {}
+    tr = hard.get("trust") or {}
+    w("### 3c. What would make them trust it\n")
+    w("*Brief §5: which claims feel credible and which need proof; §7: trust. Built from the commitment ladder, what visitors said they need before going further, "
+      "the information they missed, the claims they doubted, and their own words.*\n")
+    if ta.get("where_trust_stops"):
+        w(f"- **Where trust stops:** {ta['where_trust_stops']}")
+    if tr.get("trust_action"):
+        w("- **Needed before going further (prospects):** " + "; ".join(f"{k} {v}" for k, v in sorted(tr["trust_action"].items(), key=lambda kv: -kv[1])))
+    if tr.get("missing_info"):
+        w("- **Information they missed (prospects):** " + "; ".join(f"{k} {v}" for k, v in sorted(tr["missing_info"].items(), key=lambda kv: -kv[1])))
+    cred = hard["wording"].get("claims_credible", {}).get("items") or []
+    doubt = hard["wording"].get("claims_need_proof", {}).get("items") or []
+    if cred:
+        w("- **Believed [site wording]:** " + "; ".join(f"«{it['quote'][:80]}» ({it['count']})" for it in cred[:3]))
+    if doubt:
+        w("- **Doubted [site wording]:** " + "; ".join(f"«{it['quote'][:80]}» ({it['count']})" for it in doubt[:5]))
+    for c in (ta.get("claims") or [])[:5]:
+        w(f"  - «{c.get('quote')}» — {c.get('status')}; what would make it believable: {c.get('what_proof')}")
+    if ta.get("what_would_move_the_next_rung"):
+        w("- **What would move them to the next commitment [persona]:**")
+        for it in ta["what_would_move_the_next_rung"][:6]:
+            w(f"  - {it}")
+    if tr.get("ladder_reasons_sample"):
+        w("- **In their own words (why they stop where they stop):**")
+        for it in tr["ladder_reasons_sample"][:6]:
+            w(f"  - “{it[:220]}”")
+    if ta.get("advice"):
+        w("- **Advice to earn trust on this page:**")
+        for it in ta["advice"][:5]:
+            w(f"  - {it}")
+    w("")
 
     # --- 4 CTA
     w("## 4. The primary button: expectation vs what followed\n")
@@ -591,7 +713,10 @@ def main() -> int:
         sys.stderr.write("no passed trials with structured output\n")
         return 1
     page = (rows[0]["quality"].get("page_id")) or "homepage"
-    sys.stderr.write(f"{len(rows)} passed trials · page {page}\n")
+    # Page sections are written from visitors who read the page; exits are reported for everyone.
+    page_rows = [r for r in rows if r["stayed"]] or rows
+    pros = [r for r in rows if r["prospect"]] or rows
+    sys.stderr.write(f"{len(rows)} passed trials · page {page} · {len(page_rows)} read the page · {len(pros)} prospects\n")
 
     summary_md, numbers = sr.build(job)
     (out / "ablation_summary.md").write_text(summary_md)
@@ -602,13 +727,14 @@ def main() -> int:
         by_g[r["audience"]].append(r["quality"].get("scores_post_hoc") or {})
     numbers["scores_by_audience_scored"] = {g: {k: (statistics.mean(v) if (v := [s.get(k) for s in ss if isinstance(s.get(k), (int, float))]) else None) for k in DIMS + EXTRA} for g, ss in by_g.items()}
 
-    hard = {"wording": most_flagged_wording(rows), "scores": numbers.get("scores"), "scores_by_audience_scored": numbers["scores_by_audience_scored"],
-            "exit_rate": numbers.get("exit_rate"), "next_step": numbers.get("next_step"), "trust_action": numbers.get("trust_action"),
-            "missing_info": numbers["missing_info_counts"], "n": len(rows)}
+    hard = {"wording": most_flagged_wording(page_rows), "scores": prospect_scores(pros), "scores_by_audience_scored": numbers["scores_by_audience_scored"],
+            "exit_rate": numbers.get("exit_rate"), "exits": exits_by_segment(rows), "next_step": numbers.get("next_step"),
+            "trust_action": numbers.get("trust_action"), "missing_info": numbers["missing_info_counts"], "n": len(rows),
+            "n_read_page": len(page_rows), "n_prospects": len(pros), "trust": trust_block(pros, rows)}
     analytics = (json.loads(sr.ANALYTICS.read_text()).get("pages", {}).get(page, {}) if sr.ANALYTICS.is_file() else {})
 
     model = Model(a.model, out / "cache")
-    reduced = run_map_reduce(model, rows, a.chunk, a.workers, a.max_chunks)
+    reduced = run_map_reduce(model, page_rows, a.chunk, a.workers, a.max_chunks)
     synth = model.json(synth_prompt(PAGE_TITLES.get(page, page), reduced, hard, analytics), 12000, "synth",
                        ("executive_summary", "audience_differences", "journey", "priorities", "retain"))
     sys.stderr.write(f"synthesis done · model calls {model.calls} (cached {model.cached}) · tokens in/out {model.tokens}\n")

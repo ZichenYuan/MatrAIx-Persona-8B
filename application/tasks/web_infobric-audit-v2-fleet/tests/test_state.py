@@ -396,6 +396,7 @@ def test_output_schema() -> None:
     weakest = _string_or_unknown(data, "weakest_element") if early else _string(data, "weakest_element")
     weakest_pos = _canon(data.get("weakest_position"), POSITIONS) or "unknown"
     hesitate = _string_or_unknown(data, "hesitate_or_leave_reason") if early else _string(data, "hesitate_or_leave_reason")
+    ladder_reason = _string_or_unknown(data, "trust_ladder_reason")
     scores = {"understanding": _score(data, "understanding")}
     for k in SCORES[1:]:
         scores[k] = _score(data, k, allow_unknown=early)
@@ -475,6 +476,7 @@ def test_output_schema() -> None:
         + f"\nMissing information: {', '.join(missing) or 'nothing named'}"
         + f"\nWeakest element [{weakest_pos}]: {weakest}"
         + f"\nWhat would cause hesitation or leaving: {hesitate}"
+        + f"\nWhy they stop where they stop on the commitment ladder: {ladder_reason}"
     )
     cta_text = (
         f"Button seen: «{cta_seen}». Expected before clicking: {cta_expectation}\n"
@@ -644,6 +646,7 @@ def test_output_schema() -> None:
                                      "trust_ladder_consistent": trust_ladder_consistent, **trust_acts_answers},
                 "decision": {"next_step": next_step, "converted": next_step in conversions,
                              "basis_primary": basis, "trust_action": trust_action},
+                "trust_ladder_reason": ladder_reason,
                 "counts": {"confusing_or_missing": len(confusing), "problems_recognised": len(problems),
                            "claims_need_proof": len(need_proof), "claims_credible": len(credible),
                            "language_felt_off": len(off), "language_felt_familiar": len(familiar),

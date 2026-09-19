@@ -102,6 +102,7 @@ Save to `/app/output/page_audit.json`:
   "trust_callback": "<yes or no: would you ask them to call you back this week?>",
   "trust_demo_week": "<yes or no: would you book a 30-minute demo with them this week?>",
   "trust_pilot_data": "<yes or no: would you run a pilot on your own company's live data this month?>",
+  "trust_ladder_reason": "<one sentence: what would have to be true, on this page or about this supplier, for you to say yes to the next commitment you refused>",
   "trust_claim_unchecked": "<yes or no: would you accept the proof claim named in the page brief as true without checking it anywhere else?>",
   "next_step_confidence": <1-5>,
   "next_step_ease": <1-5, or "unknown" if you did not inspect the button>,
@@ -163,7 +164,11 @@ do this week or this month, given how pressing your situation is and how you usu
 suppliers' claims. Someone who came to log in, or who did not come to evaluate a supplier
 at all, will usually answer `no` to all four — that is the correct answer for them. The
 fifth question is about belief: would you take the named proof claim at face value.
-Answer all five on an early exit too, from what you saw on the first screen.
+Answer all five on an early exit too, from what you saw on the first screen. Then, in
+`trust_ladder_reason`, say in one sentence what would have to be true — on this page or
+about this supplier — for you to say yes to the first commitment you refused. Be
+concrete: a named reference in your industry, a price range, a data-handling statement,
+a colleague's recommendation, a trial without a sales call — whatever it really is.
 
 ## Requirements
 
