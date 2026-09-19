@@ -1,0 +1,1031 @@
+# Cohort config — Infobric pilot, set `pilot-full`.
+#
+# Built from the partner's pilot pack (Main Brief, five URL briefs, 90-day analytics) so
+# that every one of the five audited pages has the audience its brief asks for:
+#   1. Homepage            everyone in the pool
+#   2. Infobric Fleet      people whose job touches company vehicles
+#   3. Electronic Driving Log   the same, where the vehicles are cars, vans or pool cars
+#   4. Infobric Equipment  people whose job touches tools and equipment
+#   5. Infobric Hyrma      people in the rental process at a rental company
+#
+# What is new compared with v2 (infobric_managers_v2.yaml):
+#   - Four sampling groups instead of one: managers and staff, inside construction and in
+#     vehicle or field-service businesses outside it. The briefs list supervisors, drivers,
+#     payroll and finance staff, and rental administrators; v2 allowed managers only.
+#   - 17 job roles (v2 had 6), drawn conditional on company type AND role family, so a
+#     payroll clerk never comes out of the Skilled Trades domain.
+#   - Product-situation fields for each page: vehicles, driving logs, tools, rental.
+#   - Reason for visit and prior knowledge of Infobric, both asked for in the Main Brief.
+#   - Audience fields derived by rule from role and company type. They are written as
+#     plain facts about the job, never as page names: the brief says these visitors know
+#     little or nothing about Infobric.
+#   - Overlays are assigned with exact quotas in a seeded random order
+#     (`overlay_assignment: shuffled`), so two stamped fields are independent.
+#
+# Field ids that start with `_` are build-time helpers and are not written to the pool.
+# Consumed by persona/scripts/build_cohort.py. Edit this file, not the script.
+
+name: infobric-pilot-full
+display_name: Infobric pilot — full
+description: 1,500 Swedish visitors for the Infobric website pilot. Managers and staff across main contractors, subcontractors, developers, rental companies and vehicle or field-service businesses, with explicit roles, responsibilities and product situations for all five audited pages.
+seed: 42
+total: 1500
+draws_per_cell: 10000
+max_draws_per_cell: 300000
+on_shortfall: borrow
+overlay_assignment: shuffled
+
+pinned:
+  region: Western Europe
+  lang_swedish: Native
+  cult_sweden: Native
+  cultural_background: Individualist (Western)
+
+# Age is a requirement from the study brief: 17 / 31 / 26 / 20 / 6 % for 25-34 … 65-74.
+# Every group uses exactly these shares, so the whole pool matches whatever the group mix.
+# Default cells (managers). Staff groups override domain, income and gender below.
+cells: &manager_cells
+  - dimension: age_bracket
+    shares: {"25-34": 17, "35-44": 31, "45-54": 26, "55-64": 20, "65-74": 6}
+  - dimension: domain
+    shares: {Engineering: 30, Skilled Trades: 35, Business & Management: 25, Finance & Economics: 10}
+  - dimension: demo_household_income
+    shares: {"$50k-100k": 50, "$100k-200k": 40, "$200k+": 10}
+  - dimension: gender_identity          # assumed splits; confirm with the partner
+    shares_by: domain
+    shares:
+      Engineering: {Man: 80, Woman: 20}
+      Skilled Trades: {Man: 88, Woman: 12}
+      Business & Management: {Man: 60, Woman: 40}
+      Finance & Economics: {Man: 50, Woman: 50}
+
+filters:                                  # apply to every group unless a group overrides
+  company_size: [Solo / freelance, Startup (<50), SMB (50-500), Mid (500-5k), Enterprise (5k+)]
+  domain_characteristics: [Practitioner, Cross-disciplinary, Skeptic / critic]
+  english_proficiency: [Native, Fluent (C1-C2), Intermediate (B1-B2), Basic (A1-A2)]
+
+groups:
+  - name: construction-managers
+    share: 46
+    stamp: {_band: Manager, _industry: Construction}
+    filters:
+      ind_construction: [Veteran, Experienced]
+      seniority: [Manager, Director, VP, C-suite, Founder]
+      years_experience: ["6-10", "11-20", "20+"]
+      demo_employment_status: [Full-time, Self-employed]
+      role_function: [Engineering, Operations, Executive, Finance, Sales / GTM]
+
+  - name: construction-staff
+    share: 34
+    draws_per_cell: 5000
+    stamp: {_band: Staff, _industry: Construction}
+    filters:
+      ind_construction: [Veteran, Experienced]
+      seniority: [Entry, Mid, Senior, Lead / Principal]
+      demo_employment_status: [Full-time, Part-time]
+      role_function: [Engineering, Operations, Finance, Sales / GTM, HR]
+    cells: &staff_cells
+      - dimension: age_bracket
+        shares: {"25-34": 17, "35-44": 31, "45-54": 26, "55-64": 20, "65-74": 6}   # required split, same as managers
+      - dimension: domain
+        shares: {Skilled Trades: 50, Engineering: 15, Business & Management: 25, Finance & Economics: 10}
+      - dimension: demo_household_income
+        shares: {"$25k-50k": 25, "$50k-100k": 60, "$100k-200k": 15}
+      - dimension: gender_identity
+        shares_by: domain
+        shares:
+          Skilled Trades: {Man: 92, Woman: 8}
+          Engineering: {Man: 80, Woman: 20}
+          Business & Management: {Man: 35, Woman: 65}
+          Finance & Economics: {Man: 30, Woman: 70}
+
+  - name: fieldservice-managers
+    share: 11
+    stamp: {_band: Manager, _industry: Field service}
+    filters:
+      ind_transportation: [Veteran, Experienced]
+      seniority: [Manager, Director, VP, C-suite, Founder]
+      years_experience: ["6-10", "11-20", "20+"]
+      demo_employment_status: [Full-time, Self-employed]
+      role_function: [Engineering, Operations, Executive, Finance, Sales / GTM]
+    cells:
+      - dimension: age_bracket
+        shares: {"25-34": 17, "35-44": 31, "45-54": 26, "55-64": 20, "65-74": 6}
+      - dimension: domain
+        shares: {Skilled Trades: 35, Engineering: 20, Business & Management: 35, Finance & Economics: 10}
+      - dimension: gender_identity
+        shares_by: domain
+        shares:
+          Engineering: {Man: 80, Woman: 20}
+          Skilled Trades: {Man: 88, Woman: 12}
+          Business & Management: {Man: 60, Woman: 40}
+          Finance & Economics: {Man: 50, Woman: 50}
+
+  - name: fieldservice-staff
+    share: 9
+    draws_per_cell: 5000
+    stamp: {_band: Staff, _industry: Field service}
+    filters:
+      ind_transportation: [Veteran, Experienced]
+      seniority: [Entry, Mid, Senior, Lead / Principal]
+      demo_employment_status: [Full-time, Part-time]
+      role_function: [Engineering, Operations, Finance, Sales / GTM, HR]
+    cells:
+      - dimension: age_bracket
+        shares: {"25-34": 17, "35-44": 31, "45-54": 26, "55-64": 20, "65-74": 6}   # required split, same as managers
+      - dimension: domain
+        shares: {Skilled Trades: 55, Business & Management: 30, Finance & Economics: 15}
+      - dimension: gender_identity
+        shares_by: domain
+        shares:
+          Skilled Trades: {Man: 92, Woman: 8}
+          Business & Management: {Man: 35, Woman: 65}
+          Finance & Economics: {Man: 30, Woman: 70}
+
+coherence_rules:
+  - name: young-but-20-plus-years
+    when: {age_bracket: ["25-34"]}
+    forbid: {years_experience: ["20+"]}
+  - name: over-35-but-new-to-work
+    when: {age_bracket: ["35-44", "45-54", "55-64", "65-74"]}
+    forbid: {years_experience: ["0-2"]}
+  - name: under-45-empty-nester-or-retired
+    when: {age_bracket: ["18-24", "25-34", "35-44"]}
+    forbid: {life_stage: [Empty nester, Retirement]}
+  - name: working-but-retired-life-stage
+    when: {}
+    forbid: {life_stage: [Retirement]}
+  - name: working-but-student
+    when: {}
+    forbid: {life_stage: [Student]}
+  - name: old-but-early-career
+    when: {age_bracket: ["55-64", "65-74"]}
+    forbid: {life_stage: [Early career]}
+  - name: employed-but-low-income-band
+    when: {}
+    forbid: {socioeconomic_band: [Low income]}
+  - name: freelance-but-full-time-employee
+    when: {company_size: [Solo / freelance]}
+    forbid: {demo_employment_status: [Full-time, Part-time]}
+  - name: staff-cannot-be-a-one-person-company
+    when: {_band: [Staff]}
+    forbid: {company_size: [Solo / freelance]}
+  - name: founder-at-large-company-is-rare
+    when: {seniority: [Founder]}
+    forbid: {company_size: [Enterprise (5k+), Mid (500-5k)]}
+  - name: trades-or-engineering-but-office-function
+    when: {domain: [Skilled Trades, Engineering]}
+    forbid: {role_function: [Finance, Sales / GTM, HR]}
+  - name: business-or-finance-but-engineering-function
+    when: {domain: [Business & Management, Finance & Economics]}
+    forbid: {role_function: [Engineering]}
+
+# Role family decides which job roles are possible. It comes from the sampled domain, so
+# the role always fits the person's background.
+derived:
+  - id: _family
+    stage: before_overlays
+    rules:
+      - when: {_band: [Manager], domain: [Engineering, Skilled Trades]}
+        value: Operational manager
+      - when: {_band: [Manager]}
+        value: Business manager
+      - when: {_band: [Staff], domain: [Engineering, Skilled Trades]}
+        value: Field staff
+    default: Office staff
+
+  # --- after overlays: the partner's six visitor kinds (Main Brief section 4) ----------
+  - id: audience_group
+    label: Kind of visitor
+    rules:
+      - when: {job_role: [Executive or owner]}
+        value: Owner or senior manager
+      - when: {job_role: [Site or project manager, Operations manager]}
+        value: Operations, project or site manager
+      - when: {job_role: [Fleet or vehicle manager, Machine or equipment manager, Tool or asset manager, Rental or depot manager, Service or maintenance manager]}
+        value: Fleet, equipment or rental manager
+      - when: {job_role: [Finance or administration manager, Procurement manager, Finance or payroll staff, Rental sales or administrator]}
+        value: Finance or administration
+      - when: {job_role: [HSEQ manager, HSE or compliance coordinator]}
+        value: HSE or compliance
+    default: Supervisor or daily user
+
+  # --- page audiences, written as facts about the job (never as page names) ------------
+  - id: deals_with_vehicles            # Infobric Fleet
+    label: Company vehicles at work
+    rules:
+      - when: {job_role: [Fleet or vehicle manager, Transport or logistics coordinator, Driver or field worker, Finance or administration manager, Finance or payroll staff, Executive or owner, Operations manager, Supervisor or foreman]}
+        value: Part of my job
+      - when: {resp_vehicles_fleet: [Owns]}
+        value: Part of my job
+    default: Not part of my job
+  - id: deals_with_driving_logs        # Electronic Driving Log
+    label: Driving logs and mileage claims at work
+    rules:
+      - when:
+          deals_with_vehicles: [Part of my job]
+          vehicle_use: [Service vans and pickups, Company cars with private use, Pool cars shared by staff, Mixed fleet]
+        value: Part of my job
+    default: Not part of my job
+  - id: deals_with_tools_equipment     # Infobric Equipment
+    label: Keeping track of tools and equipment at work
+    rules:
+      - when: {job_role: [Tool or asset manager, Machine or equipment manager, Site or project manager, Operations manager, Executive or owner, Procurement manager, Finance or administration manager, Supervisor or foreman, Driver or field worker, Service or maintenance manager, Rental or depot manager]}
+        value: Part of my job
+      - when: {resp_tools_assets: [Owns]}
+        value: Part of my job
+    default: Not part of my job
+  - id: works_in_rental_process        # Infobric Hyrma
+    label: Rental process (bookings, returns, invoicing) at work
+    rules:
+      - when:
+          tier: [Rental]
+          job_role: [Executive or owner, Rental or depot manager, Operations manager, Rental sales or administrator, Service or maintenance manager, Transport or logistics coordinator, Finance or administration manager, Finance or payroll staff]
+        value: Part of my job
+    default: Not part of my job
+
+overlays:
+  - id: tier
+    label: Tier
+    shares_by: _industry
+    shares:
+      # Rental is the only feeder for the Hyrma page (six visitor kinds), so it gets the most.
+      Construction: {Main contractor: 26, Subcontractor: 26, Developer: 17, Rental: 31}
+      Field service: {Vehicle and field service business: 100}
+
+  - id: company_business
+    label: What the company does
+    shares_by: tier
+    shares:
+      Main contractor:
+        General building contractor: 60
+        Civil works and infrastructure contractor: 40
+      Subcontractor:
+        Electrical contractor: 20
+        Plumbing and ventilation contractor: 20
+        Groundworks and excavation contractor: 20
+        Carpentry and framing contractor: 15
+        Painting and flooring contractor: 15
+        Scaffolding contractor: 10
+      Developer:
+        Housing developer: 40
+        Commercial property owner: 35
+        Municipal housing company: 25
+      Rental:
+        Machine and equipment rental: 60
+        Tool and small-equipment rental: 20
+        Lifts, scaffolding and site cabins rental: 20
+      Vehicle and field service business:
+        Transport and haulage company: 35
+        Installation and service company: 35
+        Machine contractor with own vehicles: 15
+        Property maintenance and facility services: 15
+
+  - id: work_country
+    label: Work country
+    value: Sweden
+
+  - id: sweden_region
+    label: Region in Sweden
+    shares:
+      Stockholm: 30
+      Västra Götaland (Göteborg): 20
+      Skåne (Malmö): 15
+      Mälardalen & Östergötland: 15
+      Norrland: 10
+      Småland & Gotland: 10
+
+  - id: job_role
+    label: Job role
+    shares_by: [tier, _family]
+    shares:
+      "Main contractor | Operational manager":
+        Site or project manager: 38
+        Operations manager: 12
+        HSEQ manager: 14
+        Fleet or vehicle manager: 8
+        Machine or equipment manager: 9
+        Tool or asset manager: 7
+        Executive or owner: 12
+      "Main contractor | Business manager":
+        Executive or owner: 30
+        Finance or administration manager: 40
+        Procurement manager: 30
+      "Main contractor | Field staff":
+        Supervisor or foreman: 40
+        Driver or field worker: 40
+        HSE or compliance coordinator: 12
+        Transport or logistics coordinator: 8
+      "Main contractor | Office staff":
+        Finance or payroll staff: 70
+        Transport or logistics coordinator: 15
+        HSE or compliance coordinator: 15
+      "Subcontractor | Operational manager":
+        Site or project manager: 32
+        Operations manager: 12
+        HSEQ manager: 8
+        Fleet or vehicle manager: 12
+        Machine or equipment manager: 10
+        Tool or asset manager: 10
+        Executive or owner: 16
+      "Subcontractor | Business manager":
+        Executive or owner: 40
+        Finance or administration manager: 40
+        Procurement manager: 20
+      "Subcontractor | Field staff":
+        Supervisor or foreman: 35
+        Driver or field worker: 55
+        HSE or compliance coordinator: 5
+        Transport or logistics coordinator: 5
+      "Subcontractor | Office staff":
+        Finance or payroll staff: 85
+        Transport or logistics coordinator: 15
+      "Developer | Operational manager":
+        Site or project manager: 50
+        Operations manager: 15
+        HSEQ manager: 15
+        Executive or owner: 15
+        Fleet or vehicle manager: 5
+      "Developer | Business manager":
+        Executive or owner: 35
+        Finance or administration manager: 45
+        Procurement manager: 20
+      "Developer | Field staff":
+        Supervisor or foreman: 45
+        Driver or field worker: 35
+        HSE or compliance coordinator: 20
+      "Developer | Office staff":
+        Finance or payroll staff: 100
+      "Rental | Operational manager":
+        Rental or depot manager: 36
+        Service or maintenance manager: 26
+        Operations manager: 10
+        Machine or equipment manager: 6
+        Fleet or vehicle manager: 6
+        Executive or owner: 12
+        HSEQ manager: 4
+      "Rental | Business manager":
+        Executive or owner: 35
+        Finance or administration manager: 35
+        Rental or depot manager: 20
+        Procurement manager: 10
+      "Rental | Field staff":
+        Transport or logistics coordinator: 30
+        Driver or field worker: 35
+        Supervisor or foreman: 20
+        Rental sales or administrator: 15
+      "Rental | Office staff":
+        Rental sales or administrator: 50
+        Finance or payroll staff: 35
+        Transport or logistics coordinator: 15
+      "Vehicle and field service business | Operational manager":
+        Fleet or vehicle manager: 30
+        Operations manager: 30
+        Executive or owner: 20
+        Service or maintenance manager: 10
+        Tool or asset manager: 5
+        HSEQ manager: 5
+      "Vehicle and field service business | Business manager":
+        Executive or owner: 40
+        Finance or administration manager: 45
+        Procurement manager: 15
+      "Vehicle and field service business | Field staff":
+        Driver or field worker: 55
+        Supervisor or foreman: 25
+        Transport or logistics coordinator: 20
+      "Vehicle and field service business | Office staff":
+        Finance or payroll staff: 70
+        Transport or logistics coordinator: 30
+
+  # Swedish titles are our best guess; on the list to confirm with the partner.
+  - id: job_title_sv
+    label: Job title (Swedish)
+    shares_by: job_role
+    shares:
+      Executive or owner: {VD: 45, Ägare: 30, Regionchef: 25}
+      Site or project manager: {Platschef: 45, Projektchef: 30, Arbetschef: 15, Projektledare: 10}
+      Operations manager: {Driftchef: 40, Produktionschef: 35, Verksamhetschef: 25}
+      HSEQ manager: {KMA-chef: 50, HSEQ-ansvarig: 30, Arbetsmiljöchef: 20}
+      Fleet or vehicle manager: {Fordonsansvarig: 50, Fordonschef: 30, Transportchef: 20}
+      Machine or equipment manager: {Maskinchef: 60, Maskinansvarig: 40}
+      Tool or asset manager: {Verktygsansvarig: 45, Förrådsansvarig: 35, Logistikansvarig: 20}
+      Rental or depot manager: {Depåchef: 40, Uthyrningschef: 30, Filialchef: 30}
+      Service or maintenance manager: {Verkstadschef: 50, Serviceansvarig: 30, Servicechef: 20}
+      Finance or administration manager: {Ekonomichef: 50, Administrativ chef: 30, Controller: 20}
+      Procurement manager: {Inköpschef: 60, Inköpsansvarig: 40}
+      Supervisor or foreman: {Arbetsledare: 60, Lagbas: 25, Verkstadsförman: 15}
+      HSE or compliance coordinator: {KMA-samordnare: 50, Arbetsmiljösamordnare: 30, Skyddsombud: 20}
+      Finance or payroll staff: {Löneadministratör: 35, Ekonomiassistent: 35, Administratör: 30}
+      Rental sales or administrator: {Uthyrare: 45, Innesäljare: 30, Kundtjänstmedarbetare: 25}
+      Transport or logistics coordinator: {Transportledare: 50, Logistiksamordnare: 30, Transportplanerare: 20}
+      Driver or field worker: {Yrkesarbetare: 35, Servicetekniker: 25, Chaufför: 20, Maskinförare: 20}
+
+  - id: work_setting
+    label: Work setting
+    shares_by: job_role
+    shares:
+      Executive or owner: {Office with site visits: 70, Site and office: 30}
+      Site or project manager: {Construction site: 60, Site and office: 40}
+      Operations manager: {Site and office: 50, Office with site visits: 50}
+      HSEQ manager: {Site and office: 60, Office with site visits: 40}
+      Fleet or vehicle manager: {Depot or yard: 40, Office with site visits: 40, Site and office: 20}
+      Machine or equipment manager: {Depot or yard: 45, Site and office: 35, Construction site: 20}
+      Tool or asset manager: {Depot or yard: 50, Site and office: 30, Construction site: 20}
+      Rental or depot manager: {Rental branch: 60, Depot or yard: 40}
+      Service or maintenance manager: {Workshop: 70, Depot or yard: 30}
+      Finance or administration manager: {Office: 85, Office with site visits: 15}
+      Procurement manager: {Office: 60, Office with site visits: 40}
+      Supervisor or foreman: {Construction site: 60, Workshop: 15, Depot or yard: 15, On the road: 10}
+      HSE or compliance coordinator: {Site and office: 60, Construction site: 40}
+      Finance or payroll staff: {Office: 100}
+      Rental sales or administrator: {Rental branch: 90, Office: 10}
+      Transport or logistics coordinator: {Office: 40, Depot or yard: 45, On the road: 15}
+      Driver or field worker: {Construction site: 40, On the road: 40, Workshop: 10, Depot or yard: 10}
+
+  # Responsibility levels: Owns = accountable for it, Shares = involved in the daily work.
+  - id: resp_project_delivery
+    label: Responsibility - project delivery
+    shares_by: job_role
+    shares:
+      Executive or owner: {Owns: 40, Shares: 60}
+      Site or project manager: {Owns: 90, Shares: 10}
+      Operations manager: {Shares: 70, Owns: 20, Not involved: 10}
+      HSEQ manager: {Shares: 70, Not involved: 30}
+      Fleet or vehicle manager: {Shares: 30, Not involved: 70}
+      Machine or equipment manager: {Shares: 60, Not involved: 40}
+      Tool or asset manager: {Shares: 50, Not involved: 50}
+      Rental or depot manager: {Shares: 30, Not involved: 70}
+      Service or maintenance manager: {Shares: 20, Not involved: 80}
+      Finance or administration manager: {Shares: 30, Not involved: 70}
+      Procurement manager: {Shares: 50, Not involved: 50}
+      Supervisor or foreman: {Shares: 80, Owns: 10, Not involved: 10}
+      HSE or compliance coordinator: {Shares: 50, Not involved: 50}
+      Finance or payroll staff: {Shares: 10, Not involved: 90}
+      Rental sales or administrator: {Not involved: 100}
+      Transport or logistics coordinator: {Shares: 30, Not involved: 70}
+      Driver or field worker: {Shares: 40, Not involved: 60}
+
+  - id: resp_safety_hseq
+    label: Responsibility - safety and HSEQ
+    shares_by: job_role
+    shares:
+      Executive or owner: {Owns: 30, Shares: 70}
+      Site or project manager: {Owns: 40, Shares: 60}
+      Operations manager: {Shares: 80, Owns: 10, Not involved: 10}
+      HSEQ manager: {Owns: 100}
+      Fleet or vehicle manager: {Shares: 70, Not involved: 30}
+      Machine or equipment manager: {Shares: 80, Not involved: 20}
+      Tool or asset manager: {Shares: 60, Not involved: 40}
+      Rental or depot manager: {Shares: 70, Not involved: 30}
+      Service or maintenance manager: {Shares: 80, Owns: 10, Not involved: 10}
+      Finance or administration manager: {Shares: 20, Not involved: 80}
+      Procurement manager: {Shares: 30, Not involved: 70}
+      Supervisor or foreman: {Shares: 90, Owns: 10}
+      HSE or compliance coordinator: {Shares: 70, Owns: 30}
+      Finance or payroll staff: {Shares: 10, Not involved: 90}
+      Rental sales or administrator: {Shares: 30, Not involved: 70}
+      Transport or logistics coordinator: {Shares: 50, Not involved: 50}
+      Driver or field worker: {Shares: 60, Not involved: 40}
+
+  - id: resp_vehicles_fleet
+    label: Responsibility - company vehicles and drivers
+    shares_by: job_role
+    shares:
+      Executive or owner: {Shares: 60, Not involved: 40}
+      Site or project manager: {Shares: 50, Not involved: 50}
+      Operations manager: {Owns: 30, Shares: 60, Not involved: 10}
+      HSEQ manager: {Shares: 40, Not involved: 60}
+      Fleet or vehicle manager: {Owns: 100}
+      Machine or equipment manager: {Shares: 70, Owns: 20, Not involved: 10}
+      Tool or asset manager: {Shares: 40, Not involved: 60}
+      Rental or depot manager: {Shares: 60, Owns: 20, Not involved: 20}
+      Service or maintenance manager: {Shares: 60, Owns: 20, Not involved: 20}
+      Finance or administration manager: {Shares: 60, Not involved: 40}
+      Procurement manager: {Shares: 60, Owns: 10, Not involved: 30}
+      Supervisor or foreman: {Shares: 50, Not involved: 50}
+      HSE or compliance coordinator: {Shares: 20, Not involved: 80}
+      Finance or payroll staff: {Shares: 60, Not involved: 40}
+      Rental sales or administrator: {Shares: 30, Not involved: 70}
+      Transport or logistics coordinator: {Shares: 70, Owns: 30}
+      Driver or field worker: {Shares: 70, Not involved: 30}
+
+  - id: resp_heavy_equipment
+    label: Responsibility - heavy machines
+    shares_by: job_role
+    shares:
+      Executive or owner: {Shares: 50, Not involved: 50}
+      Site or project manager: {Shares: 70, Owns: 10, Not involved: 20}
+      Operations manager: {Shares: 60, Owns: 20, Not involved: 20}
+      HSEQ manager: {Shares: 60, Not involved: 40}
+      Fleet or vehicle manager: {Shares: 60, Owns: 20, Not involved: 20}
+      Machine or equipment manager: {Owns: 100}
+      Tool or asset manager: {Shares: 50, Not involved: 50}
+      Rental or depot manager: {Owns: 60, Shares: 40}
+      Service or maintenance manager: {Owns: 50, Shares: 50}
+      Finance or administration manager: {Shares: 20, Not involved: 80}
+      Procurement manager: {Shares: 70, Not involved: 30}
+      Supervisor or foreman: {Shares: 60, Not involved: 40}
+      HSE or compliance coordinator: {Shares: 40, Not involved: 60}
+      Finance or payroll staff: {Not involved: 100}
+      Rental sales or administrator: {Shares: 60, Not involved: 40}
+      Transport or logistics coordinator: {Shares: 60, Not involved: 40}
+      Driver or field worker: {Shares: 40, Not involved: 60}
+
+  - id: resp_tools_assets
+    label: Responsibility - tools and equipment
+    shares_by: job_role
+    shares:
+      Executive or owner: {Shares: 50, Not involved: 50}
+      Site or project manager: {Shares: 70, Not involved: 30}
+      Operations manager: {Shares: 70, Owns: 15, Not involved: 15}
+      HSEQ manager: {Shares: 50, Not involved: 50}
+      Fleet or vehicle manager: {Shares: 50, Not involved: 50}
+      Machine or equipment manager: {Owns: 40, Shares: 60}
+      Tool or asset manager: {Owns: 100}
+      Rental or depot manager: {Owns: 70, Shares: 30}
+      Service or maintenance manager: {Shares: 70, Owns: 20, Not involved: 10}
+      Finance or administration manager: {Shares: 30, Not involved: 70}
+      Procurement manager: {Shares: 70, Owns: 10, Not involved: 20}
+      Supervisor or foreman: {Shares: 80, Not involved: 20}
+      HSE or compliance coordinator: {Shares: 40, Not involved: 60}
+      Finance or payroll staff: {Shares: 20, Not involved: 80}
+      Rental sales or administrator: {Shares: 60, Not involved: 40}
+      Transport or logistics coordinator: {Shares: 30, Not involved: 70}
+      Driver or field worker: {Shares: 80, Not involved: 20}
+
+  - id: resp_rental_operations
+    label: Responsibility - renting machines in or out
+    shares_by: job_role
+    shares:
+      Executive or owner: {Shares: 40, Not involved: 60}
+      Site or project manager: {Shares: 40, Not involved: 60}
+      Operations manager: {Shares: 50, Not involved: 50}
+      HSEQ manager: {Shares: 20, Not involved: 80}
+      Fleet or vehicle manager: {Shares: 40, Not involved: 60}
+      Machine or equipment manager: {Shares: 60, Owns: 20, Not involved: 20}
+      Tool or asset manager: {Shares: 60, Not involved: 40}
+      Rental or depot manager: {Owns: 100}
+      Service or maintenance manager: {Shares: 80, Not involved: 20}
+      Finance or administration manager: {Shares: 30, Not involved: 70}
+      Procurement manager: {Shares: 60, Not involved: 40}
+      Supervisor or foreman: {Shares: 30, Not involved: 70}
+      HSE or compliance coordinator: {Shares: 10, Not involved: 90}
+      Finance or payroll staff: {Shares: 20, Not involved: 80}
+      Rental sales or administrator: {Shares: 90, Owns: 10}
+      Transport or logistics coordinator: {Shares: 50, Not involved: 50}
+      Driver or field worker: {Shares: 20, Not involved: 80}
+
+  - id: resp_finance_admin
+    label: Responsibility - payroll, expenses and invoicing
+    shares_by: job_role
+    shares:
+      Executive or owner: {Owns: 50, Shares: 50}
+      Site or project manager: {Shares: 50, Not involved: 50}
+      Operations manager: {Shares: 70, Not involved: 30}
+      HSEQ manager: {Shares: 20, Not involved: 80}
+      Fleet or vehicle manager: {Shares: 70, Not involved: 30}
+      Machine or equipment manager: {Shares: 40, Not involved: 60}
+      Tool or asset manager: {Shares: 30, Not involved: 70}
+      Rental or depot manager: {Shares: 70, Not involved: 30}
+      Service or maintenance manager: {Shares: 30, Not involved: 70}
+      Finance or administration manager: {Owns: 100}
+      Procurement manager: {Shares: 60, Not involved: 40}
+      Supervisor or foreman: {Shares: 20, Not involved: 80}
+      HSE or compliance coordinator: {Shares: 10, Not involved: 90}
+      Finance or payroll staff: {Shares: 80, Owns: 20}
+      Rental sales or administrator: {Shares: 60, Not involved: 40}
+      Transport or logistics coordinator: {Shares: 20, Not involved: 80}
+      Driver or field worker: {Not involved: 100}
+
+  - id: crew_size_managed
+    label: People managed
+    shares_by: job_role
+    shares:
+      Executive or owner: {"11-50": 40, "51-200": 40, "200+": 20}
+      Site or project manager: {"1-10": 20, "11-50": 60, "51-200": 20}
+      Operations manager: {"11-50": 60, "51-200": 30, "1-10": 10}
+      HSEQ manager: {"1-10": 60, "11-50": 40}
+      Fleet or vehicle manager: {"1-10": 60, "11-50": 40}
+      Machine or equipment manager: {"1-10": 50, "11-50": 50}
+      Tool or asset manager: {"1-10": 80, "11-50": 20}
+      Rental or depot manager: {"1-10": 50, "11-50": 50}
+      Service or maintenance manager: {"1-10": 65, "11-50": 35}
+      Finance or administration manager: {"1-10": 80, "11-50": 20}
+      Procurement manager: {"1-10": 85, "11-50": 15}
+      Supervisor or foreman: {"1-10": 70, "11-50": 30}
+      "*": {No direct reports: 100}
+
+  - id: purchasing_authority
+    label: Say in buying software for work
+    shares_by: job_role
+    shares:
+      Executive or owner: {Approves within budget: 30, Final decision: 70}
+      Site or project manager: {Recommends: 50, Approves within budget: 45, Final decision: 5}
+      Operations manager: {Recommends: 35, Approves within budget: 55, Final decision: 10}
+      HSEQ manager: {Recommends: 70, Approves within budget: 30}
+      Fleet or vehicle manager: {Recommends: 40, Approves within budget: 55, Final decision: 5}
+      Machine or equipment manager: {Recommends: 45, Approves within budget: 50, Final decision: 5}
+      Tool or asset manager: {Recommends: 70, Approves within budget: 30}
+      Rental or depot manager: {Recommends: 30, Approves within budget: 60, Final decision: 10}
+      Service or maintenance manager: {Recommends: 65, Approves within budget: 35}
+      Finance or administration manager: {Recommends: 25, Approves within budget: 60, Final decision: 15}
+      Procurement manager: {Recommends: 30, Approves within budget: 65, Final decision: 5}
+      Supervisor or foreman: {Gives input as a user: 60, Recommends: 40}
+      HSE or compliance coordinator: {Gives input as a user: 50, Recommends: 50}
+      Finance or payroll staff: {Gives input as a user: 60, Recommends: 30, No say: 10}
+      Rental sales or administrator: {Gives input as a user: 70, Recommends: 15, No say: 15}
+      Transport or logistics coordinator: {Gives input as a user: 55, Recommends: 40, No say: 5}
+      Driver or field worker: {Gives input as a user: 45, No say: 55}
+
+  - id: digital_tools_today
+    label: Digital tools used at work today
+    shares_by: tech_savviness
+    shares:
+      Avoidant: {Paper and phone calls: 70, Spreadsheets and messaging: 30}
+      Reluctant: {Paper and phone calls: 40, Spreadsheets and messaging: 60}
+      Cautious adopter: {Spreadsheets and messaging: 50, Standalone apps per task: 50}
+      Comfortable: {Standalone apps per task: 60, Integrated platform: 40}
+      Digital native: {Standalone apps per task: 30, Integrated platform: 70}
+
+  # --- vehicles: Infobric Fleet and Electronic Driving Log --------------------------------
+  - id: company_vehicles
+    label: Vehicles in the company
+    shares_by: company_size
+    shares:
+      Solo / freelance: {"1-5": 100}
+      Startup (<50): {"1-5": 40, "6-20": 50, "21-100": 10}
+      SMB (50-500): {"6-20": 35, "21-100": 55, "100+": 10}
+      Mid (500-5k): {"21-100": 40, "100+": 60}
+      Enterprise (5k+): {"21-100": 15, "100+": 85}
+
+  - id: vehicle_use
+    label: Main kind of company vehicles
+    shares_by: tier
+    shares:
+      Main contractor: {Service vans and pickups: 35, Company cars with private use: 25, Pool cars shared by staff: 15, Mixed fleet: 20, Trucks and heavy vehicles: 5}
+      Subcontractor: {Service vans and pickups: 55, Company cars with private use: 15, Pool cars shared by staff: 5, Mixed fleet: 20, Trucks and heavy vehicles: 5}
+      Developer: {Company cars with private use: 45, Pool cars shared by staff: 35, Service vans and pickups: 10, Mixed fleet: 10}
+      Rental: {Trucks and heavy vehicles: 35, Service vans and pickups: 30, Mixed fleet: 25, Company cars with private use: 10}
+      Vehicle and field service business: {Service vans and pickups: 40, Trucks and heavy vehicles: 25, Mixed fleet: 20, Company cars with private use: 10, Pool cars shared by staff: 5}
+
+  - id: driving_log_today
+    label: How driving logs are kept today
+    shares_by: tech_savviness
+    shares:
+      Avoidant: {Paper logbook in the vehicle: 45, Filled in from memory at month end: 35, No driving log is kept: 20}
+      Reluctant: {Paper logbook in the vehicle: 35, Filled in from memory at month end: 30, Spreadsheet: 20, No driving log is kept: 15}
+      Cautious adopter: {Spreadsheet: 35, Paper logbook in the vehicle: 25, Filled in from memory at month end: 20, Electronic driving log already in place: 15, No driving log is kept: 5}
+      Comfortable: {Spreadsheet: 35, Electronic driving log already in place: 35, Paper logbook in the vehicle: 15, Filled in from memory at month end: 15}
+      Digital native: {Electronic driving log already in place: 55, Spreadsheet: 30, Filled in from memory at month end: 15}
+
+  - id: vehicle_pain_point
+    label: Biggest headache with company vehicles
+    shares_by: job_role
+    shares:
+      Finance or administration manager: &finance_vehicle_pain
+        Mileage claims, tolls and congestion charges are messy: 35
+        Private and business trips are hard to separate for tax: 30
+        Manual driving logs take too much time: 20
+        No clear picture of vehicle costs and use: 15
+      Finance or payroll staff: *finance_vehicle_pain
+      Fleet or vehicle manager:
+        Service, inspections and damage are hard to follow up: 30
+        No clear picture of vehicle costs and use: 25
+        Pool cars - nobody knows who drove when: 15
+        Manual driving logs take too much time: 15
+        Drivers find logging a hassle: 15
+      Transport or logistics coordinator:
+        Service, inspections and damage are hard to follow up: 30
+        No clear picture of vehicle costs and use: 25
+        Drivers find logging a hassle: 25
+        Manual driving logs take too much time: 20
+      Executive or owner:
+        No clear picture of vehicle costs and use: 40
+        Private and business trips are hard to separate for tax: 20
+        Manual driving logs take too much time: 15
+        No real vehicle problem today: 25
+      Operations manager:
+        No clear picture of vehicle costs and use: 30
+        Service, inspections and damage are hard to follow up: 25
+        Pool cars - nobody knows who drove when: 20
+        No real vehicle problem today: 25
+      Supervisor or foreman:
+        Drivers find logging a hassle: 30
+        Pool cars - nobody knows who drove when: 25
+        Service, inspections and damage are hard to follow up: 20
+        No real vehicle problem today: 25
+      Driver or field worker:
+        Drivers find logging a hassle: 45
+        Private and business trips are hard to separate for tax: 20
+        Pool cars - nobody knows who drove when: 10
+        No real vehicle problem today: 25
+      "*":
+        No real vehicle problem today: 40
+        No clear picture of vehicle costs and use: 20
+        Manual driving logs take too much time: 20
+        Service, inspections and damage are hard to follow up: 20
+
+  - id: tracking_privacy_concern
+    label: Concern about GPS tracking of staff vehicles
+    shares_by: job_role
+    shares:
+      Driver or field worker: {Low: 20, Some: 40, High: 40}
+      Supervisor or foreman: {Low: 25, Some: 50, High: 25}
+      HSE or compliance coordinator: {Low: 20, Some: 45, High: 35}
+      Finance or payroll staff: {Low: 30, Some: 50, High: 20}
+      Executive or owner: {Low: 50, Some: 40, High: 10}
+      "*": {Low: 40, Some: 45, High: 15}
+
+  - id: payroll_accounting_system
+    label: Payroll and accounting system
+    shares_by: company_size
+    shares:
+      Solo / freelance: {Fortnox: 60, Visma: 25, Other or not sure: 15}
+      Startup (<50): {Fortnox: 50, Visma: 30, Hogia: 5, Other or not sure: 15}
+      SMB (50-500): {Visma: 35, Fortnox: 30, Hogia: 15, Other or not sure: 20}
+      Mid (500-5k): {Large ERP such as SAP or Dynamics: 40, Visma: 30, Hogia: 15, Other or not sure: 15}
+      Enterprise (5k+): {Large ERP such as SAP or Dynamics: 75, Visma: 10, Other or not sure: 15}
+
+  # --- tools and equipment: Infobric Equipment --------------------------------------------
+  - id: tool_tracking_today
+    label: How tools and equipment are tracked today
+    shares_by: tech_savviness
+    shares:
+      Avoidant: {Nothing formal - people just know: 60, Paper lists or a whiteboard: 40}
+      Reluctant: {Nothing formal - people just know: 35, Paper lists or a whiteboard: 40, Spreadsheet: 25}
+      Cautious adopter: {Spreadsheet: 50, Paper lists or a whiteboard: 25, Nothing formal - people just know: 15, A dedicated tracking system: 10}
+      Comfortable: {Spreadsheet: 50, A dedicated tracking system: 30, Paper lists or a whiteboard: 20}
+      Digital native: {A dedicated tracking system: 50, Spreadsheet: 40, Paper lists or a whiteboard: 10}
+
+  - id: tool_inventory_size
+    label: Tools and equipment the company owns
+    shares_by: company_size
+    shares:
+      Solo / freelance: {Under 100 items: 100}
+      Startup (<50): {Under 100 items: 40, 100-1000 items: 55, Over 1000 items: 5}
+      SMB (50-500): {100-1000 items: 55, Over 1000 items: 40, Under 100 items: 5}
+      Mid (500-5k): {Over 1000 items: 85, 100-1000 items: 15}
+      Enterprise (5k+): {Over 1000 items: 100}
+
+  - id: equipment_pain_point
+    label: Biggest headache with tools and equipment
+    shares_by: job_role
+    shares:
+      Tool or asset manager: &asset_pain
+        Nobody knows who has what: 30
+        Tools go missing or get stolen: 25
+        Too much time goes on searching and calling around: 20
+        Service, inspection and calibration dates get missed: 15
+        We buy or rent things we already own: 10
+      Machine or equipment manager: *asset_pain
+      Supervisor or foreman:
+        Too much time goes on searching and calling around: 40
+        Nobody knows who has what: 25
+        Tools go missing or get stolen: 20
+        No real equipment problem today: 15
+      Driver or field worker:
+        Too much time goes on searching and calling around: 45
+        Tools go missing or get stolen: 20
+        Nobody knows who has what: 15
+        No real equipment problem today: 20
+      Site or project manager:
+        Too much time goes on searching and calling around: 30
+        We buy or rent things we already own: 25
+        Tools go missing or get stolen: 20
+        Nobody knows who has what: 15
+        No real equipment problem today: 10
+      Executive or owner: &cost_pain
+        We buy or rent things we already own: 35
+        Tools go missing or get stolen: 25
+        Service, inspection and calibration dates get missed: 10
+        No real equipment problem today: 30
+      Procurement manager: *cost_pain
+      Finance or administration manager: *cost_pain
+      Service or maintenance manager:
+        Service, inspection and calibration dates get missed: 45
+        Nobody knows who has what: 25
+        Too much time goes on searching and calling around: 15
+        No real equipment problem today: 15
+      "*":
+        No real equipment problem today: 45
+        Tools go missing or get stolen: 20
+        Nobody knows who has what: 20
+        Too much time goes on searching and calling around: 15
+
+  # --- rental: Infobric Hyrma -------------------------------------------------------------
+  - id: rental_side
+    label: Machine and equipment rental
+    shares_by: tier
+    shares:
+      Rental: {Rents out machines and equipment to customers: 100}
+      Main contractor: {Rents in machines every week: 50, Rents in machines every month: 35, Rarely rents machines: 15}
+      Subcontractor: {Rents in machines every week: 30, Rents in machines every month: 45, Rarely rents machines: 25}
+      Developer: {Rarely rents machines: 60, Rents in machines every month: 30, Rents in machines every week: 10}
+      Vehicle and field service business: {Rarely rents machines: 55, Rents in machines every month: 35, Rents in machines every week: 10}
+
+  - id: rental_system_today
+    label: How the rental business is run today
+    shares_by: tier
+    shares:
+      Rental:
+        Several separate systems that do not talk to each other: 35
+        Spreadsheets and paper contracts: 25
+        An older rental system: 25
+        A modern rental platform: 15
+      "*": {"~omit": 100}
+
+  - id: rental_depots
+    label: Rental depots or branches
+    shares_by: tier
+    shares:
+      Rental: {One depot: 35, 2-5 depots: 45, 6 or more depots: 20}
+      "*": {"~omit": 100}
+
+  - id: rental_fleet_size             # follows the number of depots, so the two never clash
+    label: Size of the rental fleet
+    shares_by: rental_depots
+    shares:
+      One depot: {Under 200 rental items: 60, 200-2000 rental items: 40}
+      2-5 depots: {Under 200 rental items: 10, 200-2000 rental items: 70, Over 2000 rental items: 20}
+      6 or more depots: {200-2000 rental items: 30, Over 2000 rental items: 70}
+      "*": {"~omit": 100}
+
+  - id: rental_pain_point
+    label: Biggest headache in the rental process
+    shares_by: tier
+    shares:
+      Rental:
+        Bookings, contracts and prices live in different places: 22
+        No live view of what is available, out, or on its way back: 22
+        Transport, returns and inspections are handled by hand: 18
+        Invoices go out late or with errors: 16
+        Machine history and customer details are scattered: 12
+        Rental data does not reach the finance system: 10
+      "*": {"~omit": 100}
+
+  # --- the visit itself (Main Brief section 4) -------------------------------------------
+  - id: visit_intent
+    label: Why they are looking at suppliers now
+    shares:
+      Has a specific problem to solve right now: 50
+      Exploring ways to improve operations: 50
+
+  - id: infobric_familiarity
+    label: Knowledge of Infobric before this visit
+    shares:
+      Has never heard of Infobric: 55
+      Has heard the name but knows nothing more: 30
+      Has seen Infobric equipment or the logo on a site: 15
+
+# Applied after overlays and derived fields, in order. `when` lists the values that trigger
+# the change, so a floor reads "when below the floor, set to the floor".
+overrides:
+  # --- generic clean-up: fields the sampler leaves inconsistent with age and nationality --
+  - name: generation-fits-age-18-24
+    when: {age_bracket: ["18-24"], demo_generation: [Gen Alpha, Millennial, Gen X, Boomer, Silent]}
+    set: {demo_generation: Gen Z}
+  - name: generation-fits-age-25-34
+    when: {age_bracket: ["25-34"], demo_generation: [Gen Alpha, Gen X, Boomer, Silent]}
+    set: {demo_generation: Millennial}
+  - name: generation-fits-age-35-44
+    when: {age_bracket: ["35-44"], demo_generation: [Gen Alpha, Gen Z, Gen X, Boomer, Silent]}
+    set: {demo_generation: Millennial}
+  - name: generation-fits-age-45-54
+    when: {age_bracket: ["45-54"], demo_generation: [Gen Alpha, Gen Z, Millennial, Boomer, Silent]}
+    set: {demo_generation: Gen X}
+  - name: generation-fits-age-55-64
+    when: {age_bracket: ["55-64"], demo_generation: [Gen Alpha, Gen Z, Millennial, Silent]}
+    set: {demo_generation: Gen X}
+  - name: generation-fits-age-65-74
+    when: {age_bracket: ["65-74"], demo_generation: [Gen Alpha, Gen Z, Millennial, Gen X, Silent]}
+    set: {demo_generation: Boomer}
+  - name: swedish-native-is-a-citizen
+    when: {demo_citizenship_status: [Visa holder, Undocumented]}
+    set: {demo_citizenship_status: Citizen by birth}
+  - name: swedish-plus-english-is-bilingual
+    when: {multilingualism: [Monolingual]}
+    set: {multilingualism: Bilingual}
+  - name: band-matches-income-25k-50k
+    when: {demo_household_income: ["$25k-50k"], socioeconomic_band: [Upper-middle, High income]}
+    set: {socioeconomic_band: Lower-middle}
+  - name: band-matches-income-100k-200k
+    when: {demo_household_income: ["$100k-200k"], socioeconomic_band: [Low income, Lower-middle]}
+    set: {socioeconomic_band: Middle}
+  - name: band-matches-income-200k-plus
+    when: {demo_household_income: ["$200k+"], socioeconomic_band: [Low income, Lower-middle, Middle]}
+    set: {socioeconomic_band: Upper-middle}
+  # The brief asks for desktop and mobile review, so keep the device field to those two.
+  - name: device-staff-is-mobile
+    when: {_band: [Staff], device_context: [Low-bandwidth, Voice assistant, Accessibility tool]}
+    set: {device_context: "Mobile, on-the-go"}
+  - name: device-manager-is-desktop
+    when: {_band: [Manager], device_context: [Low-bandwidth, Voice assistant, Accessibility tool]}
+    set: {device_context: "Desktop, focused"}
+
+  # subject_specialty must fit the domain (v1 had Engineering managers "focused on Cardiology")
+  - name: specialty-fits-engineering
+    when: {domain: [Engineering], subject_specialty: [Machine learning, Cardiology, Constitutional law, Quant trading, Curriculum design, Molecular biology, Behavioral economics, Comparative literature, Agronomy, Investigative reporting, Culinary arts, Electrical work]}
+    set: {subject_specialty: Structural engineering}
+  - name: specialty-fits-skilled-trades
+    when: {domain: [Skilled Trades], subject_specialty: [Machine learning, Cardiology, Constitutional law, Quant trading, Curriculum design, Molecular biology, Behavioral economics, Comparative literature, Agronomy, Investigative reporting, Culinary arts, Robotics, Urban planning, Structural engineering]}
+    set: {subject_specialty: Electrical work}
+  - name: specialty-fits-business-and-finance
+    when: {domain: [Business & Management, Finance & Economics], subject_specialty: [Machine learning, Cardiology, Constitutional law, Quant trading, Curriculum design, Molecular biology, Behavioral economics, Comparative literature, Agronomy, Investigative reporting, Culinary arts, Robotics, Electrical work, Structural engineering, Urban planning]}
+    set: {subject_specialty: Operations}
+
+  # --- the job function and seniority must fit the stamped role --------------------------
+  - name: executive-role-function
+    when: {job_role: [Executive or owner], role_function: [Engineering, Operations, Finance, Sales / GTM]}
+    set: {role_function: Executive}
+  - name: executive-is-at-least-director
+    when: {job_role: [Executive or owner], seniority: [Manager]}
+    set: {seniority: Director}
+  - name: finance-roles-are-finance-function
+    when: {job_role: [Finance or administration manager, Finance or payroll staff], role_function: [Operations, Executive, Sales / GTM]}
+    set: {role_function: Finance}
+  - name: rental-sales-is-sales-function
+    when: {job_role: [Rental sales or administrator], role_function: [Operations, Finance, HR, Engineering]}
+    set: {role_function: Sales / GTM}
+  - name: operational-roles-are-operations-function
+    when:
+      job_role: [HSEQ manager, Fleet or vehicle manager, Machine or equipment manager, Tool or asset manager, Rental or depot manager, Service or maintenance manager, Operations manager, Procurement manager, Transport or logistics coordinator, HSE or compliance coordinator, Supervisor or foreman, Driver or field worker]
+      role_function: [Executive, Finance, Sales / GTM, HR]
+    set: {role_function: Operations}
+  - name: supervisor-is-not-entry-level
+    when: {job_role: [Supervisor or foreman], seniority: [Entry]}
+    set: {seniority: Senior}
+
+  # --- knowledge floors: construction people know the basics of the trade ----------------
+  - name: floor-pm-aware
+    when: {_industry: [Construction], fam_project_management: ["None"]}
+    set: {fam_project_management: Aware}
+  - name: floor-qa-aware
+    when: {_industry: [Construction], fam_quality_assurance: ["None"]}
+    set: {fam_quality_assurance: Aware}
+  - name: floor-civil-aware
+    when: {_industry: [Construction], fam_civil_engineering: ["None"]}
+    set: {fam_civil_engineering: Aware}
+  - name: fieldservice-knows-logistics
+    when: {_industry: [Field service], fam_logistics: ["None"]}
+    set: {fam_logistics: Aware}
+
+  # --- role-linked floors ----------------------------------------------------------------
+  - name: site-manager-knows-pm
+    when: {job_role: [Site or project manager], fam_project_management: [Aware]}
+    set: {fam_project_management: Familiar}
+  - name: site-manager-pm-skill
+    when: {job_role: [Site or project manager], skill_project_management: ["None", Beginner]}
+    set: {skill_project_management: Intermediate}
+  - name: hseq-manager-knows-qa
+    when: {job_role: [HSEQ manager], fam_quality_assurance: [Aware, Familiar]}
+    set: {fam_quality_assurance: Proficient}
+  - name: hse-coordinator-knows-qa
+    when: {job_role: [HSE or compliance coordinator], fam_quality_assurance: ["None", Aware]}
+    set: {fam_quality_assurance: Familiar}
+  - name: hseq-roles-know-public-health
+    when: {job_role: [HSEQ manager, HSE or compliance coordinator], fam_public_health: ["None"]}
+    set: {fam_public_health: Aware}
+  - name: operations-roles-know-operations
+    when: {job_role: [Operations manager, Executive or owner, Fleet or vehicle manager, Machine or equipment manager, Tool or asset manager], fam_operations_management: ["None", Aware]}
+    set: {fam_operations_management: Familiar}
+  - name: vehicle-and-transport-roles-know-logistics
+    when: {job_role: [Fleet or vehicle manager, Transport or logistics coordinator, Rental or depot manager], fam_logistics: ["None", Aware]}
+    set: {fam_logistics: Familiar}
+  - name: asset-roles-know-logistics
+    when: {job_role: [Tool or asset manager, Machine or equipment manager], fam_logistics: ["None"]}
+    set: {fam_logistics: Aware}
+  - name: depot-and-procurement-know-supply-chain
+    when: {job_role: [Rental or depot manager, Procurement manager], fam_supply_chain: ["None", Aware]}
+    set: {fam_supply_chain: Familiar}
+  - name: depot-manager-knows-operations
+    when: {job_role: [Rental or depot manager, Service or maintenance manager], fam_operations_management: ["None"]}
+    set: {fam_operations_management: Aware}
+  - name: service-manager-knows-machines
+    when: {job_role: [Service or maintenance manager], fam_mechanical_engineering: ["None", Aware]}
+    set: {fam_mechanical_engineering: Familiar}
+  - name: finance-roles-know-accounting
+    when: {job_role: [Finance or administration manager, Finance or payroll staff], fam_accounting: ["None", Aware]}
+    set: {fam_accounting: Familiar}
+  - name: finance-manager-knows-accounting-well
+    when: {job_role: [Finance or administration manager], fam_accounting: [Familiar]}
+    set: {fam_accounting: Proficient}
+  - name: finance-manager-knows-corporate-finance
+    when: {job_role: [Finance or administration manager], fam_corporate_finance: ["None"]}
+    set: {fam_corporate_finance: Aware}
+  - name: drivers-drive-daily
+    when: {job_role: [Driver or field worker, Transport or logistics coordinator], demo_driver_status: [Non-driver, Cannot drive, "Licensed, rarely drives", Occasional driver]}
+    set: {demo_driver_status: Daily driver}
+  - name: vehicle-roles-can-drive
+    when: {job_role: [Fleet or vehicle manager, Supervisor or foreman, Site or project manager, Service or maintenance manager], demo_driver_status: [Non-driver, Cannot drive]}
+    set: {demo_driver_status: Occasional driver}
+  - name: drivers-have-driving-skill
+    when: {job_role: [Driver or field worker, Transport or logistics coordinator, Fleet or vehicle manager], skill_driving: ["None", Beginner]}
+    set: {skill_driving: Intermediate}
+
+drop_dimensions:
+  - primary_language
+
+display_names:
+  first_names_man: [Erik, Lars, Anders, Johan, Karl, Per, Mikael, Magnus, Fredrik, Henrik, Daniel, Jonas, Niklas, Mattias, Peter, Stefan, Andreas, Martin, Oskar, Gustav, Björn, Olof, Håkan, Tobias, Emil, Simon, Rasmus, Viktor, Axel, Nils, Filip, Anton, Linus, Marcus, Patrik, Robert, Thomas, Jan, Bengt, Göran]
+  first_names_woman: [Anna, Maria, Eva, Karin, Sara, Lena, Emma, Kristina, Åsa, Malin, Jenny, Linda, Johanna, Helena, Elin, Sofia, Ingrid, Camilla, Hanna, Cecilia, Annika, Frida, Ida, Josefin, Ulrika, Louise, Therese, Matilda, Ebba, Agnes, Amanda, Julia, Moa, Sandra, Marie, Pernilla, Susanne, Monica, Birgitta, Katarina]
+  last_names: [Andersson, Johansson, Karlsson, Nilsson, Eriksson, Larsson, Olsson, Persson, Svensson, Gustafsson, Pettersson, Jonsson, Jansson, Hansson, Bengtsson, Jönsson, Lindberg, Jakobsson, Magnusson, Olofsson, Lindström, Lindqvist, Lindgren, Axelsson, Berg, Bergström, Lundberg, Lundgren, Lundqvist, Mattsson, Berglund, Fredriksson, Sandberg, Henriksson, Forsberg, Sjöberg, Wallin, Engström, Eklund, Danielsson, Håkansson, Lundin, Björk, Bergman, Wikström, Isaksson, Fransson, Holm, Nyström, Löfgren, Hedlund, Åkesson, Blom, Söderberg, Nordström, Öberg, Strand, Holmberg, Sundberg, Ek]
