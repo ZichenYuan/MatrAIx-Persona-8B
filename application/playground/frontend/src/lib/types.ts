@@ -1163,7 +1163,8 @@ export interface TaskDetail {
 export const PERSONA_BENCH_POOL = "persona/datasets/matraix-persona-dev-sample";
 /** Production 1M coreset (HF MatrAIx_Persona_1M_Public_Release). */
 export const PERSONA_PRODUCTION_1M_POOL = "persona/datasets/matraix-persona-1m";
-export const PERSONA_SAMPLE_SIZE_MAX_DEV = 500;
+/** Dev pools are generated (at most PERSONA_GENERATE_COUNT_MAX personas), so a sample may span the whole pool. */
+export const PERSONA_SAMPLE_SIZE_MAX_DEV = 5_000;
 export const PERSONA_GENERATE_COUNT_DEFAULT = 2000;
 export const PERSONA_GENERATE_COUNT_MAX = 5000;
 export const PERSONA_SAMPLE_SIZE_MAX_PRODUCTION = 10_000;

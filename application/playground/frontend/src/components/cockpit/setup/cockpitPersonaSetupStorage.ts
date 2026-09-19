@@ -1,6 +1,10 @@
 import type { HarborCockpitTaskKind } from "@/lib/harborCockpitMappers";
 import type { TaskPersonaStrategy } from "@/lib/types";
-import { PERSONA_BENCH_POOL, PERSONA_CARD_PREVIEW_LIMIT } from "@/lib/types";
+import {
+  PERSONA_BENCH_POOL,
+  PERSONA_CARD_PREVIEW_LIMIT,
+  PERSONA_SAMPLE_SIZE_MAX_DEV,
+} from "@/lib/types";
 
 import { readCockpitBatch } from "./cockpitBatchStorage";
 import {
@@ -302,7 +306,10 @@ export function setupFromPersonaStrategy(
   } else {
     next.perCell = null;
     if (sampling.sampleSize != null) {
-      next.sampleSize = Math.min(500, Math.max(2, Math.round(sampling.sampleSize)));
+      next.sampleSize = Math.min(
+        PERSONA_SAMPLE_SIZE_MAX_DEV,
+        Math.max(2, Math.round(sampling.sampleSize)),
+      );
     }
   }
 
