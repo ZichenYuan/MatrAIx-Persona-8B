@@ -28,7 +28,24 @@ MARKER = "<!-- PAGE BRIEF -->"
 
 # Default cohort per page: proportional to the pool's visitor-kind mix. The homepage
 # is the pilot's full run; product pages default to a pilot-sized sample.
-PAGE_SAMPLE = {"homepage": 50, "fleet": 100, "driving-log": 100, "equipment": 100, "hyrma": 100}
+PAGE_SAMPLE = {"homepage": 1000, "fleet": 100, "driving-log": 100, "equipment": 100, "hyrma": 100}
+# Homepage full run: every report section is per traffic segment (the pooled exit rate was
+# never comparable to Quick Backs), so the budget goes where the partner's questions are.
+# 50% prospects = ~83 per visitor kind, enough for partner-facing percentages; the rest
+# still gives a solid routing number and a bounce rate. Shares are feasible against
+# traffic-mix v2 (533 / 600 / 200 available).
+PAGE_PORTIONS = {
+    "homepage": {
+        "traffic_segment": {
+            "Prospect (evaluating a supplier)": 0.50,
+            "Existing customer (login or support)": 0.34,
+            "Job seeker": 0.055,
+            "Mis-click from a search result or an ad": 0.045,
+            "Supplier or partner (selling to Infobric)": 0.03,
+            "Student or researcher": 0.03,
+        }
+    }
+}
 # Ablation arm 1 (traffic mix): pool + stratification field per page. Pages not listed
 # keep the master pool and stratify by audience_group.
 PAGE_POOL = {"homepage": "persona/datasets/generated-persona-dev-infobric-traffic-mix"}
@@ -98,6 +115,8 @@ def _generate(slug: str, page_id: str, task_name: str, title: str, dim_filter: d
         "mode": "stratified", "fields": PAGE_FIELDS.get(slug, ["audience_group"]),
         "allocation": "proportional", "sampleSize": PAGE_SAMPLE.get(slug, 100),
     }
+    if slug in PAGE_PORTIONS:
+        strategy["sampling"]["portions"] = PAGE_PORTIONS[slug]
     (out / "persona_strategy.json").write_text(json.dumps(strategy, indent=2) + "\n", encoding="utf-8")
 
     (out / "README.md").write_text(

@@ -9,6 +9,16 @@
       "traffic_segment"
     ],
     "allocation": "proportional",
-    "sampleSize": 50
+    "sampleSize": 1000,
+    "portions": {
+      "traffic_segment": {
+        "Prospect (evaluating a supplier)": 0.5,
+        "Existing customer (login or support)": 0.34,
+        "Job seeker": 0.055,
+        "Mis-click from a search result or an ad": 0.045,
+        "Supplier or partner (selling to Infobric)": 0.03,
+        "Student or researcher": 0.03
+      }
+    }
   }
 }
