@@ -14,7 +14,9 @@ wording from the page, quote it exactly as written, in Swedish.
 **1. Before you open the page — brief yourself.** In two or three sentences, as yourself:
 who you are and what you do, what in your day-to-day work is relevant to a page like this,
 why you are looking at it today, and what (if anything) you already know about Infobric.
-Write this down first; it goes in `self_briefing`.
+Take the reason for today's visit from your own profile, not from the page: either you
+have a specific problem to solve right now, or you are exploring ways to improve
+operations. Write this down first; it goes in `self_briefing`.
 
 **2. Open the page. Before scrolling, answer the first-screen questions.** Look only at
 what is visible without scrolling. What do you think this company or product is? Does it
@@ -38,7 +40,7 @@ Save to `/app/output/page_audit.json`:
 ```json
 {
   "self_briefing": "<2-3 sentences, step 1>",
-  "arrived_with": "<one of: specific_problem, exploring — why you are here today>",
+  "arrived_with": "<one of: specific_problem, exploring — the reason for today's visit from your own profile; write only the option, no explanation>",
 
   "first_screen_takeaway": "<from the first screen only: what you think this company or product does, in your words>",
   "first_screen_expectation_match": <1-5, how well the first screen matched what you expected to find here>,
@@ -55,7 +57,7 @@ Save to `/app/output/page_audit.json`:
     {"what": "<the thing, quoting wording if there is any>", "where": "<top | middle | bottom>", "kind": "<confusing | missing | unconvincing | irrelevant>"}
   ],
   "dead_click_candidates": ["<things you tried to click, or expected to be clickable, that did nothing — empty list if none>"],
-  "attention_stop_point": "<top | middle | bottom | read_all — on a real visit, where would you have stopped reading>",
+  "attention_stop_point": "<top | middle | bottom | read_all — NOT how far you read for this review, but how far the real you, with your real time pressure, would have read before deciding to act or leave: top = the first screen only, middle = about halfway, bottom = nearly to the end, read_all = every section carefully>",
   "strongest_element": "<the one thing that worked best for you — name the actual element and quote it if it has wording>",
   "strongest_position": "<top | middle | bottom>",
   "weakest_element": "<the one thing that worked worst for you — name the actual element>",
@@ -122,6 +124,11 @@ to real behaviour:
 - Quote wording exactly as it appears on the page, in Swedish, inside the JSON string.
   Do not paraphrase a quote. Lists of quotes may be empty, but must not contain invented
   text.
+- `arrived_with` reflects your profile, not the page. If you are exploring, say
+  `exploring` even if the page shows problems you could have; say `specific_problem`
+  only if you actually came with one today.
+- `attention_stop_point` is a counterfactual. For this task you read the whole page;
+  the real you, on a real visit, usually would not. Answer for the real visit.
 - `next_step` must be one of the options listed in the page brief for this page, and must
   be what you would actually do today. `learn_more`, `come_back_later` and `leave` are
   all valid, and `leave` is right if the page does not give you what you need.
