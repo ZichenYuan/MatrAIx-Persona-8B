@@ -1232,6 +1232,9 @@ export function PersonaSamplingRail({
             ? strategyPortions
             : undefined,
         taskPath: taskPath?.trim() || undefined,
+        // The batch launch sends the ids held here; without this a cohort above
+        // 100 comes back as a 32-id preview and launches as 32 trials.
+        includePersonaIds: true,
       });
       const cards = result.personas
         .slice(0, PERSONA_CARD_PREVIEW_LIMIT)

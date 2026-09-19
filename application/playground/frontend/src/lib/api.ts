@@ -367,6 +367,12 @@ export const api = {
     taskPath?: string;
     /** Extra dimensions to carry per persona beyond the card whitelist. */
     includeDimensions?: string[];
+    /**
+     * Return every sampled persona id, not the UI preview. The service truncates
+     * `personaIds` to a 32-card preview for cohorts above 100 unless asked; a batch
+     * launch sends the ids it holds, so a large cohort would otherwise run as 32 trials.
+     */
+    includePersonaIds?: boolean;
   }) =>
     request<PersonaPoolSampleResult>("/api/persona-pool/sample", {
       method: "POST",
