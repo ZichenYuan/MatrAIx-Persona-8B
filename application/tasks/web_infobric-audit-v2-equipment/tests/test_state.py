@@ -166,6 +166,15 @@ def _load_json_lenient(path: Path) -> tuple[dict, str]:
             return json.loads(text, strict=False), label
         except json.JSONDecodeError:
             pass
+    # A complete object followed by leftovers (an extra `}` or stray text after the
+    # closing brace): take the first complete value and ignore the rest.
+    for text in [raw, *(t for _, t in candidates)]:
+        try:
+            value, end = json.JSONDecoder(strict=False).raw_decode(text.lstrip())
+        except json.JSONDecodeError:
+            continue
+        if isinstance(value, dict) and not text.lstrip()[end:].strip(" \t\r\n}]"):
+            return value, "repaired_trailing_data"
     if "Unterminated string" not in str(first_error):
         raise first_error
     # Close the unterminated string at the end of its line, then close the object.
