@@ -158,6 +158,28 @@ SYNTH_SCHEMA = """{
 }"""
 
 
+TRUST_SCHEMA = """{
+  "where_trust_stops": "<2 sentences: from the ladder, which commitment prospects accept and where they stop, with the counts>",
+  "what_would_move_the_next_rung": ["<3-6 concrete things, in the visitors' own terms, that would make them accept the next commitment>"],
+  "claims": [{"quote": "<verbatim page wording>", "status": "<believed|doubted|mixed>", "what_proof": "<what would make it believable, from the notes>"}],
+  "advice": ["<3-5 imperative, page-specific changes to earn trust, each starting with [site] or [persona]>"]
+}"""
+
+
+def trust_prompt(page_title: str, trust: dict, wording: dict, reduced_findings: dict) -> str:
+    claims = {"believed": (wording.get("claims_credible") or {}).get("items", [])[:6],
+              "doubted": (wording.get("claims_need_proof") or {}).get("items", [])[:8]}
+    per_kind = {aud: {"claims_need_proof": (r.get("claims_need_proof") or [])[:5], "hesitation_reasons": (r.get("hesitation_reasons") or [])[:5]}
+                for aud, r in (reduced_findings or {}).items()}
+    return (
+        f"Page: {page_title}. Write the trust section of a website persona-study report for the website owner, from the evidence below only. "
+        "The ladder is four commitments of rising cost (work email for a guide < call-back < demo this week < pilot on own data), answered by prospects; "
+        "the claim item is belief, not a commitment. Quote page wording verbatim in Swedish. Counts as 'N of M'. Tag advice [site] (visible on the site) "
+        f"or [persona] (interpretation).\n\nShape:\n{TRUST_SCHEMA}\n\n### Ladder and needs (prospects)\n{json.dumps(trust, ensure_ascii=False)}\n\n"
+        f"### Claims believed / doubted (exact counts)\n{json.dumps(claims, ensure_ascii=False)}\n\n### Per visitor kind: doubted claims with the proof wanted, hesitation reasons\n{json.dumps(per_kind, ensure_ascii=False)}"
+    )
+
+
 def synth_prompt(page_title: str, reduced: dict, hard: dict, analytics: dict) -> str:
     return (
         f"Page: {page_title}. You are writing the closing sections of a website persona-study report for the website owner. "
@@ -204,7 +226,7 @@ class Model:
         delay = 4.0
         last = None
         budget = max_tokens
-        for _ in range(6):
+        for attempt in range(6):
             try:
                 resp = self.client.chat.completions.create(
                     model=self.model,
@@ -216,12 +238,19 @@ class Model:
                 self.tokens[0] += resp.usage.prompt_tokens
                 self.tokens[1] += resp.usage.completion_tokens
                 result = json.loads(resp.choices[0].message.content or "{}")
-                if any(k not in result for k in required):
+                missing = [k for k in required if k not in result]
+                if missing and (attempt < 2 and budget < 100_000):
                     # Reasoning tokens count against the budget; an exhausted budget comes
-                    # back as an empty or partial object. Try again with more room.
-                    last = RuntimeError(f"missing keys {[k for k in required if k not in result]} (budget {budget})")
-                    budget = int(budget * 2)
+                    # back as an empty or partial object. Try again with more room, twice.
+                    last = RuntimeError(f"missing keys {missing} (budget {budget})")
+                    budget = min(int(budget * 2), 100_000)
                     continue
+                if missing:
+                    # Keep what came back rather than fail the whole report; the caller
+                    # renders absent sections as absent.
+                    sys.stderr.write(f"  {tag}: keys still missing after retries: {missing} - continuing with partial result\n")
+                    for k in missing:
+                        result[k] = {} if k in ("journey", "trust_advice") else []
                 path.write_text(json.dumps({"tag": tag, "model": self.model, "usage": [resp.usage.prompt_tokens, resp.usage.completion_tokens],
                                             "prompt_chars": len(user), "result": result}, ensure_ascii=False, indent=1))
                 return result
@@ -455,16 +484,20 @@ def build_markdown(page: str, job: Path, rows: list[dict], numbers: dict, reduce
     w("Scores are 1–5. Two readings per dimension: **in-browse** (given at the end of the visit) and **scored after the visit** (the same persona "
       "re-rates from its own notes, away from the browser; see §9 for why both are shown).\n")
     sc, ph = hard.get("scores") or numbers.get("scores", {}), numbers.get("post_hoc", {})
-    hdr = ["Dimension", "mean in-browse", "mean scored", "spread (sd, scored)"] + [g for g in groups]
+    scored_by_g = numbers.get("scores_by_audience_scored") or {}
+    have_scored = any(isinstance(v.get(k), (int, float)) for v in scored_by_g.values() for k in DIMS)
+    by_g_src = scored_by_g if have_scored else (hard.get("scores_by_audience") or {})
+    groups_shown = [g for g in groups if g in by_g_src]
+    hdr = ["Dimension", "mean in-browse", "spread (sd)"] + (["mean scored", "spread (sd, scored)"] if have_scored else []) + groups_shown
     body = []
     for k in DIMS:
-        per_g = []
-        for g in groups:
-            v = (numbers.get("scores_by_audience_scored") or {}).get(g, {}).get(k)
-            per_g.append(fmt(v))
-        body.append([DIM_TITLES[k], fmt(sc.get(k, {}).get("mean")), fmt(ph.get(k, {}).get("mean_scored")), fmt(ph.get(k, {}).get("sd_scored"))] + per_g)
+        row = [DIM_TITLES[k], fmt(sc.get(k, {}).get("mean")), fmt(sc.get(k, {}).get("sd"))]
+        if have_scored:
+            row += [fmt(ph.get(k, {}).get("mean_scored")), fmt(ph.get(k, {}).get("sd_scored"))]
+        row += [fmt(by_g_src.get(g, {}).get(k)) for g in groups_shown]
+        body.append(row)
     w(md_table(hdr, body))
-    w("\n*Per-visitor-kind columns show the scored-after-the-visit mean.*\n")
+    w("\n*Per-visitor-kind columns show the " + ("scored-after-the-visit" if have_scored else "in-browse") + " mean for prospects of that kind.*\n")
     w("**What the scores mean (anchors given to every persona):**\n")
     for k, (a1, a3, a5) in ANCHORS.items():
         w(f"- **{DIM_TITLES[k]}** — 1: {a1}. 3: {a3}. 5: {a5}.")
@@ -730,13 +763,17 @@ def main() -> int:
     hard = {"wording": most_flagged_wording(page_rows), "scores": prospect_scores(pros), "scores_by_audience_scored": numbers["scores_by_audience_scored"],
             "exit_rate": numbers.get("exit_rate"), "exits": exits_by_segment(rows), "next_step": numbers.get("next_step"),
             "trust_action": numbers.get("trust_action"), "missing_info": numbers["missing_info_counts"], "n": len(rows),
-            "n_read_page": len(page_rows), "n_prospects": len(pros), "trust": trust_block(pros, rows)}
+            "n_read_page": len(page_rows), "n_prospects": len(pros), "trust": trust_block(pros, rows),
+            "scores_by_audience": {g: {k: (statistics.mean(v) if (v := [r["quality"]["scores_in_browse"].get(k) for r in pros if r["audience"] == g and isinstance(r["quality"]["scores_in_browse"].get(k), (int, float))]) else None) for k in DIMS + EXTRA}
+                                   for g in {r["audience"] for r in pros}}}
     analytics = (json.loads(sr.ANALYTICS.read_text()).get("pages", {}).get(page, {}) if sr.ANALYTICS.is_file() else {})
 
     model = Model(a.model, out / "cache")
     reduced = run_map_reduce(model, page_rows, a.chunk, a.workers, a.max_chunks)
     synth = model.json(synth_prompt(PAGE_TITLES.get(page, page), reduced, hard, analytics), 12000, "synth",
                        ("executive_summary", "audience_differences", "journey", "priorities", "retain"))
+    synth["trust_advice"] = model.json(trust_prompt(PAGE_TITLES.get(page, page), hard["trust"], hard["wording"], reduced.get("findings") or {}), 8000, "trust",
+                                       ("where_trust_stops", "what_would_move_the_next_rung", "claims", "advice"))
     sys.stderr.write(f"synthesis done · model calls {model.calls} (cached {model.cached}) · tokens in/out {model.tokens}\n")
 
     md = build_markdown(page, job, rows, numbers, reduced, hard, synth, analytics, a.model)
