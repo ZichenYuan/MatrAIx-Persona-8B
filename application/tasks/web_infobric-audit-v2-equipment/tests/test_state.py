@@ -87,10 +87,51 @@ def _verifier_dir() -> Path:
     return path
 
 
+# What a *real* closing quote is followed by. In an object, a comma only ends the
+# string when a new "key": follows; in an array, a comma followed by the next element
+# does. Anything else (", which overlaps", " in ", ", the phone") is prose.
+_STRING_END_IN_OBJECT = re.compile(r'\s*(?:,\s*"[A-Za-z_][A-Za-z0-9_]*"\s*:|[}\]:]|$)', re.M)
+_STRING_END_IN_ARRAY = re.compile(r'\s*(?:,\s*(?:["{\[]|$)|[}\]]|$)', re.M)
+
+
+def _escape_inner_quotes(raw: str) -> str:
+    """Escape double quotes that models leave unescaped inside string values when
+    they quote page wording ("retain": "Keep "Vi digitaliserar byggbranschen" ...")."""
+    out: list[str] = []
+    stack: list[str] = []
+    in_string = False
+    i = 0
+    while i < len(raw):
+        ch = raw[i]
+        if not in_string:
+            if ch == '"':
+                in_string = True
+            elif ch in "{[":
+                stack.append(ch)
+            elif ch in "}]" and stack:
+                stack.pop()
+            out.append(ch)
+        elif ch == "\\":
+            out.append(raw[i : i + 2])
+            i += 1
+        elif ch == '"':
+            end = _STRING_END_IN_ARRAY if stack and stack[-1] == "[" else _STRING_END_IN_OBJECT
+            if end.match(raw, i + 1):
+                in_string = False
+                out.append(ch)
+            else:
+                out.append('\\"')
+        else:
+            out.append(ch)
+        i += 1
+    return "".join(out)
+
+
 def _load_json_lenient(path: Path) -> tuple[dict, str]:
-    """Parse the artifact, repairing the two defects models actually produce and
-    recording which: raw control characters inside strings, and a final string whose
-    closing quote was cut off by the file tool (the file ends `...text\n}`)."""
+    """Parse the artifact, repairing the three defects models actually produce and
+    recording which: raw control characters inside strings, unescaped quotes inside
+    strings (quoted page wording), and a final string whose closing quote was cut off
+    by the file tool (the file ends `...text\n}`)."""
     raw = path.read_text(encoding="utf-8", errors="replace")
     try:
         return json.loads(raw), "clean"
@@ -99,8 +140,15 @@ def _load_json_lenient(path: Path) -> tuple[dict, str]:
     try:
         return json.loads(raw, strict=False), "repaired_control_chars"
     except json.JSONDecodeError as exc:
-        if "Unterminated string" not in str(exc):
-            raise
+        first_error = exc
+    escaped = _escape_inner_quotes(raw)
+    if escaped != raw:
+        try:
+            return json.loads(escaped, strict=False), "repaired_inner_quotes"
+        except json.JSONDecodeError:
+            pass
+    if "Unterminated string" not in str(first_error):
+        raise first_error
     # Close the unterminated string at the end of its line, then close the object.
     lines = raw.rstrip().split("\n")
     while lines and lines[-1].strip() in {"}", ""}:
