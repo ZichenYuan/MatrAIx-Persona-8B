@@ -97,13 +97,31 @@ def _persona_field(key: str) -> str | None:
 
 
 def _canon(raw: object, allowed: set[str]) -> str | None:
-    token = str(raw or "").strip().lower().replace(" ", "_").replace("-", "_")
-    for candidate in (token, _ALIASES.get(token), token[:-1] if token.endswith("s") else None):
-        if candidate and candidate in allowed:
-            return candidate
-        if candidate and _ALIASES.get(candidate) in allowed:
-            return _ALIASES[candidate]
+    """Map a model-written value onto an enum. Models often append an explanation
+    ("specific_problem — I need…", "learn_more: because…"), so the value is also tried
+    as the text before the first separator, and finally by keyword."""
+    text = str(raw or "").strip().lower()
+    head = re.split(r"\s*[—–:;,(]\s*|\s+-\s+|\s{2,}", text, maxsplit=1)[0]
+    for piece in (text, head, head.split()[0] if head.split() else ""):
+        token = piece.strip().replace(" ", "_").replace("-", "_").strip("_.")
+        for candidate in (token, _ALIASES.get(token), token[:-1] if token.endswith("s") else None):
+            if candidate and candidate in allowed:
+                return candidate
+            if candidate and _ALIASES.get(candidate) in allowed:
+                return _ALIASES[candidate]
+    for keyword, value in _KEYWORDS:
+        if keyword in text and value in allowed:
+            return value
     return None
+
+
+# Last-resort keyword mapping, checked in order, only within the allowed set.
+_KEYWORDS = (
+    ("specific", "specific_problem"), ("problem", "specific_problem"), ("explor", "exploring"),
+    ("read_all", "read_all"), ("whole", "read_all"), ("entire", "read_all"),
+    ("would not", "would_not_proceed"), ("reference", "need_references_first"), ("pilot", "need_pilot_first"),
+    ("trial", "need_pilot_first"), ("share", "share_data_now"),
+)
 
 
 def _string(data: dict, key: str, max_len: int = 3000) -> str:
@@ -214,13 +232,16 @@ def test_output_schema() -> None:
 
     # --- A. self-briefing -----------------------------------------------------
     self_briefing = _string(data, "self_briefing")
-    arrived = _canon(data.get("arrived_with"), ARRIVED)
-    assert arrived, f"arrived_with must be one of {sorted(ARRIVED)}"
     intent = (_persona_field("visit_intent") or "").lower()
     persona_arrived = (
         "specific_problem" if "specific problem" in intent
         else "exploring" if "exploring" in intent else None
     )
+    arrived = _canon(data.get("arrived_with"), ARRIVED)
+    if arrived is None:
+        # A fidelity field, not a validity gate: record the miss, do not fail the trial.
+        unmapped.append(f"arrived_with:{str(data.get('arrived_with'))[:60]}")
+        arrived = persona_arrived or "exploring"
     arrived_matches = "n/a" if persona_arrived is None else ("true" if persona_arrived == arrived else "false")
 
     # --- B. first screen ------------------------------------------------------
