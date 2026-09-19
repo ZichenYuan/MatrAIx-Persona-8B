@@ -160,14 +160,15 @@ function normalizeRecord(
   const selectedPersonaIds = Array.isArray(record.selectedPersonaIds)
     ? record.selectedPersonaIds
         .filter((id): id is string => typeof id === "string")
-        .slice(0, PERSONA_UI_ID_LIST_MAX)
     : [];
   const selectedCount =
     typeof record.selectedCount === "number" && record.selectedCount > 0
       ? Math.round(record.selectedCount)
       : selectedPersonaIds.length;
-  const useEntirePool =
-    record.useEntirePool === true || selectedCount > PERSONA_UI_ID_LIST_MAX;
+  // A large cohort is launched by its explicit ids (the pull returns the full list);
+  // only an explicit choice makes it 'entire pool'. PERSONA_UI_ID_LIST_MAX still
+  // bounds what the card rail previews.
+  const useEntirePool = record.useEntirePool === true;
   return {
     selectedPersonaIds: useEntirePool
       ? selectedPersonaIds.slice(0, PERSONA_CARD_PREVIEW_LIMIT)
