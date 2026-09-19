@@ -97,8 +97,8 @@ def overrides(segment: str, dims: dict, rng: random.Random) -> dict:
         purpose = "log in to it" if rng.random() < 0.7 else "find the support phone number"
         out["arrival_note"] = (
             f"Your company already uses {product_for(dims)} from Infobric. You opened infobric.com to {purpose}. "
-            "You are not shopping for anything today; if the page does not get you there quickly, you go elsewhere "
-            "(a bookmark, the app, a phone call)."
+            "You are not shopping for anything today. Whether you glance at the page first or head straight for what "
+            "you came for is up to you."
         )
     elif segment == "job_seeker":
         out["arrival_note"] = (

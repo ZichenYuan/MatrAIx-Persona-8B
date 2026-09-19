@@ -37,7 +37,8 @@
     "learn_more",
     "come_back_later",
     "leave",
-    "go_to_login"
+    "go_to_login",
+    "go_elsewhere_on_site"
   ],
   "conversion_next_steps": [
     "contact_sales",
@@ -45,7 +46,8 @@
   ],
   "navigation_next_steps": [
     "learn_more",
-    "go_to_login"
+    "go_to_login",
+    "go_elsewhere_on_site"
   ],
   "claims": [
     "Betrodd av över 12 000 kunder och 450 000 användare",

@@ -50,7 +50,7 @@ TRUST_ACTS = TRUST_LADDER + (TRUST_CLAIM,)
 ALL_NEXT_STEPS = {
     "book_demo", "start_trial", "create_free_account", "order_package", "use_calculator",
     "download_guide", "preview_fleet", "contact_sales", "learn_more", "come_back_later", "leave",
-    "go_to_login",
+    "go_to_login", "go_elsewhere_on_site",
 }
 BASIS_PRIMARY = {
     "legal_compliance", "consolidation", "price", "integrations", "ease_of_rollout",
@@ -78,6 +78,8 @@ _ALIASES = {
     "share_now": "share_data_now", "would_not": "would_not_proceed",
     "customer": "existing_customer", "existing": "existing_customer", "other": "other_reason",
     "login": "go_to_login", "log_in": "go_to_login", "support": "go_to_login",
+    "careers": "go_elsewhere_on_site", "career_page": "go_elsewhere_on_site", "contact_page": "go_elsewhere_on_site",
+    "elsewhere": "go_elsewhere_on_site", "other_page": "go_elsewhere_on_site", "navigate": "go_elsewhere_on_site",
 }
 # Last-resort keyword mapping, checked in order, only within the allowed set.
 _KEYWORDS = (

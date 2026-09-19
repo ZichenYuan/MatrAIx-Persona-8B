@@ -11,5 +11,7 @@
   follows. Links to individual products, solutions or audience pages are ordinary
   navigation, not the next step; do not follow them.
 - **`next_step` options on this page:** `contact_sales`, `book_demo`, `learn_more`,
-  `come_back_later`, `go_to_login`, `leave`.
+  `come_back_later`, `go_to_login`, `go_elsewhere_on_site`, `leave`.
+  `go_elsewhere_on_site` means you would open another page on infobric.com next (careers,
+  contact, a product page) instead of reading on here; `leave` means you would leave the site.
 - **Proof claim for the three `trust_*` questions:** «Betrodd av över 12 000 kunder och 450 000 användare»

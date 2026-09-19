@@ -18,7 +18,9 @@ This visit has the same rule: you stay only if the first screen gives you a reas
   follows. Links to individual products, solutions or audience pages are ordinary
   navigation, not the next step; do not follow them.
 - **`next_step` options on this page:** `contact_sales`, `book_demo`, `learn_more`,
-  `come_back_later`, `go_to_login`, `leave`.
+  `come_back_later`, `go_to_login`, `go_elsewhere_on_site`, `leave`.
+  `go_elsewhere_on_site` means you would open another page on infobric.com next (careers,
+  contact, a product page) instead of reading on here; `leave` means you would leave the site.
 - **Proof claim for the three `trust_*` questions:** «Betrodd av över 12 000 kunder och 450 000 användare»
 
 The site is in Swedish. Read it in Swedish; write your answers in English. When you quote
@@ -48,7 +50,7 @@ reading). Then decide the way you would in real life:
 
 **If you go, that is the whole visit.** Set `left_early` to `true`, fill in the exit form —
 `self_briefing`, `arrived_with`, the three first-screen fields, `understanding`, the five
-`trust_*` questions, `next_step` (usually `leave`, `go_to_login` or `come_back_later`),
+`trust_*` questions, `next_step` (usually `leave`, `go_to_login`, `go_elsewhere_on_site` or `come_back_later`),
 `basis_primary`, `trust_action`, `contact_likelihood`, `reason`, and
 `improvement_suggestion` (what on the first screen would have kept you) — put `unknown`
 (or an empty list) in everything else, save the file, and stop. Do not read further.
@@ -185,7 +187,8 @@ a colleague's recommendation, a trial without a sales call — whatever it reall
   to evaluate a supplier at all (a job, selling to them, research, a mis-click).
 - `next_step` must be one of the options listed in the page brief for this page, and must
   be what you would actually do today. `learn_more`, `come_back_later` and `leave` are
-  all valid, and `leave` is right if the page does not give you what you need.
+  all valid; `leave` is right if you would leave the site, and `go_elsewhere_on_site` if you
+  would open another page on infobric.com next (careers, contact, a product page).
 - `basis_primary` is the single thing that actually drives your next step. Use `fit` only
   when no more specific reason applies.
 - `trust_action` is the concrete thing you would need before going further.
