@@ -30,7 +30,7 @@ import os
 import re
 from pathlib import Path
 
-INSTRUMENT_VERSION = "2.2"
+INSTRUMENT_VERSION = "2.3"
 
 OUTPUT = Path(os.environ.get("AUDIT_OUTPUT", "/app/output/page_audit.json"))
 INPUT_DIR = Path(os.environ.get("AUDIT_INPUT_DIR", "/app/input"))
@@ -40,11 +40,13 @@ VARIANT_FILE = INPUT_DIR / "variant.txt"
 
 POSITIONS = {"top", "middle", "bottom"}
 KINDS = {"confusing", "missing", "unconvincing", "irrelevant"}
-ARRIVED = {"specific_problem", "exploring"}
+ARRIVED = {"specific_problem", "exploring", "existing_customer", "other_reason"}
 YES_NO = {"yes", "no"}
+TRUST_ACTS = ("trust_form_today", "trust_claim_unchecked", "trust_recommend")
 ALL_NEXT_STEPS = {
     "book_demo", "start_trial", "create_free_account", "order_package", "use_calculator",
     "download_guide", "preview_fleet", "contact_sales", "learn_more", "come_back_later", "leave",
+    "go_to_login",
 }
 BASIS_PRIMARY = {
     "legal_compliance", "consolidation", "price", "integrations", "ease_of_rollout",
@@ -70,9 +72,14 @@ _ALIASES = {
     "contact": "contact_sales", "contact_us": "contact_sales",
     "references_first": "need_references_first", "pilot_first": "need_pilot_first",
     "share_now": "share_data_now", "would_not": "would_not_proceed",
+    "customer": "existing_customer", "existing": "existing_customer", "other": "other_reason",
+    "login": "go_to_login", "log_in": "go_to_login", "support": "go_to_login",
 }
 # Last-resort keyword mapping, checked in order, only within the allowed set.
 _KEYWORDS = (
+    ("customer", "existing_customer"), ("log in", "go_to_login"), ("login", "go_to_login"),
+    ("job", "other_reason"), ("sell", "other_reason"), ("assignment", "other_reason"),
+    ("mistake", "other_reason"), ("research", "other_reason"),
     ("specific", "specific_problem"), ("problem", "specific_problem"), ("explor", "exploring"),
     ("would not", "would_not_proceed"), ("reference", "need_references_first"),
     ("pilot", "need_pilot_first"), ("trial", "need_pilot_first"), ("share", "share_data_now"),
@@ -338,7 +345,9 @@ def test_output_schema() -> None:
     self_briefing = _string(data, "self_briefing")
     intent = (_persona_field("visit_intent") or "").lower()
     persona_arrived = (
-        "specific_problem" if "specific problem" in intent
+        "existing_customer" if "existing customer" in intent
+        else "other_reason" if any(w in intent for w in ("job opening", "sell ", "assignment", "by mistake"))
+        else "specific_problem" if "specific problem" in intent
         else "exploring" if "exploring" in intent else None
     )
     arrived = _canon(data.get("arrived_with"), ARRIVED)
@@ -386,6 +395,20 @@ def test_output_schema() -> None:
     scores = {"understanding": _score(data, "understanding")}
     for k in SCORES[1:]:
         scores[k] = _score(data, k, allow_unknown=early)
+    # Trust as three concrete acts (ablation arm 6). Required on every visit, incl.
+    # early exits, but a missing answer is recorded as unmapped rather than failing
+    # the trial - the summary reports how often that happens.
+    trust_acts_answers: dict[str, str] = {}
+    for k in TRUST_ACTS:
+        answer = _canon(data.get(k), YES_NO)
+        if answer is None:
+            unmapped.append(f"{k}:{str(data.get(k))[:40]}")
+            answer = "unknown"
+        trust_acts_answers[k] = answer
+    trust_acts: int | str = (
+        sum(1 for v in trust_acts_answers.values() if v == "yes")
+        if all(v != "unknown" for v in trust_acts_answers.values()) else "unknown"
+    )
 
     # --- D. CTA hop -----------------------------------------------------------
     cta_seen = _string_or_unknown(data, "primary_cta_seen") if early else _string(data, "primary_cta_seen")
@@ -496,6 +519,14 @@ def test_output_schema() -> None:
                        "numerical" if scores["practical_value"] != "unknown" else "categorical", scores["practical_value"]),
                 _facet("trust", "Trust (1-5)", "score",
                        "numerical" if scores["trust"] != "unknown" else "categorical", scores["trust"]),
+                _facet("trust_acts", "Trust acts: yes-count of three concrete questions (0-3)", "score",
+                       "numerical" if trust_acts != "unknown" else "categorical", trust_acts),
+                _facet("trust_form_today", "Would enter company details in the form today", "score", "categorical",
+                       trust_acts_answers["trust_form_today"]),
+                _facet("trust_claim_unchecked", "Would accept the proof claim unchecked", "score", "categorical",
+                       trust_acts_answers["trust_claim_unchecked"]),
+                _facet("trust_recommend", "Would mention the supplier to a colleague", "score", "categorical",
+                       trust_acts_answers["trust_recommend"]),
                 _facet("next_step_confidence", "Confidence in the next step (1-5)", "score",
                        "numerical" if scores["next_step_confidence"] != "unknown" else "categorical", scores["next_step_confidence"]),
                 _facet("next_step_ease", "Ease of completing the next step (1-5)", "score",
@@ -574,6 +605,7 @@ def test_output_schema() -> None:
                     "tier": _persona_field("tier"),
                     "visit_intent": _persona_field("visit_intent"),
                     "infobric_familiarity": _persona_field("infobric_familiarity"),
+                    "traffic_segment": _persona_field("traffic_segment"),
                 },
                 "exit": {"left_early": early, "would_continue": would_continue},
                 "fidelity": {
@@ -594,7 +626,8 @@ def test_output_schema() -> None:
                     "cta_inspected": cta_inspected, "cta_page_url": cta_url, "cta_url_ok": cta_url_ok,
                 },
                 "scores_in_browse": {**scores, "next_step_ease": ease, "cta_match": cta_match,
-                                     "contact_likelihood": contact},
+                                     "contact_likelihood": contact, "trust_acts": trust_acts,
+                                     **trust_acts_answers},
                 "decision": {"next_step": next_step, "converted": next_step in conversions,
                              "basis_primary": basis, "trust_action": trust_action},
                 "counts": {"confusing_or_missing": len(confusing), "problems_recognised": len(problems),

@@ -11,4 +11,5 @@
   follows. Links to individual products, solutions or audience pages are ordinary
   navigation, not the next step; do not follow them.
 - **`next_step` options on this page:** `contact_sales`, `book_demo`, `learn_more`,
-  `come_back_later`, `leave`.
+  `come_back_later`, `go_to_login`, `leave`.
+- **Proof claim for the three `trust_*` questions:** «Betrodd av över 12 000 kunder och 450 000 användare»

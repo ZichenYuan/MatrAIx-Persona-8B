@@ -19,6 +19,7 @@ do not assume you have read any other page.
   or other products are ordinary navigation; do not follow them.
 - **`next_step` options on this page:** `book_demo`, `start_trial`, `order_package`,
   `preview_fleet`, `learn_more`, `come_back_later`, `leave`.
+- **Proof claim for the three `trust_*` questions:** «Över 20 år i branschen.»
 
 The site is in Swedish. Read it in Swedish; write your answers in English. When you quote
 wording from the page, quote it exactly as written, in Swedish.
@@ -28,9 +29,13 @@ wording from the page, quote it exactly as written, in Swedish.
 **1. Before you open the page — brief yourself.** In two or three sentences, as yourself:
 who you are and what you do, what in your day-to-day work is relevant to a page like this,
 why you are looking at it today, and what (if anything) you already know about Infobric.
-Take the reason for today's visit from your own profile, not from the page: either you
-have a specific problem to solve right now, or you are exploring ways to improve
-operations. Write this down first; it goes in `self_briefing`.
+Take the reason for today's visit from your own profile, not from the page. Your profile
+says why you are on this site today: you have a specific problem to solve right now, you
+are exploring ways to improve operations, your company already uses Infobric and you came
+to log in or reach support, or you are here for some other reason (a job, selling to them,
+a school assignment, a mis-click from a search result or an ad). If you did not come to
+evaluate a supplier, say so plainly and behave accordingly. Write this down first; it goes
+in `self_briefing`.
 
 **2. Open the page. Before scrolling, answer the first-screen questions.** Look only at
 what is visible without scrolling. What do you think this company or product is? Does it
@@ -39,7 +44,7 @@ match what you expected when you came here? Would you keep reading?
 **If you would not keep reading, you may stop here.** Leaving is a valid outcome of a
 visit, not a failure of the task — do it if that is what you would really do. Set
 `left_early` to true, answer the first-screen questions and the decision questions at
-the end (your next step will usually be `leave` or `come_back_later`), give the
+the end (your next step will usually be `leave`, `go_to_login` or `come_back_later`), give the
 ratings you can honestly give from the first screen, put `unknown` (or an empty list)
 in everything else, and skip steps 3 and 4.
 
@@ -61,7 +66,7 @@ Save to `/app/output/page_audit.json`:
 ```json
 {
   "self_briefing": "<2-3 sentences, step 1>",
-  "arrived_with": "<one of: specific_problem, exploring — the reason for today's visit from your own profile; write only the option, no explanation>",
+  "arrived_with": "<one of: specific_problem, exploring, existing_customer, other_reason — the reason for today's visit from your own profile; write only the option, no explanation>",
 
   "first_screen_takeaway": "<from the first screen only: what you think this company or product does, in your words>",
   "would_continue": "<yes or no — would you keep reading after the first screen>",
@@ -87,6 +92,9 @@ Save to `/app/output/page_audit.json`:
   "language_relevance": <1-5>,
   "practical_value": <1-5>,
   "trust": <1-5>,
+  "trust_form_today": "<yes or no: would you type your name, company and phone number into this site's contact or trial form today?>",
+  "trust_claim_unchecked": "<yes or no: would you accept the proof claim named in the page brief as true without checking it anywhere else?>",
+  "trust_recommend": "<yes or no: after this one visit, would you mention this supplier to a colleague as worth a look?>",
   "next_step_confidence": <1-5>,
   "next_step_ease": <1-5, or "unknown" if you did not inspect the button>,
 
@@ -125,6 +133,10 @@ to real behaviour:
 - **trust** — 1: I would not share my data with them. 3: a credible company, but the
   claims are unproven for my case. 5: I would put my own operation on it without asking
   for references.
+- The three `trust_*` questions are about what you would actually do today, from your own
+  situation and from how you treat suppliers' claims in general — not about how the page
+  looks. Answer `yes` only if you really would. Answer them on an early exit too, from what
+  you saw on the first screen.
 - **next_step_confidence** — 1: no idea what I should do next or what would happen.
   3: I see a button but not what follows. 5: I know exactly what happens after clicking,
   and it suits me.
@@ -143,14 +155,17 @@ to real behaviour:
   Do not paraphrase a quote. Lists of quotes may be empty, but must not contain invented
   text.
 - On an early exit (`left_early: true`) the required answers are `self_briefing`,
-  `arrived_with`, the three first-screen fields, `understanding`, `next_step`,
+  `arrived_with`, the three first-screen fields, `understanding`, `trust_form_today`,
+  `trust_claim_unchecked`, `trust_recommend`, `next_step`,
   `basis_primary`, `trust_action`, `contact_likelihood`, `reason`, and
   `improvement_suggestion` (what on the first screen would have kept you reading).
   Everything else may be `unknown` or an empty list. Do not invent answers about parts
   of the page you did not read.
 - `arrived_with` reflects your profile, not the page. If you are exploring, say
   `exploring` even if the page shows problems you could have; say `specific_problem`
-  only if you actually came with one today.
+  only if you actually came with one today; `existing_customer` if your company already
+  uses Infobric and you came to log in or for support; `other_reason` if you are not here
+  to evaluate a supplier at all (a job, selling to them, research, a mis-click).
 - `next_step` must be one of the options listed in the page brief for this page, and must
   be what you would actually do today. `learn_more`, `come_back_later` and `leave` are
   all valid, and `leave` is right if the page does not give you what you need.

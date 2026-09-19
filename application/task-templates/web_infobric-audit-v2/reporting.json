@@ -1,6 +1,7 @@
 {
   "schemaVersion": "1.0",
   "personaDimensions": [
+    "traffic_segment",
     "audience_group",
     "tier",
     "visit_intent",
@@ -107,6 +108,38 @@
           "groupByPersonaDimensions": [
             "audience_group"
           ]
+        },
+        {
+          "id": "audit.trust_acts_by_audience",
+          "facetKey": "trust_acts",
+          "title": "Trust acts: yes-count of the three concrete questions (0-3)",
+          "groupByPersonaDimensions": [
+            "audience_group"
+          ]
+        },
+        {
+          "id": "audit.trust_form_by_audience",
+          "facetKey": "trust_form_today",
+          "title": "Would enter company details in the form today",
+          "groupByPersonaDimensions": [
+            "audience_group"
+          ]
+        },
+        {
+          "id": "audit.trust_claim_by_audience",
+          "facetKey": "trust_claim_unchecked",
+          "title": "Would accept the proof claim unchecked",
+          "groupByPersonaDimensions": [
+            "audience_group"
+          ]
+        },
+        {
+          "id": "audit.trust_recommend_by_audience",
+          "facetKey": "trust_recommend",
+          "title": "Would mention the supplier to a colleague",
+          "groupByPersonaDimensions": [
+            "audience_group"
+          ]
         }
       ],
       "summaryAnalyses": [
@@ -147,6 +180,22 @@
           "title": "Left after the first screen (exit rate)",
           "groupByPersonaDimensions": [
             "audience_group"
+          ]
+        },
+        {
+          "id": "first.left_early_by_segment",
+          "facetKey": "left_early",
+          "title": "Left after the first screen, by traffic segment",
+          "groupByPersonaDimensions": [
+            "traffic_segment"
+          ]
+        },
+        {
+          "id": "first.continue_by_segment",
+          "facetKey": "would_continue",
+          "title": "Would keep reading, by traffic segment",
+          "groupByPersonaDimensions": [
+            "traffic_segment"
           ]
         }
       ]
@@ -219,6 +268,14 @@
           "title": "Likelihood of contacting within a week (1-5, scored after the visit)",
           "groupByPersonaDimensions": [
             "audience_group"
+          ]
+        },
+        {
+          "id": "decision.next_step_by_segment",
+          "facetKey": "decision_outcome",
+          "title": "Next step, by traffic segment",
+          "groupByPersonaDimensions": [
+            "traffic_segment"
           ]
         }
       ]

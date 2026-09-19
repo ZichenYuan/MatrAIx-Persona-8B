@@ -28,7 +28,11 @@ MARKER = "<!-- PAGE BRIEF -->"
 
 # Default cohort per page: proportional to the pool's visitor-kind mix. The homepage
 # is the pilot's full run; product pages default to a pilot-sized sample.
-PAGE_SAMPLE = {"homepage": 1000, "fleet": 100, "driving-log": 100, "equipment": 100, "hyrma": 100}
+PAGE_SAMPLE = {"homepage": 50, "fleet": 100, "driving-log": 100, "equipment": 100, "hyrma": 100}
+# Ablation arm 1 (traffic mix): pool + stratification field per page. Pages not listed
+# keep the master pool and stratify by audience_group.
+PAGE_POOL = {"homepage": "persona/datasets/generated-persona-dev-infobric-traffic-mix"}
+PAGE_FIELDS = {"homepage": ["traffic_segment"]}
 
 # folder suffix -> (page_id, task.toml name, title, persona dimension filter)
 PAGES = {
@@ -86,8 +90,12 @@ def _generate(slug: str, page_id: str, task_name: str, title: str, dim_filter: d
 
     strategy = json.loads((MASTER / "persona_strategy.json").read_text(encoding="utf-8"))
     strategy["dimensionFilters"] = dim_filter
+    # Ablation arm 1: the homepage runs on the traffic-mix pool, stratified by traffic
+    # segment (analytics-like shares), so exit rate is comparable per segment.
+    if slug in PAGE_POOL:
+        strategy["pool"] = PAGE_POOL[slug]
     strategy["sampling"] = {
-        "mode": "stratified", "fields": ["audience_group"],
+        "mode": "stratified", "fields": PAGE_FIELDS.get(slug, ["audience_group"]),
         "allocation": "proportional", "sampleSize": PAGE_SAMPLE.get(slug, 100),
     }
     (out / "persona_strategy.json").write_text(json.dumps(strategy, indent=2) + "\n", encoding="utf-8")

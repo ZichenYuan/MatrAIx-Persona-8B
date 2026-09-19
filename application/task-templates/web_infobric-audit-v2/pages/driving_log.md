@@ -14,3 +14,4 @@
   related products or features are ordinary navigation; do not follow them.
 - **`next_step` options on this page:** `start_trial`, `book_demo`, `download_guide`,
   `learn_more`, `come_back_later`, `leave`.
+- **Proof claim for the three `trust_*` questions:** «Här är varför över 7500 företag väljer oss:»

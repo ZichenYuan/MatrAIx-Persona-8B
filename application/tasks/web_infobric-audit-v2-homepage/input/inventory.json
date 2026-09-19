@@ -36,14 +36,16 @@
     "book_demo",
     "learn_more",
     "come_back_later",
-    "leave"
+    "leave",
+    "go_to_login"
   ],
   "conversion_next_steps": [
     "contact_sales",
     "book_demo"
   ],
   "navigation_next_steps": [
-    "learn_more"
+    "learn_more",
+    "go_to_login"
   ],
   "claims": [
     "Betrodd av över 12 000 kunder och 450 000 användare",

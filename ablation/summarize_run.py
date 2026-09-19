@@ -21,7 +21,8 @@ HERE = Path(__file__).resolve().parent
 ANALYTICS = HERE / "ground_truth" / "analytics_90d.json"
 DIMS = ["understanding", "language_relevance", "practical_value", "trust", "next_step_confidence", "next_step_ease"]
 EXTRA_SCORES = ["cta_match", "contact_likelihood"]
-PERSONA_DIMS = ["audience_group", "tier", "visit_intent", "infobric_familiarity"]
+PERSONA_DIMS = ["traffic_segment", "audience_group", "tier", "visit_intent", "infobric_familiarity"]
+TRUST_ACTS = ["trust_form_today", "trust_claim_unchecked", "trust_recommend"]
 COLLAPSED_SD = 0.3  # a 1-5 scale whose sd falls below this is not separating anyone
 
 
@@ -98,6 +99,8 @@ def flatten(q: dict) -> dict:
     for k in DIMS + EXTRA_SCORES:
         row[k] = s.get(k)
     row["post_hoc"] = q.get("scores_post_hoc") or None
+    row["trust_acts"] = s.get("trust_acts")
+    row["trust_acts_answers"] = {k: s.get(k) for k in TRUST_ACTS}
     return row
 
 
@@ -154,6 +157,33 @@ def build(job: Path) -> tuple[str, dict]:
         n = sum(cnt.values()); yes = sum(1 for r in rows if (r["audience_group"] or "unknown") == grp and str(r["would_continue"]).lower() == "yes")
         w(f"| {grp} | {n} | {pct(cnt.get('True', 0), n)} | {pct(yes, n)} |")
     w("")
+
+    if any(r.get("traffic_segment") for r in rows):
+        w("| Traffic segment | n | left early | would continue = yes | next step: leave | go to login |")
+        w("|---|---:|---:|---:|---:|---:|")
+        for seg, cnt in sorted(collections.Counter(r["traffic_segment"] or "unknown" for r in rows).items(), key=lambda kv: -kv[1]):
+            sub = [r for r in rows if (r["traffic_segment"] or "unknown") == seg]
+            w(f"| {seg} | {cnt} | {pct(sum(1 for r in sub if r['left_early']), cnt)} | "
+              f"{pct(sum(1 for r in sub if str(r['would_continue']).lower() == 'yes'), cnt)} | "
+              f"{pct(sum(1 for r in sub if r['next_step'] == 'leave'), cnt)} | {pct(sum(1 for r in sub if r['next_step'] == 'go_to_login'), cnt)} |")
+        w("")
+        numbers["exit_by_segment"] = {seg: sum(1 for r in rows if (r["traffic_segment"] or "unknown") == seg and r["left_early"]) for seg in {r["traffic_segment"] or "unknown" for r in rows}}
+
+    acts_present = [r for r in rows if any((r.get("trust_acts_answers") or {}).get(k) in ("yes", "no") for k in TRUST_ACTS)]
+    if acts_present:
+        w("## 3b. Trust as three concrete acts (yes/no)\n")
+        n_a = len(acts_present)
+        for k, title in zip(TRUST_ACTS, ("Would enter company details in the form today", "Would accept the proof claim unchecked", "Would mention the supplier to a colleague")):
+            yes = sum(1 for r in acts_present if r["trust_acts_answers"].get(k) == "yes")
+            unk = sum(1 for r in acts_present if r["trust_acts_answers"].get(k) not in ("yes", "no"))
+            w(f"- **{title}**: yes {pct(yes, n_a)} of {n_a}" + (f" ({unk} unanswered)" if unk else ""))
+        counts = [r["trust_acts"] for r in acts_present if isinstance(r.get("trust_acts"), (int, float))]
+        if counts:
+            m, sd = mean_sd(counts)
+            w(f"- **Yes-count (0-3)**: mean {fmt(m)}, sd {fmt(sd)}, distribution " + ", ".join(f"{i}: {sum(1 for c in counts if int(c) == i)}" for i in range(4)))
+            numbers["trust_acts"] = {"n": len(counts), "mean": m, "sd": sd, "eta2_audience": eta_squared(counts, [r["audience_group"] for r in acts_present if isinstance(r.get("trust_acts"), (int, float))])}
+            w(f"- η² by visitor kind: {fmt(numbers['trust_acts']['eta2_audience'])}")
+        w("")
 
     w("## 4. The six partner dimensions (1-5) and the two follow-ups\n")
     w("| Dimension | n | mean | sd | " + " | ".join(f"{k} (1-5 share)" for k in ["1", "2", "3", "4", "5"]) + " | note |")

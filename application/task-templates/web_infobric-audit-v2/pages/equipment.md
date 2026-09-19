@@ -15,3 +15,4 @@
   products are ordinary navigation; do not follow them.
 - **`next_step` options on this page:** `create_free_account`, `book_demo`,
   `use_calculator`, `learn_more`, `come_back_later`, `leave`.
+- **Proof claim for the three `trust_*` questions:** «3 års batteritid.»

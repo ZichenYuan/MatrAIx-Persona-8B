@@ -14,3 +14,4 @@
   follow them.
 - **`next_step` options on this page:** `book_demo`, `learn_more`, `come_back_later`,
   `leave`.
+- **Proof claim for the three `trust_*` questions:** «Idag har vi 700 maskiner på depåer från Piteå till Malmö»
