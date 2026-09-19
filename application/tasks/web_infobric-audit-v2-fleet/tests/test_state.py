@@ -88,11 +88,27 @@ def _verifier_dir() -> Path:
 
 
 def _load_json_lenient(path: Path) -> tuple[dict, str]:
+    """Parse the artifact, repairing the two defects models actually produce and
+    recording which: raw control characters inside strings, and a final string whose
+    closing quote was cut off by the file tool (the file ends `...text\n}`)."""
     raw = path.read_text(encoding="utf-8", errors="replace")
     try:
         return json.loads(raw), "clean"
     except json.JSONDecodeError:
+        pass
+    try:
         return json.loads(raw, strict=False), "repaired_control_chars"
+    except json.JSONDecodeError as exc:
+        if "Unterminated string" not in str(exc):
+            raise
+    # Close the unterminated string at the end of its line, then close the object.
+    lines = raw.rstrip().split("\n")
+    while lines and lines[-1].strip() in {"}", ""}:
+        lines.pop()
+    if lines:
+        lines[-1] = lines[-1].rstrip().rstrip(",") + '"'
+    repaired = "\n".join(lines) + "\n}\n"
+    return json.loads(repaired, strict=False), "repaired_unterminated_string"
 
 
 def _inventory() -> dict:
