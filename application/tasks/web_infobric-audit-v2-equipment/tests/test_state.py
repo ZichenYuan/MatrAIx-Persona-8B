@@ -402,7 +402,7 @@ def test_output_schema() -> None:
     weakest_pos = _canon(data.get("weakest_position"), POSITIONS) or "unknown"
     hesitate = _string_or_unknown(data, "hesitate_or_leave_reason") if early else _string(data, "hesitate_or_leave_reason")
     ladder_reason = _string_or_unknown(data, "trust_ladder_reason")
-    scores = {"understanding": _score(data, "understanding")}
+    scores = {"understanding": _score(data, "understanding", allow_unknown=early)}
     for k in SCORES[1:]:
         scores[k] = _score(data, k, allow_unknown=early)
     # Trust as three concrete acts (ablation arm 6). Required on every visit, incl.
@@ -527,7 +527,8 @@ def test_output_schema() -> None:
             "label": f"Page audit: {page_label}",
             "contextType": "page_audit",
             "facets": [
-                _facet("understanding", "Understanding (1-5)", "score", "numerical", scores["understanding"]),
+                _facet("understanding", "Understanding (1-5)", "score",
+                       "numerical" if scores["understanding"] != "unknown" else "categorical", scores["understanding"]),
                 _facet("language_relevance", "Language and relevance (1-5)", "score",
                        "numerical" if scores["language_relevance"] != "unknown" else "categorical", scores["language_relevance"]),
                 _facet("practical_value", "Perceived practical value (1-5)", "score",
