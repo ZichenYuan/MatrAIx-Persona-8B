@@ -246,7 +246,13 @@ Homepage vs pricing vs tier page, same config. Hypothesis: pricing (real
 numbers on screen) and tier pages (audience-specific copy) produce more
 disagreement than the generic homepage. Not yet run.
 
-### 6.6 Task form: free visit vs page audit
+### 6.6 Task form: free visit vs page audit (retired 2026-09-18)
+
+**Retired.** The free-visit task was removed when the page audit was rebuilt around the
+partner's brief (`docs/superpowers/specs/2026-09-18-infobric-audit-v2-design.md`); v2
+includes a single bounded click on the page's primary button, which covers the part of
+the journey the partner asked for. The three probes (`jobs/fv-probe4*`) stay on disk.
+The original arm description follows for the record.
 
 `web_infobric-free-visit` (task A in the study design: land on the homepage,
 browse freely within ~25 actions, decide, short questionnaire) vs

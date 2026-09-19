@@ -1,0 +1,82 @@
+{
+  "_source": "Partner pack: 'Infobric Website Persona Study — Analytics' (infobric-analytics-90-days-by-url.md), last 90 days, Sweden. Transcribed 2026-09-18. GA4 and Clarity session totals are different populations and must not be combined. Bounce rate (38.9%) is site-wide only and is deliberately omitted per page. Missing = not supplied, never zero.",
+  "_use": "Calibration baseline for the page-audit v2 simulation (ablation/README.md §3.5, §6.5). Never shown to a persona.",
+  "conversion_framework": {
+    "freemium_click": "intent / micro-conversion, not an account created",
+    "created_free_account": "primary outcome conversion",
+    "demo": "primary lead conversion (submit/complete a demo request)",
+    "calculator": "micro-conversion; start and completion tracked separately"
+  },
+  "pages": {
+    "homepage": {
+      "url": "https://infobric.com/se/",
+      "ga4": {"views": 22759, "sessions": 19442, "engaged_sessions": 17190, "engaged_share": 0.884,
+              "key_events": 0, "key_events_note": "0 attributed to this exact page; not evidence of no influence on later conversions",
+              "avg_engagement_sec": 11.1, "views_per_session": 1.17},
+      "clarity": {"sessions": 22983, "bot_sessions_excluded": 1014, "unique_users": 15286, "pages_per_session": 2.44,
+                  "scroll_depth": 0.3519, "active_time_min": 1.2, "total_time_min": 2.8,
+                  "quick_backs": 0.4376, "quick_backs_sessions": 10058, "dead_clicks": 0.0295, "rage_clicks": 0.0023,
+                  "excessive_scrolling": 0.0008, "new_users_share": 0.5678, "returning_users_share": 0.4322, "js_errors": 0.0153},
+      "clarity_smart_events": {"login": 11720, "outbound_click": 8857, "contact_us": 1410, "show_more": 427, "submit_form": 201, "play": 44, "add_to_cart": 44},
+      "notes": ["43.76% Quick Backs: strong signal of expectation, relevance or navigation mismatch",
+                "'Contact us' and 'Submit form' are Clarity smart events, not confirmed leads"]
+    },
+    "fleet": {
+      "url": "https://infobric.com/se/produkter/fleet/",
+      "ga4": {"views": 4546, "sessions": 3970, "engaged_sessions": 3395, "engaged_share": 0.855,
+              "key_events": 87, "key_event_rate": 0.0219, "avg_engagement_sec": 18.5},
+      "clarity": {"scroll_depth": 0.2919, "quick_backs": 0.4058, "quick_backs_sessions": 1327},
+      "notes": ["87 key events are not assumed to be qualified demo requests without CRM mapping",
+                "Clarity session-level detail (sessions, users, pages/session, active time) was not supplied for this URL"]
+    },
+    "driving_log": {
+      "url": "https://infobric.com/se/produkter/fleet/elektronisk-korjournal/",
+      "ga4": {"views": 2111, "sessions": 1818, "engaged_sessions": 1396, "engaged_share": 0.768,
+              "key_events": 24, "key_event_rate": 0.0132, "avg_engagement_sec": 33.0, "views_per_session": 1.16},
+      "clarity": {"sessions": 742, "bot_sessions_excluded": 4412, "unique_users": 655, "pages_per_session": 2.72,
+                  "scroll_depth": 0.4583, "active_time_min": 2.3, "total_time_min": 5.1,
+                  "quick_backs": 0.2763, "quick_backs_sessions": 205, "dead_clicks": 0.0431, "rage_clicks": 0.0,
+                  "excessive_scrolling": 0.0, "new_users_share": 0.8073, "returning_users_share": 0.1927, "js_errors": 0.0094},
+      "clarity_smart_events": {"login": 93, "show_more": 75, "outbound_click": 74, "play": 44, "contact_us": 44, "submit_form": 20, "begin_checkout": 1},
+      "notes": ["deepest reading of the five pages (45.83% scroll) and the lowest Quick Backs",
+                "4.31% dead clicks: inspect non-interactive elements visitors expect to be clickable"]
+    },
+    "equipment": {
+      "url": "https://infobric.com/se/produkter/equipment/",
+      "ga4": {"views": 496, "sessions": 430, "engaged_sessions": 335, "engaged_share": 0.779,
+              "key_events_raw": 22, "key_events_raw_note": "inflated by duplicate Freemium click counting; do not use",
+              "conversions_corrected": 8, "conversions_corrected_detail": {"created_free_account": 7, "demo": 1},
+              "conversion_rate_corrected": 0.0186, "create_free_account_clicks": 11,
+              "calculator_starts": null, "calculator_completions": null,
+              "avg_engagement_sec": 37.7, "views_per_session": 1.15},
+      "clarity": {"sessions": 508, "bot_sessions_excluded": 143, "unique_users": 419, "pages_per_session": 4.18,
+                  "scroll_depth": 0.4187, "active_time_min": 3.0, "total_time_min": 7.2,
+                  "quick_backs": 0.3327, "quick_backs_sessions": 169, "dead_clicks": 0.0571, "rage_clicks": 0.0,
+                  "excessive_scrolling": 0.002, "new_users_share": 0.6575, "returning_users_share": 0.3425, "js_errors": 0.0394},
+      "clarity_smart_events": {"login": 105, "outbound_click": 57, "show_more": 44, "contact_us": 30, "play": 24, "submit_form": 13, "book": 3},
+      "notes": ["most exploratory page: 4.18 pages per session", "highest dead-click rate (5.71%) and JS error rate (3.94%)",
+                "calculator start/completion counts not supplied"]
+    },
+    "hyrma": {
+      "url": "https://infobric.com/se/produkter/hyrma/",
+      "ga4": {"views": 23814, "sessions": 24767, "engaged_sessions": 14872, "engaged_share": 0.60,
+              "key_events": 4, "key_event_rate": 0.0002, "avg_engagement_sec": 15.3, "views_per_session": 0.96},
+      "clarity": {"sessions": 33534, "bot_sessions_excluded": 839, "unique_users": 14108, "pages_per_session": 1.49,
+                  "scroll_depth": 0.236, "active_time_sec": 45, "total_time_min": 2.8,
+                  "quick_backs": 0.2626, "quick_backs_sessions": 8807, "dead_clicks": 0.0033, "rage_clicks": 0.0,
+                  "excessive_scrolling": 0.0001, "new_users_share": 0.3881, "returning_users_share": 0.6119, "js_errors": 0.0056},
+      "clarity_smart_events": {"login": 12576, "outbound_click": 9107, "contact_us": 79, "show_more": 16, "submit_form": 8, "play": 3, "download": 1},
+      "notes": ["61.19% returning users and 12,576 login events: the URL doubles as a login entry; NOT a clean first-visit baseline",
+                "compare personas (all first-time visitors) only with caveats; ask for a new-user cut before drawing conclusions"]
+    }
+  },
+  "page_rank_baselines": {
+    "conversion_rate": ["fleet", "equipment", "driving_log", "hyrma", "homepage"],
+    "conversion_rate_note": "fleet 0.0219 > equipment 0.0186 (corrected) > driving_log 0.0132 > hyrma 0.0002 (login-contaminated) > homepage 0",
+    "scroll_depth": ["driving_log", "equipment", "homepage", "fleet", "hyrma"],
+    "quick_backs_high_to_low": ["homepage", "fleet", "equipment", "driving_log", "hyrma"],
+    "pages_per_session": {"equipment": 4.18, "driving_log": 2.72, "homepage": 2.44, "hyrma": 1.49, "fleet": null}
+  },
+  "open_items_from_partner": ["exact start/end dates of the 90-day window",
+                              "event definitions and CRM mapping for freemium clicks, created accounts, demos, calculator starts/completions"]
+}

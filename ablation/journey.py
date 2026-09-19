@@ -1,19 +1,21 @@
 #!/usr/bin/env python3
-"""Objective journeys for free-visit jobs, and how well the persona self-reported them.
+"""Objective page journeys per trial, and how well the persona self-reported them.
 
 For every trial in one or more harbor job directories this reads:
 
 - the **objective** page sequence browser-use recorded in
   `agent/trajectory.json` (`extra.browser_use.urls`), which exists even when the
   agent failed to write its questionnaire;
-- the **self-reported** sequence in the `free_visit.json` artifact, when present;
+- the **self-reported** sequence in the artifact (`--artifact`, default `page_audit.json`),
+  when present: `pages_visited` for the free-visit task, or the start URL plus
+  `cta_page_url` for page-audit v2;
 - the persona's tier, from the persona YAML named in `persona_meta.json`.
 
 It prints one row per trial and a summary (artifact rate, self-report accuracy,
 reached-pricing / reached-contact rates, exit sections, pages per visit, by tier),
 and can write the rows as JSON for other tooling.
 
-    python ablation/journey.py jobs/fv-probe4 [jobs/other ...] [--json out.json]
+    python ablation/journey.py jobs/<job> [...] [--artifact page_audit.json] [--json out.json]
 
 Only the standard library is used. Path normalisation mirrors the task verifier
 (`application/tasks/web_infobric-free-visit/tests/test_state.py`).
@@ -31,6 +33,7 @@ import statistics
 import sys
 
 START_PATH = "/se"
+START_URL = "https://infobric.com/se/"
 PRICING_FRAGMENTS = ("/pris", "price")
 CONTACT_FRAGMENTS = ("/kontakt", "demo", "/prova", "/testa", "trial", "contact", "boka")
 
@@ -83,7 +86,7 @@ def _tier(persona_meta: str) -> tuple[str, str]:
     return pid, "?"
 
 
-def trial_row(trial_dir: str) -> dict:
+def trial_row(trial_dir: str, artifact: str = "page_audit.json") -> dict:
     name = os.path.basename(trial_dir.rstrip("/"))
     pid, tier = _tier(os.path.join(trial_dir, "persona_meta.json"))
 
@@ -97,9 +100,14 @@ def trial_row(trial_dir: str) -> dict:
     if os.path.exists(log):
         steps = pathlib.Path(log).read_text(encoding="utf-8", errors="replace").count("📍 Step")
 
-    artifacts = glob.glob(os.path.join(trial_dir, "**", "free_visit.json"), recursive=True)
+    artifacts = glob.glob(os.path.join(trial_dir, "**", artifact), recursive=True)
     report = _load_json(artifacts[0]) if artifacts else None
-    self_reported = _collapse(report.get("pages_visited") or []) if isinstance(report, dict) else None
+    self_reported = None
+    if isinstance(report, dict):
+        if report.get("pages_visited"):
+            self_reported = _collapse(report["pages_visited"])
+        elif report.get("cta_page_url"):
+            self_reported = _collapse([START_URL, report["cta_page_url"]])
 
     if self_reported is None:
         match = "no_self_report"
@@ -166,13 +174,14 @@ def summarise(rows: list[dict]) -> str:
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n", 1)[0])
     ap.add_argument("jobs", nargs="+", help="harbor job directories")
+    ap.add_argument("--artifact", default="page_audit.json", help="artifact file name to read the self-report from")
     ap.add_argument("--json", help="write rows to this file")
     args = ap.parse_args(argv)
 
     all_rows: list[dict] = []
     for job in args.jobs:
         trials = sorted(d for d in glob.glob(os.path.join(job, "*__*")) if os.path.isdir(d))
-        rows = [trial_row(t) for t in trials]
+        rows = [trial_row(t, args.artifact) for t in trials]
         print(f"== {job}  ({len(rows)} trials)")
         for r in rows:
             obj = " -> ".join(r["objective_pages"]) or "(none)"

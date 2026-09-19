@@ -177,15 +177,6 @@ PLAYGROUND_TASK_INDEX: Dict[str, PlaygroundTaskEntry] = {
         output_artifact="page_audit.json",
         submission_profile="page_audit",
     ),
-    # Task A of the study: land on the homepage, browse freely within a step
-    # budget, decide, then a short questionnaire including the pages opened.
-    "web_infobric-free-visit": PlaygroundTaskEntry(
-        application_type="web",
-        site_name="Infobric (free visit)",
-        site_url="https://infobric.com/se/",
-        output_artifact="free_visit.json",
-        submission_profile="free_visit",
-    ),
     # Page audit v2 (partner brief + analytics): one generated task per page from
     # web_infobric-audit-v2; see docs/superpowers/specs/2026-09-18-infobric-audit-v2-design.md
     "web_infobric-audit-v2-homepage": PlaygroundTaskEntry(
