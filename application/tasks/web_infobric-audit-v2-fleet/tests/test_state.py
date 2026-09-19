@@ -127,6 +127,15 @@ def _escape_inner_quotes(raw: str) -> str:
     return "".join(out)
 
 
+def _clean_json_syntax(text: str) -> str:
+    """Two more slips seen in the wild: a trailing comma before a closing bracket
+    or brace, and a stray character between a closing quote and the next delimiter
+    (`"...text">,`). Neither can occur in valid JSON, so removing them is safe; the
+    result is always re-parsed before it is trusted."""
+    text = re.sub(r",(\s*[\]}])", r"\1", text)
+    text = re.sub(r'"[ \t]*[^\s,\]}:"]{1,3}[ \t]*(?=[,\]}])', '"', text)
+    return text
+
 def _load_json_lenient(path: Path) -> tuple[dict, str]:
     """Parse the artifact, repairing the three defects models actually produce and
     recording which: raw control characters inside strings, unescaped quotes inside
@@ -145,6 +154,12 @@ def _load_json_lenient(path: Path) -> tuple[dict, str]:
     if escaped != raw:
         try:
             return json.loads(escaped, strict=False), "repaired_inner_quotes"
+        except json.JSONDecodeError:
+            pass
+    cleaned = _clean_json_syntax(escaped)
+    if cleaned != escaped:
+        try:
+            return json.loads(cleaned, strict=False), "repaired_syntax"
         except json.JSONDecodeError:
             pass
     if "Unterminated string" not in str(first_error):
