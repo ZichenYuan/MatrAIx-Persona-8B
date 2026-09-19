@@ -12,7 +12,7 @@
     "fields": [
       "audience_group"
     ],
-    "allocation": "perCell",
-    "perCell": 1
+    "allocation": "proportional",
+    "sampleSize": 100
   }
 }
