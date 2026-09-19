@@ -34,15 +34,18 @@ PAGE_SAMPLE = {"homepage": 1000, "fleet": 100, "driving-log": 100, "equipment": 
 # 50% prospects = ~83 per visitor kind, enough for partner-facing percentages; the rest
 # still gives a solid routing number and a bounce rate. Shares are feasible against
 # traffic-mix v2 (533 / 600 / 200 available).
+# Keys are the manifest's segment slugs, not the display labels: the sampler buckets on
+# the value `_stratify_bucket_key` finds first, which is the top-level `traffic_segment`
+# written by build_traffic_mix_pool.py. Labels here raise "pool has 0" for every bucket.
 PAGE_PORTIONS = {
     "homepage": {
         "traffic_segment": {
-            "Prospect (evaluating a supplier)": 0.50,
-            "Existing customer (login or support)": 0.34,
-            "Job seeker": 0.055,
-            "Mis-click from a search result or an ad": 0.045,
-            "Supplier or partner (selling to Infobric)": 0.03,
-            "Student or researcher": 0.03,
+            "prospect": 0.50,
+            "existing_customer": 0.34,
+            "job_seeker": 0.055,
+            "misclick": 0.045,
+            "supplier_partner": 0.03,
+            "student_researcher": 0.03,
         }
     }
 }
