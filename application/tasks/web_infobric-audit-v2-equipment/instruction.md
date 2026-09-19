@@ -38,11 +38,18 @@ operations. Write this down first; it goes in `self_briefing`.
 what is visible without scrolling. What do you think this company or product is? Does it
 match what you expected when you came here? Would you keep reading?
 
-**3. Read the whole page.** Then answer the page questions. For anything you point to,
+**If you would not keep reading, you may stop here.** Leaving is a valid outcome of a
+visit, not a failure of the task — do it if that is what you would really do. Set
+`left_early` to true, answer the first-screen questions and the decision questions at
+the end (your next step will usually be `leave` or `come_back_later`), give the
+ratings you can honestly give from the first screen, put `unknown` (or an empty list)
+in everything else, and skip steps 3 and 4.
+
+**3. If you kept reading: read the whole page.** Then answer the page questions. For anything you point to,
 quote the exact wording and say where on the page it sits — `top` (visible before
 scrolling), `middle`, or `bottom`.
 
-**4. Click the page's primary next-step button once** — the one named in the page brief.
+**4. If you kept reading: click the page's primary next-step button once** — the one named in the page brief.
 Look at what appears: a form, a page, a chat, a calendar. Describe what it actually asks of
 you and whether it matches what the button led you to expect. **Do not fill in or submit
 anything, do not log in, do not book anything.** Then go no further. If the button leads
@@ -61,6 +68,7 @@ Save to `/app/output/page_audit.json`:
   "first_screen_takeaway": "<from the first screen only: what you think this company or product does, in your words>",
   "would_continue": "<yes or no — would you keep reading after the first screen>",
   "would_continue_reason": "<why, naming what on the first screen decided it>",
+  "left_early": <true or false — true if you stopped after the first screen and did not read on>,
 
   "what_it_does": "<after reading everything: what this company or product does, for whom, in your words>",
   "problems_recognised": ["<your own work problems that this page speaks to, one per entry — empty list if none>"],
@@ -136,6 +144,12 @@ to real behaviour:
 - Quote wording exactly as it appears on the page, in Swedish, inside the JSON string.
   Do not paraphrase a quote. Lists of quotes may be empty, but must not contain invented
   text.
+- On an early exit (`left_early: true`) the required answers are `self_briefing`,
+  `arrived_with`, the three first-screen fields, `understanding`, `next_step`,
+  `basis_primary`, `trust_action`, `contact_likelihood`, `reason`, and
+  `improvement_suggestion` (what on the first screen would have kept you reading).
+  Everything else may be `unknown` or an empty list. Do not invent answers about parts
+  of the page you did not read.
 - `arrived_with` reflects your profile, not the page. If you are exploring, say
   `exploring` even if the page shows problems you could have; say `specific_problem`
   only if you actually came with one today.

@@ -45,6 +45,7 @@ Path("/app/output/page_audit.json").write_text(json.dumps({
     "first_screen_expectation_match": 3,
     "would_continue": "yes",
     "would_continue_reason": "Oracle reference answer.",
+    "left_early": False,
     "what_it_does": inv.get("truth_statement") or "Oracle reference answer.",
     "problems_recognised": [],
     "language_felt_familiar": [],

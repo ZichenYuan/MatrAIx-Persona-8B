@@ -30,7 +30,7 @@ import os
 import re
 from pathlib import Path
 
-INSTRUMENT_VERSION = "2.1"
+INSTRUMENT_VERSION = "2.2"
 
 OUTPUT = Path(os.environ.get("AUDIT_OUTPUT", "/app/output/page_audit.json"))
 INPUT_DIR = Path(os.environ.get("AUDIT_INPUT_DIR", "/app/input"))
@@ -139,6 +139,22 @@ def _canon(raw: object, allowed: set[str]) -> str | None:
         if keyword in text and value in allowed:
             return value
     return None
+
+
+def _string_or_unknown(data: dict, key: str, max_len: int = 3000) -> str:
+    """Like _string, but an absent, empty or 'unknown' value is allowed (early exit)."""
+    value = data.get(key)
+    if value is None or (isinstance(value, str) and (not value.strip() or value.strip().lower() == "unknown")):
+        return "unknown"
+    assert isinstance(value, str), f"{key} must be a string"
+    return value.strip()[:max_len]
+
+
+def _bool_or_false(data: dict, key: str) -> bool:
+    value = data.get(key)
+    if value is None or (isinstance(value, str) and value.strip().lower() in {"", "unknown"}):
+        return False
+    return _bool(data, key)
 
 
 def _string(data: dict, key: str, max_len: int = 3000) -> str:
@@ -260,9 +276,15 @@ def test_output_schema() -> None:
     would_continue = _canon(data.get("would_continue"), YES_NO)
     assert would_continue, "would_continue must be yes or no"
     would_continue_reason = _string(data, "would_continue_reason")
+    left_early = _bool_or_false(data, "left_early")
+    early = left_early
+    if left_early and would_continue != "no":
+        unmapped.append("left_early:true with would_continue:yes")
+    if not left_early and would_continue == "no":
+        unmapped.append("would_continue:no but kept reading")
 
     # --- C. full page ---------------------------------------------------------
-    what_it_does = _string(data, "what_it_does")
+    what_it_does = _string_or_unknown(data, "what_it_does") if early else _string(data, "what_it_does")
     problems = _str_list(data, "problems_recognised")
     familiar = _str_list(data, "language_felt_familiar")
     off = _str_list(data, "language_felt_off")
@@ -280,17 +302,19 @@ def test_output_schema() -> None:
             "where": _canon(item.get("where"), POSITIONS) or "unknown",
             "kind": _canon(item.get("kind"), KINDS) or "confusing",
         })
-    strongest = _string(data, "strongest_element")
+    strongest = _string_or_unknown(data, "strongest_element") if early else _string(data, "strongest_element")
     strongest_pos = _canon(data.get("strongest_position"), POSITIONS) or "unknown"
-    weakest = _string(data, "weakest_element")
+    weakest = _string_or_unknown(data, "weakest_element") if early else _string(data, "weakest_element")
     weakest_pos = _canon(data.get("weakest_position"), POSITIONS) or "unknown"
-    hesitate = _string(data, "hesitate_or_leave_reason")
-    scores = {k: _score(data, k) for k in SCORES}
+    hesitate = _string_or_unknown(data, "hesitate_or_leave_reason") if early else _string(data, "hesitate_or_leave_reason")
+    scores = {"understanding": _score(data, "understanding")}
+    for k in SCORES[1:]:
+        scores[k] = _score(data, k, allow_unknown=early)
 
     # --- D. CTA hop -----------------------------------------------------------
-    cta_seen = _string(data, "primary_cta_seen")
-    cta_expectation = _string(data, "cta_expectation")
-    cta_inspected = _bool(data, "cta_inspected")
+    cta_seen = _string_or_unknown(data, "primary_cta_seen") if early else _string(data, "primary_cta_seen")
+    cta_expectation = _string_or_unknown(data, "cta_expectation") if early else _string(data, "cta_expectation")
+    cta_inspected = _bool_or_false(data, "cta_inspected") if early else _bool(data, "cta_inspected")
     cta_url = str(data.get("cta_page_url") or "unknown").strip()
     cta_reality = str(data.get("cta_reality") or "unknown").strip()[:2000]
     form_asks = _str_list(data, "form_asks_for")
@@ -318,8 +342,8 @@ def test_output_schema() -> None:
     missing = _enum_list(data, "missing_info", MISSING_INFO, unmapped)
     reason = _string(data, "reason")
     improvement = _string(data, "improvement_suggestion")
-    improvement_check = _string(data, "improvement_check")
-    retain = _string(data, "retain")
+    improvement_check = _string_or_unknown(data, "improvement_check") if early else _string(data, "improvement_check")
+    retain = _string_or_unknown(data, "retain") if early else _string(data, "retain")
 
     # --- grounding against the page snapshot ----------------------------------
     c_hit, c_tot, c_miss = _grounding(credible + need_proof, snapshot)
@@ -329,7 +353,8 @@ def test_output_schema() -> None:
     takeaway_text = (
         f"First screen: {first_takeaway}\n"
         f"Would keep reading after the first screen: {would_continue} — {would_continue_reason}\n"
-        f"After reading everything: {what_it_does}\n"
+        + ("Left after the first screen; the rest of the page was not read.\n" if early else "")
+        +         f"After reading everything: {what_it_does}\n"
         f"Own problems recognised:\n{_bullets(problems)}\n"
         f"Next step: {next_step}. Would need before going further: {trust_action}. Why: {reason}"
     )
@@ -377,6 +402,8 @@ def test_output_schema() -> None:
             "facets": [
                 _facet("would_continue", "Would keep reading after the first screen", "primary", "categorical",
                        would_continue),
+                _facet("left_early", "Left after the first screen", "primary", "categorical",
+                       "true" if early else "false"),
                 _facet("would_continue_reason", "Why", "explanation", "textual", would_continue_reason,
                        explains="would_continue"),
             ],
@@ -387,13 +414,14 @@ def test_output_schema() -> None:
             "contextType": "page_audit",
             "facets": [
                 _facet("understanding", "Understanding (1-5)", "score", "numerical", scores["understanding"]),
-                _facet("language_relevance", "Language and relevance (1-5)", "score", "numerical",
-                       scores["language_relevance"]),
-                _facet("practical_value", "Perceived practical value (1-5)", "score", "numerical",
-                       scores["practical_value"]),
-                _facet("trust", "Trust (1-5)", "score", "numerical", scores["trust"]),
-                _facet("next_step_confidence", "Confidence in the next step (1-5)", "score", "numerical",
-                       scores["next_step_confidence"]),
+                _facet("language_relevance", "Language and relevance (1-5)", "score",
+                       "numerical" if scores["language_relevance"] != "unknown" else "categorical", scores["language_relevance"]),
+                _facet("practical_value", "Perceived practical value (1-5)", "score",
+                       "numerical" if scores["practical_value"] != "unknown" else "categorical", scores["practical_value"]),
+                _facet("trust", "Trust (1-5)", "score",
+                       "numerical" if scores["trust"] != "unknown" else "categorical", scores["trust"]),
+                _facet("next_step_confidence", "Confidence in the next step (1-5)", "score",
+                       "numerical" if scores["next_step_confidence"] != "unknown" else "categorical", scores["next_step_confidence"]),
                 _facet("next_step_ease", "Ease of completing the next step (1-5)", "score",
                        "numerical" if ease != "unknown" else "categorical", ease),
                 _facet("takeaway_text", "What they understood and would do next", "explanation", "textual",
@@ -471,6 +499,7 @@ def test_output_schema() -> None:
                     "visit_intent": _persona_field("visit_intent"),
                     "infobric_familiarity": _persona_field("infobric_familiarity"),
                 },
+                "exit": {"left_early": early, "would_continue": would_continue},
                 "fidelity": {
                     "self_briefing": self_briefing,
                     "arrived_with": arrived,

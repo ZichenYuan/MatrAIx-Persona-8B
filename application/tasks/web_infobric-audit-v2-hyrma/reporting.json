@@ -34,7 +34,8 @@
     {
       "match": { "contextType": "first_impression" },
       "distributions": [
-        { "id": "first.continue_by_audience", "facetKey": "would_continue", "title": "Would keep reading after the first screen", "groupByPersonaDimensions": ["audience_group"] }
+        { "id": "first.continue_by_audience", "facetKey": "would_continue", "title": "Would keep reading after the first screen", "groupByPersonaDimensions": ["audience_group"] },
+        { "id": "first.left_early_by_audience", "facetKey": "left_early", "title": "Left after the first screen (exit rate)", "groupByPersonaDimensions": ["audience_group"] }
       ]
     },
     {
