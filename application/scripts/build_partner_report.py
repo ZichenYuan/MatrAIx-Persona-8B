@@ -513,7 +513,7 @@ def build_markdown(page: str, job: Path, rows: list[dict], numbers: dict, reduce
     exits = hard.get("exits") or {}
     if exits:
         w("\n**Left, routed or stayed, by traffic segment** [persona]. *Bounced* = left the site after the first screen (the counterpart of a Quick Back); "
-          "*routed* = went to login or another page on the site (a normal customer journey, invisible to Quick Backs); *stayed* = read the page.\n")
+          "*routed* = next step is login or another page on the site, whether or not they read first (a normal journey, invisible to Quick Backs); *stayed* = read the page.\n")
         w(md_table(["Traffic segment", "n", "bounced", "routed", "stayed"],
                    [[seg, v["n"], pct(v["bounced"], v["n"]), pct(v["routed"], v["n"]), pct(v["stayed"], v["n"])] for seg, v in exits.items()]))
         w("")
@@ -657,10 +657,12 @@ def build_markdown(page: str, job: Path, rows: list[dict], numbers: dict, reduce
     for a in synth.get("audience_differences") or []:
         w(f"- **{a.get('audience')}:** {a.get('summary')}")
     w("")
-    w("Scored-after-the-visit means by visitor kind:\n")
-    w(md_table(["Visitor kind", "n"] + [DIM_TITLES[k] for k in DIMS + EXTRA],
-               [[g, (numbers.get("scores_by_audience") or {}).get(g, {}).get("n", "")] + [fmt((numbers.get("scores_by_audience_scored") or {}).get(g, {}).get(k)) for k in DIMS + EXTRA] for g in groups]))
-    w("")
+    if have_scored:
+        w("Scored-after-the-visit means by visitor kind:\n")
+        w(md_table(["Visitor kind", "n"] + [DIM_TITLES[k] for k in DIMS + EXTRA],
+                   [[g, (numbers.get("scores_by_audience") or {}).get(g, {}).get("n", "")] + [fmt(scored_by_g.get(g, {}).get(k)) for k in DIMS + EXTRA] for g in groups]))
+        w("")
+    exits = hard.get("exits") or {}
 
     # --- 6 journey
     w("## 6. Customer journey assessment (Brief §6)\n")
