@@ -1,0 +1,133 @@
+{
+  "schemaVersion": "1.0",
+  "contextRules": [
+    {
+      "match": { "contextType": "page_audit" },
+      "distributions": [
+        { "id": "audit.understanding_by_segment", "facetKey": "understanding", "title": "Understanding (1-5)" },
+        { "id": "audit.language_by_segment", "facetKey": "language_relevance", "title": "Language and relevance (1-5)" },
+        { "id": "audit.value_by_segment", "facetKey": "practical_value", "title": "Perceived practical value (1-5)" },
+        { "id": "audit.trust_by_segment", "facetKey": "trust", "title": "Trust (1-5)" },
+        { "id": "audit.confidence_by_segment", "facetKey": "next_step_confidence", "title": "Confidence in the next step (1-5)" },
+        { "id": "audit.ease_by_segment", "facetKey": "next_step_ease", "title": "Ease of completing the next step (1-5)" },
+        { "id": "audit.stop_point_by_segment", "facetKey": "attention_stop_point", "title": "Where a real visit would stop reading" },
+        { "id": "audit.missing_by_segment", "facetKey": "missing_info", "title": "What is missing" },
+        { "id": "audit.claims_grounded_by_segment", "facetKey": "claims_grounded_share", "title": "Quoted claims found on the page (share)" }
+      ],
+      "summaryAnalyses": [
+        {
+          "id": "audit.understanding_by_audience",
+          "title": "What each visitor kind thinks this page offers",
+          "targetFacetKey": "what_it_does",
+          "groupByPersonaDimension": "audience_group",
+          "summaryKind": "llm_bucket_summary",
+          "instruction": "For each visitor kind, summarize in 1-2 sentences what these personas concluded the company or product does and for whom, and note where they got it wrong or stayed vague. Label anything you quote from the page as quoted wording; everything else is persona interpretation. Do not invent."
+        }
+      ]
+    },
+    {
+      "match": { "contextType": "first_impression" },
+      "distributions": [
+        { "id": "first.match_by_segment", "facetKey": "first_screen_expectation_match", "title": "First screen matched expectation (1-5)" },
+        { "id": "first.continue_by_segment", "facetKey": "would_continue", "title": "Would keep reading after the first screen" }
+      ],
+      "summaryAnalyses": [
+        {
+          "id": "first.reasons_by_audience",
+          "title": "What the first screen decided, by visitor kind",
+          "targetFacetKey": "would_continue_reason",
+          "groupByPersonaDimension": "audience_group",
+          "summaryKind": "llm_bucket_summary",
+          "instruction": "For each visitor kind, state in 1-2 sentences what on the first screen made these personas continue or not, naming the element or quoting the wording they pointed to. Mark quoted wording as quoted; the rest is persona interpretation. Do not invent."
+        }
+      ]
+    },
+    {
+      "match": { "contextType": "cta_followthrough" },
+      "distributions": [
+        { "id": "cta.inspected_by_segment", "facetKey": "cta_inspected", "title": "Primary button clicked and inspected" },
+        { "id": "cta.match_by_segment", "facetKey": "cta_match", "title": "What followed matched expectation (1-5)" },
+        { "id": "cta.label_grounded_by_segment", "facetKey": "cta_label_grounded", "title": "Button label is a real CTA" },
+        { "id": "cta.url_ok_by_segment", "facetKey": "cta_url_ok", "title": "Click reached the expected destination" }
+      ],
+      "summaryAnalyses": [
+        {
+          "id": "cta.expectation_vs_reality",
+          "title": "Expectation set by the button vs what followed",
+          "targetFacetKey": "cta_reality",
+          "groupByPersonaDimension": "audience_group",
+          "summaryKind": "llm_bucket_summary",
+          "instruction": "For each visitor kind, describe in 1-2 sentences what these personas found after clicking the primary button - what it asks for, and where it differed from what the button led them to expect. Report only what the personas observed; mark anything uninspected as unknown. Do not invent."
+        }
+      ]
+    },
+    {
+      "match": { "contextType": "decision" },
+      "distributions": [
+        { "id": "decision.next_step_by_segment", "facetKey": "decision_outcome", "title": "Next step" },
+        { "id": "decision.converted_by_segment", "facetKey": "converted", "title": "Took a conversion step" },
+        { "id": "decision.trust_action_by_segment", "facetKey": "trust_action", "title": "Needed before going further" },
+        { "id": "decision.contact_likelihood_by_segment", "facetKey": "contact_likelihood", "title": "Likelihood of contacting (1-5)" },
+        { "id": "decision.basis_by_segment", "facetKey": "basis_primary", "title": "Primary basis" }
+      ],
+      "summaryAnalyses": [
+        {
+          "id": "decision.reason_by_audience",
+          "title": "Why each visitor kind chose its next step",
+          "targetFacetKey": "reason",
+          "groupByPersonaDimension": "audience_group",
+          "summaryKind": "llm_bucket_summary",
+          "instruction": "For each visitor kind, summarize in 1-2 sentences what drove these personas' next step. Preserve the case where a persona understood and valued the offer but was not ready to make contact, and say what it would take. Be faithful and concise; do not invent facts."
+        }
+      ]
+    },
+    {
+      "match": { "contextType": "page_improvement" },
+      "distributions": [
+        { "id": "improve.weakest_by_segment", "facetKey": "weakest_element", "title": "Weakest element" },
+        { "id": "improve.strongest_by_segment", "facetKey": "strongest_element", "title": "Strongest element" }
+      ],
+      "summaryAnalyses": [
+        {
+          "id": "improve.findings_by_audience",
+          "title": "Findings: what creates confusion, hesitation or doubt, by visitor kind",
+          "targetFacetKey": "confusing_or_missing",
+          "groupByPersonaDimension": "audience_group",
+          "summaryKind": "llm_bucket_summary",
+          "instruction": "For each visitor kind, cluster what these personas found confusing, missing, unconvincing or irrelevant into at most four findings. For each finding give: the exact section or wording (keep the [position/kind] tags and quote wording as written), who it affects, and what it creates (confusion, hesitation, doubt). Quoted wording is what is visible on the site; everything else is persona interpretation - label them. Do not invent findings."
+        },
+        {
+          "id": "improve.proof_by_audience",
+          "title": "Claims that need proof, by visitor kind",
+          "targetFacetKey": "claims_need_proof",
+          "groupByPersonaDimension": "audience_group",
+          "summaryKind": "llm_bucket_summary",
+          "instruction": "For each visitor kind, list the claims (quoted as written) these personas would not accept without explanation or evidence, most frequent first, and in a few words what kind of proof they wanted. Do not invent."
+        },
+        {
+          "id": "improve.suggestions_by_audience",
+          "title": "What to change, clustered by visitor kind, with how to check",
+          "targetFacetKey": "improvement_suggestion",
+          "groupByPersonaDimension": "audience_group",
+          "summaryKind": "llm_bucket_summary",
+          "instruction": "For each visitor kind, cluster these suggested changes into at most four concrete themes, ordered by how often they come up. For each theme give a short imperative title, one representative verbatim quote, and how the site owner could check whether the change helped (the personas' own improvement_check ideas where given). These are instructions to the website owner: specific and actionable. Do not invent suggestions that were not made."
+        },
+        {
+          "id": "improve.retain_by_audience",
+          "title": "What already works and should be kept",
+          "targetFacetKey": "retain",
+          "groupByPersonaDimension": "audience_group",
+          "summaryKind": "llm_bucket_summary",
+          "instruction": "For each visitor kind, summarize in 1-2 sentences what these personas said already works on this page and should be retained, naming the elements. Do not invent."
+        }
+      ]
+    },
+    {
+      "match": { "contextType": "persona_fidelity" },
+      "distributions": [
+        { "id": "fidelity.arrived_by_segment", "facetKey": "arrived_with", "title": "Reason for the visit (self-reported)" },
+        { "id": "fidelity.match_by_segment", "facetKey": "arrived_with_matches_persona", "title": "Self-report matches the persona" }
+      ]
+    }
+  ]
+}

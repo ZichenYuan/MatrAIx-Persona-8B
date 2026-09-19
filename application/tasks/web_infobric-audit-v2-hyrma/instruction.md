@@ -1,0 +1,170 @@
+# Review one page of a supplier's website
+
+You are about to look at one page of Infobric's website, as yourself, in your own job
+and situation. Treat the page as the first thing you have ever seen from this company:
+do not assume you have read any other page.
+
+## Page brief
+
+- **page_id:** `hyrma`
+- **Page to review:** https://infobric.com/se/produkter/hyrma/
+- **What this page is for:** a product page for Infobric Hyrma — meant to tell a rental
+  company what Hyrma is, how it supports the whole rental process (bookings, contracts,
+  inventory, transport, returns, service and invoicing), how it reduces manual work and
+  errors, whether it fits the size and complexity of their operation, and which package
+  or next step is right for them.
+- **Primary next-step button to inspect (step 4):** the page's main "book a personal
+  demo" button. Click it once and describe what follows. Pricing and package information,
+  integrations, workflows and customer stories on the page are content to read, not
+  buttons to follow off the page. Links to other products are ordinary navigation; do not
+  follow them.
+- **`next_step` options on this page:** `book_demo`, `learn_more`, `come_back_later`,
+  `leave`.
+
+The site is in Swedish. Read it in Swedish; write your answers in English. When you quote
+wording from the page, quote it exactly as written, in Swedish.
+
+## How to do the visit, in this order
+
+**1. Before you open the page — brief yourself.** In two or three sentences, as yourself:
+who you are and what you do, what in your day-to-day work is relevant to a page like this,
+why you are looking at it today, and what (if anything) you already know about Infobric.
+Take the reason for today's visit from your own profile, not from the page: either you
+have a specific problem to solve right now, or you are exploring ways to improve
+operations. Write this down first; it goes in `self_briefing`.
+
+**2. Open the page. Before scrolling, answer the first-screen questions.** Look only at
+what is visible without scrolling. What do you think this company or product is? Does it
+match what you expected when you came here? Would you keep reading?
+
+**3. Read the whole page.** Then answer the page questions. For anything you point to,
+quote the exact wording and say where on the page it sits — `top` (visible before
+scrolling), `middle`, or `bottom`.
+
+**4. Click the page's primary next-step button once** — the one named in the page brief.
+Look at what appears: a form, a page, a chat, a calendar. Describe what it actually asks of
+you and whether it matches what the button led you to expect. **Do not fill in or submit
+anything, do not log in, do not book anything.** Then go no further. If the button leads
+somewhere you cannot see or the page fails to load, say so and mark the related answers
+`unknown`. Do not open any other page.
+
+**5. Decide what you would actually do next, then save your answers.**
+
+Save to `/app/output/page_audit.json`:
+
+```json
+{
+  "self_briefing": "<2-3 sentences, step 1>",
+  "arrived_with": "<one of: specific_problem, exploring — the reason for today's visit from your own profile; write only the option, no explanation>",
+
+  "first_screen_takeaway": "<from the first screen only: what you think this company or product does, in your words>",
+  "first_screen_expectation_match": <1-5, how well the first screen matched what you expected to find here>,
+  "would_continue": "<yes or no — would you keep reading after the first screen>",
+  "would_continue_reason": "<why, naming what on the first screen decided it>",
+
+  "what_it_does": "<after reading everything: what this company or product does, for whom, in your words>",
+  "problems_recognised": ["<your own work problems that this page speaks to, one per entry — empty list if none>"],
+  "language_felt_familiar": ["<exact quoted phrases or examples that sounded like your world>"],
+  "language_felt_off": ["<exact quoted phrases that felt written for someone else, or irrelevant to you>"],
+  "claims_credible": ["<exact quoted claims you found believable>"],
+  "claims_need_proof": ["<exact quoted claims that need explanation or evidence before you would believe them>"],
+  "confusing_or_missing": [
+    {"what": "<the thing, quoting wording if there is any>", "where": "<top | middle | bottom>", "kind": "<confusing | missing | unconvincing | irrelevant>"}
+  ],
+  "dead_click_candidates": ["<things you tried to click, or expected to be clickable, that did nothing — empty list if none>"],
+  "attention_stop_point": "<top | middle | bottom | read_all — NOT how far you read for this review, but how far the real you, with your real time pressure, would have read before deciding to act or leave: top = the first screen only, middle = about halfway, bottom = nearly to the end, read_all = every section carefully>",
+  "strongest_element": "<the one thing that worked best for you — name the actual element and quote it if it has wording>",
+  "strongest_position": "<top | middle | bottom>",
+  "weakest_element": "<the one thing that worked worst for you — name the actual element>",
+  "weakest_position": "<top | middle | bottom>",
+  "hesitate_or_leave_reason": "<what on this page would make you hesitate or leave, if anything>",
+
+  "understanding": <1-5>,
+  "language_relevance": <1-5>,
+  "practical_value": <1-5>,
+  "trust": <1-5>,
+  "next_step_confidence": <1-5>,
+  "next_step_ease": <1-5, or "unknown" if you did not inspect the button>,
+
+  "primary_cta_seen": "<the exact label of the primary next-step button as written on the page>",
+  "cta_expectation": "<before clicking: what you expected to happen>",
+  "cta_inspected": <true or false>,
+  "cta_page_url": "<the URL after clicking, or \"unknown\">",
+  "cta_reality": "<what actually appeared and what it asks of you, or \"unknown\">",
+  "form_asks_for": ["<each thing a form asks you to provide — empty list if there was no form or you did not inspect>"],
+  "cta_match": <1-5, how well what followed matched the expectation, or "unknown">,
+
+  "next_step": "<what you would actually do now — one of the options listed in the page brief>",
+  "basis_primary": "<the main thing driving that — one of: legal_compliance, consolidation, price, integrations, ease_of_rollout, proof_references, support, features, fit, other>",
+  "trust_action": "<what you would need before going further — one of: share_data_now, need_references_first, need_pilot_first, would_not_proceed>",
+  "contact_likelihood": <1-5, how likely you are to contact this supplier within the next week>,
+  "missing_info": ["<zero or more of: price, integrations, hardware, setup_time, references, data_privacy, contract_terms>"],
+  "reason": "<why you chose that next step, grounded in what you saw and your own situation>",
+  "improvement_suggestion": "<the single change to this page that would most move you toward the next step, in your own words>",
+  "improvement_check": "<how the site owner could tell whether that change worked — what would be different in how visitors like you behave>",
+  "retain": "<what on this page already works well for you and should be kept>"
+}
+```
+
+## The 1–5 scales
+
+Use the whole range. 3 means genuinely middling, not a polite default. Anchor each score
+to real behaviour:
+
+- **understanding** — 1: I still could not say what they sell. 3: I know the category, but
+  not what it would do for me. 5: I could explain to a colleague what it does and for whom.
+- **language_relevance** — 1: written for someone else; nothing from my world. 3: general
+  business language with some familiar examples. 5: my situations and my words; I
+  recognised my own problems.
+- **practical_value** — 1: no idea what would change in my day. 3: a plausible benefit,
+  not concrete. 5: I can name what would get easier or cheaper for me.
+- **trust** — 1: I would not share my data with them. 3: a credible company, but the
+  claims are unproven for my case. 5: I would put my own operation on it without asking
+  for references.
+- **next_step_confidence** — 1: no idea what I should do next or what would happen.
+  3: I see a button but not what follows. 5: I know exactly what happens after clicking,
+  and it suits me.
+- **next_step_ease** — 1: the step is unclear, demanding or off-putting. 3: doable, with
+  some friction or uncertainty. 5: quick and obvious, nothing in the way. `unknown` if you
+  did not inspect it.
+- **first_screen_expectation_match** and **cta_match** — 1: nothing like what I expected.
+  3: partly. 5: exactly what I expected.
+- **contact_likelihood** is about your own next week, not how good the page is. Contacting
+  them costs you a sales conversation and follow-up calls; weigh that against how pressing
+  your situation actually is. Someone with a deadline and no system may well reach out;
+  someone with time and a working setup may not. Let your own situation decide.
+
+## Requirements
+
+- Quote wording exactly as it appears on the page, in Swedish, inside the JSON string.
+  Do not paraphrase a quote. Lists of quotes may be empty, but must not contain invented
+  text.
+- `arrived_with` reflects your profile, not the page. If you are exploring, say
+  `exploring` even if the page shows problems you could have; say `specific_problem`
+  only if you actually came with one today.
+- `attention_stop_point` is a counterfactual. For this task you read the whole page;
+  the real you, on a real visit, usually would not. Answer for the real visit.
+- `next_step` must be one of the options listed in the page brief for this page, and must
+  be what you would actually do today. `learn_more`, `come_back_later` and `leave` are
+  all valid, and `leave` is right if the page does not give you what you need.
+- `basis_primary` is the single thing that actually drives your next step. Use `fit` only
+  when no more specific reason applies.
+- `trust_action` is the concrete thing you would need before going further.
+  `share_data_now` means you would sign up or hand over details today.
+- `improvement_suggestion` is advice to the page's owner: specific, and tied to what you
+  saw. `improvement_check` is how they would know it worked.
+- Anything you did not inspect is `unknown`, not a guess.
+- `missing_info` and enumerated fields must use only the listed values, spelled exactly.
+- **Save the file with your file-writing tool** (for example `write_file`) to exactly
+  `/app/output/page_audit.json`, then read it back and check it is complete, valid JSON.
+  Do not try to run Python or shell commands to write it — you may not have them, and you
+  do not need them.
+- **Never end without saving the file.** Nothing ends this run except your own final
+  action — if you ever think the run has already ended, it has not: save the file.
+- If your file tool adjusts or auto-corrects the save path (for example into a sandbox
+  subdirectory), that is expected and acceptable — the saved file is still correct. Do
+  **not** treat a path adjustment as a failure.
+- If a page looks blank or empty after you navigate, that is almost always a slow render,
+  not a broken site. Wait a moment and reload it, and try once more before concluding
+  anything. Do not end the task by reporting an empty page — the site is known to be live.
+- Finish after saving the completed JSON file.

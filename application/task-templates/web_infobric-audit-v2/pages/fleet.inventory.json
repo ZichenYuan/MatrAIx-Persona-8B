@@ -1,0 +1,227 @@
+{
+  "page_id": "fleet",
+  "label": "Infobric Fleet",
+  "url": "https://infobric.com/se/produkter/fleet/",
+  "checked": "2026-09-18",
+  "checked_by": "drafted by build_inventory.py 2026-09-18; primary button, secondaries, claims and next-step sets confirmed against the fetched text; product description from the partner's URL brief",
+  "truth_statement": "Infobric Fleet: a system for managing company vehicles — an automatic vehicle list, real-time hardware data, electronic driving logs, driver identification (app, ID06 card or Bluetooth tag), CO2 and cost reporting, service and damage follow-up, and integrations with payroll, leasing and fleet-administration systems. The page offers a free trial, a fleet preview by organisation number, pricing and packages, and contact with sales.",
+  "primary_cta": {
+    "label": "Prova gratis",
+    "url_fragment": "/produkter/fleet"
+  },
+  "secondary_ctas": [
+    {
+      "label": "Förhandsvisa din fordonspark",
+      "url_fragment": "/produkter/fleet"
+    },
+    {
+      "label": "Se din fordonspark",
+      "url_fragment": "/produkter/fleet"
+    },
+    {
+      "label": "Pris och paketering",
+      "url_fragment": "/produkter/fleet"
+    },
+    {
+      "label": "Prata med en expert",
+      "url_fragment": "/kontakta-en-saljare"
+    },
+    {
+      "label": "Kontakta en säljare",
+      "url_fragment": "/kontakta-en-saljare"
+    },
+    {
+      "label": "Kontakta oss",
+      "url_fragment": "/kontakta-oss"
+    },
+    {
+      "label": "Kontakt",
+      "url_fragment": "/kontakt"
+    }
+  ],
+  "available_next_steps": [
+    "start_trial",
+    "book_demo",
+    "order_package",
+    "preview_fleet",
+    "learn_more",
+    "come_back_later",
+    "leave"
+  ],
+  "conversion_next_steps": [
+    "start_trial",
+    "book_demo",
+    "order_package",
+    "preview_fleet"
+  ],
+  "navigation_next_steps": [
+    "learn_more"
+  ],
+  "claims": [
+    "Över 20 år i branschen.",
+    "Vi är certifierade enligt ISO-standarderna 9001, 14001 och 27001.",
+    "Följ CO2-utsläpp per fordon, kund eller projekt och få färdiga rapporter till ledningsgruppen.",
+    "Via app, ID06-kort eller Bluetooth tagg.",
+    "En IP-67 klassad enhet som installeras med eller utan tändning."
+  ],
+  "sections": [
+    {
+      "name": "Smart fordonshantering börjar med Infobric Fleet.",
+      "level": "h1",
+      "position": "middle"
+    },
+    {
+      "name": "”Det fungerar inte med manuell hantering helt enkelt, det blir för många fel.”",
+      "level": "h2",
+      "position": "middle"
+    },
+    {
+      "name": "Så funkar det.",
+      "level": "h2",
+      "position": "middle"
+    },
+    {
+      "name": "Automatisk fordonslista.",
+      "level": "h3",
+      "position": "middle"
+    },
+    {
+      "name": "Hårdvara för realtidsdata.",
+      "level": "h3",
+      "position": "middle"
+    },
+    {
+      "name": "Automatisera processer.",
+      "level": "h3",
+      "position": "middle"
+    },
+    {
+      "name": "Smarta integrationer.",
+      "level": "h3",
+      "position": "middle"
+    },
+    {
+      "name": "Från magkänsla till datadrivna beslut.",
+      "level": "h3",
+      "position": "middle"
+    },
+    {
+      "name": "Din partner för smartare fordonshantering.",
+      "level": "h2",
+      "position": "middle"
+    },
+    {
+      "name": "“Vi i ledningen kan släppa alla funderingar, och sen har vi Infobrics kundtjänst",
+      "level": "h2",
+      "position": "middle"
+    },
+    {
+      "name": "“Hanteringen av delat drivmedel tog våra förare flera timmar, med integrationen ",
+      "level": "h2",
+      "position": "middle"
+    },
+    {
+      "name": "Små detaljer som gör stor skillnad.",
+      "level": "h2",
+      "position": "middle"
+    },
+    {
+      "name": "“Vi ser hur mycket en avdelning använder en viss bil, och utifrån det kan vi int",
+      "level": "h2",
+      "position": "middle"
+    },
+    {
+      "name": "Automatiskt fordonsregister.",
+      "level": "h3",
+      "position": "middle"
+    },
+    {
+      "name": "Elektronisk körjournal.",
+      "level": "h3",
+      "position": "middle"
+    },
+    {
+      "name": "Milersättning på autopilot.",
+      "level": "h3",
+      "position": "middle"
+    },
+    {
+      "name": "CO2-rapport per projekt eller kund.",
+      "level": "h3",
+      "position": "middle"
+    },
+    {
+      "name": "Realtidskarta & Geofence.",
+      "level": "h3",
+      "position": "middle"
+    },
+    {
+      "name": "Skade- och besiktningsstatus.",
+      "level": "h3",
+      "position": "middle"
+    },
+    {
+      "name": "Larm och felkoder.",
+      "level": "h3",
+      "position": "middle"
+    },
+    {
+      "name": "Förbättra ert körbeteende.",
+      "level": "h3",
+      "position": "middle"
+    },
+    {
+      "name": "Föraridentifiering som passar er.",
+      "level": "h3",
+      "position": "middle"
+    },
+    {
+      "name": "Bilpoolshantering.",
+      "level": "h3",
+      "position": "middle"
+    },
+    {
+      "name": "Smarta integrationer.",
+      "level": "h3",
+      "position": "middle"
+    },
+    {
+      "name": "Vårt pris och paketering.",
+      "level": "h3",
+      "position": "middle"
+    },
+    {
+      "name": "“Trängselskattshanteringen är en viktig funktion för oss. Alla passager registre",
+      "level": "h2",
+      "position": "middle"
+    },
+    {
+      "name": "Prova gratis eller få en personlig genomgång.",
+      "level": "h2",
+      "position": "middle"
+    },
+    {
+      "name": "Välkommen till byggbranschens digitala ekosystem.",
+      "level": "h2",
+      "position": "middle"
+    },
+    {
+      "name": "Våra integrationer.",
+      "level": "h2",
+      "position": "middle"
+    },
+    {
+      "name": "Findity",
+      "level": "h2",
+      "position": "bottom"
+    }
+  ],
+  "trust_signals_present": [
+    "testimonial",
+    "certifications",
+    "case_studies",
+    "logos"
+  ],
+  "shows_price": true,
+  "text_snapshot": "Lösningar \nLösningar \nPersonalliggare \nAccess \nFordonshantering \nFöranmälan \nLeverantörsuppföljning \nIndividinskrivning \nKMA \nMaskin- och verktyg \nArbetsorderhantering \nUthyrningssystem \nKompetenser \nKravutbildningar \nBorrning & Sprängning \nFöretagsintroduktioner \nProdukter \nProdukter \nSite \nFleet \nField \nConnect \nWorkorder \nEquipment \nIntelligence \nBlastmanager \nHyrma \nMachines \nEase CheckIn \nControl \nAcademy \nSnabblänkar \nStarta arbetsplats \nFyll i företagsuppgifter och beställ arbetsplats i Site och Field. \nKom igång \nHantera arbetsplatser \nAdministrera dina pågående projekt i Site och Field. \nHantera \nSe din fordonspark \nFörhandsvisa din fordonspark i Fleet, kräver bara organisationsnummer! \nProva gratis \nVem vi hjälper \nVem vi hjälper \nVi kopplar samman byggbranschens ekosystem och ger alla aktörer rätt verktyg för säkrare, effektivare och mer hållbara byggprojekt. \nVem vi hjälper \nHuvudentreprenörer \nUnderentreprenörer \nByggherrar \nYrkesarbetare \nUthyrningsföretag \nCompliance \nKunskap \nKunskap \nHär hittar du kundberättelser, guider, artiklar, nyheter och webinar. \nKunskap \nKundberättelser \nGuider \nArtiklar \nNyheter \nWebinar \nUtvalda kundberättelser \nLWAB har koll på verktygen \nSå hanterar LWAB utmaningen med utrustning som ständigt byter händer. \nSe videon \nSkanska bygger tingsrätt \nDärför är nya tjänsten Föranmälan en viktig pusselbit för Skanska. \nSe videon \nOm oss \nOm oss \nVår resa \nLedning och styrelse \nVår samhällspåverkan \nNyheter och press \nKontakt \nKontakta oss \nSupport \nJobba hos oss \n(SV) \nGlobal (English) \nSweden (Swedish) \nNorway (Norwegian) \nUnited Kingdom (English) \nUnited States (English) \nLogga in \nLogga in \nFleet \nElektronisk körjournal \nFöraridentifiering \nIntegrationer \nAlla integrationer \nLönesystem \nLeasingbolag \nFordonsadministration \nSingle sign on \nElektronisk körjournal \nKundberättelser \nPris och paketering \nProva gratis \nProva gratis \nBack to infobric.com/se \nElektronisk körjournal \nFöraridentifiering \nIntegrationer \nAlla integrationer \nElektronisk körjournal \nKundberättelser \nPris och paketering \nProva gratis \nIntegrationer \nAlla integrationer \nLönesystem Leasingbolag Fordonsadministration Single sign on \nAlla integrationer \nLönesystem \nLeasingbolag \nFordonsadministration \nSingle sign on (SV) \nSelect your country & language preference \nSidan du försöker navigera till är endast tillgänglig i följande regioner, vänligen välj ett land och språk för att fortsätta. \nGlobal (English) \nSweden (Swedish) \nNorway (Norwegian) \nUnited Kingdom (English) \nUnited States (English) \nTillbaka \nLösningar \nPersonalliggare \nAccess \nFordonshantering \nFöranmälan \nLeverantörsuppföljning \nIndividinskrivning \nKMA \nMaskin- och verktyg \nArbetsorderhantering \nUthyrningssystem \nKompetenser \nKravutbildningar \nBorrning & Sprängning \nFöretagsintroduktioner \nTillbaka \nHårdvara \nPris och paketering \nKontakta en säljare \nHantera arbetsplatser \nTillbaka \nHårdvara \nPris och paketering \nKontakta en säljare \nHantera arbetsplatser \nTillbaka \nFörhandsvisa din vagnpark \nKundberättelser \nPrata med en expert \nTillbaka \nBankinitiativet \nPris och paketering \nKontakta en säljare \nHantera arbetsplatser \nTillbaka \nPris och paketering \nKontakta en säljare \nHantera arbetsplatser \nTillbaka \nPris och paketering \nKontakta en säljare \nTillbaka \nPris och paketering \nKontakta en säljare \nTillbaka \nKundberättelser \nPrata med en expert \nTillbaka \nInstallation och eftermarknad \nIntegrationer \nAlla integrationer \nLönesystem \nLeverantörsfakturor \nGrossister \nEkonomi- och affärssystem \nUtvalda integrationer \nFortnox \nFrån offert och arbetsorder till fakturering och ekonomisk uppföljning. Läs mer \nMonitor ERP \nKomplett digital orderhantering för dig \nsom arbetar med eftermarknad. Läs mer \nKundberättelser \nPrata med en expert \nTillbaka \nPrata med en expert \nTillbaka \nFöretagsintroduktioner \nPris och paketering \nKontakta en säljare \nHantera dina arbetsplatser \nTillbaka \nFöretagsintroduktioner \nBoka demo \nTillbaka \nBoka demo \nTillbaka \nProdukter \nSite \nFleet \nField \nConnect \nWorkorder \nEquipment \nIntelligence \nBlastmanager \nHyrma \nMachines \nEase CheckIn \nControl \nAcademy \nSnabblänkar \nStarta arbetsplats \nHantera arbetsplatser \nSe din fordonspark \nTillbaka \nHårdvara \nDörrlås \nGrindar \nNärvaroregistrering \nReklamation \nReservdelar & tillbehör \nPris och paketering \nKontakta en säljare \nHantera arbetsplatser \nTillbaka \nElektronisk körjournal \nFöraridentifiering \nIntegrationer \nAlla integrationer \nLönesystem \nLeasingbolag \nFordonsadministration \nSingle sign on \nElektronisk körjournal \nKundberättelser \nPris och paketering \nProva gratis \nTillbaka \nKundberättelser & guider \nPris och paketering \nKontakta en säljare \nBoka demo \nTillbaka \nPris och paketering \nKontakta en säljare \nHantera arbetsplatser \nTillbaka \nInstallation och eftermarknad \nMiljörapport \nIntegrationer \nAlla integrationer \nLönesystem \nLeverantörsfakturor \nGrossister \nEkonomi- och affärssystem \nUtvalda integrationer \nFortnox \nFrån offert och arbetsorder till fakturering och ekonomisk uppföljning. Läs mer \nMonitor ERP \nKomplett digital orderhantering för dig som arbetar med eftermarknad. Läs mer \nKundberättelser \nPris och paketering \nFå en demo \nTillbaka \nSpårning och hårdvara \nSpårning och hårdvara \nEtiketter \nVår enklaste spårningslösning. Fäst på verktyg och skanna etiketten för in- och utcheckning. Läs mer \nTool Tracker \nLiten enhet som är enkel att fästa på alla typer av utrustning och verktyg. Läs mer \nAsset Tracker \nLite större enhet med egen GPS för utrustning som står remote. Läs mer \nTool Receiver \nSkicka in data från Infobric Tool Trackers. Utmärkt för användning i t.ex förråd. Läs mer \nKundberättelser \nPris och paketering \nProva gratis \nTillbaka \nPris och paketering \nKontakta en säljare \nHantera arbetsplatser \nTillbaka \nLadda ner apparna \nBoka demo \nTillbaka \nNyhet: Kundvarningar \nIntegrationer \nPris och paketering \nInsikter för uthyrare \nFå en demo \nTillbaka \nFör bygg- & anläggningsbolag \nSpårning och hårdvara \nSpårning och hårdvara \nVehicle Tracker \nEn IP-67 klassad enhet som installeras med eller utan tändning. Hämtar data såsom motor- och drifttimmar. Läs mer \nAsset Tracker \nEn batteridriven enhet som inte kräver extern ström. Den skickar sin position en gång per dygn och har tre års batteritid. Läs mer \nTool Tracker \nLiten enhet som är enkel att fästa på alla typer av utrustning och verktyg. Läs mer \nKundberättelser \nPris och paketering \nFå en demo \nTillbaka \nLadda ner appen \nSupport \nBoka demo \nTillbaka \nKontakta oss \nTillbaka \nVem vi hjälper \nVi kopplar samman byggbranschens ekosystem och ger alla aktörer rätt verktyg för säkrare, effektivare och mer hållbara byggprojekt. \nVem vi hjälper \nHuvudentreprenörer \nUnderentreprenörer \nByggherrar \nYrkesarbetare \nUthyrningsföretag \nCompliance \nTillbaka \nKunskap \nHär hittar du kundberättelser, guider, artiklar, nyheter och webinar. \nKunskap \nKundberättelser \nGuider \nArtiklar \nNyheter \nWebinar \nUtvalda kundberättelser \nLWAB har koll på verktygen \nSkanska bygger tingsrätt \nTillbaka \nOm oss \nVår resa \nLedning och styrelse \nVår samhällspåverkan \nNyheter och press \nTillbaka \nKontakta oss \nSupport \nJobba hos oss \nTillbaka \nVälj land och språkpreferens. \nSidan du försöker navigera till är endast tillgänglig i följande regioner, vänligen välj ett land och språk för att fortsätta. \nGlobal (English) \nSweden (Swedish) \nNorway (Norwegian) \nUnited Kingdom (English) \nUnited States (English) \nInfobric > Produkter > Fleet / \nSmart fordonshantering börjar med Infobric Fleet. \nVi hjälper dig få koll på fordon, förare, körjournaler och mycket mer. Allt du behöver på ett ställe – enkelt, säkert och effektivt. \nFå en demo \nFå en demo \nProva gratis \nProva gratis \n”Det fungerar inte med manuell hantering helt enkelt, det blir för många fel.” \n– Petter Viklund, NCC \nSå funkar det. \nVi samlar hela din fordonsflotta i en enkel och modern plattform som hjälper dig minska administrationen, ta bättre beslut och få kontroll på kostnaderna. Byggd för att förenkla vardagen för förare, ekonomi och fordonsansvariga – och ge rätt beslutsunderlag till ledningsgruppen. \nAutomatisk fordonslista. \nVi importerar automatiskt alla fordon och tillhörande data direkt från Transportstyrelsen. Ni slipper manuell inmatning och kommer igång snabbt. \nHårdvara för realtidsdata. \nKoppla upp de fordon ni vill ha extra koll på. Hårdvaran ger er exakt data för automatisk körjournal, körbeteende och position. Installationen görs enkelt av föraren själv på några minuter. \nAutomatisera processer. \nHejdå till manuella körjournaler och krångliga excelark. Allt från milersättning till service-påminnelser sköts automatiskt. Det sparar tid för både förare, ekonomi och fordonsansvarig – samtidigt som ni säkerställer full regelefterlevnad. \nSmarta integrationer. \nKoppla ihop plattformen med era befintliga system för att jobba ännu effektivare med lönehantering, leasing och fordonsadministration. \nFrån magkänsla till datadrivna beslut. \nFå full koll på hur era bilar faktiskt används och planera inköp, avyttring och elektrifiering baserat på verklig data. Ta enkelt fram rapporter till ledningsgruppen och följ upp allt från bränsleförbrukning till hållbarhetsmål. \nFörhandsvisa din fordonspark. \nFyll i ert organisationsnummer så hämtar vi era fordon och dess status från Transportstyrelsen. En förhandsvisning av Infobric Fleet helt enkelt! \nThis site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply. \nVisa min fordonspark \nSveriges kanske enklaste körjournal. \nIngen vill skriva körjournal. Vi har gjort det så enkelt som möjligt. \nLäs mer om vår körjournal \nLäs mer om vår körjournal \nByggt med poolbilar i åtanke. \nHantera bokningar, följa användning och kategorisera kostnader på olika enheter. Vi har också flera olika lösningar för föraridentifiering. \nDigitalisera er hantering av service, besiktning och skador. \nVi påminner när det är dags för service eller besiktning och samlar in felkoder direkt från fordonet. Om olyckan är framme kan förare rapportera skador direkt i appen. \nKarta med integritet. \nFölj fordonen på kartan för att dirigera dagens arbete och använd historiken för att förstå hur de har rört sig. Med integritetsinställningar som redan används av verksamheter med riktigt höga krav. \nDin partner för smartare fordonshantering. \nÖver 20 år i branschen. \nVi har jobbat med uppkopplade fordon i över 20 år och arbetar tillsammans med några av Sveriges största fordonsägare. \nFordonshantering på helt ny nivå. \nVi importerar automatiskt all fordonsinformation direkt från Transportstyrelsen. Ett helt nytt sätt att arbeta – som du bara hittar hos oss. \nIntegrerat med dina favoritsystem. \nVi vet att ni redan har fungerande system och rutiner. Därför funkar Infobric Fleet sömlöst med det ni använder idag, utan att ni behöver ändra era arbetsflöden. \nFörar-identifiering som passar din verksamhet. \nVi erbjuder flera olika lösningar för förar-identifiering. Via app, ID06-kort eller Bluetooth tagg. När du vet vem som kör får du bättre underlag, tydligare ansvar och en körjournal som blir korrekt. \nSå har vi löst förar-id \nSå har vi löst förar-id \nFörbättra ert körbeteende. \nJobba aktivt med att för bättra ert körbeteende med tydlig poängsättning på varje resa och förare. \nMiljörapportering, redo för CSRD. \nFölj CO2-utsläpp per fordon, kund eller projekt och få färdiga rapporter till ledningsgruppen. \nLäs mer om miljörapport \nLäs mer om miljörapport \nAutomatisk registrering av trängselskatt. \nPassager loggas automatiskt med tid och kostnad så att lönehantering och bokföring blir enkel. \n“Vi i ledningen kan släppa alla funderingar, och sen har vi Infobrics kundtjänst som alltid finns tillgänglig.” \n– Belsam Djehiche, HR och löneadministratör, Hemsö \nSe hur fordonen faktiskt används. \nFå koll på nyttjandegraden och identifiera resor utanför arbetstid. \nFungerar såklart för elbilar. \nRätt underlag för milersättning. \nAutomatisera hanteringen av milersättning med smarta integrationer till lön- och ekonomisystem. \n“Hanteringen av delat drivmedel tog våra förare flera timmar, med integrationen går det på 30 sekunder – tidsbesparingen är enorm.” \n– Carl Stern, IF Metall \nSmå detaljer som gör stor skillnad. \nVi har löst de små detaljerna som gör stor skillnad i vardagen. Här är några av de funktioner som gör Infobric Fleet lite snabbare, smidigare och mer pålitligt. Byggt med automatik, enkelhet och precision i varje steg. \nInstallation som knappt kan kallas installation. \nSätt enheten i bilens OBD-uttag och låt den göra jobbet. Den läser av bilens VIN-nummer och hämtar alla fordonsuppgifter från Transportstyrelsen. Snabbt, enkelt och korrekt. \nRätt mätarställning, månad efter månad. \nGenom att läsa av mätarställningen direkt från bilen slipper du de små GPS-avvikelser som kan uppstå i tunnlar eller parkeringshus – och som annars måste korrigeras manuellt. Du får alltid korrekta resor, utan efterarbete. \nVarje resa har ett syfte – hos oss sätts det automatiskt. \nResor kategoriseras automatiskt som tjänste- eller privatresor baserat på tids- eller platsfilter, så du slipper göra det manuellt. Mindre tidspill, färre fel och ett enklare månadsavslut. \nSäkert från grunden. \nVi är certifierade enligt ISO-standarderna 9001, 14001 och 27001. Sveriges största företag litar på oss för sin datahantering. \nEnkelt att börja. Enkelt att växa. \nVi förstår att din organisation kan förändras. Därför binder vi inte upp våra kunder i krångliga avtal. \nEn support som finns här för dig. \nAvsluta och beställ helt själv. \nBeställ, avsluta och byt enheter direkt i plattformen. Inga supportärenden, inga ledtider, full kontroll. \n“Vi ser hur mycket en avdelning använder en viss bil, och utifrån det kan vi internfakturera kostnaden för både drivmedel och service.” \n– Magnus Andersson, Örebro kommun \nAutomatiskt fordonsregister. \nVi hämtar dina fordon direkt från Transportstyrelsen. En helt unik funktion du bara hittar hos oss. \nElektronisk körjournal. \nAlla resor registreras automatiskt tillsammans med trängselskatten. Inga manuella fel. \nMilersättning på autopilot. \nSystemet räknar ut rätt ersättning och skickar filen direkt till ert lön- eller ekonomisystem. \nCO2-rapport per projekt eller kund. \nFölj CO₂-utsläpp per projekt, resa eller fordon och få underlag för att uppfylla CSRD-kraven. \nRealtidskarta & Geofence. \nFå full koll på fordonens position och historik, inklusive egna områden med notiser när bilarnas plats avviker. \nSkade- och besiktningsstatus. \nSystemet påminner om service och besiktning och förarna kan rapportera skador direkt i appen. \nLarm och felkoder. \nFelkoder läses av och samlas på samma ställe, så att du enkelt kan ser vad som behöver åtgärdas. \nFörbättra ert körbeteende. \nJobba aktivt med att för bättra ert körbeteende med hjälp av tydlig poängsättning. \nFöraridentifiering som passar er. \nVi erbjuder flera olika lösningar för föraridentifiering. Via app, ID06-kort eller Bluetooth tagg. \nBilpoolshantering. \nEtt enkelt sätt för både förare och bilpoolsansvarig att boka, hantera och administrera poolbilar. \nSmarta integrationer. \nIntegrerat med dina favoritsystem för enkel hantering av lön, leasing, SSO och mer. \nThis is a headline. \nLorem ipsum dolor sit amet consectetur adipiscing elit. \nButton \nButton \n\"Vi får notiser när det är dags för besiktning eller service – det hjälper mig mycket i min vardag” \nEnergihem effektiviserar hanteringen av körjournal, service och besiktning. \nSe videon \nSe videon \n\"Med hjälp av Infobrics produkter har vi effektiviserat hanteringen av våra resurser och därmed sett en stor kostnadsbesparing.\" \nImplenia kopplar upp fordon, verktyg och maskiner. \nSe videon \nSe videon \nThis is a headline. \nLorem ipsum dolor sit amet consectetur adipiscing elit. \nButton \nButton \nVårt pris och paketering. \nStarter \nGratis \nupp till 10 fordon \nProva gratis \nProva gratis \nAutomatiskt fordonsregister \nService & besiktning \nSkaderapport \ndärefter 9 kr/mån per ej uppkopplat fordon \nPopulär \nBusiness \n169 \nkr/mån \nper uppkopplat fordon \nBeställ \nBeställ \nAllt i Starter \nElektronisk körjournal \nTrängselskattshantering \nKartfunktion & geofence \nBilpool \nAnalys \nPro \n189 \nkr/mån \nper uppkopplat fordon \nBeställ \nBeställ \nAllt i Business \nKörbeteende \nFörar ID \nTemperatur \nHårdvaruenheter som passar alla fordon. \nVi erbjuder olika typer av hårdvaruenheter så att du kan koppla upp vilket fordon som helst. Hårdvaran ingår i priset. \nOBD Tracker \nEn OBD-enhet med enkel installation. Hämtar data från fordonet såsom sträcka, felkoder och motorlampan. Har möjlighet att koppla till Förar-ID via blåtand. Vår mest sålda enhet som passar för många. \nLäs mer \nVehicle Tracker \nEn IP-67 klassad enhet som installeras med eller utan tändning. Hämtar data såsom motor- och drifttimmar. Stödjer bland annat temperaturövervakning, alkolås och privatknapp. Levereras med två kablage, ett för enkelt montage direkt på batteriet och ett för mer avancerad installation med möjlighet att ansluta tillbehör och digitala ingångar. \nLäs mer \nAsset Tracker Rechargeable \nEn batteridriven och uppladdningsbar enhet som inte kräver extern ström. Upp till ett års batteritid vid position en gång per dygn. Välj själv hur ofta positionsdata ska skickas. Perfekt enhet om du har utrustning som du är rädd om och vill veta var den befinner sig. \nLäs mer \nAsset Tracker \nEn batteridriven enhet som inte kräver extern ström. Den skickar sin position en gång per dygn och har tre års batteritid. Perfekt enhet om du har utrustning som du är rädd om och vill veta var den befinner sig. \nLäs mer \nTool Tracker \nLiten enhet som är enkel att fästa på alla typer av utrustning och verktyg. Enheten använder blåtandsteknik och kommunicerar med Fleet och Equipment appen och våra trackerenheter. 3 års batteritid. \nLäs mer \n“Trängselskattshanteringen är en viktig funktion för oss. Alla passager registreras och det blir enkelt att hålla koll på i slutet av varje månad.” \n– Carl Stern, IF Metall \nProva gratis eller få en personlig genomgång. \nLämna dina uppgifter för en personlig genomgång av plattformen. Vi gör en snabb behovsanalys och visar de funktioner som passar ditt företag! \nNamn Email Företag Telefon Jag godkänner Integritetspolicyn \nThis site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply. \nSkicka \nSkicka \nVälkommen till byggbranschens digitala ekosystem. \nSe alla våra lösningar \nSe alla våra lösningar \nArbetsorderhantering med Infobric Workorder. \nDigital arbetsorderhantering som följer processen från förfrågan till fakturering. Koppla dina resor från Fleet till specifik arbetsorder eller projekt och följ CO2-utsläpp eller kostnader. \nVerktygshantering och spårning med Infobric Equipment. \nDin digitala verktygslåda. Få mer kontroll, bättre överblick och ökad effektivitet i din verktygshantering. Bilarna från Fleet rapporterar in verktygens position automatiskt. \nMaskinhantering med Infobric Machines. \nMinskar onödiga driftstopp, förbättrar planeringen och säkerställer att dina maskiner används på rätt sätt. \nVåra integrationer. \nVi förstår värdet av smidiga arbetsflöden och vet att du har redan inarbetade processer och rutiner i andra typer av system som fungerar bra. Därför gör vi det enkelt för dig att koppla på oss utan att förändra din etablerade infrastruktur, så att du kan fortsätta bygga på det arbetsflöde du redan har. På så vis får du inte bara ett bättre verktyg för fordonshanteringen, utan också ett verktyg som förstärker era befintliga processer! \nUtläggshantering \nFleet \nFindity \nFindity automatiserar och förenklar hantering av kvitton och utlägg, och kan också integreras till löne- och affärssystem. Läs mer \nParkering \nFleet \nEasyPark EasyPark är en parkeringsapp där du kan betala för parkering via mobilen. Den hjälper dig hitta och hantera parkering i realtid, oavsett var du är. Läs mer \nFordonsadministration \nFleet \nFordonsadministration Vi förser ert system för fordonsadministration med kördata för att kunna fördela kostnaden korrekt och jämföra kostnader på detaljnivå mellan fordonen. Vår kördata ger er kostnadskontroll på detaljnivå. Läs mer \nLeasingbolag \nFleet \nLeasingbolag Koppla fordonshanteringen till ditt leasingbolag! Importera enkelt alla resor, inklusive trängselskatt, till ditt leasingbolag via ett knapptryck i appen. Läs mer \nLönesystem \nFleet \nLönesystem Få korrekta underlag på drivmedel och milersättning kopplat till era fordon. Läs smidigt in all data i en och samma fil. Känn dig trygg i alla led och slipp allt manuellt arbete.​ Läs mer \nSingle Sign On \nFleet \nSingle sign on Med Single sign-on (SSO) behöver du bara logga in en gång för att få tillgång till alla system som användaren behöver ha access till. Läs mer \nVanliga frågor och svar. \nVilka är fördelarna med att koppla ihop Infobric Fleet med övriga Infobric-plattformen? \nGenom att integrera Infobric Fleet med våra övriga plattformar skapar du ett sömlöst flöde mellan bilarna, verktygen och projekt: \nEffektiv arbetsorderhantering: Genom kopplingen till Infobric Workorder kan du länka dina resor direkt till specifika arbetsordrar eller projekt. Det gör det enkelt att följa upp exakta kostnader och CO2-utsläpp per uppdrag. \nAutomatisk verktygsspårning: Med Infobric Equipment rapporterar bilarna automatiskt in positionen på dina verktyg. Du får full kontroll på din digitala verktygslåda, minskar risken för svinn och ökar effektiviteten eftersom personalen alltid vet var utrustningen finns. \nOptimerad maskinanvändning: Tillsammans med Infobric Machines kan du samköra data för att minska onödiga driftstopp och förbättra planeringen. Det säkerställer att både din vagnpark och dina maskiner används på rätt sätt och vid rätt tillfälle. \nFinns Infobric Fleet som app? \nJa, vi har en app för både Android och iOS. En förare kan enkelt se och godkänna sin körjournal direkt i mobilen. \nHur hjälper Infobric Fleet oss med miljörapportering och hållbarhetsmål? \nVi förvandlar komplex fordonsdata till färdiga rapporter över CO2-utsläpp, bränsleförbrukning och tomgångskörning. Genom att koppla resor till specifika projekt eller kunder blir detta ett ovärderligt verktyg för företag som behöver uppfylla hållbarhetskrav (som CSRD) eller vill minska sitt klimatavtryck. Genom att identifiera ineffektiva rutter och analysera körbeteende får ni konkreta data för att optimera er vagnpark och underlätta övergången till en helt eldriven flotta. \nHur kan fordonsdata sänka företagets drivmedelskostnader? \nGenom att använda insikter från Infobric Fleet kan ni sänka företagets drivmedelskostnader genom fyra konkreta åtgärder: \nBättre körbeteende: Minska förbrukningen genom att identifiera och åtgärda tomgångskörning och ineffektiva körsätt. \nFaktabaserad elektrifiering: Få ett faktabaserat underlag som visar vilka fordon som kan ersättas med elbil baserat på era faktiska körmönster och räckviddsbehov. \nKontroll på resorna: Säkerställ att fordonen endast används i tjänsten och eliminera kostnader för resor utanför arbetstid. \nSmart ruttplanering: Använd kartan för att skicka det fordon som är närmast nästa uppdrag. Genom att optimera rutter minskar ni den totala körsträckan och sparar både tid och bränsle. \nVad kostar Infobric Fleet? \nSe våra priser genom att klicka här . \nHur hanteras förarnas integritet? \nIntegritet och datasäkerhet är centralt för oss. Systemet anpassar sig helt efter er företagsstruktur och de rättigheter som ni väljer att sätta: \nPrivata resor: Kan bara ses av föraren. Ingen annan har tillgång att se eller redigera dem. \nBegränsad sikt: En förare kan endast se sina egna resor. \nKan jag integrera Infobric Fleet med våra befintliga löne- och ekonomi? \nJa, Infobric Fleet har färdiga kopplingar till flera löne- och ekonomisystem. Vi har också ett öppet API som möjliggör egna integrationer. Genom att automatisera överföringen av resor och trängselskatt sparar ekonomiavdelningen timmar av manuellt administrativt arbete varje månad. \nHur hanteras trängselskatt och infrastrukturavgifter? \nSystemet registrerar automatiskt alla passager i realtid via enhetens GPS. Istället för att manuellt matcha fakturor mot körjournalen får ni färdiga underlag där skatterna kopplas direkt till rätt resa och förare. Det sparar timmar av administration och säkerställer att debiteringen av trängselskatt blir exakt och rättvis. \nKan jag se var bilarna befinner sig? \nJa, via vår karta kan ni se exakt var företagets fordon befinner sig. Ni kan snabbt ge besked till kunder om ankomsttid eller skicka det närmaste fordonet till ett akut uppdrag. Det är viktigt att understryka att ni själva väljer när och för vem positionen ska vara synlig utifrån vad ni kommer överens om internt. \nFinns det stöd för poolbilar? \nJa! Vi har stöd för bokning av poolbilar och förare loggar enkelt in i appen eller identifierar sig med sin ID06-bricka vid resstart. Då kopplas resan automatiskt till rätt person. Det ger administratören full kontroll över vem som kört bilen, även om den används av många olika personer under en dag. \nLäs någon av våra guider. \nKörjournalsguiden. \nAllt du behöver veta om körjournaler regelverket kring fordonsparker. \nLadda ner \nLadda ner \nBilpolicyguiden. \nVarje företag med fordon behöver en bilpolicy, Så här skriver du in. \nLadda ner \nLadda ner \nFordonskostnader i företaget. \nFordonskostnader i företaget är en djungel. Låt denna guide ta dig igenom den som en vass machete. Vi ger dig verktygen för att navigera effektivt och göra smarta val. \nLadda ner \nLadda ner \nDet här och mycket mer. \nAutomatiskt fordonsregister. \nVi hämtar information om dina fordon direkt från Transportstyrelsen. En helt unik funktion du bara hittar hos oss. \nElektronisk körjournal. \nVi hämtar information om dina fordon direkt från Transportstyrelsen. En helt unik funktion du bara hittar hos oss. \nEnkel hantering av milersättning. \nSystemet räknar ut rätt ersättning och skickar filen direkt till ert lön- eller ekonomisystem. \nTrängselskattshantering. \nTrängselskatt registreras automatiskt med tid och kostnad. \nCO2- och miljörapport. \nFölj CO2-utsläpp per projekt, resa eller fordon och få underlag för att uppfylla CSRD-kraven. \nRealtidskarta & geofence. \nFå full koll på fordonens position och historik, inklusive egna områden med notiser när bilarnas plats avviker. \nSkade- och besiktningsstatus. \nPlanera och få påminnelser om service och besiktning. \nAutomatisk resekategorisering. \nResor kategoriseras automatiskt som tjänste- eller privatresor baserat på tids- eller platsfilter. \nRapportera in skador. \nFörare fotar och rapporterar skador direkt i appen. \nLarm och felkoder. \nFelkoder läses av och samlas på samma ställe, så att du enkelt kan se vad som behöver åtgärdas. \nKörbeteende. \nJobba aktivt med att för bättra ert körbeteende med tydlig poängsättning. \nSe alla resor utanför arbetstid. \nSätt upp larm eller se historiskt när företagsbilarna har använts utanför arbetstid. \nBilpoolshantering. \nEtt enkelt sätt för både förare och bilpoolsansvarig att boka, hantera och administrera poolbilar. \nExakt mätarställning. \nBilens exakta mätarställning läses av automatiskt och blir korrekt varje gång. Du slipper justera i efterhand. \nFordonsdata från Transportstyrelsen. \nVi hämtar alla fordonsinformation direkt från Transportstyrelsen, du behöver inte lägga in något manuellt. \nSingle Sign-on. \nMed Single sign-on hanterar du enkelt dina användare och rättigheter, vi stödjer Microsoft och Okta. \nFleet API. \nMed vårt öppna API kan du göra vad du vill med din data. \nAuto-stop för Easypark parkering. \nAvslutar automatiskt din easyparkparkering och få upp till 30% lägre parkeringskostnader. \nBeställ och avsluta licenser helt själv. \nBeställ, avsluta och byt enheter direkt i plattformen. Inga supportärenden, inga ledtider, full kontroll. \nIntegrerat med din arbetsorder. \nKoppla resor till specifika\nprojekt och gör faktureringen\nenklare med automatisk\nkostnadsfördelning. \nLäs mer från oss. \nFordonshantering \nVi hjälper dig sänka fordonskostnader och jobba effektivt.\nMed smartare insikter och automatiserade rutiner som ger er bättre kontroll, färre avbrott och mer tid till det som faktiskt driver er verksamhet... Läs mer \nSå förbättrade Örebro kommun sin fordonsflotta \nÖrebro kommuns Tekniska förvaltning äger cirka 1000 bilar, maskiner och lastbilar som dom hyr ut till kommunens olika avdelningar. Det medför en svår logistisk utmaning – Att hålla fordonen servade,... Läs mer \nRätt ska vara rätt – Infobric på besök hos IF Metall \nEtt modernt fleet management-system för alla tjänstebilar. Integration med leasingbolag, och automatisk trängselskattshantering. Det var utmaningen när IF Metall satte sig vid förhandlingsbordet med Infobric sommaren 2020. Några månader senare träffade... Läs mer \nInfobric Group \nOm oss \nVår samhällspåverkan \nVår resa \nJobba hos oss \nLedning & Styrelse \nNyheter och press \nKontakt \nÖvrigt \nVillkor & Certifieringar \nIntegritetspolicy \nCookiepolicy \nLogga in \nSupport \nVisselblåsning \nHårdvara \nIntegrationer \nAndra varumärken \nInfobric Time \nMSite \nHMSREG \nWincar \n© Infobric Group AB, Framgången 1, 533 18 Jönköping"
+}

@@ -1,0 +1,135 @@
+{
+  "page_id": "equipment",
+  "label": "Infobric Equipment",
+  "url": "https://infobric.com/se/produkter/equipment/",
+  "checked": "2026-09-18",
+  "checked_by": "drafted by build_inventory.py 2026-09-18; primary button, secondaries, claims and next-step sets confirmed against the fetched text; product description from the partner's URL brief",
+  "truth_statement": "Infobric Equipment: a system for keeping track of tools and equipment — the whole tool list in one place, real-time position via labels, Tool Tracker and Asset Tracker hardware (3-year battery), check-in/check-out, service and calibration follow-up, and cost control. The page offers a free trial that starts an account, a personal demo, a savings calculator, a product video, and packages sized by number of tools and users.",
+  "primary_cta": {
+    "label": "Prova gratis",
+    "url_fragment": "/produkter/equipment"
+  },
+  "secondary_ctas": [
+    {
+      "label": "Pris och paketering",
+      "url_fragment": "/produkter/equipment"
+    },
+    {
+      "label": "Se videon",
+      "url_fragment": "/produkter/equipment"
+    },
+    {
+      "label": "Få en demo",
+      "url_fragment": "#cta"
+    },
+    {
+      "label": "Boka demo",
+      "url_fragment": "#cta"
+    },
+    {
+      "label": "Kontakta en säljare",
+      "url_fragment": "/kontakta-en-saljare"
+    },
+    {
+      "label": "Kontakta oss",
+      "url_fragment": "/kontakta-oss"
+    },
+    {
+      "label": "Kontakt",
+      "url_fragment": "/kontakt"
+    }
+  ],
+  "available_next_steps": [
+    "create_free_account",
+    "start_trial",
+    "book_demo",
+    "use_calculator",
+    "learn_more",
+    "come_back_later",
+    "leave"
+  ],
+  "conversion_next_steps": [
+    "create_free_account",
+    "start_trial",
+    "book_demo"
+  ],
+  "navigation_next_steps": [
+    "learn_more"
+  ],
+  "claims": [
+    "3 års batteritid.",
+    "Infobric Equipment på 2 minuter.",
+    "\"Vi sparar 2 timmar per dag med Infobric Equipment\"",
+    "Spåra, följ och organisera upp till 25 verktyg på ett effektivt sätt.",
+    "Spåra, följ och organisera upp till 100 verktyg på ett effektivt sätt för 5 användare."
+  ],
+  "sections": [
+    {
+      "name": "Infobric Equipment – digital verktygshantering",
+      "level": "h1",
+      "position": "middle"
+    },
+    {
+      "name": "Ta kontroll över verktygsparken och kostnaderna.",
+      "level": "h2",
+      "position": "middle"
+    },
+    {
+      "name": "Hela verktygslistan på ett ställe.",
+      "level": "h2",
+      "position": "middle"
+    },
+    {
+      "name": "Position i realtid.",
+      "level": "h2",
+      "position": "middle"
+    },
+    {
+      "name": "Uppföljning och kostnadskontroll.",
+      "level": "h2",
+      "position": "middle"
+    },
+    {
+      "name": "Kontroll över kostnaderna",
+      "level": "h2",
+      "position": "middle"
+    },
+    {
+      "name": "Så mycket kan du spara – räkna direkt i kalkylatorn",
+      "level": "h2",
+      "position": "middle"
+    },
+    {
+      "name": "“Förutom de ekonomiska fördelarna så har systemet även sparat mycket tid för vår",
+      "level": "h2",
+      "position": "bottom"
+    },
+    {
+      "name": "Vårt pris och paketering",
+      "level": "h2",
+      "position": "bottom"
+    },
+    {
+      "name": "Alla funktioner",
+      "level": "h2",
+      "position": "bottom"
+    },
+    {
+      "name": "Få en personlig demo av Infobric Equipment",
+      "level": "h2",
+      "position": "bottom"
+    },
+    {
+      "name": "Vanliga frågor och svar",
+      "level": "h2",
+      "position": "bottom"
+    }
+  ],
+  "trust_signals_present": [
+    "testimonial",
+    "case_studies",
+    "logos"
+  ],
+  "shows_price": true,
+  "text_snapshot": "Lösningar \nLösningar \nPersonalliggare \nAccess \nFordonshantering \nFöranmälan \nLeverantörsuppföljning \nIndividinskrivning \nKMA \nMaskin- och verktyg \nArbetsorderhantering \nUthyrningssystem \nKompetenser \nKravutbildningar \nBorrning & Sprängning \nFöretagsintroduktioner \nProdukter \nProdukter \nSite \nFleet \nField \nConnect \nWorkorder \nEquipment \nIntelligence \nBlastmanager \nHyrma \nMachines \nEase CheckIn \nControl \nAcademy \nSnabblänkar \nStarta arbetsplats \nFyll i företagsuppgifter och beställ arbetsplats i Site och Field. \nKom igång \nHantera arbetsplatser \nAdministrera dina pågående projekt i Site och Field. \nHantera \nSe din fordonspark \nFörhandsvisa din fordonspark i Fleet, kräver bara organisationsnummer! \nProva gratis \nVem vi hjälper \nVem vi hjälper \nVi kopplar samman byggbranschens ekosystem och ger alla aktörer rätt verktyg för säkrare, effektivare och mer hållbara byggprojekt. \nVem vi hjälper \nHuvudentreprenörer \nUnderentreprenörer \nByggherrar \nYrkesarbetare \nUthyrningsföretag \nCompliance \nKunskap \nKunskap \nHär hittar du kundberättelser, guider, artiklar, nyheter och webinar. \nKunskap \nKundberättelser \nGuider \nArtiklar \nNyheter \nWebinar \nUtvalda kundberättelser \nLWAB har koll på verktygen \nSå hanterar LWAB utmaningen med utrustning som ständigt byter händer. \nSe videon \nSkanska bygger tingsrätt \nDärför är nya tjänsten Föranmälan en viktig pusselbit för Skanska. \nSe videon \nOm oss \nOm oss \nVår resa \nLedning och styrelse \nVår samhällspåverkan \nNyheter och press \nKontakt \nKontakta oss \nSupport \nJobba hos oss \n(SV) \nGlobal (English) \nSweden (Swedish) \nNorway (Norwegian) \nUnited Kingdom (English) \nUnited States (English) \nLogga in \nLogga in \nEquipment \nSpårning och hårdvara \nSpårning och hårdvara \nEtiketter \nVår enklaste spårningslösning. Fäst på verktyg och skanna etiketten för... \nLäs mer \nTool Tracker \nLiten enhet som är enkel att fästa på alla typer... \nLäs mer \nAsset Tracker \nLite större enhet med egen GPS för utrustning som står... \nLäs mer \nTool Receiver \nSkicka in data från Infobric Tool Trackers. Utmärkt för användning... \nLäs mer \nKundberättelser \nPris och paketering \nProva gratis \nProva gratis \nBack to infobric.com/se \nSpårning och hårdvara \nSpårning och hårdvara \nKundberättelser \nPris och paketering \nProva gratis \nSpårning och hårdvara \nSpårning och hårdvara \nEtiketter Tool Tracker Asset Tracker Tool Receiver \nSpårning och hårdvara \nEtiketter \nTool Tracker \nAsset Tracker \nTool Receiver (SV) \nSelect your country & language preference \nSidan du försöker navigera till är endast tillgänglig i följande regioner, vänligen välj ett land och språk för att fortsätta. \nGlobal (English) \nSweden (Swedish) \nNorway (Norwegian) \nUnited Kingdom (English) \nUnited States (English) \nTillbaka \nLösningar \nPersonalliggare \nAccess \nFordonshantering \nFöranmälan \nLeverantörsuppföljning \nIndividinskrivning \nKMA \nMaskin- och verktyg \nArbetsorderhantering \nUthyrningssystem \nKompetenser \nKravutbildningar \nBorrning & Sprängning \nFöretagsintroduktioner \nTillbaka \nHårdvara \nPris och paketering \nKontakta en säljare \nHantera arbetsplatser \nTillbaka \nHårdvara \nPris och paketering \nKontakta en säljare \nHantera arbetsplatser \nTillbaka \nFörhandsvisa din vagnpark \nKundberättelser \nPrata med en expert \nTillbaka \nBankinitiativet \nPris och paketering \nKontakta en säljare \nHantera arbetsplatser \nTillbaka \nPris och paketering \nKontakta en säljare \nHantera arbetsplatser \nTillbaka \nPris och paketering \nKontakta en säljare \nTillbaka \nPris och paketering \nKontakta en säljare \nTillbaka \nKundberättelser \nPrata med en expert \nTillbaka \nInstallation och eftermarknad \nIntegrationer \nAlla integrationer \nLönesystem \nLeverantörsfakturor \nGrossister \nEkonomi- och affärssystem \nUtvalda integrationer \nFortnox \nFrån offert och arbetsorder till fakturering och ekonomisk uppföljning. Läs mer \nMonitor ERP \nKomplett digital orderhantering för dig \nsom arbetar med eftermarknad. Läs mer \nKundberättelser \nPrata med en expert \nTillbaka \nPrata med en expert \nTillbaka \nFöretagsintroduktioner \nPris och paketering \nKontakta en säljare \nHantera dina arbetsplatser \nTillbaka \nFöretagsintroduktioner \nBoka demo \nTillbaka \nBoka demo \nTillbaka \nProdukter \nSite \nFleet \nField \nConnect \nWorkorder \nEquipment \nIntelligence \nBlastmanager \nHyrma \nMachines \nEase CheckIn \nControl \nAcademy \nSnabblänkar \nStarta arbetsplats \nHantera arbetsplatser \nSe din fordonspark \nTillbaka \nHårdvara \nDörrlås \nGrindar \nNärvaroregistrering \nReklamation \nReservdelar & tillbehör \nPris och paketering \nKontakta en säljare \nHantera arbetsplatser \nTillbaka \nElektronisk körjournal \nFöraridentifiering \nIntegrationer \nAlla integrationer \nLönesystem \nLeasingbolag \nFordonsadministration \nSingle sign on \nElektronisk körjournal \nKundberättelser \nPris och paketering \nProva gratis \nTillbaka \nKundberättelser & guider \nPris och paketering \nKontakta en säljare \nBoka demo \nTillbaka \nPris och paketering \nKontakta en säljare \nHantera arbetsplatser \nTillbaka \nInstallation och eftermarknad \nMiljörapport \nIntegrationer \nAlla integrationer \nLönesystem \nLeverantörsfakturor \nGrossister \nEkonomi- och affärssystem \nUtvalda integrationer \nFortnox \nFrån offert och arbetsorder till fakturering och ekonomisk uppföljning. Läs mer \nMonitor ERP \nKomplett digital orderhantering för dig som arbetar med eftermarknad. Läs mer \nKundberättelser \nPris och paketering \nFå en demo \nTillbaka \nSpårning och hårdvara \nSpårning och hårdvara \nEtiketter \nVår enklaste spårningslösning. Fäst på verktyg och skanna etiketten för in- och utcheckning. Läs mer \nTool Tracker \nLiten enhet som är enkel att fästa på alla typer av utrustning och verktyg. Läs mer \nAsset Tracker \nLite större enhet med egen GPS för utrustning som står remote. Läs mer \nTool Receiver \nSkicka in data från Infobric Tool Trackers. Utmärkt för användning i t.ex förråd. Läs mer \nKundberättelser \nPris och paketering \nProva gratis \nTillbaka \nPris och paketering \nKontakta en säljare \nHantera arbetsplatser \nTillbaka \nLadda ner apparna \nBoka demo \nTillbaka \nNyhet: Kundvarningar \nIntegrationer \nPris och paketering \nInsikter för uthyrare \nFå en demo \nTillbaka \nFör bygg- & anläggningsbolag \nSpårning och hårdvara \nSpårning och hårdvara \nVehicle Tracker \nEn IP-67 klassad enhet som installeras med eller utan tändning. Hämtar data såsom motor- och drifttimmar. Läs mer \nAsset Tracker \nEn batteridriven enhet som inte kräver extern ström. Den skickar sin position en gång per dygn och har tre års batteritid. Läs mer \nTool Tracker \nLiten enhet som är enkel att fästa på alla typer av utrustning och verktyg. Läs mer \nKundberättelser \nPris och paketering \nFå en demo \nTillbaka \nLadda ner appen \nSupport \nBoka demo \nTillbaka \nKontakta oss \nTillbaka \nVem vi hjälper \nVi kopplar samman byggbranschens ekosystem och ger alla aktörer rätt verktyg för säkrare, effektivare och mer hållbara byggprojekt. \nVem vi hjälper \nHuvudentreprenörer \nUnderentreprenörer \nByggherrar \nYrkesarbetare \nUthyrningsföretag \nCompliance \nTillbaka \nKunskap \nHär hittar du kundberättelser, guider, artiklar, nyheter och webinar. \nKunskap \nKundberättelser \nGuider \nArtiklar \nNyheter \nWebinar \nUtvalda kundberättelser \nLWAB har koll på verktygen \nSkanska bygger tingsrätt \nTillbaka \nOm oss \nVår resa \nLedning och styrelse \nVår samhällspåverkan \nNyheter och press \nTillbaka \nKontakta oss \nSupport \nJobba hos oss \nTillbaka \nVälj land och språkpreferens. \nSidan du försöker navigera till är endast tillgänglig i följande regioner, vänligen välj ett land och språk för att fortsätta. \nGlobal (English) \nSweden (Swedish) \nNorway (Norwegian) \nUnited Kingdom (English) \nUnited States (English) \nInfobric > Produkter > Equipment / \nInfobric Equipment – digital verktygshantering \nPlattformen för att få kontroll på alla era verktyg på ett ställe. Med Infobric Equipment minskar svinn, förkortar let-tid och hjälper er spara tusentals kronor varje månad. \nVideo: Så fungerar det \nVideo: Så fungerar det \nProva gratis \nProva gratis \nTa kontroll över verktygsparken och kostnaderna. \nMed Infobric Equipment får ni kraften att se vad ni äger, var det finns och vem som använder det, vilket gör att ni kan agera direkt i stället för att leta, ringa runt eller jaga information i manuella listor. Resultatet är bättre flöde i projekten och lägre kostnader varje månad. \nBoka en personlig demo \nBoka en personlig demo \nMinska förluster \nNär verktyg blir spårbara minskar svinn och borttappad utrustning. Vi gör det enklare att få tillbaka verktyg och undvika att de försvinner mellan projekt. \nMinska onödiga inköp – se vad ni redan äger \nMed en uppdaterad verktygslista ser ni vad ni redan har och vad som faktiskt behövs. Det minskar dubletter och gör att ni använder befintlig utrustning bättre innan ni köper eller hyr nytt. \nReducera administration och stilleståndtid \nNär all information finns samlad minskar tid för avstämningar och letande. Påminnelser om service och kalibrering hjälper er planera i tid och undvika stopp i projekten utan förlorade garantier. \nSpåra alla verktyg, inte bara de dyraste. \nFrån dyra specialverktyg till enkla handverktyg – vi har en spårningslösning som passar dina behov. Med allt från avancerad GPS-spårning till skannbara etiketter kan du hålla koll på alla dina verktyg. Upptäck hur vår verktygsspårning kan förenkla din arbetsdag och öka effektiviteten på jobbet. \nEtikett \nVår enklaste spårningslösning. Skanna verktygens unika etiketter med appen för in- och utcheckning. Position och användare registreras, vilket ger full översikt över dina verktygs placering och användning. \nLäs mer \nTool Tracker \nLiten enhet som är enkel att fästa på alla typer av utrustning och verktyg. Enheten använder blåtandsteknik och kommunicerar med Fleet och Equipment appen och våra trackerenheter. 3 års batteritid. \nLäs mer \nAsset Tracker \nEn batteridriven enhet som inte kräver extern ström. Den skickar sin position en gång per dygn och har tre års batteritid. Perfekt enhet om du har utrustning som du är rädd om och vill veta var den befinner sig. \nLäs mer \nAsset Tracker Rechargeable \nEn batteridriven och uppladdningsbar enhet som inte kräver extern ström. Upp till ett års batteritid vid position en gång per dygn. Välj själv hur ofta positionsdata ska skickas. Perfekt enhet om du har utrustning som du är rädd om och vill veta var den befinner sig. \nLäs mer \nTool Receiver \nEnhet som installeras direkt i vägguttaget. Konfigurationen är anpassad för att hitta och skicka in data från Infobric Tool Trackers. Utmärkt för användning i dina förråd, när du vill veta var dina verktyg befinner sig. \nLäs mer \nInfobric Equipment på 2 minuter. \nSe en inspelad snabbgenomgång av systemet och de olika modulerna. \nSe video demo \nSe video demo \nDet här får ni med Infobric Equipment. \nHela verktygslistan  på ett ställe. \nSe en fullständig lista över allt ni äger och hyr. All utrustning samlad i en struktur som gör det enkelt att förstå omfattning och tillgänglighet. \nPosition i realtid. \nFölj verktygens placering direkt i plattformen via GPS, Bluetooth eller etiketter. Ni ser var utrustningen är och vem som använder den. \nUppföljning och kostnadskontroll. \nFölj användning, service och kostnader på ett ställe. Skapa underlag för debitering och undvik onödiga inköp och hyror. \nKontroll över kostnaderna \nSkapa underlag för debitering. Undvik onödiga inköp, felhyror och svinn som kostar över tid. \nNyhet! \nSå mycket kan du spara – räkna direkt i kalkylatorn \nSe hur mycket Infobric Equipment kan minska kostnaderna för borttappade verktyg och onödiga inköp. \nTa mig till kalkylatorn \nTa mig till kalkylatorn \nService, kalibrering och dokument under kontroll. \nInfobric Equipment håller ordning på service och kalibrering med påminnelser som följer era intervall. Certifikat, manualer och serviceintyg hittas direkt i appen. \nDin digitala verktygslåda – alla verktyg på ett ställe. \nVi samlar alla verktyg på ett ställe där det är enkelt att få en komplett överblick. Det gör att ni undviker dubbelköp, svinn och andra onödiga kostnader. \nHitta verktygen utan att behöva jaga dem. \nVi sätter dina verktyg på kartan så att du slipper leta efter dem. Med Infobric Equipment hittar du snabbt det du behöver och ser vem som använder verktyget just nu – direkt från mobilen. \n\"Vi sparar 2 timmar per dag med Infobric Equipment\" \nSå jobbar LWAB med verktygshanteringen. \nSe hur de jobbar \nSe hur de jobbar \n“Förutom de ekonomiska fördelarna så har systemet även sparat mycket tid för vår projektledning när vi har rätt maskin på rätt plats, på så sätt blir det mer hållbara byggprojekt” \n– Linus Barklund, Projektledare på Nybyggarn AB. \nVårt pris och paketering \nFree \n0 \nkr/mån \nSpåra, följ och organisera upp till 25 verktyg på ett effektivt sätt. Kostnadsfritt och utan bindningstid. \nSkapa konto \nSkapa konto \n2 användare \n25 verktyg \nKalibrering & service \nKommentarer \nSpårning \nEtiketter \nStarter \n1499 \nkr/mån \nSpåra, följ och organisera upp till 100 verktyg på ett effektivt sätt för 5 användare. \nAllt i Free \n100 verktyg \n5 användare \nBusiness \n2499 \nkr/mån \nBusinesspaketet för dig som vill dyka djupare ner i användningen och kostnadsunderlaget. \nAllt i Starter \nObegränsat antal användare \n200 verktyg \nStatistik \nKostnadsunderlag \nPro \n3499 \nkr/mån \nPro är ett komplett paket för att få full kontroll över alla dina verktyg och artiklar. Allt ingår och inga begränsningar finns. \nAllt i Business \nObegränsat antal verktyg \nAlla funktioner \nSpåra och följ din utrustning. \nEtiketter, GPS eller bluetooth – vi har spårningslösningar som passar just dina behov. \nTa betalt för användning. \nFå bättre koll på användningen av dina tillgångar. Ta betalt för användning och överanvändning. Fakturera internt eller externt. \nInventariehantering du kan lita på. \nSe alla maskiner du äger och hyr i en överskådlig lista. Alltid uppdaterad. Ner på projektnivå. \nEnkel stöldhantering. \nSe precis vad som finns i varje depå eller verktygsbod. Gör utdrag på verktygen som saknas utan att behöva gissa. \nImportera och exportera verktygslistor. \nSnabbimportera din befintliga lista för att komma igång direkt. Exportera enkelt för redovisning eller backup. \nInga lösenord – bara  snabb inloggning. \nLogga in smidigt via e-post eller telefonnummer. Inga krångliga lösenord att komma ihåg. \nChecka in och ut verktyg i mobilen. \nMarkera vilket verktyg du använder just nu. Visa dina kollegor vad som är ledigt eller upptaget – så slipper de leta. \nSkapa To-Do’s. \nOrganisera arbetet effektivt med inbyggda att göra-listor. Håll koll på uppgifter och deadlines. \nFå en personlig demo av Infobric Equipment \nLämna dina uppgifter för en personlig genomgång av plattformen. Vi gör en snabb behovsanalys och visar de funktioner som passar ditt företag! \nNamn Företag Email Telefonnummer Jag godkänner Integritetspolicyn \nThis site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply. \nSkicka \nSkicka \nVanliga frågor och svar \nVad är verktygsspårning med Bluetooth? \nBluetooth Low Energy gör att verktyg kan hittas via Infobrics uppkopplade fordon, bodar och app. Ni får positioner som uppdateras automatiskt när verktygen är nära en mottagare. Det gör att ni inte behöver dyra GPS-enheter på allt. \nHur fungerar spårning med etiketter? \nEtiketterna scannas i appen och registrerar vem som tar verktyget och var det används. Det gör att även små handverktyg får spårbarhet utan att ni behöver montera enheter eller använda batteridrivna taggar. \nFungerar plattformen även om vi har många småverktyg? \nJa. Det är en av våra största styrkor. Med etiketter och scanning kan ni spåra även de minsta verktygen som annars lätt försvinner eller blandas ihop mellan projekt. \nKan man ta fram kostnadsunderlag för projekt? \nJa. Ni kan se vilka verktyg som använts i vilket projekt och under vilken period. Det ger ett komplett underlag för intern och extern fakturering. \nKan vi importera vår befintliga verktygslista? \nJa. Ni kan importera hela listan direkt till plattformen så ni slipper börja om. Vi hjälper er att få en snygg och ren struktur vid uppstart. \nLäs mer från oss \nFördelarna med effektiv verktygshantering \nVerktygshantering är en viktig aspekt inom många branscher och yrken. Det handlar om att organisera och hantera verktyg på ett effektivt sätt för att optimera arbetsflödet och maximera produktiviteten. Genom... Läs mer \nSå samlar Treano fordon och verktyg under samma tak \nTreano är ett byggföretag som under en lång tid har haft ett nära samarbete med olika företag inom Infobrickoncernen. Vi har intervjuat Rasmuss Leo som är inköpschef för att höra... Läs mer \nVerktygsstöld på byggarbetsplatser – så minskar du risken och återhämtar dig snabbt med Infobric \nVerktygsstöld är ett växande problem i byggbranschen och kostar företag både tid, pengar och förlorad produktivitet. Stulna verktyg leder till projektstopp, akuta ersättningsköp och omfattande administration. Samtidigt visar både Brå... Läs mer \nInfobric Group \nOm oss \nVår samhällspåverkan \nVår resa \nJobba hos oss \nLedning & Styrelse \nNyheter och press \nKontakt \nÖvrigt \nVillkor & Certifieringar \nIntegritetspolicy \nCookiepolicy \nLogga in \nSupport \nVisselblåsning \nHårdvara \nIntegrationer \nAndra varumärken \nInfobric Time \nMSite \nHMSREG \nWincar \n© Infobric Group AB, Framgången 1, 533 18 Jönköping"
+}
