@@ -212,6 +212,42 @@ def build_user_message(audit: dict, page_brief: str, anchors: str) -> str:
 
 # --------------------------------------------------------------------------- model
 
+def _strip_fences(text: str) -> str:
+    text = text.strip()
+    if text.startswith("```"):
+        text = text.split("\n", 1)[1] if "\n" in text else text
+        text = text.rsplit("```", 1)[0]
+    return text.strip()
+
+
+def call_anthropic(model: str, system: str, user: str, retries: int = 6) -> tuple[dict, dict]:
+    """The Copilot passthrough gateway speaks Anthropic's /v1/messages and nothing else,
+    so scoring a Claude run with the same model does not go through the OpenAI client."""
+    import urllib.request
+
+    base = os.environ["ANTHROPIC_BASE_URL"].rstrip("/")
+    body = {"model": model, "max_tokens": 1500, "system": system, "messages": [{"role": "user", "content": user}]}
+    delay = 3.0
+    last: Exception | None = None
+    for _ in range(retries):
+        try:
+            req = urllib.request.Request(
+                f"{base}/v1/messages", method="POST", data=json.dumps(body).encode("utf-8"),
+                headers={"x-api-key": os.environ["ANTHROPIC_API_KEY"], "anthropic-version": "2023-06-01",
+                         "content-type": "application/json"})
+            with urllib.request.urlopen(req, timeout=180) as resp:
+                payload = json.loads(resp.read().decode("utf-8"))
+            text = "".join(part.get("text", "") for part in payload.get("content") or [] if part.get("type") == "text")
+            usage = payload.get("usage") or {}
+            return json.loads(_strip_fences(text)), {"prompt_tokens": usage.get("input_tokens"),
+                                                     "completion_tokens": usage.get("output_tokens")}
+        except Exception as exc:  # noqa: BLE001
+            last = exc
+            time.sleep(delay)
+            delay = min(delay * 2, 60)
+    raise RuntimeError(f"anthropic call failed after {retries} attempts: {last!r}")
+
+
 def call_model(client, model: str, system: str, user: str, retries: int = 6) -> tuple[dict, dict]:
     delay = 3.0
     last: Exception | None = None
@@ -290,12 +326,23 @@ def write_back(trial: Path, scores: dict, whys: dict, meta: dict) -> None:
 
 # --------------------------------------------------------------------------- driver
 
-def scoreable(trial: Path, force: bool) -> bool:
+def scoreable(trial: Path, force: bool, only_segment: str | None = None) -> bool:
     ver = trial / "verifier"
     if not (ver / "structured_output.json").is_file():
         return False
     if not (trial / "artifacts" / "app" / "output" / "page_audit.json").is_file():
         return False
+    if only_segment:
+        q = ver / "quality.json"
+        if not q.is_file():
+            return False
+        try:
+            seg = str((json.loads(q.read_text()).get("persona") or {}).get("traffic_segment") or "")
+        except Exception:  # noqa: BLE001
+            return False
+        # Match on the slug or the label's leading words ("prospect" vs "Prospect (…)").
+        if only_segment.lower() not in seg.lower().replace(" ", "_"):
+            return False
     return force or not (ver / "post_hoc_scoring.json").is_file()
 
 
@@ -330,7 +377,10 @@ def score_trial(client, model: str, trial: Path, page_brief: str, anchors: str, 
         print(f"===== {trial.name} · system {len(system)} chars · user {len(user)} chars · sha {prompt_hash}\n")
         print(user)
         return "dry-run"
-    raw, usage = call_model(client, model, system, user)
+    if model.startswith("claude") or model.startswith("anthropic/"):
+        raw, usage = call_anthropic(model.split("/")[-1], system, user)
+    else:
+        raw, usage = call_model(client, model, system, user)
     scores = normalise(raw)
     whys = {k: (raw.get(k) or {}).get("why") if isinstance(raw.get(k), dict) else None for k in ALL_SCORES}
     meta = {
@@ -353,6 +403,9 @@ def main() -> int:
     ap.add_argument("--workers", type=int, default=3)
     ap.add_argument("--limit", type=int, default=0, help="score at most N trials (0 = all)")
     ap.add_argument("--force", action="store_true", help="re-score trials that already have post_hoc_scoring.json")
+    ap.add_argument("--only-segment", default=None,
+                    help="score only this traffic segment (e.g. prospect). The six dimensions are "
+                         "reported for prospects only, so scoring the rest buys nothing.")
     ap.add_argument("--dry-run", action="store_true", help="print the user message for the first trial and exit")
     ap.add_argument("--env-file", type=Path, default=REPO / "application" / "playground" / ".env.local")
     a = ap.parse_args()
@@ -363,7 +416,7 @@ def main() -> int:
     page_brief = section(instruction, "Page brief")
     anchors = section(instruction, "The 1–5 scales")
 
-    trials = sorted(p for p in a.job.iterdir() if p.is_dir() and scoreable(p, a.force))
+    trials = sorted(p for p in a.job.iterdir() if p.is_dir() and scoreable(p, a.force, a.only_segment))
     if a.limit:
         trials = trials[: a.limit]
     if not trials:
@@ -373,9 +426,11 @@ def main() -> int:
         score_trial(None, a.model, trials[0], page_brief, anchors, True)
         return 0
 
-    import openai
+    client = None
+    if not (a.model.startswith("claude") or a.model.startswith("anthropic/")):
+        import openai
 
-    client = openai.OpenAI(base_url=os.environ["OPENAI_BASE_URL"], api_key=os.environ["OPENAI_API_KEY"], timeout=120)
+        client = openai.OpenAI(base_url=os.environ["OPENAI_BASE_URL"], api_key=os.environ["OPENAI_API_KEY"], timeout=120)
     log(f"scoring {len(trials)} trials of {a.job.name} with {a.model}, {a.workers} workers")
     done = 0
     failed: list[str] = []

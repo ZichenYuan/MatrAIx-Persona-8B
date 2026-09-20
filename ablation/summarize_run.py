@@ -103,6 +103,7 @@ def flatten(q: dict) -> dict:
     for k in DIMS + EXTRA_SCORES:
         row[k] = s.get(k)
     row["post_hoc"] = q.get("scores_post_hoc") or None
+    row["post_hoc_meta"] = q.get("post_hoc") or {}
     row["trust_ladder"] = s.get("trust_ladder")
     row["trust_ladder_consistent"] = s.get("trust_ladder_consistent")
     row["trust_acts_answers"] = {k: s.get(k) for k in TRUST_ACTS}
@@ -229,8 +230,11 @@ def build(job: Path) -> tuple[str, dict]:
     scored = [r for r in rows if r.get("post_hoc")]
     if scored:
         w("## 4b. In-browse vs scored after the visit (Finding 1 replication)\n")
-        w(f"{len(scored)} of {len(rows)} trials re-scored outside the browser by the same model from the persona text plus the persona's own notes "
-          "(application/scripts/score_audit.py). η² = share of score variance explained by the persona dimension; 0.01 small, 0.06 medium, 0.14 large.\n")
+        models = sorted({str((r.get("post_hoc_meta") or {}).get("model") or "") for r in scored} - {""})
+        by_whom = f"by {models[0]}" if len(models) == 1 else "by the same model"
+        w(f"{len(scored)} of {len(rows)} trials re-scored outside the browser {by_whom}, from the persona text plus the persona's own notes "
+          "(application/scripts/score_audit.py). Where scoring was scoped to prospects, this section is about prospects. "
+          "η² = share of score variance explained by the persona dimension; 0.01 small, 0.06 medium, 0.14 large.\n")
         w("| Score | mean in-browse | sd | mean scored | sd | η² visitor kind (in / scored) | η² tier (in / scored) | η² visit intent (in / scored) | values used (scored) |")
         w("|---|---:|---:|---:|---:|---:|---:|---:|---|")
         numbers["post_hoc"] = {}
