@@ -183,6 +183,57 @@ def trust_prompt(page_title: str, trust: dict, wording: dict, reduced_findings: 
     )
 
 
+def trim_reduced(reduced: dict, keep: int = 3) -> dict:
+    """The synthesis only needs the leading themes per visitor kind; a 1,000-trial
+    reduction runs to 100k characters and makes the model improvise its own schema."""
+    out: dict = {}
+    for kind, by_aud in (reduced or {}).items():
+        out[kind] = {}
+        for aud, block in (by_aud or {}).items():
+            small = {}
+            for key, val in (block or {}).items():
+                small[key] = val[:keep] if isinstance(val, list) else val
+            out[kind][aud] = small
+    return out
+
+
+def _synth_call(model: "Model", tag: str, task: str, shape: str, payload: dict, required: tuple[str, ...], page_title: str) -> dict:
+    return model.json(
+        f"Page: {page_title}. You are writing one section of a website persona-study report for the website owner, "
+        f"from the evidence below only. {task}\n\nReturn JSON with exactly this shape:\n{shape}\n\n"
+        f"Quote page wording verbatim in Swedish. Give counts as 'about N of M visitors'. Tag each statement "
+        f"[site] (visible on the website), [analytics] (supported by the supplied analytics) or [persona] "
+        f"(modelled persona interpretation). Persona scores are indicators, not measured customer approval.\n\n"
+        f"### Evidence\n{json.dumps(payload, ensure_ascii=False, default=str)}",
+        7000, tag, required)
+
+
+SYNTH_PARTS = [
+    ("exec", ("Write the report's opening: 3-5 sentences, each a distinct conclusion the owner can act on, "
+              "then everything this pilot could not assess and why."),
+     '{"executive_summary": ["<sentence>"], "cannot_be_assessed": ["<what and why>"]}',
+     ("executive_summary", "cannot_be_assessed")),
+    ("audiences", ("For each visitor kind in the evidence, write 2-3 sentences: what they understood, what they "
+                   "valued, what held them back, and the case of understanding and valuing the offer but not being "
+                   "ready to make contact, with what they would need first."),
+     '{"audience_differences": [{"audience": "<visitor kind>", "summary": "<2-3 sentences>"}]}',
+     ("audience_differences",)),
+    ("journey", ("Answer the six customer-journey questions from the evidence, then say what already works and "
+                 "should be kept, naming the elements."),
+     '{"journey": {"information_order": "<...>", "answers_when_questions_arise": "<...>", '
+     '"how_it_works_in_practice": "<...>", "interested_but_not_ready": "<...>", '
+     '"layout_navigation_forms": "<...>", "unnecessary_effort_or_uncertainty": "<...>"}, '
+     '"retain": [{"element": "<what works>", "why": "<evidence>"}]}',
+     ("journey", "retain")),
+    ("priorities", ("Give the 3-5 highest-impact changes, ordered by impact, each with the evidence it rests on "
+                    "(quoting exact wording and counts), who it affects, and a measurable check the owner could run "
+                    "in their own analytics."),
+     '{"priorities": [{"rank": 1, "title": "<imperative>", "hypothesis": "<what changes for whom and why>", '
+     '"evidence": "<findings and counts>", "affects": "<visitor kinds>", "how_to_check": "<measurable check>"}]}',
+     ("priorities",)),
+]
+
+
 def synth_prompt(page_title: str, reduced: dict, hard: dict, analytics: dict) -> str:
     return (
         f"Page: {page_title}. You are writing the closing sections of a website persona-study report for the website owner. "
@@ -817,8 +868,13 @@ def main() -> int:
 
     model = Model(a.model, out / "cache")
     reduced = run_map_reduce(model, page_rows, a.chunk, a.workers, a.max_chunks, facts["next_steps"])
-    synth = model.json(synth_prompt(PAGE_TITLES.get(page, page), reduced, hard, analytics), 12000, "synth",
-                       ("executive_summary", "audience_differences", "journey", "priorities", "retain"))
+    title = PAGE_TITLES.get(page, page)
+    lean = trim_reduced(reduced)
+    payload = {"per_visitor_kind": lean, "counts": hard, "analytics": analytics}
+    synth: dict = {}
+    for tag, task, shape, required in SYNTH_PARTS:
+        synth.update(_synth_call(model, tag, task, shape, payload, required, title))
+        sys.stderr.write(f"  synth {tag}: " + ", ".join(f"{k}={len(synth.get(k) or [])}" for k in required) + "\n")
     synth["trust_advice"] = model.json(trust_prompt(PAGE_TITLES.get(page, page), hard["trust"], hard["wording"], reduced.get("findings") or {}), 8000, "trust",
                                        ("where_trust_stops", "what_would_move_the_next_rung", "claims", "advice"))
     sys.stderr.write(f"synthesis done · model calls {model.calls} (cached {model.cached}) · tokens in/out {model.tokens}\n")

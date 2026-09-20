@@ -101,7 +101,13 @@ def flatten(q: dict) -> dict:
         "missing_info": q.get("missing_info") or [], "weakest": (q.get("positions") or {}).get("weakest"), "strongest": (q.get("positions") or {}).get("strongest"),
     })
     for k in DIMS + EXTRA_SCORES:
-        row[k] = s.get(k)
+        v = s.get(k)
+        # Instrument 2.4 let a leaver answer the whole-page scales from the first screen
+        # (337 of 337 did). Only `understanding` is on the exit form; drop the rest here so
+        # they cannot enter a mean. 2.5 stores them as "unknown" at verification time.
+        if row["left_early"] and k != "understanding":
+            v = None
+        row[k] = v
     row["post_hoc"] = q.get("scores_post_hoc") or None
     row["post_hoc_meta"] = q.get("post_hoc") or {}
     row["trust_ladder"] = s.get("trust_ladder")

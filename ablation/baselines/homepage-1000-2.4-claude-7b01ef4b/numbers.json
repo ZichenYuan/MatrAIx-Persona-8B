@@ -1,0 +1,401 @@
+{
+  "job": "pg-web-infobric-audit-v2-homepage-7b01ef4b",
+  "page": "homepage",
+  "launched": 1000,
+  "finished": 1000,
+  "passed": 999,
+  "failed": 1,
+  "json_health": {
+    "clean": 999
+  },
+  "exit_rate": 0.48848848848848847,
+  "ground_truth": {
+    "quick_backs": 0.4376,
+    "engaged_share": 0.884
+  },
+  "exit_by_segment": {
+    "Supplier or partner (selling to Infobric)": 30,
+    "Prospect (evaluating a supplier)": 7,
+    "Student or researcher": 11,
+    "Existing customer (login or support)": 340,
+    "Mis-click from a search result or an ad": 45,
+    "Job seeker": 55
+  },
+  "trust_ladder": {
+    "n": 999,
+    "mean": 0.42742742742742745,
+    "sd": 0.5872251031847147,
+    "eta2_audience": 0.11595647237612475,
+    "eta2_segment": 0.5308661164441487,
+    "eta2_intent": 0.6097324427900631
+  },
+  "scores": {
+    "understanding": {
+      "n": 998,
+      "mean": 4.06312625250501,
+      "sd": 0.4066371276696007,
+      "dist": {
+        "1": 0,
+        "2": 0,
+        "3": 53,
+        "4": 829,
+        "5": 116
+      }
+    },
+    "language_relevance": {
+      "n": 511,
+      "mean": 3.5772994129158513,
+      "sd": 0.5813417794717168,
+      "dist": {
+        "1": 0,
+        "2": 21,
+        "3": 177,
+        "4": 310,
+        "5": 3
+      }
+    },
+    "practical_value": {
+      "n": 511,
+      "mean": 3.0078277886497067,
+      "sd": 0.3855732227077993,
+      "dist": {
+        "1": 2,
+        "2": 30,
+        "3": 441,
+        "4": 38,
+        "5": 0
+      }
+    },
+    "trust": {
+      "n": 511,
+      "mean": 3.0019569471624266,
+      "sd": 0.1467057911075641,
+      "dist": {
+        "1": 0,
+        "2": 5,
+        "3": 500,
+        "4": 6,
+        "5": 0
+      }
+    },
+    "next_step_confidence": {
+      "n": 511,
+      "mean": 3.2504892367906066,
+      "sd": 0.43778793195737964,
+      "dist": {
+        "1": 0,
+        "2": 1,
+        "3": 381,
+        "4": 129,
+        "5": 0
+      }
+    },
+    "next_step_ease": {
+      "n": 511,
+      "mean": 3.900195694716243,
+      "sd": 0.3248060701864989,
+      "dist": {
+        "1": 1,
+        "2": 0,
+        "3": 49,
+        "4": 460,
+        "5": 1
+      }
+    },
+    "cta_match": {
+      "n": 511,
+      "mean": 3.980430528375734,
+      "sd": 0.29939372948004656,
+      "dist": {
+        "1": 1,
+        "2": 0,
+        "3": 22,
+        "4": 473,
+        "5": 15
+      }
+    },
+    "contact_likelihood": {
+      "n": 511,
+      "mean": 2.352250489236791,
+      "sd": 0.6890177243982811,
+      "dist": {
+        "1": 22,
+        "2": 328,
+        "3": 120,
+        "4": 41,
+        "5": 0
+      }
+    }
+  },
+  "scores_by_audience": {
+    "Finance or administration": {
+      "n": 238,
+      "understanding": 4.033755274261603,
+      "language_relevance": 3.408450704225352,
+      "practical_value": 2.992957746478873,
+      "trust": 2.992957746478873,
+      "next_step_confidence": 3.147887323943662,
+      "next_step_ease": 3.880281690140845,
+      "cta_match": 3.964788732394366,
+      "contact_likelihood": 2.2746478873239435
+    },
+    "Supervisor or daily user": {
+      "n": 204,
+      "understanding": 4.088235294117647,
+      "language_relevance": 3.7815126050420167,
+      "practical_value": 3.0840336134453783,
+      "trust": 2.9747899159663866,
+      "next_step_confidence": 3.176470588235294,
+      "next_step_ease": 3.857142857142857,
+      "cta_match": 3.9495798319327733,
+      "contact_likelihood": 2.277310924369748
+    },
+    "Not a target visitor": {
+      "n": 160,
+      "understanding": 3.8375,
+      "language_relevance": 2.0,
+      "practical_value": 1.894736842105263,
+      "trust": 3.210526315789474,
+      "next_step_confidence": 3.8947368421052633,
+      "next_step_ease": 4.052631578947368,
+      "cta_match": 4.578947368421052,
+      "contact_likelihood": 1.0
+    },
+    "Fleet, equipment or rental manager": {
+      "n": 132,
+      "understanding": 4.113636363636363,
+      "language_relevance": 3.4556962025316458,
+      "practical_value": 2.9873417721518987,
+      "trust": 2.9873417721518987,
+      "next_step_confidence": 3.1772151898734178,
+      "next_step_ease": 3.911392405063291,
+      "cta_match": 3.949367088607595,
+      "contact_likelihood": 2.4683544303797467
+    },
+    "Operations, project or site manager": {
+      "n": 114,
+      "understanding": 4.157894736842105,
+      "language_relevance": 3.8857142857142857,
+      "practical_value": 3.1,
+      "trust": 3.0142857142857142,
+      "next_step_confidence": 3.4285714285714284,
+      "next_step_ease": 3.914285714285714,
+      "cta_match": 3.9571428571428573,
+      "contact_likelihood": 2.642857142857143
+    },
+    "Owner or senior manager": {
+      "n": 109,
+      "understanding": 4.220183486238532,
+      "language_relevance": 3.74,
+      "practical_value": 3.18,
+      "trust": 3.0,
+      "next_step_confidence": 3.34,
+      "next_step_ease": 3.94,
+      "cta_match": 3.96,
+      "contact_likelihood": 2.66
+    },
+    "HSE or compliance": {
+      "n": 42,
+      "understanding": 4.142857142857143,
+      "language_relevance": 3.875,
+      "practical_value": 3.03125,
+      "trust": 3.03125,
+      "next_step_confidence": 3.25,
+      "next_step_ease": 3.9375,
+      "cta_match": 3.96875,
+      "contact_likelihood": 2.375
+    }
+  },
+  "post_hoc": {
+    "understanding": {
+      "mean_in_browse": 3.975806451612903,
+      "sd_in_browse": 0.20921164146891688,
+      "mean_scored": 4.165322580645161,
+      "sd_scored": 0.40272145877899557,
+      "eta2": {
+        "audience_group": {
+          "in_browse": 0.017746000758282206,
+          "scored": 0.04366292085885186
+        },
+        "tier": {
+          "in_browse": 0.05032236493191269,
+          "scored": 0.13003805228850587
+        },
+        "visit_intent": {
+          "in_browse": 0.00033641382476230655,
+          "scored": 0.00017751696313955654
+        }
+      }
+    },
+    "language_relevance": {
+      "mean_in_browse": 3.638036809815951,
+      "sd_in_browse": 0.5013937942240073,
+      "mean_scored": 3.9754601226993866,
+      "sd_scored": 0.6422505188650283,
+      "eta2": {
+        "audience_group": {
+          "in_browse": 0.15548004012967967,
+          "scored": 0.12974319655842573
+        },
+        "tier": {
+          "in_browse": 0.28306860303700093,
+          "scored": 0.29934819391201145
+        },
+        "visit_intent": {
+          "in_browse": 0.008114663440276518,
+          "scored": 5.495117505672662e-08
+        }
+      }
+    },
+    "practical_value": {
+      "mean_in_browse": 3.051124744376278,
+      "sd_in_browse": 0.3188741743071514,
+      "mean_scored": 2.9775051124744376,
+      "sd_scored": 0.4113734694465063,
+      "eta2": {
+        "audience_group": {
+          "in_browse": 0.03902711793767508,
+          "scored": 0.04848366241900186
+        },
+        "tier": {
+          "in_browse": 0.06622951062349913,
+          "scored": 0.10352266390147001
+        },
+        "visit_intent": {
+          "in_browse": 0.0009661374295554094,
+          "scored": 0.001187702709385659
+        }
+      }
+    },
+    "trust": {
+      "mean_in_browse": 2.9938650306748467,
+      "sd_in_browse": 0.11948761683428664,
+      "mean_scored": 3.079754601226994,
+      "sd_scored": 0.2995892571680868,
+      "eta2": {
+        "audience_group": {
+          "in_browse": 0.01766282669326869,
+          "scored": 0.03656095870452636
+        },
+        "tier": {
+          "in_browse": 0.007168357579916291,
+          "scored": 0.023801429976425512
+        },
+        "visit_intent": {
+          "in_browse": 0.0026687495931784397,
+          "scored": 7.156055263014248e-05
+        }
+      }
+    },
+    "next_step_confidence": {
+      "mean_in_browse": 3.224948875255624,
+      "sd_in_browse": 0.42241787169455297,
+      "mean_scored": 3.513292433537832,
+      "sd_scored": 0.5159294810446979,
+      "eta2": {
+        "audience_group": {
+          "in_browse": 0.056421316641770074,
+          "scored": 0.011834827278556859
+        },
+        "tier": {
+          "in_browse": 0.023014634381574885,
+          "scored": 0.013846795555303841
+        },
+        "visit_intent": {
+          "in_browse": 0.0292470570378235,
+          "scored": 0.004298159277307214
+        }
+      }
+    },
+    "next_step_ease": {
+      "mean_in_browse": 3.8936605316973414,
+      "sd_in_browse": 0.3275688087014286,
+      "mean_scored": 3.5010224948875255,
+      "sd_scored": 0.5160996732266103,
+      "eta2": {
+        "audience_group": {
+          "in_browse": 0.007940416670942464,
+          "scored": 0.011135899032717935
+        },
+        "tier": {
+          "in_browse": 0.021752814688754136,
+          "scored": 0.014441189121838184
+        },
+        "visit_intent": {
+          "in_browse": 0.0005281056785936137,
+          "scored": 0.009426975362442743
+        }
+      }
+    },
+    "cta_match": {
+      "mean_in_browse": 3.957055214723926,
+      "sd_in_browse": 0.26406511989352416,
+      "mean_scored": 3.9263803680981595,
+      "sd_scored": 0.5526468995718772,
+      "eta2": {
+        "audience_group": {
+          "in_browse": 0.000747807317779853,
+          "scored": 0.018657120160403398
+        },
+        "tier": {
+          "in_browse": 0.01742815414226132,
+          "scored": 0.01065041014485973
+        },
+        "visit_intent": {
+          "in_browse": 0.0004944166030361173,
+          "scored": 0.009099971653250476
+        }
+      }
+    },
+    "contact_likelihood": {
+      "mean_in_browse": 2.4049079754601226,
+      "sd_in_browse": 0.6487808621355954,
+      "mean_scored": 2.6350806451612905,
+      "sd_scored": 0.7499322506687736,
+      "eta2": {
+        "audience_group": {
+          "in_browse": 0.058559873047050896,
+          "scored": 0.02759241317923066
+        },
+        "tier": {
+          "in_browse": 0.020147456036721956,
+          "scored": 0.035512642187254154
+        },
+        "visit_intent": {
+          "in_browse": 0.4085784002897156,
+          "scored": 0.49034508683872213
+        }
+      }
+    }
+  },
+  "next_step": {
+    "contact_sales": 48,
+    "learn_more": 343,
+    "go_elsewhere_on_site": 222,
+    "go_to_login": 300,
+    "leave": 59,
+    "come_back_later": 27
+  },
+  "trust_action": {
+    "need_references_first": 478,
+    "would_not_proceed": 518,
+    "unknown": 3
+  },
+  "basis_primary": {
+    "fit": 356,
+    "price": 49,
+    "other": 362,
+    "features": 104,
+    "integrations": 14,
+    "support": 97,
+    "proof_references": 11,
+    "consolidation": 6
+  },
+  "quality": {
+    "fidelity_rate": 1.0,
+    "claims_grounded": 0.984896,
+    "phrases_grounded": 0.9583126463700234,
+    "cta_inspected": 0.5115115115115115,
+    "cta_url_ok": 1.0
+  }
+}
