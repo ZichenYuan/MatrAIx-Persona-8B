@@ -45,6 +45,19 @@ def task_dir_of(job: Path) -> Path:
     return cand
 
 
+def all_trials(job: Path) -> list[Path]:
+    """Every finished trial that has an artifact, passing or not."""
+    out = []
+    for res in sorted(job.glob("*/result.json")):
+        try:
+            r = json.loads(res.read_text())
+        except json.JSONDecodeError:
+            continue
+        if r.get("finished_at") and (res.parent / "artifacts" / "app" / "output" / "page_audit.json").is_file():
+            out.append(res.parent)
+    return out
+
+
 def candidates(job: Path) -> list[Path]:
     out = []
     for res in sorted(job.glob("*/result.json")):
@@ -108,6 +121,21 @@ def reverify(trial: Path, task: Path, python: str, dry_run: bool) -> tuple[bool,
         backup = trial / "result.json.before-reverify"
         if not backup.exists():
             shutil.copyfile(res_path, backup)
+        # The run executed under the instruction shipped at the time; the verifier that
+        # reads it now is newer. Read the executed version off the artifact itself - the
+        # persona can only answer a question it was asked - so the data says which is which.
+        try:
+            art = json.loads(artifact.read_text(encoding="utf-8", errors="replace"))
+        except Exception:  # noqa: BLE001
+            art = {}
+        executed = ("2.5" if "package_fit" in art
+                    else "2.4" if "trust_email_guide" in art
+                    else "2.3" if "trust_form_today" in art
+                    else "2.2 or earlier")
+        q = json.loads((vdir / "quality.json").read_text())
+        q["executed_instrument_version"] = executed
+        q["verified_instrument_version"] = q.get("instrument_version")
+        (vdir / "quality.json").write_text(json.dumps(q, indent=2, ensure_ascii=False))
         r = json.loads(res_path.read_text())
         r.setdefault("verifier_result", {}).setdefault("rewards", {})["reward"] = 1.0
         r["reverified"] = {"at": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"), "by": "application/scripts/reverify_audit.py",
@@ -121,17 +149,38 @@ def main() -> int:
     ap.add_argument("job", type=Path)
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--python", default=sys.executable)
+    ap.add_argument("--all", action="store_true",
+                    help="re-verify every finished trial, not just the ones that failed: use after a "
+                         "verifier change so the saved facets, labels and scales match the current instrument")
+    ap.add_argument("--workers", type=int, default=4)
     a = ap.parse_args()
     job = a.job.resolve()
     task = task_dir_of(job)
-    trials = candidates(job)
-    print(f"{len(trials)} candidate trial(s) in {job.name} (finished, no crash, reward != 1)", file=sys.stderr)
+    trials = all_trials(job) if a.all else candidates(job)
+    what = "finished trial(s), full pass" if a.all else "candidate trial(s) (finished, no crash, reward != 1)"
+    print(f"{len(trials)} {what} in {job.name}", file=sys.stderr)
     fixed = 0
-    for t in trials:
-        ok, msg = reverify(t, task, a.python, a.dry_run)
-        fixed += ok
-        print(f"  {t.name[-7:]}: {'PASS' if ok else 'still failing'} - {msg}", file=sys.stderr)
-    print(f"{'would pass' if a.dry_run else 'reverified'}: {fixed} of {len(trials)}", file=sys.stderr)
+    failed: list[str] = []
+    import concurrent.futures
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=max(1, a.workers)) as pool:
+        futs = {pool.submit(reverify, t, task, a.python, a.dry_run): t for t in trials}
+        for i, fut in enumerate(concurrent.futures.as_completed(futs), 1):
+            t = futs[fut]
+            try:
+                ok, msg = fut.result()
+            except Exception as exc:  # noqa: BLE001
+                ok, msg = False, str(exc)[:120]
+            fixed += ok
+            if not ok:
+                failed.append(t.name[-7:])
+            if a.all:
+                if i % 200 == 0 or i == len(trials):
+                    print(f"  {i}/{len(trials)} done, {fixed} passing", file=sys.stderr)
+            else:
+                print(f"  {t.name[-7:]}: {'PASS' if ok else 'still failing'} - {msg}", file=sys.stderr)
+    print(f"{'would pass' if a.dry_run else 'reverified'}: {fixed} of {len(trials)}"
+          + (f" · still failing: {failed[:8]}" if failed else ""), file=sys.stderr)
     return 0
 
 
