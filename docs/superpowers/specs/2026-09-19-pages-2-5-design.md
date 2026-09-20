@@ -196,3 +196,33 @@ Click each page's primary button by hand and record the real destination: three 
 inventories list the page's own path as the CTA fragment, so `cta_url_ok` currently passes
 whenever the persona is still on the page. Until that is done, the CTA destination check is
 vacuous on the product pages.
+
+### CTA destinations, read from the live pages (2026-09-19)
+
+The open item from the review is closed: every primary and secondary button was opened in a
+browser and its real destination recorded in the inventories. The result changes what the CTA
+section can claim, and is itself a finding for the partner.
+
+| Page | Primary button | Real destination |
+|---|---|---|
+| Fleet | «Prova gratis» | `#cta`, an in-page form — and «Få en demo» and «Beställ» point at **the same form** |
+| Driving log | «Prova gratis» | `#cta` in the page; the identically labelled button in the sticky navigation leaves for the Fleet page's form. No «Boka demo» button exists on the live page |
+| Equipment | «Prova gratis» | `#price` — it scrolls to the price table, not to a form. «Skapa konto» leaves infobric.com for `login.infobricequipment.app` |
+| Hyrma | «Få en demo» | `#cta`, an in-page form. One route only |
+
+Three consequences:
+
+1. **`cta_url_ok` was vacuous on all four pages** because the inventories listed each page's
+   own path. They now carry the real fragments, with the page path kept only as a fallback
+   for a click recorded without its hash.
+2. **Fleet's three "ways to get started" are one way.** The partner wrote a separate
+   expectation for a trial, a demo and a package order; the page sends all three to the same
+   form. That is the answer to their question, not a limitation of ours.
+3. **Equipment's primary button does not do what it says.** A button labelled "try for free"
+   scrolls to a price table; the button that actually starts an account is «Skapa konto», and
+   it leaves the site for an external app. Expect `cta_match` to be low on that page, and for
+   the right reason.
+
+`book_demo` has been removed from the driving log's option set: the partner's brief names it
+as a conversion, but no such button exists on the page today. That discrepancy is worth
+reporting to them on its own.

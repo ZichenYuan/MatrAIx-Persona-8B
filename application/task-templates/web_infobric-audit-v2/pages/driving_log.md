@@ -9,7 +9,7 @@
   reporting and toll handling, how it works for drivers and administrators, what
   installation, integrations, privacy and security involve, and how to get started.
 - **Primary next-step button to inspect (step 4):** decide first which of this page's ways of getting started is right for you, then click **that one button** once and describe what follows. Do not fill in or submit anything. Note the other routes if you see them. Links to features or other products are ordinary navigation; do not follow them.
-- **`next_step` options on this page:** `start_trial`, `book_demo`, `download_guide`,
+- **`next_step` options on this page:** `start_trial`, `download_guide`,
   `learn_more`, `come_back_later`, `go_to_login`, `go_elsewhere_on_site`, `leave`.
   `go_to_login` means you would head for the login instead of reading on;
   `go_elsewhere_on_site` means another page on infobric.com next (a different product,
