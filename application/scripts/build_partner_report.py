@@ -586,8 +586,18 @@ def build_markdown(page: str, job: Path, rows: list[dict], numbers: dict, reduce
             row += [fmt(ph.get(k, {}).get("mean_scored")), fmt(ph.get(k, {}).get("sd_scored"))]
         row += [fmt(by_g_src.get(g, {}).get(k)) for g in groups_shown]
         body.append(row)
+    flat = [DIM_TITLES[k] for k in DIMS if (sc.get(k, {}).get("sd") or 1) < 0.30]
+    hdr = hdr + ["separates visitors?"]
+    for row, k in zip(body, DIMS):
+        row.append("no" if (sc.get(k, {}).get("sd") or 1) < 0.30 else "yes")
     w(md_table(hdr, body))
-    w("\n*Per-visitor-kind columns show the " + ("scored-after-the-visit" if have_scored else "in-browse") + " mean for prospects of that kind.*\n")
+    w("\n*Per-visitor-kind columns show the " + ("scored-after-the-visit" if have_scored else "in-browse") + " mean for prospects of that kind.*")
+    if flat:
+        w(f"\n**Read with care: {', '.join(flat).lower()} did not separate visitors.** Nearly everyone gave the same "
+          "answer, so the average is a property of the page rather than a difference between visitor kinds. For trust "
+          "in particular the middle anchor — a credible company whose claims are unproven for my case — is simply true "
+          "of any first visit, so the rating cannot move. What trust *does* vary on is what visitors will commit to and "
+          "which claims they accept, both in section 3c.\n")
     w("**What the scores mean (anchors given to every persona):**\n")
     for k, (a1, a3, a5) in ANCHORS.items():
         w(f"- **{DIM_TITLES[k]}** — 1: {a1}. 3: {a3}. 5: {a5}.")

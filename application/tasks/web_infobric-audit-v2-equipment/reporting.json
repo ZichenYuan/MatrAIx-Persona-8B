@@ -38,14 +38,6 @@
           ]
         },
         {
-          "id": "audit.trust_by_audience",
-          "facetKey": "trust",
-          "title": "Trust rating (1-5), given at the end of the visit",
-          "groupByPersonaDimensions": [
-            "audience_group"
-          ]
-        },
-        {
           "id": "audit.confidence_by_audience",
           "facetKey": "next_step_confidence",
           "title": "Confidence in the next step (1-5)",
@@ -81,14 +73,6 @@
           "id": "audit.value_scored_by_audience",
           "facetKey": "practical_value_scored",
           "title": "Perceived practical value (1-5, scored after the visit)",
-          "groupByPersonaDimensions": [
-            "audience_group"
-          ]
-        },
-        {
-          "id": "audit.trust_scored_by_audience",
-          "facetKey": "trust_scored",
-          "title": "Trust rating (1-5), re-scored after the visit from the visitor's own notes",
           "groupByPersonaDimensions": [
             "audience_group"
           ]
