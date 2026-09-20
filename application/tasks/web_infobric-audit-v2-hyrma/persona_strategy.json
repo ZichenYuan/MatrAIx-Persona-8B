@@ -1,18 +1,24 @@
 {
   "schemaVersion": "1.0",
-  "pool": "persona/datasets/generated-persona-dev-infobric-pilot-full",
+  "pool": "persona/datasets/generated-persona-dev-infobric-traffic-mix-hyrma",
   "sources": [],
-  "dimensionFilters": {
-    "works_in_rental_process": [
-      "Part of my job"
-    ]
-  },
+  "dimensionFilters": {},
   "sampling": {
     "mode": "stratified",
     "fields": [
-      "audience_group"
+      "traffic_segment"
     ],
     "allocation": "proportional",
-    "sampleSize": 100
+    "sampleSize": 200,
+    "portions": {
+      "traffic_segment": {
+        "prospect": 0.48,
+        "existing_customer": 0.52,
+        "misclick": 0.0,
+        "job_seeker": 0.0,
+        "supplier_partner": 0.0,
+        "student_researcher": 0.0
+      }
+    }
   }
 }

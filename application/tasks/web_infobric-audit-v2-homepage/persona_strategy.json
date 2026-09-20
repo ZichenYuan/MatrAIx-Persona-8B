@@ -14,8 +14,8 @@
       "traffic_segment": {
         "prospect": 0.5,
         "existing_customer": 0.34,
-        "job_seeker": 0.055,
         "misclick": 0.045,
+        "job_seeker": 0.055,
         "supplier_partner": 0.03,
         "student_researcher": 0.03
       }

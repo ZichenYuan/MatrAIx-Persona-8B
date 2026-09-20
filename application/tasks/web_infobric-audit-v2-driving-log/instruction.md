@@ -15,13 +15,13 @@ This visit has the same rule: you stay only if the first screen gives you a reas
   how it reduces manual administration, how it supports mileage reimbursement, travel
   reporting and toll handling, how it works for drivers and administrators, what
   installation, integrations, privacy and security involve, and how to get started.
-- **Primary next-step button to inspect (step 4):** the page's main "start a free trial"
-  button. Click it once and describe what follows. The page may also offer booking a demo
-  and downloading a guide — note them if you see them, but do not use them. Links to
-  related products or features are ordinary navigation; do not follow them.
-- **`next_step` options on this page:** `start_trial`, `book_demo`, `download_guide`,
-  `learn_more`, `come_back_later`, `leave`.
-- **Proof claim for the three `trust_*` questions:** «Här är varför över 7500 företag väljer oss:»
+- **Primary next-step button to inspect (step 4):** decide first which of this page's ways of getting started is right for you, then click **that one button** once and describe what follows. Do not fill in or submit anything. Note the other routes if you see them. Links to features or other products are ordinary navigation; do not follow them.
+- **`next_step` options on this page:** `start_trial`, `download_guide`,
+  `learn_more`, `come_back_later`, `go_to_login`, `go_elsewhere_on_site`, `leave`.
+  `go_to_login` means you would head for the login instead of reading on;
+  `go_elsewhere_on_site` means another page on infobric.com next (a different product,
+  contact, pricing); `leave` means you would leave the site.
+- **Proof claim for the five `trust_*` questions:** «Det betyder att du alltid får 100 % korrekt data för varje resa – och slipper osäkerheter i rapporteringen.»
 
 The site is in Swedish. Read it in Swedish; write your answers in English. When you quote
 wording from the page, quote it exactly as written, in Swedish.
@@ -97,16 +97,16 @@ Save to `/app/output/page_audit.json`:
   "hesitate_or_leave_reason": "<what on this page would make you hesitate or leave, if anything>",
 
   "understanding": <1-5>,
-  "language_relevance": <1-5>,
-  "practical_value": <1-5>,
-  "trust": <1-5>,
+  "language_relevance": <1-5, or "unknown" if you left after the first screen>,
+  "practical_value": <1-5, or "unknown" if you left after the first screen>,
+  "trust": <1-5, or "unknown" if you left after the first screen>,
   "trust_email_guide": "<yes or no: would you give your work email address to get a guide or price indication from them this week?>",
   "trust_callback": "<yes or no: would you ask them to call you back this week?>",
   "trust_demo_week": "<yes or no: would you book a 30-minute demo with them this week?>",
   "trust_pilot_data": "<yes or no: would you run a pilot on your own company's live data this month?>",
   "trust_ladder_reason": "<one sentence: what would have to be true, on this page or about this supplier, for you to say yes to the next commitment you refused>",
   "trust_claim_unchecked": "<yes or no: would you accept the proof claim named in the page brief as true without checking it anywhere else?>",
-  "next_step_confidence": <1-5>,
+  "next_step_confidence": <1-5, or "unknown" if you left after the first screen>,
   "next_step_ease": <1-5, or "unknown" if you did not inspect the button>,
 
   "primary_cta_seen": "<the exact label of the primary next-step button as written on the page>",
@@ -122,6 +122,9 @@ Save to `/app/output/page_audit.json`:
   "trust_action": "<what you would need before going further — one of: share_data_now, need_references_first, need_pilot_first, would_not_proceed>",
   "contact_likelihood": <1-5, how likely you are to contact this supplier within the next week>,
   "missing_info": ["<zero or more of: price, integrations, hardware, setup_time, references, data_privacy, contract_terms>"],
+  "package_fit": "<if the page shows packages, plans or price tiers: quote the name of the one that fits you, or \"cannot_tell\" if you could not tell them apart; \"unknown\" if the page shows none>",
+  "price_found": "<yes, no, or did_not_look — did you find what this costs on this page?>",
+  "price_reaction": "<if you found a price: acceptable, too_high, cannot_tell_what_it_covers, or not_relevant; otherwise unknown>",
   "reason": "<why you chose that next step, grounded in what you saw and your own situation>",
   "improvement_suggestion": "<the single change to this page that would most move you toward the next step, in your own words>",
   "improvement_check": "<how the site owner could tell whether that change worked — what would be different in how visitors like you behave>",
@@ -166,7 +169,9 @@ do this week or this month, given how pressing your situation is and how you usu
 suppliers' claims. Someone who came to log in, or who did not come to evaluate a supplier
 at all, will usually answer `no` to all four — that is the correct answer for them. The
 fifth question is about belief: would you take the named proof claim at face value.
-Answer all five on an early exit too, from what you saw on the first screen. Then, in
+Answer all five on an early exit too, from what you saw on the first screen — except
+`trust_claim_unchecked`: if you left early and the claim named in the page brief was not on
+the first screen, answer `unknown` rather than guessing about text you never read. Then, in
 `trust_ladder_reason`, say in one sentence what would have to be true — on this page or
 about this supplier — for you to say yes to the first commitment you refused. Be
 concrete: a named reference in your industry, a price range, a data-handling statement,
@@ -193,6 +198,14 @@ a colleague's recommendation, a trial without a sales call — whatever it reall
   when no more specific reason applies.
 - `trust_action` is the concrete thing you would need before going further.
   `share_data_now` means you would sign up or hand over details today.
+- `price_found` and `price_reaction` are about this page only. `did_not_look` is honest if
+  you never went looking; `cannot_tell_what_it_covers` is the right answer when a number is
+  shown but you cannot tell what you get for it.
+- If a control looks clickable and does nothing, or the page shows placeholder text or an
+  error, record it in `confusing_or_missing` with `kind: broken`.
+- `package_fit` is about this page's own packages, plans or price tiers. Quote the name
+  exactly as written. Use `cannot_tell` when packages exist but you could not work out
+  which one is for you — that is a real and useful answer.
 - `improvement_suggestion` is advice to the page's owner: specific, and tied to what you
   saw. `improvement_check` is how they would know it worked.
 - Anything you did not inspect is `unknown`, not a guess.

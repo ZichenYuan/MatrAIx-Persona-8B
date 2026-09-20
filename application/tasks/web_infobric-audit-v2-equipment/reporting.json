@@ -40,7 +40,7 @@
         {
           "id": "audit.trust_by_audience",
           "facetKey": "trust",
-          "title": "Trust (1-5)",
+          "title": "Trust rating (1-5), given at the end of the visit",
           "groupByPersonaDimensions": [
             "audience_group"
           ]
@@ -88,7 +88,7 @@
         {
           "id": "audit.trust_scored_by_audience",
           "facetKey": "trust_scored",
-          "title": "Trust (1-5, scored after the visit)",
+          "title": "Trust rating (1-5), re-scored after the visit from the visitor's own notes",
           "groupByPersonaDimensions": [
             "audience_group"
           ]
@@ -120,7 +120,7 @@
         {
           "id": "audit.trust_ladder_by_audience",
           "facetKey": "trust_ladder",
-          "title": "Trust ladder: rungs accepted this week (0-4)",
+          "title": "Trust in action: commitments accepted, 0-4 (non-evaluators answer 0 by design)",
           "groupByPersonaDimensions": [
             "audience_group"
           ]
@@ -128,7 +128,7 @@
         {
           "id": "audit.trust_ladder_by_segment",
           "facetKey": "trust_ladder",
-          "title": "Trust ladder: rungs accepted this week (0-4), by traffic segment",
+          "title": "Trust in action: commitments accepted, 0-4 (non-evaluators answer 0 by design)",
           "groupByPersonaDimensions": [
             "traffic_segment"
           ]
@@ -161,6 +161,30 @@
           "id": "audit.trust_pilot_by_audience",
           "facetKey": "trust_pilot_data",
           "title": "Would run a pilot on own data this month",
+          "groupByPersonaDimensions": [
+            "audience_group"
+          ]
+        },
+        {
+          "id": "audit.package_fit_by_audience",
+          "facetKey": "package_fit",
+          "title": "Which package or plan fits (pages that show packages)",
+          "groupByPersonaDimensions": [
+            "audience_group"
+          ]
+        },
+        {
+          "id": "audit.price_found_by_audience",
+          "facetKey": "price_found",
+          "title": "Found the price on the page",
+          "groupByPersonaDimensions": [
+            "audience_group"
+          ]
+        },
+        {
+          "id": "audit.price_reaction_by_audience",
+          "facetKey": "price_reaction",
+          "title": "What the price did to them",
           "groupByPersonaDimensions": [
             "audience_group"
           ]

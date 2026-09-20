@@ -320,10 +320,15 @@ def _grounding(quotes: list[str], snapshot: str) -> tuple[int, int, list[str]]:
     return len(hits), len(quotes), [q[:80] for q in quotes if q not in hits]
 
 
-def _facet(key: str, label: str, role: str, kind: str, value, explains: str | None = None) -> dict:
+def _facet(key: str, label: str, role: str, kind: str, value, explains: str | None = None,
+           scale: tuple[int, int] | None = None) -> dict:
     out = {"key": key, "label": label, "role": role, "kind": kind, "value": value}
     if explains:
         out["explainsFacetKey"] = explains
+    if scale:
+        # Without this the report draws every numeric facet on a 1-5 axis and prints
+        # "avg 0.43 / 5" for a count that runs 0-4.
+        out["scaleMin"], out["scaleMax"] = scale
     return out
 
 
@@ -523,7 +528,7 @@ def test_output_schema() -> None:
                 _facet("decision_subject_label", "Page", "evidence", "categorical", page_label),
                 _facet("decision_subject_id", "Page id", "evidence", "categorical", page_id),
                 _facet("trust_action", "Needed before going further", "primary", "categorical", trust_action),
-                _facet("contact_likelihood", "Likelihood of contacting (1-5)", "score", "numerical", contact),
+                _facet("contact_likelihood", "Likelihood of contacting (1-5)", "score", "numerical", contact, scale=(1, 5)),
             ],
         },
         {
@@ -545,15 +550,17 @@ def test_output_schema() -> None:
             "contextType": "page_audit",
             "facets": [
                 _facet("understanding", "Understanding (1-5)", "score",
-                       "numerical" if scores["understanding"] != "unknown" else "categorical", scores["understanding"]),
+                       "numerical" if scores["understanding"] != "unknown" else "categorical", scores["understanding"], scale=(1, 5)),
                 _facet("language_relevance", "Language and relevance (1-5)", "score",
-                       "numerical" if scores["language_relevance"] != "unknown" else "categorical", scores["language_relevance"]),
+                       "numerical" if scores["language_relevance"] != "unknown" else "categorical", scores["language_relevance"], scale=(1, 5)),
                 _facet("practical_value", "Perceived practical value (1-5)", "score",
-                       "numerical" if scores["practical_value"] != "unknown" else "categorical", scores["practical_value"]),
-                _facet("trust", "Trust (1-5)", "score",
-                       "numerical" if scores["trust"] != "unknown" else "categorical", scores["trust"]),
-                _facet("trust_ladder", "Trust ladder: rungs accepted this week (0-4)", "score",
-                       "numerical" if trust_ladder != "unknown" else "categorical", trust_ladder),
+                       "numerical" if scores["practical_value"] != "unknown" else "categorical", scores["practical_value"], scale=(1, 5)),
+                _facet("trust", "Trust rating (1-5), given at the end of the visit", "score",
+                       "numerical" if scores["trust"] != "unknown" else "categorical", scores["trust"],
+                       scale=(1, 5)),
+                _facet("trust_ladder", "Trust in action: commitments accepted, 0-4 (non-evaluators answer 0 by design)",
+                       "score", "numerical" if trust_ladder != "unknown" else "categorical", trust_ladder,
+                       scale=(0, 4)),
                 _facet("trust_ladder_consistent", "Trust ladder answered consistently (no yes above a no)", "score",
                        "categorical", trust_ladder_consistent),
                 _facet("trust_email_guide", "Would give a work email for a guide", "score", "categorical",
@@ -570,9 +577,9 @@ def test_output_schema() -> None:
                 _facet("price_found", "Found the price on the page", "primary", "categorical", price_found),
                 _facet("price_reaction", "What the price did to them", "primary", "categorical", price_reaction),
                 _facet("next_step_confidence", "Confidence in the next step (1-5)", "score",
-                       "numerical" if scores["next_step_confidence"] != "unknown" else "categorical", scores["next_step_confidence"]),
+                       "numerical" if scores["next_step_confidence"] != "unknown" else "categorical", scores["next_step_confidence"], scale=(1, 5)),
                 _facet("next_step_ease", "Ease of completing the next step (1-5)", "score",
-                       "numerical" if ease != "unknown" else "categorical", ease),
+                       "numerical" if ease != "unknown" else "categorical", ease, scale=(1, 5)),
                 _facet("takeaway_text", "What they understood and would do next", "explanation", "textual",
                        takeaway_text),
                 _facet("findings_text", "Findings, with exact wording", "explanation", "textual", findings_text),
@@ -584,7 +591,7 @@ def test_output_schema() -> None:
             "contextType": "cta_followthrough",
             "facets": [
                 _facet("cta_match", "What followed matched expectation (1-5)", "score",
-                       "numerical" if cta_match != "unknown" else "categorical", cta_match),
+                       "numerical" if cta_match != "unknown" else "categorical", cta_match, scale=(1, 5)),
                 _facet("cta_text", "Expectation vs what followed", "explanation", "textual", cta_text),
             ],
         },
