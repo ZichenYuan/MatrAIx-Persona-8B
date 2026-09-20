@@ -181,6 +181,16 @@ def main() -> int:
                 print(f"  {t.name[-7:]}: {'PASS' if ok else 'still failing'} - {msg}", file=sys.stderr)
     print(f"{'would pass' if a.dry_run else 'reverified'}: {fixed} of {len(trials)}"
           + (f" · still failing: {failed[:8]}" if failed else ""), file=sys.stderr)
+    if not a.dry_run:
+        # Verification rewrites quality.json and structured_output.json from the artifact,
+        # which drops post-hoc scores written after the original verification. Put them back
+        # from the saved exchanges; no model calls.
+        saved = list(job.glob("*/verifier/post_hoc_scoring.json"))
+        if saved:
+            r = subprocess.run([a.python, str(REPO / "application/scripts/score_audit.py"), str(job), "--reapply"],
+                               capture_output=True, text=True)
+            tail = [ln for ln in (r.stdout + r.stderr).splitlines() if ln.strip()][-1:]
+            print(f"post-hoc scores: {tail[0] if tail else 'reapply failed'}", file=sys.stderr)
     return 0
 
 

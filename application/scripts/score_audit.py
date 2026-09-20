@@ -403,6 +403,11 @@ def main() -> int:
     ap.add_argument("--workers", type=int, default=3)
     ap.add_argument("--limit", type=int, default=0, help="score at most N trials (0 = all)")
     ap.add_argument("--force", action="store_true", help="re-score trials that already have post_hoc_scoring.json")
+    ap.add_argument("--reapply", action="store_true",
+                    help="write saved post_hoc_scoring.json results back into quality.json and "
+                         "structured_output.json without calling the model. Needed after a full "
+                         "re-verification pass, which rewrites both of those files from the artifact "
+                         "and so drops anything added after verification.")
     ap.add_argument("--only-segment", default=None,
                     help="score only this traffic segment (e.g. prospect). The six dimensions are "
                          "reported for prospects only, so scoring the rest buys nothing.")
@@ -411,6 +416,18 @@ def main() -> int:
     a = ap.parse_args()
 
     load_env_file(a.env_file)
+    if a.reapply:
+        done = 0
+        for saved in sorted(a.job.glob("*/verifier/post_hoc_scoring.json")):
+            meta = json.loads(saved.read_text())
+            scores = meta.pop("scores", {})
+            whys = meta.pop("why", {})
+            if not scores:
+                continue
+            write_back(saved.parent.parent, scores, whys, meta)
+            done += 1
+        log(f"re-applied {done} saved scorings (no model calls)")
+        return 0
     task = task_dir_of(a.job)
     instruction = (task / "instruction.md").read_text(encoding="utf-8")
     page_brief = section(instruction, "Page brief")
