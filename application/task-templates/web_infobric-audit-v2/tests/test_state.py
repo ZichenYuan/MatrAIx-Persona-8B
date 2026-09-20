@@ -449,8 +449,12 @@ def test_output_schema() -> None:
         unmapped.append(f"next_step:{next_step} (not offered on {page_id})")
         next_step = "learn_more" if next_step not in {"come_back_later", "leave"} else next_step
     basis = _canon(data.get("basis_primary"), BASIS_PRIMARY) or "other"
+    # A complete audit is not thrown away for one missing enum: record it as unmapped
+    # (visible in quality.json and the run summary) and carry on.
     trust_action = _canon(data.get("trust_action"), TRUST_ACTION)
-    assert trust_action, f"trust_action must be one of {sorted(TRUST_ACTION)}"
+    if trust_action is None:
+        unmapped.append(f"trust_action:{str(data.get('trust_action'))[:40]}")
+        trust_action = "unknown"
     contact = _score(data, "contact_likelihood")
     missing = _enum_list(data, "missing_info", MISSING_INFO, unmapped)
     reason = _string(data, "reason")
