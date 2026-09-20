@@ -28,7 +28,7 @@ MARKER = "<!-- PAGE BRIEF -->"
 
 # Default cohort per page: proportional to the pool's visitor-kind mix. The homepage
 # is the pilot's full run; product pages default to a pilot-sized sample.
-PAGE_SAMPLE = {"homepage": 1000, "fleet": 100, "driving-log": 100, "equipment": 100, "hyrma": 100}
+PAGE_SAMPLE = {"homepage": 1000, "fleet": 200, "driving-log": 200, "equipment": 200, "hyrma": 200}
 # Homepage full run: every report section is per traffic segment (the pooled exit rate was
 # never comparable to Quick Backs), so the budget goes where the partner's questions are.
 # 50% prospects = ~83 per visitor kind, enough for partner-facing percentages; the rest
@@ -37,22 +37,42 @@ PAGE_SAMPLE = {"homepage": 1000, "fleet": 100, "driving-log": 100, "equipment": 
 # Keys are the manifest's segment slugs, not the display labels: the sampler buckets on
 # the value `_stratify_bucket_key` finds first, which is the top-level `traffic_segment`
 # written by build_traffic_mix_pool.py. Labels here raise "pool has 0" for every bucket.
+# Per page, from that page's own analytics (docs/.../2026-09-19-pages-2-5-design.md §3):
+# the login-event share and the returning-user share say how much of the real traffic is
+# existing customers rather than prospects. The driving log carries a real mis-click case
+# (a private person searching for a driving-log app); the deeper product pages do not.
+def _mix(prospect: float, customer: float, misclick: float, job: float, supplier: float, student: float) -> dict:
+    return {"traffic_segment": {"prospect": prospect, "existing_customer": customer, "misclick": misclick,
+                                "job_seeker": job, "supplier_partner": supplier, "student_researcher": student}}
+
+
 PAGE_PORTIONS = {
-    "homepage": {
-        "traffic_segment": {
-            "prospect": 0.50,
-            "existing_customer": 0.34,
-            "job_seeker": 0.055,
-            "misclick": 0.045,
-            "supplier_partner": 0.03,
-            "student_researcher": 0.03,
-        }
-    }
+    # 51% of homepage sessions fire a login event; 43% are returning.
+    "homepage": _mix(0.50, 0.34, 0.045, 0.055, 0.03, 0.03),
+    # No Clarity session data for Fleet; customer share assumed between the homepage's and the driving log's.
+    "fleet": _mix(0.70, 0.25, 0.02, 0.015, 0.01, 0.005),
+    # 81% new users, 13% login: the purest evaluation page, and the one a private person mis-clicks onto.
+    "driving-log": _mix(0.75, 0.10, 0.10, 0.03, 0.01, 0.01),
+    # 34% returning, 21% login.
+    "equipment": _mix(0.70, 0.25, 0.02, 0.015, 0.01, 0.005),
+    # 61% returning and 38% login: this page doubles as a login door, so customers lead the mix.
+    "hyrma": _mix(0.45, 0.50, 0.02, 0.015, 0.01, 0.005),
 }
 # Ablation arm 1 (traffic mix): pool + stratification field per page. Pages not listed
 # keep the master pool and stratify by audience_group.
-PAGE_POOL = {"homepage": "persona/datasets/generated-persona-dev-infobric-traffic-mix"}
-PAGE_FIELDS = {"homepage": ["traffic_segment"]}
+_MIX_POOL = "persona/datasets/generated-persona-dev-infobric-traffic-mix"
+PAGE_POOL = {
+    "homepage": _MIX_POOL,
+    # Per-page pools: the page's relevance filter is applied to the prospect and customer
+    # halves when the pool is built (build_traffic_mix_pool.py --filter), never to the
+    # wrong-fit personas, who carry "Not part of my job" on every relevance field and
+    # would otherwise be filtered out of their own segment.
+    "fleet": f"{_MIX_POOL}-fleet",
+    "driving-log": f"{_MIX_POOL}-driving-log",
+    "equipment": f"{_MIX_POOL}-equipment",
+    "hyrma": f"{_MIX_POOL}-hyrma",
+}
+PAGE_FIELDS = {slug: ["traffic_segment"] for slug in PAGE_POOL}
 
 # folder suffix -> (page_id, task.toml name, title, persona dimension filter)
 PAGES = {
@@ -109,7 +129,10 @@ def _generate(slug: str, page_id: str, task_name: str, title: str, dim_filter: d
     (out / "task.toml").write_text(toml, encoding="utf-8")
 
     strategy = json.loads((MASTER / "persona_strategy.json").read_text(encoding="utf-8"))
-    strategy["dimensionFilters"] = dim_filter
+    # A pre-filtered pool must not be filtered again at sample time: the relevance fields
+    # are already satisfied by its prospects and customers, and re-applying the filter
+    # would drop every wrong-fit persona.
+    strategy["dimensionFilters"] = {} if slug in PAGE_POOL else dim_filter
     # Ablation arm 1: the homepage runs on the traffic-mix pool, stratified by traffic
     # segment (analytics-like shares), so exit rate is comparable per segment.
     if slug in PAGE_POOL:

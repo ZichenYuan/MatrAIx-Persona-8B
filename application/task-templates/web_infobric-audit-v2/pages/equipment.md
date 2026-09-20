@@ -14,5 +14,12 @@
   you see them, but do not use them. Links to tracking solutions, features or other
   products are ordinary navigation; do not follow them.
 - **`next_step` options on this page:** `create_free_account`, `book_demo`,
-  `use_calculator`, `learn_more`, `come_back_later`, `leave`.
+  `use_calculator`, `learn_more`, `come_back_later`, `go_to_login`, `go_elsewhere_on_site`,
+  `leave`.
+  `go_to_login` means you would head for the login instead of reading on;
+  `go_elsewhere_on_site` means another page on infobric.com next (a different product,
+  contact, pricing); `leave` means you would leave the site.
 - **Proof claim for the three `trust_*` questions:** «3 års batteritid.»
+- **If something on this page looks clickable and does nothing, or the page misbehaves**
+  (a control that does not respond, a broken image, an error), record it in
+  `confusing_or_missing` with `kind: confusing` and say what you expected it to do.

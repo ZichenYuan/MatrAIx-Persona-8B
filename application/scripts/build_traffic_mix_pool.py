@@ -155,6 +155,10 @@ def main() -> int:
     ap.add_argument("--out", default="persona/datasets/generated-persona-dev-infobric-traffic-mix")
     ap.add_argument("--seed", type=int, default=7)
     ap.add_argument("--force", action="store_true")
+    ap.add_argument("--filter", action="append", default=[], metavar="FIELD=VALUE",
+                    help="keep only source personas (prospects + existing customers) whose dimension "
+                         "FIELD equals VALUE; repeatable. The wrong-fit mini-pool is never filtered - "
+                         "a job seeker or a mis-click has no job relevance to the page by definition.")
     ap.add_argument("--wrong-fit-source", default=None,
                     help="a pool built from cohort_configs/infobric_wrong_fit.yaml; when given, the wrong-fit 15%% "
                          "comes from it (own non-construction identities) and only prospects + existing customers "
@@ -169,6 +173,17 @@ def main() -> int:
     out.mkdir(parents=True)
     manifest = json.loads((src / "manifest.json").read_text())
     personas = manifest["personas"]
+    if a.filter:
+        wanted = {}
+        for item in a.filter:
+            field, _, value = item.partition("=")
+            wanted[field.strip()] = value.strip()
+        before = len(personas)
+        personas = [p for p in personas
+                    if all(str((p.get("dimensions") or {}).get(f)) == v for f, v in wanted.items())]
+        print(f"filter {wanted}: {before} -> {len(personas)} source personas", file=sys.stderr)
+        if not personas:
+            sys.exit("filter left no personas")
     rng = random.Random(a.seed)
     order = list(range(len(personas)))
     rng.shuffle(order)
@@ -182,6 +197,10 @@ def main() -> int:
         total = int(round(len(wrong_fit_entries) / wf_share))
         n_prospect = int(round(total * dict(MIX)["prospect"]))
         n_customer = int(round(total * dict(MIX)["existing_customer"]))
+        # A filtered source may not hold that many; take what is there.
+        if n_prospect + n_customer > len(personas):
+            scale = len(personas) / (n_prospect + n_customer)
+            n_prospect, n_customer = int(n_prospect * scale), int(n_customer * scale)
         keep = order[: n_prospect + n_customer]
         assignment = {idx: "prospect" for idx in keep[:n_prospect]}
         assignment.update({idx: "existing_customer" for idx in keep[n_prospect:]})

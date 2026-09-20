@@ -37,14 +37,18 @@
     "download_guide",
     "learn_more",
     "come_back_later",
-    "leave"
+    "leave",
+    "go_to_login",
+    "go_elsewhere_on_site"
   ],
   "conversion_next_steps": [
     "start_trial",
     "book_demo"
   ],
   "navigation_next_steps": [
-    "learn_more"
+    "learn_more",
+    "go_to_login",
+    "go_elsewhere_on_site"
   ],
   "claims": [
     "Här är varför över 7500 företag väljer oss:",

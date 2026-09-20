@@ -46,7 +46,9 @@
     "preview_fleet",
     "learn_more",
     "come_back_later",
-    "leave"
+    "leave",
+    "go_to_login",
+    "go_elsewhere_on_site"
   ],
   "conversion_next_steps": [
     "start_trial",
@@ -55,7 +57,9 @@
     "preview_fleet"
   ],
   "navigation_next_steps": [
-    "learn_more"
+    "learn_more",
+    "go_to_login",
+    "go_elsewhere_on_site"
   ],
   "claims": [
     "Över 20 år i branschen.",

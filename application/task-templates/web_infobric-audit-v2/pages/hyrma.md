@@ -13,5 +13,8 @@
   buttons to follow off the page. Links to other products are ordinary navigation; do not
   follow them.
 - **`next_step` options on this page:** `book_demo`, `learn_more`, `come_back_later`,
-  `leave`.
-- **Proof claim for the three `trust_*` questions:** «Idag har vi 700 maskiner på depåer från Piteå till Malmö»
+  `go_to_login`, `go_elsewhere_on_site`, `leave`.
+  `go_to_login` means you would head for the login instead of reading on;
+  `go_elsewhere_on_site` means another page on infobric.com next (a different product,
+  contact, pricing); `leave` means you would leave the site.
+- **Proof claim for the three `trust_*` questions:** «Sveriges främsta uthyrningssystem»
