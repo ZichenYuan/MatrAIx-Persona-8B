@@ -172,6 +172,22 @@
           "groupByPersonaDimensions": [
             "audience_group"
           ]
+        },
+        {
+          "id": "audit.price_found_by_audience",
+          "facetKey": "price_found",
+          "title": "Found the price on the page",
+          "groupByPersonaDimensions": [
+            "audience_group"
+          ]
+        },
+        {
+          "id": "audit.price_reaction_by_audience",
+          "facetKey": "price_reaction",
+          "title": "What the price did to them",
+          "groupByPersonaDimensions": [
+            "audience_group"
+          ]
         }
       ],
       "summaryAnalyses": [

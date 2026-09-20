@@ -114,3 +114,85 @@ concurrency 4, and they can run one after another rather than in one sitting.
 3. `make_audit_v2_tasks.py` — regenerates all five task dirs, which is why it waits.
 4. Oracle check per page (`solution/solve.sh`), then a 20-persona probe per page before
    the 200-persona runs.
+
+---
+
+## 7. Review findings and decisions (2026-09-19, after two independent audits)
+
+Two reviews (Claude Opus 5) checked this design against the partner's briefs and against the
+running homepage study. Everything below was verified against live data before being accepted.
+
+### Corrected in the design
+
+**Exit rate is not a calibration against Quick Backs, and §3 should not have implied it.**
+Within every segment, leaving is deterministic: on 688 live homepage trials, existing
+customers left 247/247, job seekers 36/36, mis-clicks 28/28, suppliers 15/15, prospects
+4/343. A page's "exit rate" is therefore arithmetic on the mix we chose, not a measurement.
+Report exits **per segment only**, and use `next_step == "leave"` as the bounce number, which
+is the only figure comparable to a Quick Back. Hyrma would otherwise "confirm" its own
+login-door hypothesis by construction: its 50% customer share predicts a 55% exit rate
+against a real 26%.
+
+**Hyrma cannot carry percentages.** `works_in_rental_process = "Part of my job"` is a perfect
+proxy for `tier = Rental`: exactly 289 of the 1,500 pilot-full personas qualify and all 289
+are Rental. So Hyrma's population is single-tier, and tier is the strongest persona driver of
+the two dimensions that still vary (η² 0.48 on language relevance, 0.33 on practical value).
+On the homepage, Rental-tier prospects already score 0.24 lower on language relevance than
+prospects at large, which is larger than the confidence interval at n=90. Hyrma therefore
+runs as a **qualitative read of the login-door question, in counts and quotes**, and any
+score comparison is made only against homepage Rental-tier prospects (n=76), never against
+the homepage as a whole.
+
+**The claim-type comparison is a hypothesis, not a finding.** Claim acceptance tracks customer
+share, not claim type: existing customers accept at 100%, prospects at 50%. Reported for
+prospects only, and even then n=90–150 per page resolves only gaps wider than about 17
+points, which four claim types will not produce. §2's promise is downgraded accordingly.
+
+**Half the visitor-kind cells cannot carry a percentage.** Expected prospect cells on Fleet
+are 55 supervisors, 41 finance, 25 owners and 10 fleet managers: the page about fleets gets
+the fewest fleet managers in the study. Percentages are printed only where n ≥ 30, with the
+cell size beside every figure; smaller cells are reported as "n of m personas" in prose.
+
+**Menu sizes differ per page** (Fleet 9 options, Hyrma 6), so raw next-step distributions are
+never compared across pages; `go_to_login` is compared within existing customers only.
+
+**HSE and compliance are out of scope on the product pages**, by the partner's own audience
+lists in URL briefs 2–5, and the pools contain none. The report omits the row rather than
+showing an empty one.
+
+### Fixed in the instrument (version 2.5; the homepage full run is 2.4)
+
+| Fix | Why |
+|---|---|
+| A leaver's page scores are forced to `unknown` | 337 of 337 leavers emitted numeric language relevance, practical value and next-step confidence for a page they never read, and those values landed in the report |
+| `cta_label_grounded` is `n/a` when the button was not inspected | it read "false" for every leaver, so a page would look like half its visitors misnamed the button |
+| `price_found`, `price_reaction` | the design's headline finding ("is the information the homepage lacks actually found?") had no field; all four pages show prices |
+| `package_fit` | the partner asks twice whether visitors can tell the packages apart |
+| `kind: broken` | a dead control was silently coerced to "confusing", so Clarity's 5.7% dead-click signal had nowhere to land |
+| Wrong-fit dropped to zero on Fleet, Equipment and Hyrma | deterministic exits mean ten such personas measure nothing; the budget goes to thin prospect cells |
+| Page briefs said "three `trust_*` questions"; there are five | contradiction in the text the persona reads |
+
+Deltas from 2.4 are listed here so homepage-2.4 and pages-2.5 stay distinguishable in the data.
+
+### Deliberately not changed
+
+**The trust ladder keeps all four rungs**, though "book a demo this week" and "run a pilot"
+are both zero across 688 trials. They are informative zeros: nobody commits to a demo on a
+first visit, which is itself an answer about the demo CTA. Changing the rungs would also
+break comparison with the 1,000-persona homepage baseline. Improving resolution between the
+first two rungs is an instrument-2.6 question.
+
+**Segment assignment is reshuffled per pool**, so the same persona can be a prospect on one
+page and a customer on another (41% differ between the Fleet and Equipment pools). Same
+instrument, different people: no paired cross-page analysis is claimed.
+
+**Model is pinned to `anthropic/claude-opus-4-8`** for all four pages, matching the homepage
+run. The two models differ too much to pool (GPT-5.6 accepts the proof claim 6% of the time
+against Claude's 64%).
+
+### Still open before the runs
+
+Click each page's primary button by hand and record the real destination: three of the four
+inventories list the page's own path as the CTA fragment, so `cta_url_ok` currently passes
+whenever the persona is still on the page. Until that is done, the CTA destination check is
+vacuous on the product pages.

@@ -50,13 +50,15 @@ PAGE_PORTIONS = {
     # 51% of homepage sessions fire a login event; 43% are returning.
     "homepage": _mix(0.50, 0.34, 0.045, 0.055, 0.03, 0.03),
     # No Clarity session data for Fleet; customer share assumed between the homepage's and the driving log's.
-    "fleet": _mix(0.70, 0.25, 0.02, 0.015, 0.01, 0.005),
+    # Wrong-fit exits are deterministic, so a handful of them measures nothing: on the deep
+    # product pages that budget goes to prospects, where the cells are thin.
+    "fleet": _mix(0.75, 0.25, 0.0, 0.0, 0.0, 0.0),
     # 81% new users, 13% login: the purest evaluation page, and the one a private person mis-clicks onto.
     "driving-log": _mix(0.75, 0.10, 0.10, 0.03, 0.01, 0.01),
     # 34% returning, 21% login.
-    "equipment": _mix(0.70, 0.25, 0.02, 0.015, 0.01, 0.005),
+    "equipment": _mix(0.75, 0.25, 0.0, 0.0, 0.0, 0.0),
     # 61% returning and 38% login: this page doubles as a login door, so customers lead the mix.
-    "hyrma": _mix(0.45, 0.50, 0.02, 0.015, 0.01, 0.005),
+    "hyrma": _mix(0.48, 0.52, 0.0, 0.0, 0.0, 0.0),
 }
 # Ablation arm 1 (traffic mix): pool + stratification field per page. Pages not listed
 # keep the master pool and stratify by audience_group.

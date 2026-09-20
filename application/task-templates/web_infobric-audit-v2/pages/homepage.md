@@ -14,4 +14,4 @@
   `come_back_later`, `go_to_login`, `go_elsewhere_on_site`, `leave`.
   `go_elsewhere_on_site` means you would open another page on infobric.com next (careers,
   contact, a product page) instead of reading on here; `leave` means you would leave the site.
-- **Proof claim for the three `trust_*` questions:** «Betrodd av över 12 000 kunder och 450 000 användare»
+- **Proof claim for the five `trust_*` questions:** «Betrodd av över 12 000 kunder och 450 000 användare»

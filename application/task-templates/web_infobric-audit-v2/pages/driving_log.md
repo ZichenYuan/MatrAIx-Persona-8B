@@ -14,4 +14,4 @@
   `go_to_login` means you would head for the login instead of reading on;
   `go_elsewhere_on_site` means another page on infobric.com next (a different product,
   contact, pricing); `leave` means you would leave the site.
-- **Proof claim for the three `trust_*` questions:** «Det betyder att du alltid får 100 % korrekt data för varje resa – och slipper osäkerheter i rapporteringen.»
+- **Proof claim for the five `trust_*` questions:** «Det betyder att du alltid får 100 % korrekt data för varje resa – och slipper osäkerheter i rapporteringen.»

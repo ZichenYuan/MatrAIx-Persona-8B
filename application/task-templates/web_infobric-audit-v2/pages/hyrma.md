@@ -17,4 +17,4 @@
   `go_to_login` means you would head for the login instead of reading on;
   `go_elsewhere_on_site` means another page on infobric.com next (a different product,
   contact, pricing); `leave` means you would leave the site.
-- **Proof claim for the three `trust_*` questions:** «Sveriges främsta uthyrningssystem»
+- **Proof claim for the five `trust_*` questions:** «Sveriges främsta uthyrningssystem»

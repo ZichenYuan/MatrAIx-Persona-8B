@@ -81,16 +81,16 @@ Save to `/app/output/page_audit.json`:
   "hesitate_or_leave_reason": "<what on this page would make you hesitate or leave, if anything>",
 
   "understanding": <1-5>,
-  "language_relevance": <1-5>,
-  "practical_value": <1-5>,
-  "trust": <1-5>,
+  "language_relevance": <1-5, or "unknown" if you left after the first screen>,
+  "practical_value": <1-5, or "unknown" if you left after the first screen>,
+  "trust": <1-5, or "unknown" if you left after the first screen>,
   "trust_email_guide": "<yes or no: would you give your work email address to get a guide or price indication from them this week?>",
   "trust_callback": "<yes or no: would you ask them to call you back this week?>",
   "trust_demo_week": "<yes or no: would you book a 30-minute demo with them this week?>",
   "trust_pilot_data": "<yes or no: would you run a pilot on your own company's live data this month?>",
   "trust_ladder_reason": "<one sentence: what would have to be true, on this page or about this supplier, for you to say yes to the next commitment you refused>",
   "trust_claim_unchecked": "<yes or no: would you accept the proof claim named in the page brief as true without checking it anywhere else?>",
-  "next_step_confidence": <1-5>,
+  "next_step_confidence": <1-5, or "unknown" if you left after the first screen>,
   "next_step_ease": <1-5, or "unknown" if you did not inspect the button>,
 
   "primary_cta_seen": "<the exact label of the primary next-step button as written on the page>",
@@ -107,6 +107,8 @@ Save to `/app/output/page_audit.json`:
   "contact_likelihood": <1-5, how likely you are to contact this supplier within the next week>,
   "missing_info": ["<zero or more of: price, integrations, hardware, setup_time, references, data_privacy, contract_terms>"],
   "package_fit": "<if the page shows packages, plans or price tiers: quote the name of the one that fits you, or \"cannot_tell\" if you could not tell them apart; \"unknown\" if the page shows none>",
+  "price_found": "<yes, no, or did_not_look — did you find what this costs on this page?>",
+  "price_reaction": "<if you found a price: acceptable, too_high, cannot_tell_what_it_covers, or not_relevant; otherwise unknown>",
   "reason": "<why you chose that next step, grounded in what you saw and your own situation>",
   "improvement_suggestion": "<the single change to this page that would most move you toward the next step, in your own words>",
   "improvement_check": "<how the site owner could tell whether that change worked — what would be different in how visitors like you behave>",
@@ -180,6 +182,11 @@ a colleague's recommendation, a trial without a sales call — whatever it reall
   when no more specific reason applies.
 - `trust_action` is the concrete thing you would need before going further.
   `share_data_now` means you would sign up or hand over details today.
+- `price_found` and `price_reaction` are about this page only. `did_not_look` is honest if
+  you never went looking; `cannot_tell_what_it_covers` is the right answer when a number is
+  shown but you cannot tell what you get for it.
+- If a control looks clickable and does nothing, or the page shows placeholder text or an
+  error, record it in `confusing_or_missing` with `kind: broken`.
 - `package_fit` is about this page's own packages, plans or price tiers. Quote the name
   exactly as written. Use `cannot_tell` when packages exist but you could not work out
   which one is for you — that is a real and useful answer.

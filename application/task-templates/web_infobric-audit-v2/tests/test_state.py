@@ -30,7 +30,7 @@ import os
 import re
 from pathlib import Path
 
-INSTRUMENT_VERSION = "2.4"
+INSTRUMENT_VERSION = "2.5"
 
 OUTPUT = Path(os.environ.get("AUDIT_OUTPUT", "/app/output/page_audit.json"))
 INPUT_DIR = Path(os.environ.get("AUDIT_INPUT_DIR", "/app/input"))
@@ -39,7 +39,7 @@ PERSONA = INPUT_DIR / "persona.yaml"
 VARIANT_FILE = INPUT_DIR / "variant.txt"
 
 POSITIONS = {"top", "middle", "bottom"}
-KINDS = {"confusing", "missing", "unconvincing", "irrelevant"}
+KINDS = {"confusing", "missing", "unconvincing", "irrelevant", "broken"}
 ARRIVED = {"specific_problem", "exploring", "existing_customer", "other_reason"}
 YES_NO = {"yes", "no"}
 # Trust as a ladder of commitments (instrument 2.4): four rungs of rising cost, plus one
@@ -57,6 +57,8 @@ BASIS_PRIMARY = {
     "proof_references", "support", "features", "fit", "other",
 }
 TRUST_ACTION = {"share_data_now", "need_references_first", "need_pilot_first", "would_not_proceed"}
+PRICE_FOUND = {"yes", "no", "did_not_look"}
+PRICE_REACTION = {"acceptable", "too_high", "cannot_tell_what_it_covers", "not_relevant", "unknown"}
 MISSING_INFO = {
     "price", "integrations", "hardware", "setup_time", "references", "data_privacy", "contract_terms",
 }
@@ -404,9 +406,18 @@ def test_output_schema() -> None:
     ladder_reason = _string_or_unknown(data, "trust_ladder_reason")
     # Which package/plan fits, on pages that show them ("cannot_tell" is a real answer).
     package_fit = _string_or_unknown(data, "package_fit", max_len=120)
+    # The homepage's top complaint was a missing price; every product page shows one.
+    # These two say whether the visitor found it and what it did to them.
+    price_found = _canon(data.get("price_found"), PRICE_FOUND) or "unknown"
+    price_reaction = _canon(data.get("price_reaction"), PRICE_REACTION) or "unknown"
+    if data.get("price_found") is not None and price_found == "unknown":
+        unmapped.append(f"price_found:{str(data.get('price_found'))[:40]}")
+    # Only `understanding` is on the exit form. The other four describe the whole page, so a
+    # leaver cannot have formed them: force `unknown` rather than take a first-screen guess
+    # (models fill them anyway - 337 of 337 leavers did on the homepage run).
     scores = {"understanding": _score(data, "understanding", allow_unknown=early)}
     for k in SCORES[1:]:
-        scores[k] = _score(data, k, allow_unknown=early)
+        scores[k] = "unknown" if early else _score(data, k)
     # Trust as three concrete acts (ablation arm 6). Required on every visit, incl.
     # early exits, but a missing answer is recorded as unmapped rather than failing
     # the trial - the summary reports how often that happens.
@@ -437,7 +448,7 @@ def test_output_schema() -> None:
     ease = _score(data, "next_step_ease", allow_unknown=True)
     if not cta_inspected:
         cta_match, ease = "unknown", "unknown"
-    cta_label_grounded = "true" if cta_labels and _norm(cta_seen) in cta_labels else (
+    cta_label_grounded = "n/a" if not cta_inspected else "true" if cta_labels and _norm(cta_seen) in cta_labels else (
         "partial" if cta_labels and any(l in _norm(cta_seen) or _norm(cta_seen) in l for l in cta_labels) else "false"
     )
     cta_url_ok = "n/a"
@@ -556,6 +567,8 @@ def test_output_schema() -> None:
                 _facet("trust_claim_unchecked", "Would accept the proof claim unchecked", "score", "categorical",
                        trust_acts_answers["trust_claim_unchecked"]),
                 _facet("package_fit", "Which package or plan fits", "primary", "categorical", package_fit),
+                _facet("price_found", "Found the price on the page", "primary", "categorical", price_found),
+                _facet("price_reaction", "What the price did to them", "primary", "categorical", price_reaction),
                 _facet("next_step_confidence", "Confidence in the next step (1-5)", "score",
                        "numerical" if scores["next_step_confidence"] != "unknown" else "categorical", scores["next_step_confidence"]),
                 _facet("next_step_ease", "Ease of completing the next step (1-5)", "score",
@@ -661,6 +674,8 @@ def test_output_schema() -> None:
                              "basis_primary": basis, "trust_action": trust_action},
                 "trust_ladder_reason": ladder_reason,
                 "package_fit": package_fit,
+                "price_found": price_found,
+                "price_reaction": price_reaction,
                 "counts": {"confusing_or_missing": len(confusing), "problems_recognised": len(problems),
                            "claims_need_proof": len(need_proof), "claims_credible": len(credible),
                            "language_felt_off": len(off), "language_felt_familiar": len(familiar),

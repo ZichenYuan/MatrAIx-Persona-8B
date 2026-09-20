@@ -14,7 +14,7 @@
   `go_to_login` means you would head for the login instead of reading on;
   `go_elsewhere_on_site` means another page on infobric.com next (a different product,
   contact, pricing); `leave` means you would leave the site.
-- **Proof claim for the three `trust_*` questions:** «Med Infobric Equipment minskar svinn, förkortar let-tid och hjälper er spara tusentals kronor varje månad.»
+- **Proof claim for the five `trust_*` questions:** «Med Infobric Equipment minskar svinn, förkortar let-tid och hjälper er spara tusentals kronor varje månad.»
 - **If something on this page looks clickable and does nothing, or the page misbehaves**
   (a control that does not respond, a broken image, an error), record it in
   `confusing_or_missing` with `kind: confusing` and say what you expected it to do.
