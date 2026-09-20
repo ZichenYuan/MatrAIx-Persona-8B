@@ -310,15 +310,30 @@ def prospect_scores(pros: list[dict]) -> dict:
     return out
 
 
+ELSEWHERE = ("go_to_login", "go_elsewhere_on_site")
+
+
 def exits_by_segment(rows: list[dict]) -> dict:
-    """bounced = left the site; routed = went to login / elsewhere on the site; stayed = read the page."""
+    """Three mutually exclusive outcomes of the first screen, plus what the readers do next.
+
+    bounced  left the site after the first screen           -> the counterpart of a Quick Back
+    routed   went to login or another page without reading  -> a normal journey, invisible to Quick Backs
+    stayed   read the page                                  -> of whom `then_elsewhere` would go on to
+                                                               another page of the site, which is interest,
+                                                               not traffic leaking away
+    """
     out = {}
     for seg in [s for s, _ in collections.Counter(r["segment"] for r in rows).most_common()]:
         sub = [r for r in rows if r["segment"] == seg]
-        routed = sum(1 for r in sub if r["next_step"] in ("go_to_login", "go_elsewhere_on_site"))
-        bounced = sum(1 for r in sub if not r["stayed"] and r["next_step"] not in ("go_to_login", "go_elsewhere_on_site"))
-        out[seg] = {"n": len(sub), "left_early": sum(1 for r in sub if not r["stayed"]), "bounced": bounced, "routed": routed,
-                    "stayed": sum(1 for r in sub if r["stayed"])}
+        left = [r for r in sub if not r["stayed"]]
+        stayed = [r for r in sub if r["stayed"]]
+        out[seg] = {
+            "n": len(sub),
+            "bounced": sum(1 for r in left if r["next_step"] not in ELSEWHERE),
+            "routed": sum(1 for r in left if r["next_step"] in ELSEWHERE),
+            "stayed": len(stayed),
+            "then_elsewhere": sum(1 for r in stayed if r["next_step"] in ELSEWHERE),
+        }
     return out
 
 
@@ -512,10 +527,13 @@ def build_markdown(page: str, job: Path, rows: list[dict], numbers: dict, reduce
       f"[analytics] Clarity records {fmt(analytics.get('clarity', {}).get('quick_backs'), 3)} Quick Backs on this page (a real session that left within seconds) — see §8.")
     exits = hard.get("exits") or {}
     if exits:
-        w("\n**Left, routed or stayed, by traffic segment** [persona]. *Bounced* = left the site after the first screen (the counterpart of a Quick Back); "
-          "*routed* = next step is login or another page on the site, whether or not they read first (a normal journey, invisible to Quick Backs); *stayed* = read the page.\n")
-        w(md_table(["Traffic segment", "n", "bounced", "routed", "stayed"],
-                   [[seg, v["n"], pct(v["bounced"], v["n"]), pct(v["routed"], v["n"]), pct(v["stayed"], v["n"])] for seg, v in exits.items()]))
+        w("\n**What the first screen decided, by traffic segment** [persona]. The three outcomes are exclusive and add to 100%. "
+          "*Bounced* = left the site after the first screen, the counterpart of a Quick Back. *Routed* = went to login or another page "
+          "without reading, a normal journey the Quick Back figure never counts. *Stayed* = read the page; the last column is the share "
+          "of those readers whose next step is another page of this site, which is interest, not traffic lost.\n")
+        w(md_table(["Traffic segment", "n", "bounced", "routed", "stayed", "of readers: on to another page"],
+                   [[seg, v["n"], pct(v["bounced"], v["n"]), pct(v["routed"], v["n"]), pct(v["stayed"], v["n"]),
+                     pct(v["then_elsewhere"], v["stayed"]) if v["stayed"] else "n/a"] for seg, v in exits.items()]))
         w("")
     tr = hard.get("trust") or {}
     if tr.get("ladder"):
