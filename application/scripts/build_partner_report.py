@@ -117,11 +117,14 @@ REQUIRED_KEYS = {
 }
 
 
-def map_prompt(kind: str, audience: str, notes: list[str]) -> str:
+def map_prompt(kind: str, audience: str, notes: list[str], next_steps: list[str] | None = None) -> str:
     body = "\n\n".join(f"### Note {i + 1}\n{n}" for i, n in enumerate(notes))
+    schema = MAP_SCHEMAS[kind]
+    if kind == "takeaway" and next_steps:
+        schema = schema.replace("<contact_sales|book_demo|learn_more|come_back_later|leave>", "<" + "|".join(next_steps) + ">")
     return (
         f"Visitor kind: {audience}. Number of notes: {len(notes)}.\n{MAP_TASKS[kind]}\n"
-        f"Return JSON with exactly this shape (at most 6 items per list, counts are numbers of notes, <= {len(notes)}):\n{MAP_SCHEMAS[kind]}\n\n{body}"
+        f"Return JSON with exactly this shape (at most 6 items per list, counts are numbers of notes, <= {len(notes)}):\n{schema}\n\n{body}"
     )
 
 
@@ -362,6 +365,25 @@ def trust_block(pros: list[dict], rows: list[dict]) -> dict:
     }
 
 
+def page_facts(job: Path) -> dict:
+    """The page's own vocabulary, read from the task the job ran: the next steps that
+    exist on this page (so the narrative is not bucketed into another page's options)
+    and the proof claim the trust question actually named."""
+    facts = {"next_steps": [], "proof_claim": None}
+    try:
+        cfg = json.loads((job / "config.json").read_text())
+        rel = (cfg.get("datasets") or cfg.get("tasks") or [{}])[0].get("path") or ""
+        task = REPO / rel
+        inv = json.loads((task / "input" / "inventory.json").read_text())
+        facts["next_steps"] = [str(v) for v in (inv.get("available_next_steps") or [])]
+        m = re.search(r"Proof claim[^«]*«(.+?)»", (task / "instruction.md").read_text())
+        if m:
+            facts["proof_claim"] = m.group(1).strip()
+    except Exception:  # noqa: BLE001
+        pass
+    return facts
+
+
 def norm_quote(s: str) -> str:
     return re.sub(r"\s+", " ", str(s or "")).strip().strip(".,;:!?»«\"'”“ ").lower()
 
@@ -409,7 +431,7 @@ def most_flagged_wording(rows: list[dict]) -> dict[str, list[dict]]:
 
 # ----------------------------------------------------------------------------- pipeline
 
-def run_map_reduce(model: Model, rows: list[dict], chunk: int, workers: int, max_chunks: int) -> dict:
+def run_map_reduce(model: Model, rows: list[dict], chunk: int, workers: int, max_chunks: int, next_steps: list[str] | None = None) -> dict:
     """{kind: {audience: reduced_json}}"""
     by_aud: dict[str, list[dict]] = collections.defaultdict(list)
     for r in rows:
@@ -426,7 +448,7 @@ def run_map_reduce(model: Model, rows: list[dict], chunk: int, workers: int, max
     sys.stderr.write(f"map: {len(jobs)} chunks over {len(rows)} trials ({len(by_aud)} visitor kinds)\n")
     partials: dict[tuple[str, str], list[tuple[int, dict, int]]] = collections.defaultdict(list)
     with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as pool:
-        futs = {pool.submit(model.json, map_prompt(k, a, ch), 6000, f"map-{k}", REQUIRED_KEYS[k]): (k, a, ci, len(ch)) for k, a, ci, ch in jobs}
+        futs = {pool.submit(model.json, map_prompt(k, a, ch, next_steps), 6000, f"map-{k}", REQUIRED_KEYS[k]): (k, a, ci, len(ch)) for k, a, ci, ch in jobs}
         done = 0
         for fut in concurrent.futures.as_completed(futs):
             k, a, ci, n = futs[fut]
@@ -478,7 +500,9 @@ def build_markdown(page: str, job: Path, rows: list[dict], numbers: dict, reduce
     o = []
     w = o.append
     w(f"# {title} — persona study pilot, page report\n")
-    w(f"*{n} simulated visitors (personas) · {dt.date.today().isoformat()} · run `{job.name}` · model {model_name} · instrument v2.2*\n")
+    vs = sorted({str((r.get("quality") or {}).get("instrument_version") or "") for r in rows} - {""})
+    w(f"*{n} simulated visitors (personas) · {dt.date.today().isoformat()} · run `{job.name}` · model {model_name} · "
+      f"instrument v{', v'.join(vs) if vs else '?'}*\n")
     w("**How to read this report.** Each statement carries its evidence layer: **[site]** visible on the website · **[analytics]** supported by the "
       "supplied 90-day analytics · **[persona]** modelled persona interpretation. Persona scores are indicators for this pilot, not measured customer "
       "approval or conversion forecasts. Page wording is quoted exactly as written, in Swedish. Counts from the visitors' structured answers are exact; "
@@ -540,7 +564,8 @@ def build_markdown(page: str, job: Path, rows: list[dict], numbers: dict, reduce
         w("**Trust as commitments [persona], prospects only.** Each question is a real commitment with a cost; the ladder shows where trust stops.\n")
         lad = tr["ladder"]
         w(md_table(["Would they…", "yes"], [[LADDER_TITLES[k], pct(lad[k]["yes"], lad[k]["n"]) + f" of {lad[k]['n']}"] for k in LADDER]
-                   + [["accept «the page's proof claim» without checking (belief, not a commitment)", pct(lad["trust_claim_unchecked"]["yes"], lad["trust_claim_unchecked"]["n"])]]))
+                   + [[f"accept «{(hard.get('page_facts') or {}).get('proof_claim') or 'the page-brief proof claim'}» without checking (belief, not a commitment)",
+                        pct(lad["trust_claim_unchecked"]["yes"], lad["trust_claim_unchecked"]["n"])]]))
         dist = tr.get("rungs_distribution") or {}
         if dist:
             w(f"\nCommitments accepted per prospect: " + ", ".join(f"{k}: {v}" for k, v in dist.items()) + f" (mean {fmt(tr.get('rungs_mean'))}). ")
@@ -658,7 +683,8 @@ def build_markdown(page: str, job: Path, rows: list[dict], numbers: dict, reduce
     # --- 4 CTA
     w("## 4. The primary button: expectation vs what followed\n")
     q = numbers.get("quality") or {}
-    w(f"[site] Button inspected by {pct(round((q.get('cta_inspected') or 0) * n), n)} of visitors; landed on the expected page for {pct(round((q.get('cta_url_ok') or 0) * n), n)}. "
+    w(f"[site] Button inspected by {pct(round((q.get('cta_inspected') or 0) * n), n)} of visitors; reached one of the page's known destinations for {pct(round((q.get('cta_url_ok') or 0) * n), n)} "
+      f"(a navigation check, not a check that it met their expectation - that is the 1-5 below). "
       f"[persona] Expectation match (1–5): mean {fmt(sc.get('cta_match', {}).get('mean'))} in-browse, {fmt(ph.get('cta_match', {}).get('mean_scored'))} scored after the visit.\n")
     for g in groups:
         r = (reduced.get("cta") or {}).get(g)
@@ -780,7 +806,8 @@ def main() -> int:
         by_g[r["audience"]].append(r["quality"].get("scores_post_hoc") or {})
     numbers["scores_by_audience_scored"] = {g: {k: (statistics.mean(v) if (v := [s.get(k) for s in ss if isinstance(s.get(k), (int, float))]) else None) for k in DIMS + EXTRA} for g, ss in by_g.items()}
 
-    hard = {"wording": most_flagged_wording(page_rows), "scores": prospect_scores(pros), "scores_by_audience_scored": numbers["scores_by_audience_scored"],
+    facts = page_facts(job)
+    hard = {"page_facts": facts, "wording": most_flagged_wording(page_rows), "scores": prospect_scores(pros), "scores_by_audience_scored": numbers["scores_by_audience_scored"],
             "exit_rate": numbers.get("exit_rate"), "exits": exits_by_segment(rows), "next_step": numbers.get("next_step"),
             "trust_action": numbers.get("trust_action"), "missing_info": numbers["missing_info_counts"], "n": len(rows),
             "n_read_page": len(page_rows), "n_prospects": len(pros), "trust": trust_block(pros, rows),
@@ -789,7 +816,7 @@ def main() -> int:
     analytics = (json.loads(sr.ANALYTICS.read_text()).get("pages", {}).get(page, {}) if sr.ANALYTICS.is_file() else {})
 
     model = Model(a.model, out / "cache")
-    reduced = run_map_reduce(model, page_rows, a.chunk, a.workers, a.max_chunks)
+    reduced = run_map_reduce(model, page_rows, a.chunk, a.workers, a.max_chunks, facts["next_steps"])
     synth = model.json(synth_prompt(PAGE_TITLES.get(page, page), reduced, hard, analytics), 12000, "synth",
                        ("executive_summary", "audience_differences", "journey", "priorities", "retain"))
     synth["trust_advice"] = model.json(trust_prompt(PAGE_TITLES.get(page, page), hard["trust"], hard["wording"], reduced.get("findings") or {}), 8000, "trust",

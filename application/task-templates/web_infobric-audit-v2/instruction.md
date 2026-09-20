@@ -106,6 +106,7 @@ Save to `/app/output/page_audit.json`:
   "trust_action": "<what you would need before going further — one of: share_data_now, need_references_first, need_pilot_first, would_not_proceed>",
   "contact_likelihood": <1-5, how likely you are to contact this supplier within the next week>,
   "missing_info": ["<zero or more of: price, integrations, hardware, setup_time, references, data_privacy, contract_terms>"],
+  "package_fit": "<if the page shows packages, plans or price tiers: quote the name of the one that fits you, or \"cannot_tell\" if you could not tell them apart; \"unknown\" if the page shows none>",
   "reason": "<why you chose that next step, grounded in what you saw and your own situation>",
   "improvement_suggestion": "<the single change to this page that would most move you toward the next step, in your own words>",
   "improvement_check": "<how the site owner could tell whether that change worked — what would be different in how visitors like you behave>",
@@ -150,7 +151,9 @@ do this week or this month, given how pressing your situation is and how you usu
 suppliers' claims. Someone who came to log in, or who did not come to evaluate a supplier
 at all, will usually answer `no` to all four — that is the correct answer for them. The
 fifth question is about belief: would you take the named proof claim at face value.
-Answer all five on an early exit too, from what you saw on the first screen. Then, in
+Answer all five on an early exit too, from what you saw on the first screen — except
+`trust_claim_unchecked`: if you left early and the claim named in the page brief was not on
+the first screen, answer `unknown` rather than guessing about text you never read. Then, in
 `trust_ladder_reason`, say in one sentence what would have to be true — on this page or
 about this supplier — for you to say yes to the first commitment you refused. Be
 concrete: a named reference in your industry, a price range, a data-handling statement,
@@ -177,6 +180,9 @@ a colleague's recommendation, a trial without a sales call — whatever it reall
   when no more specific reason applies.
 - `trust_action` is the concrete thing you would need before going further.
   `share_data_now` means you would sign up or hand over details today.
+- `package_fit` is about this page's own packages, plans or price tiers. Quote the name
+  exactly as written. Use `cannot_tell` when packages exist but you could not work out
+  which one is for you — that is a real and useful answer.
 - `improvement_suggestion` is advice to the page's owner: specific, and tied to what you
   saw. `improvement_check` is how they would know it worked.
 - Anything you did not inspect is `unknown`, not a guess.

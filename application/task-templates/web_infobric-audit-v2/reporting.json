@@ -164,6 +164,14 @@
           "groupByPersonaDimensions": [
             "audience_group"
           ]
+        },
+        {
+          "id": "audit.package_fit_by_audience",
+          "facetKey": "package_fit",
+          "title": "Which package or plan fits (pages that show packages)",
+          "groupByPersonaDimensions": [
+            "audience_group"
+          ]
         }
       ],
       "summaryAnalyses": [

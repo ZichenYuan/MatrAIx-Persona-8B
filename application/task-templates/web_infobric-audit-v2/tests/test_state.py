@@ -402,6 +402,8 @@ def test_output_schema() -> None:
     weakest_pos = _canon(data.get("weakest_position"), POSITIONS) or "unknown"
     hesitate = _string_or_unknown(data, "hesitate_or_leave_reason") if early else _string(data, "hesitate_or_leave_reason")
     ladder_reason = _string_or_unknown(data, "trust_ladder_reason")
+    # Which package/plan fits, on pages that show them ("cannot_tell" is a real answer).
+    package_fit = _string_or_unknown(data, "package_fit", max_len=120)
     scores = {"understanding": _score(data, "understanding", allow_unknown=early)}
     for k in SCORES[1:]:
         scores[k] = _score(data, k, allow_unknown=early)
@@ -553,6 +555,7 @@ def test_output_schema() -> None:
                        trust_acts_answers["trust_pilot_data"]),
                 _facet("trust_claim_unchecked", "Would accept the proof claim unchecked", "score", "categorical",
                        trust_acts_answers["trust_claim_unchecked"]),
+                _facet("package_fit", "Which package or plan fits", "primary", "categorical", package_fit),
                 _facet("next_step_confidence", "Confidence in the next step (1-5)", "score",
                        "numerical" if scores["next_step_confidence"] != "unknown" else "categorical", scores["next_step_confidence"]),
                 _facet("next_step_ease", "Ease of completing the next step (1-5)", "score",
@@ -657,6 +660,7 @@ def test_output_schema() -> None:
                 "decision": {"next_step": next_step, "converted": next_step in conversions,
                              "basis_primary": basis, "trust_action": trust_action},
                 "trust_ladder_reason": ladder_reason,
+                "package_fit": package_fit,
                 "counts": {"confusing_or_missing": len(confusing), "problems_recognised": len(problems),
                            "claims_need_proof": len(need_proof), "claims_credible": len(credible),
                            "language_felt_off": len(off), "language_felt_familiar": len(familiar),
